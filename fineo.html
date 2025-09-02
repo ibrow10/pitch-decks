@@ -16,7 +16,7 @@
             overflow: hidden; /* Prevent scrolling */
         }
         .slide {
-            height: 100vh;
+            height: 100dvh;
             width: 100vw;
             display: flex;
             flex-direction: column;
@@ -29,6 +29,40 @@
             opacity: 0;
             transition: opacity 0.5s ease-in-out;
             visibility: hidden;
+        }
+        /* Consistent nav buttons style (match other decks) */
+        .nav-button {
+            position: fixed;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(255, 255, 255, 0.05);
+            color: #e6edf3;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 9999px;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            z-index: 20;
+        }
+        .nav-button:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.25);
+        }
+        #prev-btn { left: 2vw; }
+        #next-btn { right: 2vw; }
+        .slide-counter {
+            position: fixed;
+            bottom: 3vh;
+            left: 50%;
+            transform: translateX(-50%);
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.8rem;
+            letter-spacing: 0.1em;
+            z-index: 20;
         }
         .slide.active {
             opacity: 1;
@@ -493,23 +527,16 @@
         </section>
     </div>
 
-    <!-- Presentation Controls -->
-    <div class="fixed bottom-0 left-0 right-0 p-4 z-20 bg-black/30 backdrop-blur-sm">
-        <div class="max-w-7xl mx-auto flex items-center justify-between">
-            <div id="slide-counter" class="text-sm text-gray-400">Slide 1 / 11</div>
-            <div class="flex items-center space-x-4">
-                <button id="back-btn" class="p-2 rounded-full bg-gray-800/50 hover:bg-gray-700/80 transition disabled:opacity-50 disabled:cursor-not-allowed">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5"><path d="m15 18-6-6 6-6"/></svg>
-                </button>
-                <button id="next-btn" class="p-2 rounded-full bg-gray-800/50 hover:bg-gray-700/80 transition disabled:opacity-50 disabled:cursor-not-allowed">
-                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5"><path d="m9 18 6-6-6-6"/></svg>
-                </button>
-            </div>
-            <button id="fullscreen-btn" class="p-2 rounded-full bg-gray-800/50 hover:bg-gray-700/80 transition">
-                <svg id="fs-enter-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-                <svg id="fs-exit-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5 hidden"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/></svg>
-            </button>
-        </div>
+    <!-- Navigation (consistent with other decks) -->
+    <button id="prev-btn" class="nav-button" aria-label="Previous slide">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
+    </button>
+    <button id="next-btn" class="nav-button" aria-label="Next slide">
+         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+    </button>
+
+    <div id="slide-counter" class="slide-counter">
+        <span id="current-slide">1</span> / <span id="total-slides">11</span>
     </div>
 
     <script>
@@ -589,15 +616,14 @@
 
             // Presentation Logic
             const slides = document.querySelectorAll('.slide');
-            const backBtn = document.getElementById('back-btn');
+            const prevBtn = document.getElementById('prev-btn');
             const nextBtn = document.getElementById('next-btn');
-            const slideCounter = document.getElementById('slide-counter');
-            const fullscreenBtn = document.getElementById('fullscreen-btn');
-            const fsEnterIcon = document.getElementById('fs-enter-icon');
-            const fsExitIcon = document.getElementById('fs-exit-icon');
+            const currentSlideEl = document.getElementById('current-slide');
+            const totalSlidesEl = document.getElementById('total-slides');
 
             let currentSlide = 0;
             const totalSlides = slides.length;
+            totalSlidesEl.textContent = totalSlides;
 
             function showSlide(index) {
                 slides.forEach((slide, i) => {
@@ -617,9 +643,9 @@
             }
 
             function updateControls() {
-                slideCounter.textContent = `Slide ${currentSlide + 1} / ${totalSlides}`;
-                backBtn.disabled = currentSlide === 0;
-                nextBtn.disabled = currentSlide === totalSlides - 1;
+                currentSlideEl.textContent = currentSlide + 1;
+                prevBtn.style.display = currentSlide === 0 ? 'none' : 'flex';
+                nextBtn.style.display = currentSlide === totalSlides - 1 ? 'none' : 'flex';
             }
 
             function changeSlide(direction) {
@@ -629,25 +655,8 @@
                 showSlide(currentSlide);
             }
 
-            backBtn.addEventListener('click', () => changeSlide(-1));
+            prevBtn.addEventListener('click', () => changeSlide(-1));
             nextBtn.addEventListener('click', () => changeSlide(1));
-
-            // Fullscreen Logic
-            function toggleFullScreen() {
-                if (!document.fullscreenElement) {
-                    document.documentElement.requestFullscreen();
-                } else if (document.exitFullscreen) {
-                    document.exitFullscreen();
-                }
-            }
-
-            fullscreenBtn.addEventListener('click', toggleFullScreen);
-
-            document.addEventListener('fullscreenchange', () => {
-                const isFullscreen = !!document.fullscreenElement;
-                fsEnterIcon.classList.toggle('hidden', isFullscreen);
-                fsExitIcon.classList.toggle('hidden', !isFullscreen);
-            });
 
             // Keyboard navigation
             document.addEventListener('keydown', (e) => {
@@ -664,4 +673,3 @@
     </script>
 </body>
 </html>
-
