@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reintersect // Investor Deck</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0A0A0A;
+            color: #F5F5F5;
+            overflow: hidden; /* Prevent vertical scroll */
+        }
+        main {
+            display: flex;
+            width: 100%;
+            height: 100vh;
+            transition: transform 0.6s cubic-bezier(0.65, 0, 0.35, 1);
+        }
+        .slide {
+            flex: 0 0 100vw;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 5vw;
+            position: relative;
+            overflow: hidden;
+        }
+        .accent {
+            color: #00A3FF; /* Iconic blue accent */
+        }
+
+        .nav-button {
+            position: fixed;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(255, 255, 255, 0.05);
+            color: #F5F5F5;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 9999px;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            z-index: 10;
+        }
+        .nav-button:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+            border-color: #00A3FF;
+        }
+        #prev-btn {
+            left: 2vw;
+        }
+        #next-btn {
+            right: 2vw;
+        }
+
+        .slide-counter {
+            position: fixed;
+            bottom: 3vh;
+            left: 50%;
+            transform: translateX(-50%);
+            color: rgba(255, 255, 255, 0.3);
+            font-size: 0.8rem;
+            letter-spacing: 0.1em;
+            z-index: 10;
+        }
+
+        /* Abstract background shapes */
+        .shape {
+            position: absolute;
+            opacity: 0.05;
+            z-index: -1;
+            animation: slowspin 60s linear infinite;
+        }
+        .shape-1 { top: -20%; right: -15%; width: 50vw; }
+        .shape-2 { bottom: -30%; left: -20%; width: 60vw; }
+        .shape-3 { top: 10%; left: 5%; width: 30vw; animation-direction: reverse; }
+
+        @keyframes slowspin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .fade-in {
+            animation: fadeIn 1s ease forwards;
+            opacity: 0;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .slide .content {
+            animation: fadeIn 0.8s ease-out 0.3s forwards;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+    </style>
+</head>
+<body class="antialiased">
+    <!-- Header -->
+    <header class="fixed top-0 left-0 w-full p-6 z-10 flex justify-between items-center">
+        <div class="text-lg font-bold tracking-wider">REINTERSECT</div>
+        <div class="text-sm font-medium text-gray-400">Investor Deck // Confidential</div>
+    </header>
+
+    <main id="deck">
+        <!-- Slide 1: The Vision -->
+        <section class="slide text-center">
+            <div class="shape shape-1">
+                 <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"><path fill="#00A3FF" d="M49.8,-53.4C64.1,-42.6,75.1,-27.1,77.5,-10.1C79.9,6.9,73.7,25.3,62.8,40.1C51.9,54.9,36.3,66.1,18.8,72.2C1.3,78.2,-18.1,79,-34.4,72C-50.7,65,-64,49.9,-71.4,32.8C-78.7,15.7,-80.1,-3.4,-74.6,-19.3C-69,-35.1,-56.5,-47.7,-42.5,-57.1C-28.5,-66.5,-14.2,-72.7,2.1,-75.4C18.5,-78.1,37.1,-78,49.8,-53.4Z" transform="translate(100 100)" /></svg>
+            </div>
+            <div class="content max-w-4xl">
+                <h1 class="text-5xl md:text-8xl font-black tracking-tighter leading-none">
+                    The Future of Work <br/> is <span class="accent">Effortless Execution.</span>
+                </h1>
+                <p class="mt-8 text-lg md:text-2xl text-gray-300 max-w-3xl mx-auto">
+                    Where talking about doing something is the same as doing it.
+                    A world of seamless communication between humans and AI.
+                </p>
+            </div>
+        </section>
+
+        <!-- Slide 2: The Problem -->
+        <section class="slide">
+            <div class="shape shape-2">
+                 <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"><path fill="#00A3FF" d="M48.2,-64.8C62.4,-57,74,-42.5,79.5,-26.3C85,-10.1,84.4,7.8,77.6,22.8C70.9,37.8,58.1,49.8,43.6,58.9C29.2,67.9,13.2,74,-4.1,76.5C-21.4,79,-44.1,77.9,-58,68.2C-71.9,58.5,-77,40.2,-78.3,22.2C-79.7,4.3,-77.3,-13.2,-68.8,-26C-60.3,-38.8,-45.7,-46.9,-32.1,-54C-18.4,-61.2,-5.7,-67.5,8.8,-71.1C23.3,-74.8,48.2,-74.8,48.2,-64.8Z" transform="translate(100 100)" /></svg>
+            </div>
+             <div class="content max-w-5xl w-full grid md:grid-cols-2 gap-12 items-center">
+                <div>
+                    <h2 class="text-4xl md:text-6xl font-black tracking-tighter">The Trillion-Dollar <br>Barrier: <span class="accent">Context</span></h2>
+                    <p class="mt-6 text-xl text-gray-300">
+                        AI is powerful, but clueless. It's why 95% of enterprise AI deployments fail—they are engines without fuel.
+                    </p>
+                </div>
+                <div class="text-center p-8 border border-gray-800 rounded-2xl bg-gray-900/20 backdrop-blur-sm">
+                    <svg class="w-24 h-24 mx-auto text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                    <p class="mt-4 text-2xl md:text-4xl font-bold tracking-tight">
+                        Whoever owns the context, <span class="accent">wins.</span>
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 3: Old Tools -->
+        <section class="slide">
+             <div class="shape shape-3">
+                 <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"><path fill="#00A3FF" d="M38.8,-53.4C51.1,-50.2,62.3,-41.1,65.8,-29.6C69.2,-18.1,64.9,-4.1,59.3,8.7C53.7,21.5,46.7,33.1,36.9,43.2C27.1,53.3,14.5,61.8,-0.2,62.2C-14.8,62.5,-29.7,54.7,-42.6,45.3C-55.6,35.9,-66.7,24.9,-71.2,11.4C-75.7,-2.1,-73.6,-18,-65.7,-30.3C-57.7,-42.6,-43.8,-51.2,-30.2,-55.1C-16.6,-59,-3.3,-58.2,9.6,-58.5C22.5,-58.8,38.8,-53.4,38.8,-53.4Z" transform="translate(100 100)" /></svg>
+            </div>
+            <div class="content max-w-5xl w-full grid md:grid-cols-2 gap-12 items-center">
+                 <div class="p-8">
+                     <svg width="100%" height="100%" viewBox="0 0 400 300" class="max-w-md mx-auto">
+                        <defs>
+                            <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" style="stop-color:#333;stop-opacity:1" />
+                                <stop offset="100%" style="stop-color:#111;stop-opacity:1" />
+                            </linearGradient>
+                        </defs>
+                        <path d="M50 150 C 100 50, 150 250, 200 150 S 250 50, 300 150 S 350 250, 400 150" stroke="#444" stroke-width="4" fill="none" stroke-dasharray="8 8" />
+                        <path d="M50 160 C 80 280, 180 20, 250 180 S 300 280, 350 100" stroke="#555" stroke-width="2" fill="none" />
+                        <circle cx="60" cy="145" r="10" fill="url(#grad1)" stroke="#888" stroke-width="2" />
+                        <circle cx="210" cy="140" r="15" fill="url(#grad1)" stroke="#888" stroke-width="2" />
+                        <circle cx="380" cy="165" r="8" fill="url(#grad1)" stroke="#888" stroke-width="2" />
+                        <circle cx="250" cy="180" r="20" fill="url(#grad1)" stroke="#888" stroke-width="2" />
+                     </svg>
+                     <p class="text-center text-gray-500 mt-4 text-sm">Legacy tools create digital noise, hiding context in chaos.</p>
+                 </div>
+                 <div>
+                    <h2 class="text-4xl md:text-6xl font-black tracking-tighter">Today's Tools are <br><span class="accent">Broken Foundations.</span></h2>
+                    <p class="mt-6 text-xl text-gray-300">
+                        Slack and Notion trap your company's most valuable asset in unstructured chaos. The market is shifting, and they are becoming obsolete.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 4: Introducing Reintersect -->
+        <section class="slide text-center">
+            <div class="content max-w-4xl">
+                <p class="text-xl text-gray-400 font-medium">Introducing</p>
+                <h1 class="text-6xl md:text-9xl font-black tracking-tighter my-4">
+                    REINTERSECT
+                </h1>
+                <p class="text-2xl md:text-4xl font-medium tracking-tight">
+                    The <span class="accent">AI-Native Platform</span> for Work.
+                </p>
+                <p class="mt-6 text-xl text-gray-300">
+                   We don't just host conversations. We structure your company's knowledge. We are your company's brain.
+                </p>
+            </div>
+        </section>
+
+        <!-- Slide 5: How It Works -->
+        <section class="slide">
+            <div class="content max-w-6xl w-full text-center">
+                 <h2 class="text-4xl md:text-6xl font-black tracking-tighter">From <span class="text-gray-500">Signal</span> to <span class="accent">Action.</span></h2>
+                 <p class="mt-4 text-xl text-gray-300 max-w-3xl mx-auto">We turn chaotic communication into structured, actionable intelligence.</p>
+                 <div class="mt-12 grid md:grid-cols-2 gap-8 items-center text-left">
+                     <div class="p-8 border border-gray-800 rounded-2xl bg-gray-900/20 backdrop-blur-sm">
+                         <h3 class="text-2xl font-bold">1. Structured Posts</h3>
+                         <p class="mt-2 text-gray-300">Every topic is a self-contained unit of work with clear ownership and outcomes, not an endless, noisy thread.</p>
+                         <div class="mt-4 p-4 rounded-lg bg-black/30 border border-gray-800">
+                            <p class="font-mono text-xs text-gray-400">// POST: Launch Q4 Campaign</p>
+                            <p class="font-mono text-sm mt-1 text-white">Owner: @Fabia</p>
+                            <p class="font-mono text-sm text-white">Due: 2025-10-15</p>
+                            <p class="font-mono text-sm text-white">Status: <span class="text-yellow-400">InProgress</span></p>
+                         </div>
+                     </div>
+                     <div class="p-8 border border-gray-800 rounded-2xl bg-gray-900/20 backdrop-blur-sm">
+                         <h3 class="text-2xl font-bold">2. Automatic Context</h3>
+                         <p class="mt-2 text-gray-300">As you communicate, Reintersect's brain automatically links to related projects, people, and past decisions.</p>
+                          <div class="mt-4 p-4 rounded-lg bg-black/30 border border-gray-800">
+                             <p class="font-mono text-xs text-gray-400">// AI-SUGGESTED CONTEXT</p>
+                             <p class="font-mono text-sm mt-1 text-white">Relates to: <span class="text-cyan-400">[POST-233] Q3 Retrospective</span></p>
+                             <p class="font-mono text-sm text-white">See Also: <span class="text-cyan-400">[DOC] Brand Guidelines</span></p>
+                          </div>
+                     </div>
+                 </div>
+            </div>
+        </section>
+
+        <!-- Slide 6: Why Us -->
+        <section class="slide">
+            <div class="content max-w-4xl text-center">
+                 <h2 class="text-4xl md:text-6xl font-black tracking-tighter">While they build agents, <br> we're building the <span class="accent">brain.</span></h2>
+                 <p class="mt-8 text-xl text-gray-300 max-w-3xl mx-auto">
+                    Others are building commodity AI on broken foundations. We are building the single most defensible piece of the puzzle: the <span class="font-bold">context layer</span>. This is a fundamental architectural advantage in a market that is shifting right now.
+                 </p>
+            </div>
+        </section>
+
+        <!-- Slide 7: The Team -->
+        <section class="slide">
+            <div class="content max-w-4xl w-full">
+                <h2 class="text-4xl md:text-6xl font-black tracking-tighter text-center">The Team</h2>
+                <div class="mt-12 grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div class="text-center">
+                        <div class="w-32 h-32 md:w-48 md:h-48 bg-gray-800 rounded-full mx-auto border-2 border-gray-700 flex items-center justify-center">
+                           <span class="text-gray-500">Photo</span>
+                        </div>
+                        <h3 class="mt-4 text-xl font-bold">Bruno St John</h3>
+                    </div>
+                     <div class="text-center">
+                        <div class="w-32 h-32 md:w-48 md:h-48 bg-gray-800 rounded-full mx-auto border-2 border-gray-700 flex items-center justify-center">
+                           <span class="text-gray-500">Photo</span>
+                        </div>
+                        <h3 class="mt-4 text-xl font-bold">Deirbhile</h3>
+                    </div>
+                     <div class="text-center">
+                        <div class="w-32 h-32 md:w-48 md:h-48 bg-gray-800 rounded-full mx-auto border-2 border-gray-700 flex items-center justify-center">
+                           <span class="text-gray-500">Photo</span>
+                        </div>
+                        <h3 class="mt-4 text-xl font-bold">Fabia Becaus</h3>
+                    </div>
+                </div>
+                <p class="text-center mt-12 text-lg text-gray-300 max-w-2xl mx-auto">
+                    A team of product-obsessed founders who have experienced this pain firsthand and are singularly focused on building for the next generation of work.
+                </p>
+            </div>
+        </section>
+
+        <!-- Slide 8: The Ask -->
+        <section class="slide text-center">
+            <div class="content max-w-4xl">
+                 <h2 class="text-4xl md:text-6xl font-black tracking-tighter">Join us in building the <br>essential infrastructure for <br>the future of work.</h2>
+                <div class="my-10">
+                    <p class="text-xl text-gray-400">We are raising a</p>
+                    <p class="text-6xl md:text-8xl font-black tracking-tighter my-2"><span class="accent">$[X]M</span> Seed Round</p>
+                    <p class="text-xl text-gray-300">to accelerate our roadmap and onboard our first 100 customers.</p>
+                </div>
+                <p class="text-lg text-gray-400">We aim to have a lead investor committed before Demo Day.</p>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Navigation -->
+    <button id="prev-btn" class="nav-button">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
+    </button>
+    <button id="next-btn" class="nav-button">
+         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+    </button>
+
+    <!-- Slide Counter -->
+    <div id="slide-counter" class="slide-counter">
+        <span id="current-slide">1</span> / <span id="total-slides">8</span>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const deck = document.getElementById('deck');
+            const slides = document.querySelectorAll('.slide');
+            const prevBtn = document.getElementById('prev-btn');
+            const nextBtn = document.getElementById('next-btn');
+            const currentSlideEl = document.getElementById('current-slide');
+            const totalSlidesEl = document.getElementById('total-slides');
+
+            let currentSlide = 0;
+            const totalSlides = slides.length;
+            totalSlidesEl.textContent = totalSlides;
+
+            function goToSlide(slideIndex) {
+                if (slideIndex < 0 || slideIndex >= totalSlides) {
+                    return;
+                }
+                currentSlide = slideIndex;
+                deck.style.transform = `translateX(-${currentSlide * 100}vw)`;
+                updateNav();
+            }
+
+            function updateNav() {
+                currentSlideEl.textContent = currentSlide + 1;
+                prevBtn.style.display = currentSlide === 0 ? 'none' : 'flex';
+                nextBtn.style.display = currentSlide === totalSlides - 1 ? 'none' : 'flex';
+            }
+
+            prevBtn.addEventListener('click', () => {
+                goToSlide(currentSlide - 1);
+            });
+
+            nextBtn.addEventListener('click', () => {
+                goToSlide(currentSlide + 1);
+            });
+
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'ArrowRight') {
+                    goToSlide(currentSlide + 1);
+                } else if (e.key === 'ArrowLeft') {
+                    goToSlide(currentSlide - 1);
+                }
+            });
+
+            // Initial setup
+            goToSlide(0);
+        });
+    </script>
+</body>
+</html>
