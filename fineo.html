@@ -16,7 +16,7 @@
             overflow: hidden; /* Prevent scrolling */
         }
         .slide {
-            height: 100dvh;
+            height: 100vh;
             width: 100vw;
             display: flex;
             flex-direction: column;
@@ -27,47 +27,15 @@
             top: 0;
             left: 0;
             opacity: 0;
-            transition: opacity 0.5s ease-in-out;
+            transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
             visibility: hidden;
-        }
-        /* Consistent nav buttons style (match other decks) */
-        .nav-button {
-            position: fixed;
-            top: 50%;
-            transform: translateY(-50%);
-            background-color: rgba(255, 255, 255, 0.05);
-            color: #e6edf3;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 9999px;
-            width: 50px;
-            height: 50px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            z-index: 20;
-        }
-        .nav-button:hover {
-            background-color: rgba(255, 255, 255, 0.1);
-            border-color: rgba(255, 255, 255, 0.25);
-        }
-        #prev-btn { left: 2vw; }
-        #next-btn { right: 2vw; }
-        .slide-counter {
-            position: fixed;
-            bottom: 3vh;
-            left: 50%;
-            transform: translateX(-50%);
-            color: rgba(255, 255, 255, 0.6);
-            font-size: 0.8rem;
-            letter-spacing: 0.1em;
-            z-index: 20;
+            transform: scale(0.95);
         }
         .slide.active {
             opacity: 1;
             visibility: visible;
             z-index: 10;
+            transform: scale(1);
         }
         .glass-card {
             background: rgba(31, 41, 55, 0.3);
@@ -103,116 +71,61 @@
         <!-- Slide 1: Cover -->
         <section id="slide-1" class="slide active">
             <div class="text-center">
-                <img src="https://uploads-ssl.webflow.com/66039565558cf142422507e1/66039611593024751351d3b_fineo-logo.svg" alt="Fineo Logo" class="h-16 mx-auto mb-8">
-                <h1 class="text-4xl md:text-6xl font-extrabold mb-4">Your AI Co-worker for</h1>
-                <h1 class="text-4xl md:text-6xl font-extrabold brand-gradient-text">Client-Focused Accounting.</h1>
-                <p class="mt-6 text-xl md:text-2xl text-gray-400 max-w-3xl mx-auto">The end of inbox overwhelm for modern accounting firms.</p>
+                <h1 class="text-4xl md:text-6xl font-extrabold mb-4 brand-gradient-text">Cruise Control for Accountants</h1>
+                <p class="mt-6 text-xl md:text-2xl text-gray-400 max-w-3xl mx-auto">The agentic platform that automates your firm, so you can advise your clients.</p>
             </div>
         </section>
 
-        <!-- Slide 2: The Problem -->
+        <!-- Slide 2: The Market Shift -->
         <section id="slide-2" class="slide">
-            <div class="text-center w-full max-w-6xl mx-auto">
-                <h2 class="text-sm font-bold uppercase text-green-400 tracking-widest">The Problem</h2>
-                <p class="mt-3 text-3xl md:text-5xl font-extrabold">Firms are drowning in administrative work.</p>
-                <div class="mt-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 text-left">
+            <div class="text-center w-full max-w-5xl mx-auto">
+                <h2 class="text-sm font-bold uppercase text-green-400 tracking-widest">A Cracking System</h2>
+                <p class="mt-3 text-3xl md:text-5xl font-extrabold">The accounting industry is at a breaking point.</p>
+                <div class="mt-12 grid grid-cols-1 md:grid-cols-3 gap-8 text-left">
                     <div class="glass-card p-6">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-8 w-8 text-red-400 mb-4"><path d="M21.54 15H17l-2 2-2-2-2 2-2-2H2.46A2.46 2.46 0 0 1 0 12.54V4.46A2.46 2.46 0 0 1 2.46 2h19.08A2.46 2.46 0 0 1 24 4.46v8.08a2.46 2.46 0 0 1-2.46 2.46Z"/><path d="M6 8h.01"/><path d="M10 8h.01"/><path d="M14 8h.01"/></svg>
-                        <h3 class="text-xl font-bold">Inbox Overwhelm</h3>
-                        <p class="mt-2 text-gray-400">Critical client requests get lost in a sea of emails, leading to missed deadlines and stressed-out teams.</p>
+                        <h3 class="text-xl font-bold">Exponential SMB Growth</h3>
+                        <p class="mt-2 text-gray-400">More businesses are being created than ever, exploding the complexity and volume of work.</p>
                     </div>
                     <div class="glass-card p-6">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-8 w-8 text-yellow-400 mb-4"><path d="M10 2h4"/><path d="M12 14v-4"/><path d="M14 10h-4"/><path d="m14 14-2-2-2 2"/><path d="M18 6V4a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/><path d="M18 10v2a2 2 0 0 1-2 2h-4a2 2 0 0 1-2-2v-2"/><rect width="20" height="14" x="2" y="8" rx="2"/></svg>
-                        <h3 class="text-xl font-bold">Constant Chasing</h3>
-                        <p class="mt-2 text-gray-400">Up to 30% of an accountant's day is wasted on low-value, repetitive tasks like chasing clients for documents.</p>
+                        <h3 class="text-xl font-bold">Shrinking Talent Pool</h3>
+                        <p class="mt-2 text-gray-400">Experienced accountants are retiring, and fewer young professionals are replacing them. The industry is outnumbered.</p>
                     </div>
                     <div class="glass-card p-6">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-8 w-8 text-blue-400 mb-4"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-                        <h3 class="text-xl font-bold">Inconsistent Service</h3>
-                        <p class="mt-2 text-gray-400">As firms grow, maintaining high standards is tough. Knowledge becomes siloed with individuals.</p>
-                    </div>
-                    <div class="glass-card p-6">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-8 w-8 text-purple-400 mb-4"><line x1="12" x2="12" y1="20" y2="10"/><line x1="18" x2="18" y1="20" y2="4"/><line x1="6" x2="6" y1="20" y2="16"/></svg>
-                        <h3 class="text-xl font-bold">Blocked Growth</h3>
-                        <p class="mt-2 text-gray-400">Firms can't scale when valuable people are buried in admin, not providing high-margin advisory services.</p>
+                        <h3 class="text-xl font-bold">The AI Revolution</h3>
+                        <p class="mt-2 text-gray-400">Soon, AI will introduce non-biological economic participants, layering more complexity onto a strained system.</p>
                     </div>
                 </div>
+                <p class="mt-12 text-xl md:text-2xl text-white max-w-4xl mx-auto">If accounting can't evolve to handle this complexity, we risk stalling progress just as AI is transforming our world.</p>
             </div>
         </section>
 
-        <!-- Slide 3: The Solution -->
+        <!-- Slide 3: The Vision -->
         <section id="slide-3" class="slide">
             <div class="text-center w-full max-w-6xl mx-auto">
-                <h2 class="text-sm font-bold uppercase text-green-400 tracking-widest">The Solution</h2>
-                <p class="mt-3 text-3xl md:text-5xl font-extrabold">An AI co-worker that automates your back-office.</p>
-                <p class="mt-6 text-lg text-gray-400 max-w-3xl mx-auto">Fineo integrates into your existing communication channels (Gmail, Outlook, WhatsApp) to manage interactions, automate follow-ups, and organize your workflow.</p>
-                <div class="mt-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 text-center">
-                    <div class="p-6">
-                        <div class="flex items-center justify-center h-16 w-16 rounded-full bg-green-500/10 mx-auto mb-4 border border-green-500/30">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-8 w-8 text-green-400"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
-                        </div>
-                        <h3 class="text-xl font-bold">Save 10+ hours/week</h3>
-                        <p class="mt-2 text-gray-400">Per team member, by eliminating manual tasks.</p>
-                    </div>
-                    <div class="p-6">
-                        <div class="flex items-center justify-center h-16 w-16 rounded-full bg-green-500/10 mx-auto mb-4 border border-green-500/30">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-8 w-8 text-green-400"><line x1="12" x2="12" y1="1" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
-                        </div>
-                        <h3 class="text-xl font-bold">Increase Profitability</h3>
-                        <p class="mt-2 text-gray-400">By focusing on high-value, advisory work.</p>
-                    </div>
-                    <div class="p-6">
-                        <div class="flex items-center justify-center h-16 w-16 rounded-full bg-green-500/10 mx-auto mb-4 border border-green-500/30">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-8 w-8 text-green-400"><path d="M7 10v12"></path><path d="M15 5.88 14 10h5.83a2 2 0 0 1 1.92 2.56l-2.33 8A2 2 0 0 1 17.5 22H4a2 2 0 0 1-2-2v-8a2 2 0 0 1 2-2h2.76a2 2 0 0 0 1.79-1.11L12 2h0a2 2 0 0 1 1.79 1.11L15 5.88Z"></path></svg>
-                        </div>
-                        <h3 class="text-xl font-bold">Exceptional Service</h3>
-                        <p class="mt-2 text-gray-400">Deliver consistent, high-quality client care.</p>
-                    </div>
-                    <div class="p-6">
-                        <div class="flex items-center justify-center h-16 w-16 rounded-full bg-green-500/10 mx-auto mb-4 border border-green-500/30">
-                           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-8 w-8 text-green-400"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 0 2l-.15.08a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.38a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1 0-2l.15-.08a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"></path><circle cx="12" cy="12" r="3"></circle></svg>
-                        </div>
-                        <h3 class="text-xl font-bold">Scale Operations</h3>
-                        <p class="mt-2 text-gray-400">Grow without hiring more admin staff.</p>
-                    </div>
+                <h2 class="text-sm font-bold uppercase text-green-400 tracking-widest">Our Vision for the Future</h2>
+                <p class="mt-3 text-3xl md:text-5xl font-extrabold">Accountants don't need more software.</p>
+                <p class="mt-6 text-xl text-gray-300 max-w-3xl mx-auto">They need a team of AI agents that understand accounting, learn client needs, work independently, and take action.</p>
+                <div class="mt-12 glass-card p-8">
+                     <h3 class="text-2xl font-bold brand-gradient-text">We are building the agentic layer that owns the client journey, end-to-end.</h3>
+                     <p class="mt-4 text-lg text-gray-400">Fineo gives every accountant a team of AI agents that take on varied accounting workflows. It onboards into engagements at the direction of the accountant and just gets to work, starting with the biggest bottleneck: the inbox.</p>
                 </div>
             </div>
         </section>
 
-        <!-- Slide 4: How It Works -->
+        <!-- Slide 4: How It Works (The Wedge) -->
         <section id="slide-4" class="slide">
             <div class="text-center w-full max-w-6xl mx-auto">
-                <h2 class="text-sm font-bold uppercase text-green-400 tracking-widest">How it works</h2>
-                <p class="mt-3 text-3xl md:text-5xl font-extrabold">An intelligent layer on top of your inbox.</p>
-                <div class="mt-16 relative">
-                    <div class="absolute top-1/2 left-0 w-full h-0.5 bg-gray-700 hidden md:block"></div>
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-left relative">
-                        <div class="glass-card p-8 z-10">
-                            <div class="text-3xl font-extrabold brand-gradient-text mb-4">01</div>
-                            <h3 class="text-xl font-bold">Triage Flow</h3>
-                            <p class="mt-2 text-gray-400">Instantly converts client emails into prioritized, actionable tasks (Urgent, Medium, Low). No more manual sorting.</p>
-                        </div>
-                        <div class="glass-card p-8 z-10">
-                            <div class="text-3xl font-extrabold brand-gradient-text mb-4">02</div>
-                            <h3 class="text-xl font-bold">Auto Follow-Up</h3>
-                            <p class="mt-2 text-gray-400">Automatically nudges clients for VAT returns, receipts, and documents, then intelligently files information when it arrives.</p>
-                        </div>
-                        <div class="glass-card p-8 z-10">
-                            <div class="text-3xl font-extrabold brand-gradient-text mb-4">03</div>
-                            <h3 class="text-xl font-bold">Knowledge Bank</h3>
-                            <p class="mt-2 text-gray-400">Captures your firm's best answers and processes, ensuring consistent, high-quality responses to every client.</p>
-                        </div>
-                    </div>
-                </div>
+                <h2 class="text-sm font-bold uppercase text-green-400 tracking-widest">Our Wedge: Solving Communication Chaos</h2>
+                <p class="mt-3 text-3xl md:text-5xl font-extrabold">We start by turning an accountant's biggest blocker into their biggest advantage.</p>
                 
                 <!-- Gemini API Demo Section -->
-                <div id="gemini-demo" class="mt-20 w-full max-w-4xl mx-auto text-left glass-card p-8">
-                    <h3 class="text-2xl font-bold text-center mb-6">See Fineo in Action ✨</h3>
+                <div id="gemini-demo" class="mt-12 w-full max-w-4xl mx-auto text-left glass-card p-8">
+                    <h3 class="text-2xl font-bold text-center mb-6">See Fineo's AI Triage in Action ✨</h3>
                     <div class="mb-4">
                         <label for="email-input" class="block text-sm font-medium text-gray-300 mb-2">Enter a sample client email:</label>
                         <textarea id="email-input" rows="4" class="w-full bg-gray-900 border border-gray-700 rounded-lg p-3 text-white focus:ring-2 focus:ring-green-500 focus:border-green-500 transition"></textarea>
                     </div>
-                    <div class="flex items-center justify-between">
+                    <div class="flex items-center justify-between flex-wrap gap-4">
                         <div class="flex space-x-2">
                             <button onclick="setSampleEmail(1)" class="text-xs bg-gray-700 hover:bg-gray-600 text-gray-300 py-1 px-3 rounded-full transition">Urgent Request</button>
                             <button onclick="setSampleEmail(2)" class="text-xs bg-gray-700 hover:bg-gray-600 text-gray-300 py-1 px-3 rounded-full transition">Simple Query</button>
@@ -234,7 +147,7 @@
                                         <p class="font-semibold text-gray-400 text-sm">Summary</p>
                                         <p id="result-summary" class="text-white"></p>
                                     </div>
-                                    <span id="result-urgency" class="text-xs font-bold px-3 py-1 rounded-full"></span>
+                                    <span id="result-urgency" class="text-xs font-bold px-3 py-1 rounded-full whitespace-nowrap"></span>
                                 </div>
                                 <div class="mt-4">
                                     <p class="font-semibold text-gray-400 text-sm">Suggested Next Step</p>
@@ -252,12 +165,12 @@
         <section id="slide-5" class="slide">
             <div class="text-center w-full max-w-6xl mx-auto">
                 <h2 class="text-sm font-bold uppercase text-green-400 tracking-widest">Market Opportunity</h2>
-                <p class="mt-3 text-3xl md:text-5xl font-extrabold">Large, underserved market of SME accounting firms.</p>
+                <p class="mt-3 text-3xl md:text-5xl font-extrabold">A $6.5 Billion global market ready for disruption.</p>
                 <div id="chart-container" class="mt-16 w-full max-w-4xl mx-auto space-y-8 text-left">
                     <div class="space-y-2">
                         <div class="flex justify-between items-end">
-                            <p class="font-bold text-lg">Total Addressable Market (TAM)</p>
-                            <p class="text-2xl font-bold brand-gradient-text">41,000+ firms</p>
+                            <p class="font-bold text-lg">Global Market (TAM)</p>
+                            <p class="text-2xl font-bold brand-gradient-text">$6.5 Billion+</p>
                         </div>
                         <div class="w-full bg-gray-700 rounded-full h-8">
                             <div class="chart-bar bg-gradient-to-r from-green-500 to-green-400 h-8 rounded-full" data-width="100%"></div>
@@ -265,31 +178,83 @@
                     </div>
                     <div class="space-y-2">
                         <div class="flex justify-between items-end">
-                            <p class="font-bold text-lg">Serviceable Addressable Market (SAM)</p>
-                            <p class="text-2xl font-bold brand-gradient-text">32,000+ firms</p>
+                            <p class="font-bold text-lg">UK, Ireland & Brazil (SAM)</p>
+                            <p class="text-2xl font-bold brand-gradient-text">$980 Million</p>
                         </div>
                         <div class="w-full bg-gray-700 rounded-full h-8">
-                             <div class="chart-bar bg-gradient-to-r from-green-500 to-green-400 h-8 rounded-full" data-width="78%"></div>
+                             <div class="chart-bar bg-gradient-to-r from-green-500 to-green-400 h-8 rounded-full" data-width="15%"></div>
                         </div>
-                        <p class="text-sm text-gray-400">Firms with fewer than 10 employees.</p>
+                        <p class="text-sm text-gray-400">Our serviceable market across our initial target regions.</p>
                     </div>
                     <div class="space-y-2">
                         <div class="flex justify-between items-end">
                             <p class="font-bold text-lg">Initial Target (Beachhead)</p>
-                            <p class="text-2xl font-bold brand-gradient-text">10,000+ firms</p>
+                            <p class="text-2xl font-bold brand-gradient-text">25,000+ firms</p>
                         </div>
                         <div class="w-full bg-gray-700 rounded-full h-8">
-                             <div class="chart-bar bg-gradient-to-r from-green-500 to-green-400 h-8 rounded-full" data-width="24%"></div>
+                             <div class="chart-bar bg-gradient-to-r from-green-500 to-green-400 h-8 rounded-full" data-width="5%"></div>
                         </div>
-                        <p class="text-sm text-gray-400">Tech-forward firms in London & Dublin.</p>
+                        <p class="text-sm text-gray-400">Underserved, tech-forward firms in the UK & Ireland.</p>
                     </div>
                 </div>
-                 <p class="mt-12 text-lg text-gray-400">This represents a multi-hundred million pound opportunity.</p>
             </div>
         </section>
 
-        <!-- Slide 6: Business Model -->
+        <!-- Slide 6: Competition -->
         <section id="slide-6" class="slide">
+            <div class="text-center w-full max-w-6xl mx-auto">
+                <h2 class="text-sm font-bold uppercase text-green-400 tracking-widest">Our Unique Position</h2>
+                <p class="mt-3 text-3xl md:text-5xl font-extrabold">We're creating a new category.</p>
+                <p class="mt-6 text-lg text-gray-400 max-w-3xl mx-auto">While others build complex, all-in-one systems (US-focused) or niche tax tools, we are building a lightweight, intelligent layer that creates immediate value and provides the foundation for the agentic future.</p>
+                <div class="mt-12 w-full glass-card p-6">
+                    <div class="grid grid-cols-3 divide-x divide-gray-700 text-center">
+                        <div class="p-4"><span class="font-bold text-white">US-Focused Platforms</span><br><span class="text-gray-400 text-sm">(e.g., Basis)</span></div>
+                        <div class="p-4"><span class="font-bold text-white">Legacy Practice Mgmt</span><br><span class="text-gray-400 text-sm">(e.g., Karbon, TaxDome)</span></div>
+                        <div class="p-4"><span class="font-bold text-white">Niche AI Tools</span><br><span class="text-gray-400 text-sm">(e.g., Filed, TaxGPT)</span></div>
+                    </div>
+                    <div class="mt-4 p-6 bg-green-900/20 border border-green-500/50 rounded-lg text-center">
+                        <p class="text-2xl font-bold text-green-300">Fineo: The Agentic Communication Layer</p>
+                        <p class="text-gray-300 mt-2">UK/EU & LATAM focus • Solves the #1 pain point first • Built for the agentic future from day one</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 7: Traction -->
+        <section id="slide-7" class="slide">
+            <div class="w-full max-w-6xl mx-auto">
+                <div class="text-center">
+                    <h2 class="text-sm font-bold uppercase text-green-400 tracking-widest">Early Validation</h2>
+                    <p class="mt-3 text-3xl md:text-5xl font-extrabold">Strong market pull before launch.</p>
+                </div>
+                
+                <div class="mt-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 text-center">
+                     <div class="glass-card p-8">
+                         <p class="text-5xl font-extrabold brand-gradient-text">250+</p>
+                         <p class="mt-2 text-lg font-semibold">Firms on Waitlist</p>
+                         <p class="text-gray-400">from strategic partnerships</p>
+                     </div>
+                     <div class="glass-card p-8">
+                         <p class="text-5xl font-extrabold brand-gradient-text">6</p>
+                         <p class="mt-2 text-lg font-semibold">Firms Piloted</p>
+                         <p class="text-gray-400">with positive feedback</p>
+                     </div>
+                     <div class="glass-card p-8">
+                         <p class="text-5xl font-extrabold brand-gradient-text">4</p>
+                         <p class="mt-2 text-lg font-semibold">Paying Customers</p>
+                         <p class="text-gray-400">(3 monthly, 1 annual)</p>
+                     </div>
+                     <div class="glass-card p-8">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-12 w-12 mx-auto text-green-400"><path d="M3.85 8.62a4 4 0 0 1 4.78-4.78l1.06 1.06a1 1 0 0 0 1.41 0l1.06-1.06a4 4 0 0 1 4.78 4.78 1 1 0 0 0 0 1.41l-1.06 1.06a4 4 0 0 1-4.78 4.78 1 1 0 0 0-1.41 0l-1.06-1.06a4 4 0 0 1-4.78-4.78 1 1 0 0 0 0-1.41z"/></svg>
+                         <p class="mt-2 text-lg font-semibold">Key Partnerships</p>
+                         <p class="text-gray-400">Intuit, C.A. Ireland & more</p>
+                     </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 8: Business Model -->
+        <section id="slide-8" class="slide">
             <div class="text-center w-full max-w-6xl mx-auto">
                 <h2 class="text-sm font-bold uppercase text-green-400 tracking-widest">Business Model</h2>
                 <p class="mt-3 text-3xl md:text-5xl font-extrabold">Simple, predictable SaaS subscription.</p>
@@ -314,148 +279,34 @@
                         <p class="text-gray-400">per user / month</p>
                     </div>
                 </div>
-                <p class="mt-12 text-lg text-gray-400">Final pricing determined by pilot program feedback. Estimated <strong class="text-white">10x ROI</strong> for clients from time savings alone.</p>
+                <p class="mt-12 text-lg text-gray-400">Estimated <strong class="text-white">10x ROI</strong> for clients from time savings and increased advisory capacity.</p>
             </div>
         </section>
-
-        <!-- Slide 7: Competition -->
-        <section id="slide-7" class="slide">
-            <div class="text-center w-full max-w-6xl mx-auto">
-                <h2 class="text-sm font-bold uppercase text-green-400 tracking-widest">Competition</h2>
-                <p class="mt-3 text-3xl md:text-5xl font-extrabold">We're not just another practice management tool.</p>
-                 <p class="mt-6 text-lg text-gray-400 max-w-3xl mx-auto">Legacy tools are complex and don't solve the core problem of communication overload. We're a powerful, lightweight layer that works alongside existing systems.</p>
-                <div class="mt-12 overflow-x-auto">
-                    <table class="w-full text-left border-collapse">
-                        <thead class="border-b border-gray-700">
-                            <tr>
-                                <th class="p-4 text-lg">Feature</th>
-                                <th class="p-4 text-lg bg-green-500/10 text-green-300">Fineo (AI Co-worker)</th>
-                                <th class="p-4 text-lg">Karbon / TaxDome</th>
-                                <th class="p-4 text-lg">Legacy Systems</th>
-                            </tr>
-                        </thead>
-                        <tbody class="divide-y divide-gray-800">
-                            <tr>
-                                <td class="p-4 font-bold">Primary Focus</td>
-                                <td class="p-4 bg-green-500/10 font-semibold text-white">Client Communication</td>
-                                <td class="p-4 text-gray-400">All-in-One PM</td>
-                                <td class="p-4 text-gray-400">On-premise Desktop</td>
-                            </tr>
-                            <tr>
-                                <td class="p-4 font-bold">AI Triage & Follow-up</td>
-                                <td class="p-4 bg-green-500/10 font-semibold text-white">Core Feature</td>
-                                <td class="p-4 text-gray-400">Limited / Manual</td>
-                                <td class="p-4 text-gray-400">None</td>
-                            </tr>
-                            <tr>
-                                <td class="p-4 font-bold">Setup Time</td>
-                                <td class="p-4 bg-green-500/10 font-semibold text-white">&lt; 5 minutes</td>
-                                <td class="p-4 text-gray-400">Days / Weeks</td>
-                                <td class="p-4 text-gray-400">Months</td>
-                            </tr>
-                            <tr>
-                                <td class="p-4 font-bold">Ease of Use</td>
-                                <td class="p-4 bg-green-500/10 font-semibold text-white">Like a team member</td>
-                                <td class="p-4 text-gray-400">Requires training</td>
-                                <td class="p-4 text-gray-400">Complex</td>
-                            </tr>
-                            <tr>
-                                <td class="p-4 font-bold">Integration</td>
-                                <td class="p-4 bg-green-500/10 font-semibold text-white">Lives in your inbox</td>
-                                <td class="p-4 text-gray-400">Separate Platform</td>
-                                <td class="p-4 text-gray-400">Siloed</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </section>
-
-        <!-- Slide 8: Traction & Roadmap -->
-        <section id="slide-8" class="slide">
-            <div class="w-full max-w-6xl mx-auto">
-                <div class="text-center">
-                    <h2 class="text-sm font-bold uppercase text-green-400 tracking-widest">Traction & Roadmap</h2>
-                    <p class="mt-3 text-3xl md:text-5xl font-extrabold">Strong early interest validating market need.</p>
-                </div>
-                
-                <div class="mt-16 grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
-                     <div class="glass-card p-8">
-                         <p class="text-5xl font-extrabold brand-gradient-text">150+</p>
-                         <p class="mt-2 text-lg font-semibold">Firms on Waitlist</p>
-                         <p class="text-gray-400">with zero marketing spend</p>
-                     </div>
-                     <div class="glass-card p-8">
-                         <p class="text-5xl font-extrabold brand-gradient-text">10</p>
-                         <p class="mt-2 text-lg font-semibold">Firms in Pilot</p>
-                         <p class="text-gray-400">launching Q4 2025</p>
-                     </div>
-                     <div class="glass-card p-8">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-12 w-12 mx-auto text-green-400"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" x2="8" y1="13" y2="13"></line><line x1="16" x2="8" y1="17" y2="17"></line><line x1="10" x2="8" y1="9" y2="9"></line></svg>
-                         <p class="mt-2 text-lg font-semibold">Product in Development</p>
-                         <p class="text-gray-400">Core features active</p>
-                     </div>
-                </div>
-
-                <div class="mt-20">
-                    <!-- Roadmap Timeline -->
-                    <div class="relative w-full">
-                        <div class="absolute left-1/2 -translate-x-1/2 w-0.5 h-full bg-gray-700"></div>
-                        <div class="space-y-16">
-                            <div class="relative flex items-center">
-                                <div class="w-1/2 pr-8 text-right">
-                                    <p class="font-bold text-lg text-green-400">Q4 2025</p>
-                                    <p class="text-white">Launch private beta and gather crucial feedback.</p>
-                                </div>
-                                <div class="absolute left-1/2 -translate-x-1/2 h-4 w-4 rounded-full bg-green-400 border-4 border-gray-800"></div>
-                                <div class="w-1/2 pl-8"></div>
-                            </div>
-                             <div class="relative flex items-center">
-                                <div class="w-1/2 pr-8"></div>
-                                <div class="absolute left-1/2 -translate-x-1/2 h-4 w-4 rounded-full bg-white border-4 border-gray-800"></div>
-                                <div class="w-1/2 pl-8 text-left">
-                                    <p class="font-bold text-lg text-green-400">Q1 2026</p>
-                                    <p class="text-white">Public launch in the UK & Ireland.</p>
-                                </div>
-                            </div>
-                            <div class="relative flex items-center">
-                                <div class="w-1/2 pr-8 text-right">
-                                    <p class="font-bold text-lg text-green-400">Q3 2026</p>
-                                    <p class="text-white">Expand integrations (Xero, QuickBooks) and develop advanced AI insights.</p>
-                                </div>
-                                <div class="absolute left-1/2 -translate-x-1/2 h-4 w-4 rounded-full bg-white border-4 border-gray-800"></div>
-                                <div class="w-1/2 pl-8"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
+        
         <!-- Slide 9: The Team -->
         <section id="slide-9" class="slide">
             <div class="text-center w-full max-w-6xl mx-auto">
                 <h2 class="text-sm font-bold uppercase text-green-400 tracking-widest">The Team</h2>
-                <p class="mt-3 text-3xl md:text-5xl font-extrabold">Experienced & Driven.</p>
+                <p class="mt-3 text-3xl md:text-5xl font-extrabold">Domain expertise meets technical excellence.</p>
                 <div class="mt-16 grid grid-cols-1 md:grid-cols-2 gap-8 text-left">
-                    <div class="glass-card p-8 flex items-center space-x-6">
+                    <div class="glass-card p-8 flex flex-col sm:flex-row items-center space-y-4 sm:space-y-0 sm:space-x-6">
                         <div class="h-24 w-24 rounded-full bg-gray-700 flex-shrink-0 flex items-center justify-center">
-                             <span class="text-3xl font-bold text-gray-400">F1</span>
+                             <span class="text-3xl font-bold text-gray-400">Fí</span>
                         </div>
                         <div>
-                            <h3 class="text-2xl font-bold">[Founder Name 1]</h3>
-                            <p class="text-green-400 font-semibold">CEO</p>
-                            <p class="mt-2 text-gray-400 italic">Ex-accountant with 10 years experience at top UK firms, felt this pain firsthand.</p>
+                            <h3 class="text-2xl font-bold">Fíona Ní Eidhin (Fi)</h3>
+                            <p class="text-green-400 font-semibold">CEO - "The Financial Fairy Godmother"</p>
+                            <p class="mt-2 text-gray-400">Ex-Deloitte chartered accountant who felt this pain firsthand. Previously founded an SMB accounting community, earning her industry nickname.</p>
                         </div>
                     </div>
-                    <div class="glass-card p-8 flex items-center space-x-6">
+                    <div class="glass-card p-8 flex flex-col sm:flex-row items-center space-y-4 sm:space-y-0 sm:space-x-6">
                         <div class="h-24 w-24 rounded-full bg-gray-700 flex-shrink-0 flex items-center justify-center">
-                            <span class="text-3xl font-bold text-gray-400">F2</span>
+                            <span class="text-3xl font-bold text-gray-400">JC</span>
                         </div>
                         <div>
-                            <h3 class="text-2xl font-bold">[Founder Name 2]</h3>
+                            <h3 class="text-2xl font-bold">Jean-Charles (JC) C B M J</h3>
                             <p class="text-green-400 font-semibold">CTO</p>
-                            <p class="mt-2 text-gray-400 italic">Serial entrepreneur, previously built and sold a B2B SaaS company. Expert in AI/ML.</p>
+                            <p class="mt-2 text-gray-400">Software engineer with 15+ years experience. Built an edtech platform with over 1M users and a crowdfunding product that processed over $25M.</p>
                         </div>
                     </div>
                 </div>
@@ -468,13 +319,13 @@
                 <div class="text-center lg:text-left">
                     <h2 class="text-sm font-bold uppercase text-green-400 tracking-widest">The Ask</h2>
                     <p class="mt-3 text-3xl md:text-5xl font-extrabold">Raising <span class="brand-gradient-text">£400,000</span></p>
-                    <p class="mt-4 text-xl text-gray-400">in a pre-seed round to change how accountants work.</p>
+                    <p class="mt-4 text-xl text-gray-400">to build the future of accounting.</p>
                     <div class="mt-12 text-left space-y-4">
                         <h3 class="text-xl font-bold">Key Milestones (18 months runway):</h3>
                          <ul class="list-none space-y-3 text-gray-300">
                             <li class="flex items-start"><span class="text-green-400 mr-3 mt-1">✓</span> Onboard 100 paying firms.</li>
-                            <li class="flex items-start"><span class="text-green-400 mr-3 mt-1">✓</span> Achieve £20,000 in Monthly Recurring Revenue.</li>
-                            <li class="flex items-start"><span class="text-green-400 mr-3 mt-1">✓</span> Demonstrate significant time savings and ROI.</li>
+                            <li class="flex items-start"><span class="text-green-400 mr-3 mt-1">✓</span> Achieve £20k in Monthly Recurring Revenue.</li>
+                            <li class="flex items-start"><span class="text-green-400 mr-3 mt-1">✓</span> Launch Brazil GTM & secure first 10 firms.</li>
                         </ul>
                     </div>
                 </div>
@@ -483,22 +334,19 @@
                      <div class="space-y-6">
                         <div>
                             <div class="flex justify-between mb-1">
-                                <span class="text-base font-medium text-green-300">Product & Engineering</span>
-                                <span class="text-sm font-medium text-green-300">60%</span>
+                                <span class="text-base font-medium text-green-300">Product & Engineering (60%)</span>
                             </div>
                             <div class="w-full bg-gray-700 rounded-full h-4"><div class="bg-green-500 h-4 rounded-full" style="width: 60%"></div></div>
                         </div>
                          <div>
                             <div class="flex justify-between mb-1">
-                                <span class="text-base font-medium text-yellow-300">Sales & Marketing</span>
-                                <span class="text-sm font-medium text-yellow-300">30%</span>
+                                <span class="text-base font-medium text-yellow-300">Sales & Marketing (30%)</span>
                             </div>
                             <div class="w-full bg-gray-700 rounded-full h-4"><div class="bg-yellow-500 h-4 rounded-full" style="width: 30%"></div></div>
                         </div>
                         <div>
                             <div class="flex justify-between mb-1">
-                                <span class="text-base font-medium text-blue-300">Operations</span>
-                                <span class="text-sm font-medium text-blue-300">10%</span>
+                                <span class="text-base font-medium text-blue-300">Operations (10%)</span>
                             </div>
                             <div class="w-full bg-gray-700 rounded-full h-4"><div class="bg-blue-500 h-4 rounded-full" style="width: 10%"></div></div>
                         </div>
@@ -507,36 +355,38 @@
             </div>
         </section>
 
-        <!-- Slide 11: Contact -->
+        <!-- Slide 11: Vision -->
         <section id="slide-11" class="slide">
             <div class="text-center">
-                <h2 class="text-4xl md:text-6xl font-extrabold brand-gradient-text">Let's connect.</h2>
-                <div class="mt-12">
-                    <p class="text-2xl font-bold">[Your Name]</p>
-                    <p class="text-lg text-gray-400">[Your Title]</p>
-                    <div class="mt-6 flex flex-col md:flex-row items-center justify-center gap-x-6 gap-y-2 text-lg">
-                        <a href="mailto:your.email@meetfineo.com" class="text-green-400 hover:text-green-300 transition">[your.email@meetfineo.com]</a>
-                        <span class="hidden md:block text-gray-600">|</span>
-                        <p class="text-gray-300">[Your Phone Number]</p>
-                    </div>
-                     <a href="https://meetfineo.com/" target="_blank" rel="noopener noreferrer" class="inline-block mt-12 bg-green-500 text-gray-900 font-bold py-3 px-8 rounded-lg hover:bg-green-400 transition">
-                        Visit Website
-                    </a>
-                </div>
+                <img src="https://uploads-ssl.webflow.com/66039565558cf142422507e1/66039611593024751351d3b_fineo-logo.svg" alt="Fineo Logo" class="h-12 mx-auto mb-8">
+                <h2 class="text-4xl md:text-6xl font-extrabold brand-gradient-text">This is a new category.</h2>
+                <p class="mt-6 text-2xl md:text-4xl text-white max-w-3xl mx-auto">And we're here to own it.</p>
             </div>
         </section>
     </div>
 
-    <!-- Navigation (consistent with other decks) -->
-    <button id="prev-btn" class="nav-button" aria-label="Previous slide">
-        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
-    </button>
-    <button id="next-btn" class="nav-button" aria-label="Next slide">
-         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
-    </button>
-
-    <div id="slide-counter" class="slide-counter">
-        <span id="current-slide">1</span> / <span id="total-slides">11</span>
+    <!-- Presentation Controls -->
+    <div class="fixed bottom-0 left-0 right-0 p-4 z-20 bg-black/30 backdrop-blur-sm">
+        <div class="max-w-7xl mx-auto flex items-center justify-between">
+            <div class="flex items-center space-x-4">
+                <div id="slide-counter" class="text-sm text-gray-400">Slide 1 / 11</div>
+            </div>
+            <div class="flex items-center space-x-4">
+                <button id="back-btn" class="p-2 rounded-full bg-gray-800/50 hover:bg-gray-700/80 transition disabled:opacity-50 disabled:cursor-not-allowed">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5"><path d="m15 18-6-6 6-6"/></svg>
+                </button>
+                <button id="next-btn" class="p-2 rounded-full bg-gray-800/50 hover:bg-gray-700/80 transition disabled:opacity-50 disabled:cursor-not-allowed">
+                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5"><path d="m9 18 6-6-6-6"/></svg>
+                </button>
+            </div>
+            <div class="flex items-center space-x-4">
+                 <a href="mailto:fi@meetfineo.com" class="text-sm text-gray-400 hover:text-white">fi@meetfineo.com</a>
+                 <button id="fullscreen-btn" class="p-2 rounded-full bg-gray-800/50 hover:bg-gray-700/80 transition">
+                    <svg id="fs-enter-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                    <svg id="fs-exit-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5 hidden"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/></svg>
+                </button>
+            </div>
+        </div>
     </div>
 
     <script>
@@ -592,7 +442,7 @@
                         
                         const urgencyEl = document.getElementById('result-urgency');
                         urgencyEl.textContent = triageData.urgency;
-                        urgencyEl.className = 'text-xs font-bold px-3 py-1 rounded-full';
+                        urgencyEl.className = 'text-xs font-bold px-3 py-1 rounded-full whitespace-nowrap';
                         if (triageData.urgency.toLowerCase() === 'urgent') urgencyEl.classList.add('bg-red-500/20', 'text-red-300');
                         else if (triageData.urgency.toLowerCase() === 'medium') urgencyEl.classList.add('bg-yellow-500/20', 'text-yellow-300');
                         else urgencyEl.classList.add('bg-green-500/20', 'text-green-300');
@@ -616,26 +466,27 @@
 
             // Presentation Logic
             const slides = document.querySelectorAll('.slide');
-            const prevBtn = document.getElementById('prev-btn');
+            const backBtn = document.getElementById('back-btn');
             const nextBtn = document.getElementById('next-btn');
-            const currentSlideEl = document.getElementById('current-slide');
-            const totalSlidesEl = document.getElementById('total-slides');
+            const slideCounter = document.getElementById('slide-counter');
+            const fullscreenBtn = document.getElementById('fullscreen-btn');
+            const fsEnterIcon = document.getElementById('fs-enter-icon');
+            const fsExitIcon = document.getElementById('fs-exit-icon');
 
             let currentSlide = 0;
             const totalSlides = slides.length;
-            totalSlidesEl.textContent = totalSlides;
 
             function showSlide(index) {
                 slides.forEach((slide, i) => {
                     slide.classList.toggle('active', i === index);
                 });
 
-                // Trigger animations for specific slides
                 const activeSlide = slides[index];
                 if (activeSlide && activeSlide.id === 'slide-5') {
                     const chartBars = activeSlide.querySelectorAll('.chart-bar');
                     chartBars.forEach(bar => {
-                        bar.style.width = bar.dataset.width;
+                        bar.style.width = '0%'; // Reset before animating
+                        setTimeout(() => { bar.style.width = bar.dataset.width; }, 100);
                     });
                 }
                 
@@ -643,33 +494,53 @@
             }
 
             function updateControls() {
-                currentSlideEl.textContent = currentSlide + 1;
-                prevBtn.style.display = currentSlide === 0 ? 'none' : 'flex';
-                nextBtn.style.display = currentSlide === totalSlides - 1 ? 'none' : 'flex';
+                slideCounter.textContent = `Slide ${currentSlide + 1} / ${totalSlides}`;
+                backBtn.disabled = currentSlide === 0;
+                nextBtn.disabled = currentSlide === totalSlides - 1;
             }
 
             function changeSlide(direction) {
-                currentSlide += direction;
-                if (currentSlide < 0) currentSlide = 0;
-                if (currentSlide >= totalSlides) currentSlide = totalSlides - 1;
-                showSlide(currentSlide);
+                const newIndex = currentSlide + direction;
+                if (newIndex >= 0 && newIndex < totalSlides) {
+                    currentSlide = newIndex;
+                    showSlide(currentSlide);
+                }
             }
 
-            prevBtn.addEventListener('click', () => changeSlide(-1));
+            backBtn.addEventListener('click', () => changeSlide(-1));
             nextBtn.addEventListener('click', () => changeSlide(1));
 
-            // Keyboard navigation
+            function toggleFullScreen() {
+                if (!document.fullscreenElement) {
+                    document.documentElement.requestFullscreen();
+                } else if (document.exitFullscreen) {
+                    document.exitFullscreen();
+                }
+            }
+
+            fullscreenBtn.addEventListener('click', toggleFullScreen);
+
+            document.addEventListener('fullscreenchange', () => {
+                const isFullscreen = !!document.fullscreenElement;
+                fsEnterIcon.classList.toggle('hidden', isFullscreen);
+                fsExitIcon.classList.toggle('hidden', !isFullscreen);
+            });
+
             document.addEventListener('keydown', (e) => {
-                if (e.key === 'ArrowRight') {
+                if (e.key === 'ArrowRight' || e.key === ' ') {
+                    e.preventDefault();
                     changeSlide(1);
                 } else if (e.key === 'ArrowLeft') {
+                    e.preventDefault();
                     changeSlide(-1);
                 }
             });
 
-            // Initial setup
             showSlide(currentSlide);
         });
     </script>
 </body>
 </html>
+
+
+
