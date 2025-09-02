@@ -15,27 +15,22 @@
             color: #e6edf3;
             overflow: hidden; /* Prevent scrolling */
         }
+        /* Deck + slide layout (match other decks) */
+        main#deck {
+            display: flex;
+            width: 100%;
+            height: 100dvh;
+            transition: transform 0.6s cubic-bezier(0.65, 0, 0.35, 1);
+        }
         .slide {
-            height: 100vh;
-            width: 100vw;
+            flex: 0 0 100vw;
+            height: 100dvh;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             padding: 4rem 2rem;
-            position: absolute;
-            top: 0;
-            left: 0;
-            opacity: 0;
-            transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
-            visibility: hidden;
-            transform: scale(0.95);
-        }
-        .slide.active {
-            opacity: 1;
-            visibility: visible;
-            z-index: 10;
-            transform: scale(1);
+            overflow: hidden;
         }
         .glass-card {
             background: rgba(31, 41, 55, 0.3);
@@ -67,7 +62,7 @@
 </head>
 <body class="relative">
 
-    <div id="presentation-container">
+    <main id="deck">
         <!-- Slide 1: Cover -->
         <section id="slide-1" class="slide active">
             <div class="text-center">
@@ -294,7 +289,7 @@
                              <img src="people/fititus.jpeg" alt="Fíona Ní Eidhin (Fi)" class="w-full h-full object-cover" />
                         </div>
                         <div>
-                            <h3 class="text-2xl font-bold">Fíona Ní Eidhin (Fi)</h3>
+                            <h3 class="text-2xl font-bold">Fi</h3>
                             <p class="text-green-400 font-semibold">CEO - "The Financial Fairy Godmother"</p>
                             <p class="mt-2 text-gray-400">Ex-Deloitte chartered accountant who felt this pain firsthand. Previously founded an SMB accounting community, earning her industry nickname.</p>
                         </div>
@@ -304,7 +299,7 @@
                             <img src="people/jackson.jpeg" alt="Jackson" class="w-full h-full object-cover" />
                         </div>
                         <div>
-                            <h3 class="text-2xl font-bold">Jean-Charles (JC) C B M J</h3>
+                            <h3 class="text-2xl font-bold">Jackson</h3>
                             <p class="text-green-400 font-semibold">CTO</p>
                             <p class="mt-2 text-gray-400">Software engineer with 15+ years experience. Built an edtech platform with over 1M users and a crowdfunding product that processed over $25M.</p>
                         </div>
@@ -363,30 +358,18 @@
                 <p class="mt-6 text-2xl md:text-4xl text-white max-w-3xl mx-auto">And we're here to own it.</p>
             </div>
         </section>
-    </div>
+    </main>
 
-    <!-- Presentation Controls -->
-    <div class="fixed bottom-0 left-0 right-0 p-4 z-20 bg-black/30 backdrop-blur-sm">
-        <div class="max-w-7xl mx-auto flex items-center justify-between">
-            <div class="flex items-center space-x-4">
-                <div id="slide-counter" class="text-sm text-gray-400">Slide 1 / 11</div>
-            </div>
-            <div class="flex items-center space-x-4">
-                <button id="back-btn" class="p-2 rounded-full bg-gray-800/50 hover:bg-gray-700/80 transition disabled:opacity-50 disabled:cursor-not-allowed">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5"><path d="m15 18-6-6 6-6"/></svg>
-                </button>
-                <button id="next-btn" class="p-2 rounded-full bg-gray-800/50 hover:bg-gray-700/80 transition disabled:opacity-50 disabled:cursor-not-allowed">
-                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5"><path d="m9 18 6-6-6-6"/></svg>
-                </button>
-            </div>
-            <div class="flex items-center space-x-4">
-                 <a href="mailto:fi@meetfineo.com" class="text-sm text-gray-400 hover:text-white">fi@meetfineo.com</a>
-                 <button id="fullscreen-btn" class="p-2 rounded-full bg-gray-800/50 hover:bg-gray-700/80 transition">
-                    <svg id="fs-enter-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-                    <svg id="fs-exit-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5 hidden"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/></svg>
-                </button>
-            </div>
-        </div>
+    <!-- Navigation (match other decks) -->
+    <button id="prev-btn" class="nav-button" aria-label="Previous slide" style="position: fixed; top: 50%; left: 2vw; transform: translateY(-50%); background-color: rgba(255,255,255,0.05); color: #e6edf3; border: 1px solid rgba(255,255,255,0.1); border-radius: 9999px; width: 50px; height: 50px; display: flex; align-items: center; justify-content: center; cursor: pointer; z-index: 20;">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
+    </button>
+    <button id="next-btn" class="nav-button" aria-label="Next slide" style="position: fixed; top: 50%; right: 2vw; transform: translateY(-50%); background-color: rgba(255,255,255,0.05); color: #e6edf3; border: 1px solid rgba(255,255,255,0.1); border-radius: 9999px; width: 50px; height: 50px; display: flex; align-items: center; justify-content: center; cursor: pointer; z-index: 20;">
+         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+    </button>
+
+    <div id="slide-counter" class="slide-counter" style="position: fixed; bottom: 3vh; left: 50%; transform: translateX(-50%); color: rgba(255,255,255,0.6); font-size: 0.8rem; letter-spacing: 0.1em; z-index: 20;">
+        <span id="current-slide">1</span> / <span id="total-slides">11</span>
     </div>
 
     <script>
@@ -464,82 +447,52 @@
             }
             setSampleEmail(1);
 
-            // Presentation Logic
+            // Presentation Logic (match other decks)
+            const deck = document.getElementById('deck');
             const slides = document.querySelectorAll('.slide');
-            const backBtn = document.getElementById('back-btn');
+            const prevBtn = document.getElementById('prev-btn');
             const nextBtn = document.getElementById('next-btn');
-            const slideCounter = document.getElementById('slide-counter');
-            const fullscreenBtn = document.getElementById('fullscreen-btn');
-            const fsEnterIcon = document.getElementById('fs-enter-icon');
-            const fsExitIcon = document.getElementById('fs-exit-icon');
+            const currentSlideEl = document.getElementById('current-slide');
+            const totalSlidesEl = document.getElementById('total-slides');
 
             let currentSlide = 0;
             const totalSlides = slides.length;
+            totalSlidesEl.textContent = totalSlides;
 
-            function showSlide(index) {
-                slides.forEach((slide, i) => {
-                    slide.classList.toggle('active', i === index);
-                });
-
-                const activeSlide = slides[index];
-                if (activeSlide && activeSlide.id === 'slide-5') {
-                    const chartBars = activeSlide.querySelectorAll('.chart-bar');
-                    chartBars.forEach(bar => {
-                        bar.style.width = '0%'; // Reset before animating
-                        setTimeout(() => { bar.style.width = bar.dataset.width; }, 100);
-                    });
-                }
-                
-                updateControls();
+            function animateChartBars() {
+                const slide = slides[4]; // slide-5 (0-indexed)
+                if (!slide) return;
+                const bars = slide.querySelectorAll('.chart-bar');
+                bars.forEach(bar => bar.style.width = '0%');
+                setTimeout(() => {
+                    bars.forEach(bar => { bar.style.width = bar.dataset.width; });
+                }, 100);
             }
 
-            function updateControls() {
-                slideCounter.textContent = `Slide ${currentSlide + 1} / ${totalSlides}`;
-                backBtn.disabled = currentSlide === 0;
-                nextBtn.disabled = currentSlide === totalSlides - 1;
+            function goToSlide(slideIndex) {
+                if (slideIndex < 0 || slideIndex >= totalSlides) return;
+                currentSlide = slideIndex;
+                deck.style.transform = `translateX(-${currentSlide * 100}vw)`;
+                updateNav();
+                if (currentSlide === 4) animateChartBars();
             }
 
-            function changeSlide(direction) {
-                const newIndex = currentSlide + direction;
-                if (newIndex >= 0 && newIndex < totalSlides) {
-                    currentSlide = newIndex;
-                    showSlide(currentSlide);
-                }
+            function updateNav() {
+                currentSlideEl.textContent = currentSlide + 1;
+                prevBtn.style.display = currentSlide === 0 ? 'none' : 'flex';
+                nextBtn.style.display = currentSlide === totalSlides - 1 ? 'none' : 'flex';
             }
 
-            backBtn.addEventListener('click', () => changeSlide(-1));
-            nextBtn.addEventListener('click', () => changeSlide(1));
-
-            function toggleFullScreen() {
-                if (!document.fullscreenElement) {
-                    document.documentElement.requestFullscreen();
-                } else if (document.exitFullscreen) {
-                    document.exitFullscreen();
-                }
-            }
-
-            fullscreenBtn.addEventListener('click', toggleFullScreen);
-
-            document.addEventListener('fullscreenchange', () => {
-                const isFullscreen = !!document.fullscreenElement;
-                fsEnterIcon.classList.toggle('hidden', isFullscreen);
-                fsExitIcon.classList.toggle('hidden', !isFullscreen);
-            });
+            prevBtn.addEventListener('click', () => goToSlide(currentSlide - 1));
+            nextBtn.addEventListener('click', () => goToSlide(currentSlide + 1));
 
             document.addEventListener('keydown', (e) => {
-                if (e.key === 'ArrowRight' || e.key === ' ') {
-                    e.preventDefault();
-                    changeSlide(1);
-                } else if (e.key === 'ArrowLeft') {
-                    e.preventDefault();
-                    changeSlide(-1);
-                }
+                if (e.key === 'ArrowRight') goToSlide(currentSlide + 1);
+                else if (e.key === 'ArrowLeft') goToSlide(currentSlide - 1);
             });
 
-            showSlide(currentSlide);
+            goToSlide(0);
         });
     </script>
 </body>
 </html>
-
-
