@@ -11,9 +11,8 @@
             font-family: 'Inter', sans-serif;
             overflow: hidden; /* Prevent scrolling the whole page */
         }
-        .slide {
-            transition: opacity 0.6s ease-in-out;
-        }
+        .slide { transition: opacity 0.6s ease-in-out; opacity: 0.6; }
+        .slide.active { opacity: 1; }
         .slide-content {
             animation: fadeIn 1s ease-in-out;
         }
@@ -26,6 +25,12 @@
             transform: scale(1.5);
         }
     </style>
+        /* Mobile-friendly scroll container */
+        #deck-container { height: 100dvh; overflow-y: auto; scroll-snap-type: y mandatory; -webkit-overflow-scrolling: touch; padding-top: 72px; padding-bottom: env(safe-area-inset-bottom, 0); }
+        .slide { scroll-snap-align: start; }
+        @media (max-width: 768px) {
+            .slide { min-height: 100dvh; }
+        }
 </head>
 <body class="bg-gray-900 text-white">
 
@@ -40,10 +45,10 @@
         </div>
     </header>
 
-    <div id="deck-container" class="relative w-full h-screen">
+    <div id="deck-container" class="relative w-full">
 
         <!-- Slide 1: Title -->
-        <div class="slide absolute w-full h-full flex items-center justify-center p-8">
+        <div class="slide w-full min-h-[100svh] flex items-center justify-center p-8">
             <div class="slide-content text-center">
                 <div class="inline-block bg-indigo-600 p-4 rounded-lg mb-6">
                      <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-white"><path d="M12 22s-8-4.5-8-11.8A8 8 0 0 1 12 2a8 8 0 0 1 8 8.2c0 7.3-8 11.8-8 11.8z"/><circle cx="12" cy="10" r="3"/></svg>
@@ -54,7 +59,7 @@
         </div>
 
         <!-- Slide 2: The Problem -->
-        <div class="slide absolute w-full h-full flex items-center justify-center p-8 opacity-0 pointer-events-none">
+        <div class="slide w-full min-h-[100svh] flex items-center justify-center p-8">
             <div class="slide-content text-center max-w-4xl">
                 <h2 class="text-5xl md:text-7xl font-black tracking-tight">Death is a <span class="text-red-500">$100 Billion</span> Mess.</h2>
                 <div class="mt-10 grid md:grid-cols-3 gap-8 text-left">
@@ -75,7 +80,7 @@
         </div>
 
         <!-- Slide 3: Our Solution (Today) -->
-        <div class="slide absolute w-full h-full flex items-center justify-center p-8 opacity-0 pointer-events-none">
+        <div class="slide w-full min-h-[100svh] flex items-center justify-center p-8">
             <div class="slide-content text-center max-w-4xl">
                  <h2 class="text-5xl md:text-7xl font-black tracking-tight">The <span class="text-indigo-400">Single Source of Truth</span> for Estate Administration.</h2>
                  <p class="mt-6 text-xl text-gray-300">EstateMin is a vertical SaaS platform that replaces chaos with clarity.</p>
@@ -97,7 +102,7 @@
         </div>
 
         <!-- Slide 4: Product Pillars (Capture / Automate / Execute) -->
-        <div class="slide absolute w-full h-full flex items-center justify-center p-8 opacity-0 pointer-events-none">
+        <div class="slide w-full min-h-[100svh] flex items-center justify-center p-8">
             <div class="slide-content max-w-5xl w-full text-left">
                 <h2 class="text-5xl md:text-7xl font-black tracking-tight">Capture. <span class="text-indigo-400">Automate.</span> Execute.</h2>
                 <p class="mt-4 text-xl text-gray-300 max-w-3xl">The three pillars that turn estate chaos into orderly, auditable execution.</p>
@@ -134,7 +139,7 @@
         </div>
 
         <!-- Slide 5: The Inevitable Future (dark, left-aligned) -->
-        <div class="slide absolute w-full h-full flex items-center justify-center p-8 opacity-0 pointer-events-none">
+        <div class="slide w-full min-h-[100svh] flex items-center justify-center p-8">
             <div class="slide-content max-w-5xl w-full text-left">
                 <div class="bg-gray-800/60 border border-gray-700 rounded-xl p-8">
                     <h2 class="text-5xl md:text-7xl font-black tracking-tight">The Future of Death is <span class="text-indigo-400">Autonomous.</span></h2>
@@ -147,7 +152,7 @@
         </div>
 
         <!-- Slide 5: Our Real Vision -->
-        <div class="slide absolute w-full h-full flex items-center justify-center p-8 opacity-0 pointer-events-none">
+        <div class="slide w-full min-h-[100svh] flex items-center justify-center p-8">
             <div class="slide-content text-center max-w-4xl">
                 <h2 class="text-5xl md:text-7xl font-black tracking-tight">We're Not Building a Tool. We're Building <span class="text-indigo-400">the Infrastructure.</span></h2>
                 <p class="mt-6 text-xl text-gray-300">The autonomous future needs a secure, trusted platform. AI agents can't negotiate with thousands of banks and law firms independently.</p>
@@ -158,7 +163,7 @@
         </div>
         
         <!-- Slide 6: Why Now? -->
-        <div class="slide absolute w-full h-full flex items-center justify-center p-8 opacity-0 pointer-events-none">
+        <div class="slide w-full min-h-[100svh] flex items-center justify-center p-8">
             <div class="slide-content text-center max-w-4xl">
                 <h2 class="text-5xl md:text-7xl font-black tracking-tight">The Tipping Point for Legal Tech is <span class="text-indigo-400">Here.</span></h2>
                 <div class="mt-10 grid md:grid-cols-3 gap-8 text-left">
@@ -180,7 +185,7 @@
         </div>
 
         <!-- Slide 7: Traction -->
-        <div class="slide absolute w-full h-full flex items-center justify-center p-8 opacity-0 pointer-events-none">
+        <div class="slide w-full min-h-[100svh] flex items-center justify-center p-8">
             <div class="slide-content text-center max-w-5xl">
                 <h2 class="text-5xl md:text-7xl font-black tracking-tight">Launched 3 Months Ago. The Market Is <span class="text-indigo-400">Pulling Us In.</span></h2>
                 <div class="mt-10 grid md:grid-cols-3 gap-8">
@@ -203,7 +208,7 @@
         </div>
         
         <!-- Slide 8: Team -->
-        <div class="slide absolute w-full h-full flex items-center justify-center p-8 opacity-0 pointer-events-none">
+        <div class="slide w-full min-h-[100svh] flex items-center justify-center p-8">
             <div class="slide-content text-center max-w-5xl">
                 <h2 class="text-5xl md:text-7xl font-black tracking-tight">The <span class="text-indigo-400">Right Team</span> to Build the Future.</h2>
                 <div class="mt-10 grid md:grid-cols-3 gap-8">
@@ -230,7 +235,7 @@
         </div>
 
         <!-- Slide 9: The Ask -->
-        <div class="slide absolute w-full h-full flex items-center justify-center p-8 opacity-0 pointer-events-none">
+        <div class="slide w-full min-h-[100svh] flex items-center justify-center p-8">
              <div class="slide-content text-center max-w-4xl">
                 <h2 class="text-5xl md:text-7xl font-black tracking-tight">We're Raising <span class="text-indigo-400">$1M</span> to Dominate the US Market.</h2>
                 <p class="mt-6 text-xl text-gray-300">This isn't a science project. This is fuel on the fire.</p>
@@ -289,56 +294,36 @@
 
     </div>
 
-    <!-- Navigation (footer removed; keyboard/click advance only) -->
-
+    <!-- Mobile-friendly scroll + active state -->
     <script>
         document.addEventListener('DOMContentLoaded', function () {
-            const slides = document.querySelectorAll('.slide');
-            let currentSlide = 0;
+            const deck = document.getElementById('deck-container');
+            const slides = Array.from(document.querySelectorAll('.slide'));
+            // Activate first slide immediately
+            slides[0]?.classList.add('active');
 
-            function showSlide(n) {
-                slides.forEach((slide, index) => {
-                    if (index === n) {
-                        slide.style.opacity = '1';
-                        slide.style.pointerEvents = 'auto';
-                    } else {
-                        slide.style.opacity = '0';
-                        slide.style.pointerEvents = 'none';
+            const io = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        slides.forEach(s => s.classList.remove('active'));
+                        entry.target.classList.add('active');
                     }
                 });
-                
-                currentSlide = n;
-            }
-            
-            function nextSlide() {
-                if (currentSlide < slides.length - 1) {
-                    showSlide(currentSlide + 1);
-                }
-            }
+            }, { root: deck, threshold: 0.6 });
 
-            function prevSlide() {
-                if (currentSlide > 0) {
-                    showSlide(currentSlide - 1);
-                }
-            }
+            slides.forEach(s => io.observe(s));
 
-            // Keyboard navigation
+            // Desktop keyboard support scrolls to next/prev slide
             document.addEventListener('keydown', (e) => {
+                const currentIdx = slides.findIndex(s => s.classList.contains('active'));
                 if (e.key === 'ArrowRight') {
-                    nextSlide();
+                    const next = slides[Math.min(currentIdx + 1, slides.length - 1)];
+                    next?.scrollIntoView({ behavior: 'smooth', block: 'start' });
                 } else if (e.key === 'ArrowLeft') {
-                    prevSlide();
+                    const prev = slides[Math.max(currentIdx - 1, 0)];
+                    prev?.scrollIntoView({ behavior: 'smooth', block: 'start' });
                 }
             });
-
-            // Click anywhere to advance
-            document.getElementById('deck-container').addEventListener('click', (e) => {
-                // avoid accidental double clicks at end
-                if (currentSlide < slides.length - 1) nextSlide();
-            });
-
-            // Initial setup
-            showSlide(0);
         });
     </script>
 </body>
