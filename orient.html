@@ -1,0 +1,745 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project Orient - Pitch Deck</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Lato:wght@400;700&family=Poppins:wght@700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/phosphor-icons"></script>
+    <style>
+        :root {
+            --dark-blue: #1C2D41;
+            --tech-green: #00B140;
+            --white: #FFFFFF;
+            --light-grey: #F0F2F5;
+            --font-headline: 'Poppins', sans-serif;
+            --font-body: 'Lato', sans-serif;
+            --font-accent: 'Montserrat', sans-serif;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html, body {
+            height: 100%;
+            width: 100%;
+            overflow: hidden;
+            font-family: var(--font-body);
+            background-color: var(--dark-blue);
+            color: var(--white);
+        }
+
+        .deck-container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            padding-top: 72px; /* account for fixed header */
+        }
+
+        .slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 5vw;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.6s ease-in-out, visibility 0.6s;
+            text-align: center;
+        }
+
+        .slide.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* Slide Specific Styles */
+
+        /* Slide 1: Title */
+        #slide-1 {
+            background-image: url('https://images.unsplash.com/photo-1593361589133-11771a3d3686?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80');
+            background-size: cover;
+            background-position: center;
+            color: var(--white);
+        }
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(28, 45, 65, 0.7);
+            z-index: 1;
+        }
+        .slide-content {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+        }
+        #slide-1 h1 {
+            font-family: var(--font-headline);
+            font-size: clamp(3rem, 8vw, 6rem);
+            margin-bottom: 0.25em;
+        }
+        #slide-1 p {
+            font-family: var(--font-accent);
+            font-size: clamp(1rem, 3vw, 1.75rem);
+            font-weight: 400;
+        }
+        
+        /* Slide 2: Vision */
+        #slide-2 {
+            background-color: var(--light-grey);
+            color: var(--dark-blue);
+        }
+         #slide-2 .slide-content {
+            background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%231C2D41' fill-opacity='0.04'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+         }
+        #slide-2 p {
+            font-family: var(--font-accent);
+            font-size: clamp(1.2rem, 2.5vw, 2rem);
+            line-height: 1.6;
+            max-width: 900px;
+        }
+
+        /* Slide 3: Problem */
+        #slide-3 {
+            background-color: var(--dark-blue);
+        }
+        .problem-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 4vw;
+            width: 100%;
+            max-width: 1400px;
+        }
+        .problem-card {
+            padding: 2em;
+            border-radius: 12px;
+            background-color: rgba(255, 255, 255, 0.05);
+        }
+        .problem-card i {
+            font-size: 3rem;
+            color: var(--tech-green);
+            margin-bottom: 0.5em;
+        }
+        .problem-card h3 {
+            font-family: var(--font-headline);
+            font-size: 1.25rem;
+            margin-bottom: 0.5em;
+            color: var(--white);
+        }
+         .problem-card p {
+            font-size: 1rem;
+            line-height: 1.5;
+            color: var(--light-grey);
+        }
+
+        /* Slide 4: Urgency */
+        #slide-4 {
+            background-color: var(--white);
+            color: var(--dark-blue);
+        }
+        #slide-4 .slide-content {
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Cpolyline points='0,90 20,70 40,80 60,60 80,70 100,50' fill='none' stroke='%2300B140' stroke-width='3' stroke-opacity='0.1'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: bottom center;
+            background-size: 100% 50%;
+        }
+        .urgency-number {
+            font-family: var(--font-headline);
+            font-size: clamp(5rem, 15vw, 12rem);
+            color: var(--tech-green);
+            line-height: 1;
+            margin-bottom: 0.1em;
+        }
+        #slide-4 p {
+            max-width: 700px;
+            font-size: 1.2rem;
+            line-height: 1.6;
+        }
+
+        /* Slide 5: Solution */
+        #slide-5 {
+            background-color: var(--light-grey);
+            color: var(--dark-blue);
+        }
+        .solution-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 5vw;
+            width: 100%;
+            max-width: 1200px;
+            flex-wrap: wrap;
+        }
+        .solution-diagram {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 300px;
+        }
+        .solution-text {
+            flex: 1.2;
+            text-align: left;
+            min-width: 300px;
+        }
+        .solution-text h2 {
+            font-family: var(--font-headline);
+            font-size: clamp(1.8rem, 4vw, 3rem);
+            margin-bottom: 0.5em;
+        }
+        .solution-text p {
+            font-size: 1.1rem;
+            line-height: 1.6;
+        }
+        /* Diagram styles */
+        .diagram-core {
+            width: 150px;
+            height: 150px;
+            background-color: var(--dark-blue);
+            color: var(--white);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: var(--font-headline);
+            font-size: 1.5rem;
+            position: relative;
+        }
+        .diagram-node {
+            position: absolute;
+            width: 80px;
+            height: 80px;
+            background: var(--white);
+            border: 2px solid var(--dark-blue);
+            border-radius: 50%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+        }
+        .diagram-node i { font-size: 2rem; }
+        .node-in-1 { top: -50px; left: -80px; }
+        .node-in-2 { bottom: -50px; left: -80px; }
+        .node-out-1 { top: -50px; right: -80px; }
+        .node-out-2 { bottom: -50px; right: -80px; }
+        .arrow { position: absolute; font-size: 2rem; color: var(--tech-green); }
+        .arrow-in-1 { top: 10px; left: -25px; transform: rotate(-30deg); }
+        .arrow-in-2 { bottom: 10px; left: -25px; transform: rotate(30deg) scaleY(-1); }
+        .arrow-out-1 { top: 10px; right: -25px; transform: rotate(30deg); }
+        .arrow-out-2 { bottom: 10px; right: -25px; transform: rotate(-30deg) scaleY(-1); }
+
+        /* Slide 6: How It Works */
+        #slide-6 { background-color: var(--white); color: var(--dark-blue); }
+        .how-it-works-list {
+            list-style: none;
+            width: 100%;
+            max-width: 900px;
+            text-align: left;
+        }
+        .how-it-works-list li {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 2em;
+        }
+        .how-it-works-list .icon {
+            font-size: 2.5rem;
+            color: var(--tech-green);
+            margin-right: 1em;
+        }
+        .how-it-works-list .text h3 {
+            font-family: var(--font-headline);
+            font-size: 1.25rem;
+            margin-bottom: 0.3em;
+        }
+        .how-it-works-list .text p {
+            line-height: 1.5;
+        }
+
+        /* Slide 7: Value Proposition */
+        #slide-7 { background-color: var(--dark-blue); }
+        .value-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2vw;
+            width: 100%;
+            max-width: 1200px;
+        }
+        .value-card {
+            padding: 2.5em 2em;
+            background-color: var(--tech-green);
+            color: var(--dark-blue);
+            border-radius: 12px;
+        }
+        .value-card i {
+            font-size: 3rem;
+            margin-bottom: 0.5em;
+        }
+        .value-card h3 {
+            font-family: var(--font-headline);
+            font-size: 1.3rem;
+            color: var(--dark-blue);
+            margin-bottom: 0.5em;
+        }
+        .value-card p {
+            color: var(--dark-blue);
+            opacity: 0.9;
+            line-height: 1.5;
+        }
+
+        /* Slide 8: Roadmap */
+        #slide-8 { background-color: var(--light-grey); color: var(--dark-blue); }
+        .roadmap-container {
+            width: 100%;
+            max-width: 1200px;
+            position: relative;
+            padding: 2em 0;
+        }
+        .roadmap-line {
+            position: absolute;
+            top: 50%;
+            left: 5%;
+            right: 5%;
+            height: 4px;
+            background-color: var(--tech-green);
+            transform: translateY(-50%);
+        }
+        .roadmap-phases {
+            display: flex;
+            justify-content: space-between;
+            position: relative;
+        }
+        .roadmap-phase {
+            width: 30%;
+            text-align: center;
+        }
+        .roadmap-phase::before {
+            content: '';
+            display: block;
+            width: 20px;
+            height: 20px;
+            background-color: var(--dark-blue);
+            border: 4px solid var(--tech-green);
+            border-radius: 50%;
+            margin: 0 auto 1em auto;
+            position: relative;
+            z-index: 1;
+        }
+        .roadmap-phase h3 { font-family: var(--font-headline); font-size: 1.5rem; margin-bottom: 0.5em; }
+        .roadmap-phase p { font-size: 1rem; line-height: 1.5; }
+        .roadmap-phase ul { list-style: none; padding: 0; margin-top: 1em; font-size: 0.9rem; }
+        .roadmap-phase ul li { margin-bottom: 0.5em; }
+
+        /* Slide 9: Partners */
+        #slide-9 { background-color: var(--white); color: var(--dark-blue); }
+        .partners-container {
+            display: flex;
+            gap: 4vw;
+            width: 100%;
+            max-width: 1100px;
+            flex-wrap: wrap;
+        }
+        .partner-card {
+            flex: 1;
+            min-width: 300px;
+            padding: 2em;
+            border: 1px solid #ddd;
+            border-radius: 12px;
+            text-align: left;
+        }
+        .partner-card h3 { font-family: var(--font-headline); font-size: 2rem; margin-bottom: 0.75em; }
+        .partner-card p { font-size: 1rem; line-height: 1.6; }
+        .logo-placeholder {
+            height: 50px;
+            width: 150px;
+            background-color: var(--light-grey);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: var(--font-accent);
+            color: #aaa;
+            margin-bottom: 1em;
+        }
+
+        /* Slide 10: The Ask */
+        #slide-10 { background-color: var(--dark-blue); }
+        .ask-container {
+            display: flex;
+            gap: 4vw;
+            width: 100%;
+            max-width: 1100px;
+            text-align: left;
+            flex-wrap: wrap;
+        }
+        .ask-column { flex: 1; min-width: 300px; }
+        .ask-header { display: flex; align-items: center; margin-bottom: 1em; }
+        .ask-header i { font-size: 3rem; color: var(--tech-green); margin-right: 0.5em; }
+        .ask-header h2 { font-family: var(--font-headline); font-size: 2.5rem; }
+        .ask-column ul { list-style: none; padding-left: 1em; }
+        .ask-column ul li {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin-bottom: 0.75em;
+            position: relative;
+            padding-left: 1.5em;
+        }
+        .ask-column ul li::before {
+            content: '✓';
+            color: var(--tech-green);
+            position: absolute;
+            left: 0;
+        }
+
+        /* Slide 11: End State */
+        #slide-11 {
+            background-image: url('https://images.unsplash.com/photo-1590372691648-35cb3c88a828?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1932&q=80');
+            background-size: cover;
+            background-position: center;
+        }
+        #slide-11 h2 {
+            font-family: var(--font-headline);
+            font-size: clamp(2.5rem, 6vw, 5rem);
+            margin-bottom: 0.5em;
+        }
+        #slide-11 p {
+            max-width: 900px;
+            font-size: 1.2rem;
+            line-height: 1.6;
+        }
+
+        /* Slide 12: Q&A */
+        #slide-12 { background-color: var(--dark-blue); }
+        #slide-12 h1 { font-family: var(--font-headline); font-size: 6rem; }
+        #slide-12 h2 { font-family: var(--font-accent); font-size: 2rem; margin-top: 0.5em; letter-spacing: 2px; }
+
+
+        /* Navigation */
+        .navigation {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 100;
+            display: flex;
+            gap: 10px;
+        }
+        .nav-btn {
+            width: 50px;
+            height: 50px;
+            background-color: var(--tech-green);
+            color: var(--dark-blue);
+            border: none;
+            border-radius: 50%;
+            font-size: 1.5rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.2s;
+        }
+        .nav-btn:hover {
+            transform: scale(1.1);
+        }
+        .slide-counter {
+            position: fixed;
+            bottom: 30px;
+            left: 30px;
+            z-index: 100;
+            background-color: rgba(0,0,0,0.3);
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-family: var(--font-accent);
+            font-size: 0.9rem;
+        }
+
+        /* Consistent header */
+        .deck-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 150;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 16px 24px;
+            background: linear-gradient(180deg, rgba(28,45,65,0.9), rgba(28,45,65,0.6));
+            backdrop-filter: blur(6px);
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+        }
+        .deck-header .brand { font-family: var(--font-headline); letter-spacing: 0.08em; }
+        .deck-header .meta { font-family: var(--font-accent); font-size: 0.9rem; opacity: 0.9; display: flex; gap: 16px; align-items: center; }
+        .deck-header a { color: var(--white); text-decoration: none; opacity: 0.85; }
+        .deck-header a:hover { opacity: 1; }
+
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header class="deck-header">
+        <div class="brand">PROJECT ORIENT</div>
+        <div class="meta">
+            <span>Investor Deck // Confidential</span>
+            <a href="index.html">Home</a>
+        </div>
+    </header>
+
+    <div class="deck-container">
+        <!-- Slide 1: Title -->
+        <section class="slide active" id="slide-1">
+            <div class="overlay"></div>
+            <div class="slide-content">
+                <h1>Project Orient</h1>
+                <p>Building the Living History of Our Assets</p>
+            </div>
+        </section>
+
+        <!-- Slide 2: The Vision -->
+        <section class="slide" id="slide-2">
+            <div class="slide-content">
+                 <p>"Our vision is to create a living digital memory of Iarnród Éireann's assets. We will turn fragmented, underutilised historical project data into an intelligent, predictive, and searchable platform. This will empower our teams to build the future of Irish rail smarter, faster, and more sustainably than ever before."</p>
+            </div>
+        </section>
+
+        <!-- Slide 3: The Problem -->
+        <section class="slide" id="slide-3">
+            <div class="slide-content problem-grid">
+                <div class="problem-card">
+                    <i class="ph-files"></i>
+                    <h3>Incomplete Contractor Data</h3>
+                    <p>Data submissions are often inconsistent and insufficient for deep analysis.</p>
+                </div>
+                <div class="problem-card">
+                    <i class="ph-lock-simple"></i>
+                    <h3>Locked Institutional Knowledge</h3>
+                    <p>Valuable data is trapped in unstructured documents, making it inaccessible.</p>
+                </div>
+                <div class="problem-card">
+                    <i class="ph-repeat"></i>
+                    <h3>Manual, Repetitive Work</h3>
+                    <p>Teams are forced to "reinvent the wheel" for each new project.</p>
+                </div>
+                <div class="problem-card">
+                    <i class="ph-magnifying-glass-x"></i>
+                    <h3>Missed Opportunities</h3>
+                    <p>We cannot effectively track material usage, manage resources, or drive sustainability goals.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 4: The Urgency -->
+        <section class="slide" id="slide-4">
+            <div class="slide-content">
+                <div class="urgency-number">€1 Billion</div>
+                <p>We are about to deliver €1 billion of infrastructure upgrades each year for the next decade. Our current processes were not designed for this complexity or scale. The cost of inaction is a direct threat to the success of our entire capital program.</p>
+            </div>
+        </section>
+
+        <!-- Slide 5: The Solution -->
+        <section class="slide" id="slide-5">
+            <div class="slide-content solution-container">
+                <div class="solution-diagram">
+                    <div class="diagram-core">
+                        Project Orient
+                        <div class="diagram-node node-in-1"><i class="ph-database"></i><span>Data</span></div>
+                        <div class="diagram-node node-in-2"><i class="ph-file-pdf"></i><span>Docs</span></div>
+                        <div class="diagram-node node-out-1"><i class="ph-lightbulb"></i><span>Insights</span></div>
+                        <div class="diagram-node node-out-2"><i class="ph-chart-bar"></i><span>Reports</span></div>
+                        <i class="ph-arrow-right arrow arrow-in-1"></i>
+                        <i class="ph-arrow-right arrow arrow-in-2"></i>
+                        <i class="ph-arrow-right arrow arrow-out-1"></i>
+                        <i class="ph-arrow-right arrow arrow-out-2"></i>
+                    </div>
+                </div>
+                <div class="solution-text">
+                    <h2>An AI-Powered Intelligence Platform for Infrastructure Delivery</h2>
+                    <p>Project Orient is a data-driven asset intelligence platform that captures lessons from past projects and applies them to future delivery. It will be our organisation's central nervous system for all infrastructure projects, turning our vast archive of documents into a dynamic, queryable knowledge base.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 6: How It Works -->
+        <section class="slide" id="slide-6">
+            <div class="slide-content">
+                <ul class="how-it-works-list">
+                    <li><i class="ph-brain icon"></i><div class="text"><h3>1. Automated Data Extraction</h3><p>Using Natural Language Processing (NLP) to read and structure insights from PDFs, reports, and legacy files.</p></div></li>
+                    <li><i class="ph-folder-simple-user icon"></i><div class="text"><h3>2. Centralised, Searchable Repository</h3><p>A unified knowledge base to instantly find data on past projects, materials, and costs.</p></div></li>
+                    <li><i class="ph-chart-line-up icon"></i><div class="text"><h3>3. Predictive Analytics</h3><p>Applying machine learning to forecast material needs and flag planning risks.</p></div></li>
+                    <li><i class="ph-check-square icon"></i><div class="text"><h3>4. Automated Compliance & Sustainability Reporting</h3><p>Automatically generate regulatory reports, reducing manual effort.</p></div></li>
+                    <li><i class="ph-arrows-clockwise icon"></i><div class="text"><h3>5. Continuous Improvement Engine</h3><p>A system that "learns" from every new project, capturing lessons and refining its recommendations.</p></div></li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Slide 7: The Core Value Proposition -->
+        <section class="slide" id="slide-7">
+            <div class="slide-content value-grid">
+                <div class="value-card">
+                    <i class="ph-coins"></i>
+                    <h3>Significant Cost Savings</h3>
+                    <p>Optimise planning, improve procurement, and prevent costly project errors.</p>
+                </div>
+                <div class="value-card">
+                    <i class="ph-shield-warning"></i>
+                    <h3>Proactive Risk Mitigation</h3>
+                    <p>Use predictive analytics to spot bottlenecks and compliance issues before they occur.</p>
+                </div>
+                <div class="value-card">
+                    <i class="ph-leaf"></i>
+                    <h3>Enhanced Sustainability</h3>
+                    <p>Enable data-driven decisions and automate sustainability reporting.</p>
+                </div>
+                <div class="value-card">
+                    <i class="ph-rocket-launch"></i>
+                    <h3>Future Revenue Generation</h3>
+                    <p>Create a platform with the potential to be licensed to other infrastructure operators.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 8: The Roadmap -->
+        <section class="slide" id="slide-8">
+            <div class="slide-content roadmap-container">
+                <div class="roadmap-line"></div>
+                <div class="roadmap-phases">
+                    <div class="roadmap-phase">
+                        <h3>Phase 1: Pilot</h3>
+                        <p>A focused 6-month incubator pilot to prove the model with one category of planning permission.</p>
+                        <ul>
+                            <li>✓ Gather Data</li>
+                            <li>✓ Select Partner</li>
+                            <li>✓ Define & Execute MVP</li>
+                        </ul>
+                    </div>
+                    <div class="roadmap-phase">
+                        <h3>Phase 2: Expansion</h3>
+                        <p>Roll out platform capabilities to include high-value areas like procurement and compliance.</p>
+                    </div>
+                    <div class="roadmap-phase">
+                        <h3>Phase 3: Integration</h3>
+                        <p>Embed Project Orient as the core intelligence system for all of Irish Rail's project delivery.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 9: Potential Technology Partners -->
+        <section class="slide" id="slide-9">
+            <div class="slide-content partners-container">
+                <div class="partner-card">
+                    <div class="logo-placeholder">Starkdata Logo</div>
+                    <h3>Starkdata</h3>
+                    <p>Expertise in data integration, secure data management, and scalable reporting. Their platform provides a robust foundation for a unified knowledge base.</p>
+                </div>
+                <div class="partner-card">
+                    <div class="logo-placeholder">Oraion Logo</div>
+                    <h3>Oraion Agentic AI</h3>
+                    <p>An AI platform specializing in unlocking insights from unstructured information. Their recent success summarizing a decade of corporate knowledge in minutes is a direct parallel to our challenge.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 10: The Ask -->
+        <section class="slide" id="slide-10">
+            <div class="slide-content ask-container">
+                <div class="ask-column">
+                    <div class="ask-header"><i class="ph-currency-circle-dollar"></i><h2>Funding</h2></div>
+                    <ul>
+                        <li>Seed funding for a 6-month Incubator Pilot to cover technology partner fees for MVP development.</li>
+                        <li>Allocation for a dedicated internal project team.</li>
+                    </ul>
+                </div>
+                <div class="ask-column">
+                    <div class="ask-header"><i class="ph-users-three"></i><h2>Resources</h2></div>
+                    <ul>
+                        <li>A dedicated Project Manager and Data Engineer.</li>
+                        <li>Prioritised access to historical project archives.</li>
+                        <li>Cross-functional support from project management, legal, and IT teams.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 11: The Ultimate End State -->
+        <section class="slide" id="slide-11">
+             <div class="overlay"></div>
+             <div class="slide-content">
+                <h2>From Internal Tool to Commercial Powerhouse</h2>
+                <p>The vision extends beyond internal efficiency. We will create a platform with the opportunity to be spun out as a commercial white-label subsidiary, licensing it to other transport and infrastructure operators and turning a compliance burden into a revenue opportunity.</p>
+             </div>
+        </section>
+
+        <!-- Slide 12: Q&A -->
+        <section class="slide" id="slide-12">
+            <div class="slide-content">
+                <h2>Project Orient</h2>
+                <h1>Q&A</h1>
+                <h2>Thank You</h2>
+            </div>
+        </section>
+    </div>
+
+    <div class="navigation">
+        <button class="nav-btn" id="prevBtn"><i class="ph-arrow-left"></i></button>
+        <button class="nav-btn" id="nextBtn"><i class="ph-arrow-right"></i></button>
+    </div>
+    <div class="slide-counter" id="slideCounter">1 / 12</div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const slides = document.querySelectorAll('.slide');
+            const nextBtn = document.getElementById('nextBtn');
+            const prevBtn = document.getElementById('prevBtn');
+            const slideCounter = document.getElementById('slideCounter');
+            let currentSlide = 0;
+
+            function showSlide(index) {
+                slides.forEach((slide, i) => {
+                    slide.classList.remove('active');
+                    if (i === index) {
+                        slide.classList.add('active');
+                    }
+                });
+                slideCounter.textContent = `${index + 1} / ${slides.length}`;
+            }
+
+            function nextSlide() {
+                currentSlide = (currentSlide + 1) % slides.length;
+                showSlide(currentSlide);
+            }
+
+            function prevSlide() {
+                currentSlide = (currentSlide - 1 + slides.length) % slides.length;
+                showSlide(currentSlide);
+            }
+
+            nextBtn.addEventListener('click', nextSlide);
+            prevBtn.addEventListener('click', prevSlide);
+
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'ArrowRight') {
+                    nextSlide();
+                } else if (e.key === 'ArrowLeft') {
+                    prevSlide();
+                }
+            });
+
+            showSlide(currentSlide);
+        });
+    </script>
+</body>
+</html>
