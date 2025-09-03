@@ -11,8 +11,8 @@
     <style>
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #0d1117;
-            color: #e6edf3;
+            background-color: #f8fafc; /* Editorial light */
+            color: #0f172a; /* Slate-900 */
             overflow: hidden; /* Prevent scrolling */
         }
         /* Deck + slide layout (match other decks) */
@@ -33,10 +33,10 @@
             overflow: hidden;
         }
         .glass-card {
-            background: rgba(31, 41, 55, 0.3);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: #ffffff;
+            border: 1px solid rgba(0,0,0,0.06);
             border-radius: 1rem;
+            box-shadow: 0 8px 24px rgba(15, 23, 42, 0.06);
         }
         .brand-gradient-text {
             background: linear-gradient(to right, #4ade80, #34d399);
@@ -63,19 +63,49 @@
 <body class="relative">
 
     <header class="fixed top-0 left-0 w-full p-6 z-10 flex justify-between items-center">
-        <div class="text-lg font-bold tracking-wider">FINEO</div>
-        <div class="text-sm font-medium text-gray-400 flex items-center gap-4">
+        <div class="flex items-center">
+            <img src="public/fineologo.png" alt="Fineo" style="height: 28px; width: auto;" />
+        </div>
+        <div class="text-sm font-medium text-gray-500 flex items-center gap-4">
             <span>Investor Deck // Confidential</span>
-            <a href="index.html" class="hover:text-white">Home</a>
+            <a href="index.html" class="hover:text-gray-900">Home</a>
         </div>
     </header>
 
     <main id="deck">
-        <!-- Slide 1: Cover -->
-        <section id="slide-1" class="slide active">
-            <div class="text-center">
-                <h1 class="text-4xl md:text-6xl font-extrabold mb-4 brand-gradient-text">Cruise Control for Accountants</h1>
-                <p class="mt-6 text-xl md:text-2xl text-gray-400 max-w-3xl mx-auto">The agentic platform that automates your firm, so you can advise your clients.</p>
+        <!-- Slide 1: Editorial Hero with video -->
+        <section id="slide-1" class="slide">
+            <div class="w-full max-w-6xl mx-auto grid md:grid-cols-2 gap-8 items-center">
+                <div>
+                    <h1 class="text-4xl md:text-6xl font-extrabold tracking-tight" style="letter-spacing:-0.02em;">
+                        Cruise Control for <span class="brand-gradient-text">Accountants</span>
+                    </h1>
+                    <p class="mt-6 text-xl text-gray-600 max-w-xl">
+                        The agentic platform that turns inbox chaos into execution. Triage, follow‑up, and knowledge—done.
+                    </p>
+                </div>
+                <div class="rounded-2xl overflow-hidden border border-gray-200 shadow-lg">
+                    <video class="w-full h-full" src="public/programme.mp4" poster="public/fineo1.png" autoplay muted loop playsinline></video>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide: Product Screens (editorial frames) -->
+        <section class="slide">
+            <div class="w-full max-w-6xl mx-auto text-center">
+                <h2 class="text-3xl md:text-5xl font-extrabold tracking-tight">Product, Not Promises.</h2>
+                <p class="mt-4 text-lg text-gray-600">Real flows in production-like fidelity.</p>
+                <div class="mt-10 grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="rounded-xl border border-gray-200 shadow-sm overflow-hidden">
+                        <img src="public/fineo1.png" alt="Fineo triage" class="w-full h-full object-cover" loading="lazy">
+                    </div>
+                    <div class="rounded-xl border border-gray-200 shadow-sm overflow-hidden">
+                        <img src="public/fineo2.png" alt="Fineo follow-up" class="w-full h-full object-cover" loading="lazy">
+                    </div>
+                    <div class="rounded-xl border border-gray-200 shadow-sm overflow-hidden">
+                        <img src="public/fineo3.png" alt="Fineo knowledge bank" class="w-full h-full object-cover" loading="lazy">
+                    </div>
+                </div>
             </div>
         </section>
 
@@ -358,25 +388,53 @@
             </div>
         </section>
 
-        <!-- Slide 11: Vision -->
+        <!-- Slide 11: Closing CTA -->
         <section id="slide-11" class="slide">
-            <div class="text-center">
-                <img src="https://uploads-ssl.webflow.com/66039565558cf142422507e1/66039611593024751351d3b_fineo-logo.svg" alt="Fineo Logo" class="h-12 mx-auto mb-8">
-                <h2 class="text-4xl md:text-6xl font-extrabold brand-gradient-text">This is a new category.</h2>
-                <p class="mt-6 text-2xl md:text-4xl text-white max-w-3xl mx-auto">And we're here to own it.</p>
+            <div class="w-full max-w-4xl mx-auto text-center">
+                <img src="public/fineologo.png" alt="Fineo" class="h-10 mx-auto mb-6" />
+                <h2 class="text-4xl md:text-6xl font-extrabold tracking-tight" style="letter-spacing:-0.02em;">
+                    Turn Your Inbox into <span class="brand-gradient-text">Execution</span>
+                </h2>
+                <p class="mt-4 text-xl text-gray-600 max-w-2xl mx-auto">
+                    Firms using Fineo reclaim hours every week and deliver more advisory value—without hiring.
+                </p>
+
+                <div class="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
+                    <a href="mailto:fi@meetfineo.com" class="px-6 py-3 rounded-lg font-semibold text-white" style="background: linear-gradient(90deg,#22c55e,#34d399);">
+                        Request a Demo
+                    </a>
+                    <a href="https://meetfineo.com/" target="_blank" rel="noopener" class="px-6 py-3 rounded-lg font-semibold border border-gray-300 text-gray-900 bg-white">
+                        Learn More
+                    </a>
+                </div>
+
+                <div class="mt-12 grid grid-cols-1 sm:grid-cols-3 gap-6 text-left">
+                    <div class="glass-card p-6">
+                        <p class="text-sm text-gray-500">Time Saved</p>
+                        <p class="text-3xl font-extrabold">12+ hrs/wk</p>
+                    </div>
+                    <div class="glass-card p-6">
+                        <p class="text-sm text-gray-500">Emails Automated</p>
+                        <p class="text-3xl font-extrabold">70%</p>
+                    </div>
+                    <div class="glass-card p-6">
+                        <p class="text-sm text-gray-500">ROI</p>
+                        <p class="text-3xl font-extrabold">10x</p>
+                    </div>
+                </div>
             </div>
         </section>
     </main>
 
     <!-- Navigation (match other decks) -->
-    <button id="prev-btn" class="nav-button" aria-label="Previous slide" style="position: fixed; top: 50%; left: 2vw; transform: translateY(-50%); background-color: rgba(255,255,255,0.05); color: #e6edf3; border: 1px solid rgba(255,255,255,0.1); border-radius: 9999px; width: 50px; height: 50px; display: flex; align-items: center; justify-content: center; cursor: pointer; z-index: 20;">
+    <button id="prev-btn" class="nav-button" aria-label="Previous slide" style="position: fixed; top: 50%; left: 2vw; transform: translateY(-50%); background-color: rgba(0,0,0,0.05); color: #0f172a; border: 1px solid rgba(0,0,0,0.1); border-radius: 9999px; width: 50px; height: 50px; display: flex; align-items: center; justify-content: center; cursor: pointer; z-index: 20;">
         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
     </button>
-    <button id="next-btn" class="nav-button" aria-label="Next slide" style="position: fixed; top: 50%; right: 2vw; transform: translateY(-50%); background-color: rgba(255,255,255,0.05); color: #e6edf3; border: 1px solid rgba(255,255,255,0.1); border-radius: 9999px; width: 50px; height: 50px; display: flex; align-items: center; justify-content: center; cursor: pointer; z-index: 20;">
+    <button id="next-btn" class="nav-button" aria-label="Next slide" style="position: fixed; top: 50%; right: 2vw; transform: translateY(-50%); background-color: rgba(0,0,0,0.05); color: #0f172a; border: 1px solid rgba(0,0,0,0.1); border-radius: 9999px; width: 50px; height: 50px; display: flex; align-items: center; justify-content: center; cursor: pointer; z-index: 20;">
          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
     </button>
 
-    <div id="slide-counter" class="slide-counter" style="position: fixed; bottom: 3vh; left: 50%; transform: translateX(-50%); color: rgba(255,255,255,0.6); font-size: 0.8rem; letter-spacing: 0.1em; z-index: 20;">
+    <div id="slide-counter" class="slide-counter" style="position: fixed; bottom: 3vh; left: 50%; transform: translateX(-50%); color: rgba(0,0,0,0.6); font-size: 0.8rem; letter-spacing: 0.1em; z-index: 20;">
         <span id="current-slide">1</span> / <span id="total-slides">11</span>
     </div>
 
