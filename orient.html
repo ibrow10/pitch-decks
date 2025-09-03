@@ -331,90 +331,37 @@
         /* MOBILE RESPONSIVENESS    */
         /*********************************/
         @media (max-width: 768px) {
-            .slide {
-                padding: 12vw 6vw; /* More vertical room */
-            }
+            .slide { padding: 12vw 6vw; /* More vertical room */ }
+            .deck-header { display: none; }
+            .deck-container { padding-top: 16px; }
 
-            /* Header sizing on small screens */
-            .deck-header div:first-child {
-                font-size: 1rem;
-                font-weight: 800;
-                letter-spacing: 0.05em;
-            }
-             .deck-header div:last-child {
-                display: none; /* Hide confidential info on small screens */
-            }
+            .deck-header div:first-child { font-size: 1rem; font-weight: 800; letter-spacing: 0.05em; }
+            .deck-header div:last-child { display: none; }
 
-
-            h1, h2 {
-                letter-spacing: -0.01em;
-            }
-
-            #slide-1 h1 {
-                font-size: clamp(2.5rem, 15vw, 4rem);
-            }
-            
-            #slide-2 p, #slide-3 p, #slide-4 p {
-                font-size: 1.1rem; /* Slightly larger base body font */
-                line-height: 1.6;
-            }
+            h1, h2 { letter-spacing: -0.01em; }
+            #slide-1 h1 { font-size: clamp(2.5rem, 15vw, 4rem); }
+            #slide-2 p, #slide-3 p, #slide-4 p { font-size: 1.1rem; line-height: 1.6; }
 
             /* Slide 6: Why Now? */
-            .why-now-container {
-                flex-direction: column;
-                gap: 2em;
-                text-align: center;
-            }
+            .why-now-container { flex-direction: column; gap: 2em; text-align: center; }
+            .why-now-text { text-align: center; }
+            .why-now-container i { font-size: 6rem; }
 
-            .why-now-text {
-                text-align: center;
-            }
-
-            .why-now-container i {
-                font-size: 6rem;
-            }
-            
             /* Slide 8: Roadmap */
-            .roadmap-phases {
-                flex-direction: column;
-                gap: 2.5em;
-                align-items: center;
-            }
+            .roadmap-phases { flex-direction: column; gap: 2.5em; align-items: center; }
+            .roadmap-phase { width: 90%; max-width: 400px; }
+            .roadmap-line { display: none; }
 
-            .roadmap-phase {
-                width: 90%;
-                max-width: 400px;
-            }
-
-            .roadmap-line {
-                display: none;
-            }
-            
             /* Slide 9: Partners */
-            .partner-card {
-                min-width: 100%; /* Make partner cards full width */
-            }
+            .partner-card { min-width: 100%; }
 
             /* Slide 10: The Ask */
-            .ask-columns {
-                flex-direction: column;
-                gap: 1.5em;
-            }
+            .ask-columns { flex-direction: column; gap: 1.5em; }
 
             /* Navigation Controls */
-            .navigation {
-                bottom: 15px;
-                right: 15px;
-            }
-            .slide-counter {
-                bottom: 15px;
-                left: 15px;
-            }
-            .nav-btn {
-                width: 45px;
-                height: 45px;
-                font-size: 1.25rem;
-            }
+            .navigation { bottom: 15px; right: 15px; }
+            .slide-counter { bottom: 15px; left: 15px; }
+            .nav-btn { width: 45px; height: 45px; font-size: 1.25rem; }
         }
     </style>
 </head>
