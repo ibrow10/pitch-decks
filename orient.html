@@ -225,7 +225,7 @@
         /* Slide 7: Strategic Imperatives */
         .value-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            grid-template-columns: repeat(2, minmax(280px, 1fr));
             gap: 2vw;
             width: 100%;
         }
@@ -362,6 +362,9 @@
             .navigation { bottom: 15px; right: 15px; }
             .slide-counter { bottom: 15px; left: 15px; }
             .nav-btn { width: 45px; height: 45px; font-size: 1.25rem; }
+
+            /* Slide 7: Strategic Imperatives (2x2 on desktop, 1xN on mobile) */
+            .value-grid { grid-template-columns: 1fr; gap: 1rem; }
         }
     </style>
 </head>
@@ -450,7 +453,7 @@
         <section class="slide" id="slide-7">
             <div class="slide-content value-grid">
                 <div class="value-card">
-                    <i class="ph-swords"></i>
+                    <i class="ph-sword"></i>
                     <h3>Competitive Edge</h3>
                     <p>Move from reactive problem-solving to proactive, data-driven execution. Outpace risk and inefficiency.</p>
                 </div>
