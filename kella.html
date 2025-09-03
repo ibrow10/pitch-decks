@@ -431,41 +431,30 @@
           const slides = Array.from(document.querySelectorAll('.slide'));
           const total = slides.length;
           const counter = document.getElementById('slideCounter');
-          const isMobile = window.matchMedia('(max-width: 768px)').matches;
+          let currentIndex = 0;
 
-          if (isMobile) {
-            // IO keeps counter and active state in sync while scrolling
-            const io = new IntersectionObserver((entries) => {
-              entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                  slides.forEach(s => s.classList.remove('active'));
-                  entry.target.classList.add('active');
-                  const idx = slides.indexOf(entry.target) + 1;
-                  if (counter) counter.textContent = `${idx} / ${total}`;
-                }
-              });
-            }, { threshold: 0.6 });
-            slides.forEach(s => io.observe(s));
-            if (counter) counter.textContent = `1 / ${total}`;
-          } else {
-            // Desktop retains click/keys navigation
-            let current = 1;
-            function showSlide(n){
-              const active = document.querySelector('.slide.active');
-              if (active) active.classList.remove('active');
-              const next = document.getElementById(`slide-${n}`);
-              if (next) next.classList.add('active');
-              if (counter) counter.textContent = `${n} / ${total}`;
-            }
-            function next(){ if (current < total){ current++; showSlide(current);} }
-            function prev(){ if (current > 1){ current--; showSlide(current);} }
-            document.getElementById('nextBtn').addEventListener('click', next);
-            document.getElementById('prevBtn').addEventListener('click', prev);
-            document.addEventListener('keydown', (e) => { if (e.key==='ArrowRight') next(); else if (e.key==='ArrowLeft') prev(); });
-            // click anywhere to advance (ignored on links/buttons)
-            document.body.addEventListener('click', (e)=>{ if (e.target.closest('a,button')) return; next(); });
-            showSlide(current);
+          // IntersectionObserver keeps counter and active state in sync while scrolling
+          const io = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+              if (entry.isIntersecting) {
+                slides.forEach(s => s.classList.remove('active'));
+                entry.target.classList.add('active');
+                currentIndex = slides.indexOf(entry.target);
+                if (counter) counter.textContent = `${currentIndex + 1} / ${total}`;
+              }
+            });
+          }, { threshold: 0.6 });
+          slides.forEach(s => io.observe(s));
+          if (counter) counter.textContent = `1 / ${total}`;
+
+          function scrollToIndex(idx){
+            if (idx < 0 || idx >= total) return;
+            slides[idx].scrollIntoView({ behavior: 'smooth', block: 'start' });
           }
+
+          document.getElementById('nextBtn').addEventListener('click', () => scrollToIndex(currentIndex + 1));
+          document.getElementById('prevBtn').addEventListener('click', () => scrollToIndex(currentIndex - 1));
+          document.addEventListener('keydown', (e) => { if (e.key==='ArrowRight') scrollToIndex(currentIndex+1); else if (e.key==='ArrowLeft') scrollToIndex(currentIndex-1); });
         })();
     </script>
 </body>

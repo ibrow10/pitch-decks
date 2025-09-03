@@ -341,8 +341,10 @@
         /*********************************/
         @media (max-width: 768px) {
             .slide { padding: 12vw 6vw; /* More vertical room */ }
-            .deck-header { display: none; }
-            .deck-container { padding-top: 16px; }
+            /* Show compact header on mobile: brand only */
+            .deck-header { display: flex; padding: 10px 14px; }
+            .deck-header .meta { display: none; }
+            .deck-container { padding-top: 48px; }
 
             .deck-header div:first-child { font-size: 1rem; font-weight: 800; letter-spacing: 0.05em; }
             .deck-header div:last-child { display: none; }
