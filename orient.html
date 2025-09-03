@@ -6,17 +6,28 @@
     <title>Project Orient - Pitch Deck</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Lato:wght@400;700&family=Poppins:wght@700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/phosphor-icons"></script>
     <style>
         :root {
-            --dark-blue: #1C2D41;
-            --tech-green: #00B140;
+            --dark-bg: #0A0F1A;
+            --primary-accent: #00F0FF;
+            --secondary-accent: #8A2BE2;
             --white: #FFFFFF;
-            --light-grey: #F0F2F5;
-            --font-headline: 'Poppins', sans-serif;
-            --font-body: 'Lato', sans-serif;
-            --font-accent: 'Montserrat', sans-serif;
+            --light-grey: #D3D3D3;
+            --font-headline: 'Inter', sans-serif;
+            --font-body: 'Inter', sans-serif;
+            --font-mono: 'Roboto Mono', monospace;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes glow {
+            0% { text-shadow: 0 0 4px var(--primary-accent), 0 0 8px var(--primary-accent); }
+            100% { text-shadow: 0 0 12px var(--primary-accent), 0 0 18px var(--primary-accent); }
         }
 
         * {
@@ -30,7 +41,7 @@
             width: 100%;
             overflow: hidden;
             font-family: var(--font-body);
-            background-color: var(--dark-blue);
+            background-color: var(--dark-bg);
             color: var(--white);
         }
 
@@ -56,21 +67,45 @@
             visibility: hidden;
             transition: opacity 0.6s ease-in-out, visibility 0.6s;
             text-align: center;
+            background-color: var(--dark-bg);
         }
 
         .slide.active {
             opacity: 1;
             visibility: visible;
         }
+        
+        .slide.active .slide-content {
+            animation: fadeIn 0.8s ease-out forwards;
+        }
+        
+        .grid-bg {
+            background-image: linear-gradient(rgba(0, 240, 255, 0.06) 1px, transparent 1px), linear-gradient(90deg, rgba(0, 240, 255, 0.06) 1px, transparent 1px);
+            background-size: 50px 50px;
+        }
 
-        /* Slide Specific Styles */
+        .slide-content {
+            position: relative;
+            z-index: 2;
+            width: 100%;
+            max-width: 1200px;
+        }
+
+        h1, h2, h3 {
+            font-family: var(--font-headline);
+            font-weight: 900;
+            letter-spacing: -0.02em;
+        }
+        
+        .accent-text {
+            color: var(--primary-accent);
+        }
 
         /* Slide 1: Title */
         #slide-1 {
-            background-image: url('https://images.unsplash.com/photo-1593361589133-11771a3d3686?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80');
+            background-image: url('https://images.unsplash.com/photo-1554435493-93422e8220c8?auto=format&fit=crop&q=80&w=2070');
             background-size: cover;
             background-position: center;
-            color: var(--white);
         }
         .overlay {
             position: absolute;
@@ -78,369 +113,182 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(28, 45, 65, 0.7);
+            background: radial-gradient(ellipse at center, rgba(10, 15, 26, 0.6) 0%, rgba(10, 15, 26, 1) 100%);
             z-index: 1;
         }
-        .slide-content {
-            position: relative;
-            z-index: 2;
-            max-width: 800px;
-        }
         #slide-1 h1 {
-            font-family: var(--font-headline);
-            font-size: clamp(3rem, 8vw, 6rem);
-            margin-bottom: 0.25em;
+            font-size: clamp(3rem, 8vw, 7rem);
+            line-height: 1.1;
+            animation: glow 2s ease-in-out infinite alternate;
         }
         #slide-1 p {
-            font-family: var(--font-accent);
-            font-size: clamp(1rem, 3vw, 1.75rem);
-            font-weight: 400;
+            font-family: var(--font-mono);
+            font-size: clamp(1rem, 2vw, 1.5rem);
+            color: var(--light-grey);
+            margin-top: 1em;
+            text-transform: uppercase;
         }
         
-        /* Slide 2: Vision */
-        #slide-2 {
-            background-color: var(--light-grey);
-            color: var(--dark-blue);
+        /* Slide 2: The Problem */
+        #slide-2 h2 {
+            font-size: clamp(2rem, 5vw, 4rem);
+            margin-bottom: 0.5em;
         }
-         #slide-2 .slide-content {
-            background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%231C2D41' fill-opacity='0.04'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
-         }
         #slide-2 p {
-            font-family: var(--font-accent);
-            font-size: clamp(1.2rem, 2.5vw, 2rem);
-            line-height: 1.6;
-            max-width: 900px;
-        }
-
-        /* Slide 3: Problem */
-        #slide-3 {
-            background-color: var(--dark-blue);
-        }
-        .problem-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 4vw;
-            width: 100%;
-            max-width: 1400px;
-        }
-        .problem-card {
-            padding: 2em;
-            border-radius: 12px;
-            background-color: rgba(255, 255, 255, 0.05);
-        }
-        .problem-card i {
-            font-size: 3rem;
-            color: var(--tech-green);
-            margin-bottom: 0.5em;
-        }
-        .problem-card h3 {
-            font-family: var(--font-headline);
-            font-size: 1.25rem;
-            margin-bottom: 0.5em;
-            color: var(--white);
-        }
-         .problem-card p {
-            font-size: 1rem;
-            line-height: 1.5;
+            font-size: clamp(1rem, 2vw, 1.5rem);
             color: var(--light-grey);
-        }
-
-        /* Slide 4: Urgency */
-        #slide-4 {
-            background-color: var(--white);
-            color: var(--dark-blue);
-        }
-        #slide-4 .slide-content {
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Cpolyline points='0,90 20,70 40,80 60,60 80,70 100,50' fill='none' stroke='%2300B140' stroke-width='3' stroke-opacity='0.1'/%3E%3C/svg%3E");
-            background-repeat: no-repeat;
-            background-position: bottom center;
-            background-size: 100% 50%;
-        }
-        .urgency-number {
-            font-family: var(--font-headline);
-            font-size: clamp(5rem, 15vw, 12rem);
-            color: var(--tech-green);
-            line-height: 1;
-            margin-bottom: 0.1em;
-        }
-        #slide-4 p {
-            max-width: 700px;
-            font-size: 1.2rem;
-            line-height: 1.6;
-        }
-
-        /* Slide 5: Solution */
-        #slide-5 {
-            background-color: var(--light-grey);
-            color: var(--dark-blue);
-        }
-        .solution-container {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 5vw;
-            width: 100%;
-            max-width: 1200px;
-            flex-wrap: wrap;
-        }
-        .solution-diagram {
-            flex: 1;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            min-width: 300px;
-        }
-        .solution-text {
-            flex: 1.2;
-            text-align: left;
-            min-width: 300px;
-        }
-        .solution-text h2 {
-            font-family: var(--font-headline);
-            font-size: clamp(1.8rem, 4vw, 3rem);
-            margin-bottom: 0.5em;
-        }
-        .solution-text p {
-            font-size: 1.1rem;
-            line-height: 1.6;
-        }
-        /* Diagram styles */
-        .diagram-core {
-            width: 150px;
-            height: 150px;
-            background-color: var(--dark-blue);
-            color: var(--white);
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-family: var(--font-headline);
-            font-size: 1.5rem;
-            position: relative;
-        }
-        .diagram-node {
-            position: absolute;
-            width: 80px;
-            height: 80px;
-            background: var(--white);
-            border: 2px solid var(--dark-blue);
-            border-radius: 50%;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            font-size: 0.8rem;
-        }
-        .diagram-node i { font-size: 2rem; }
-        .node-in-1 { top: -50px; left: -80px; }
-        .node-in-2 { bottom: -50px; left: -80px; }
-        .node-out-1 { top: -50px; right: -80px; }
-        .node-out-2 { bottom: -50px; right: -80px; }
-        .arrow { position: absolute; font-size: 2rem; color: var(--tech-green); }
-        .arrow-in-1 { top: 10px; left: -25px; transform: rotate(-30deg); }
-        .arrow-in-2 { bottom: 10px; left: -25px; transform: rotate(30deg) scaleY(-1); }
-        .arrow-out-1 { top: 10px; right: -25px; transform: rotate(30deg); }
-        .arrow-out-2 { bottom: 10px; right: -25px; transform: rotate(-30deg) scaleY(-1); }
-
-        /* Slide 6: How It Works */
-        #slide-6 { background-color: var(--white); color: var(--dark-blue); }
-        .how-it-works-list {
-            list-style: none;
-            width: 100%;
             max-width: 900px;
-            text-align: left;
+            margin: 0 auto 2em auto;
         }
-        .how-it-works-list li {
-            display: flex;
-            align-items: flex-start;
-            margin-bottom: 2em;
-        }
-        .how-it-works-list .icon {
-            font-size: 2.5rem;
-            color: var(--tech-green);
-            margin-right: 1em;
-        }
-        .how-it-works-list .text h3 {
-            font-family: var(--font-headline);
-            font-size: 1.25rem;
-            margin-bottom: 0.3em;
-        }
-        .how-it-works-list .text p {
-            line-height: 1.5;
+        .problem-subtitle {
+            font-family: var(--font-mono);
+            color: var(--primary-accent);
+            margin-bottom: 1em;
+            display: block;
         }
 
-        /* Slide 7: Value Proposition */
-        #slide-7 { background-color: var(--dark-blue); }
+        /* Slide 3: The Urgency */
+        #slide-3 h2 {
+            font-size: clamp(2.5rem, 6vw, 5rem);
+            margin-bottom: 0.5em;
+            max-width: 1000px;
+        }
+        #slide-3 p {
+            font-size: clamp(1rem, 2vw, 1.25rem);
+            color: var(--light-grey);
+            max-width: 800px;
+        }
+
+        /* Slide 4: The Solution */
+        #slide-4 h2 { font-size: clamp(2.5rem, 5vw, 4.5rem); margin-bottom: 0.25em; }
+        #slide-4 p { font-size: clamp(1rem, 2vw, 1.25rem); color: var(--light-grey); max-width: 800px; margin-bottom: 2em; }
+        .solution-card {
+            background-color: rgba(0, 240, 255, 0.05);
+            border: 1px solid rgba(0, 240, 255, 0.2);
+            padding: 2em;
+            border-radius: 15px;
+            width: 100%;
+            max-width: 800px;
+            text-align: left;
+        }
+        .solution-card h3 { font-family: var(--font-mono); color: var(--primary-accent); font-size: 1.2rem; margin-bottom: 0.5em; }
+        .solution-card p { font-size: 1.1rem; color: var(--white); line-height: 1.6; }
+
+        /* Slide 5: How It Works */
+        .how-it-works-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2em;
+            width: 100%;
+        }
+        .how-it-works-card {
+            text-align: left;
+            padding: 1.5em;
+            border-left: 3px solid var(--primary-accent);
+        }
+        .how-it-works-card h3 { font-family: var(--font-mono); color: var(--primary-accent); margin-bottom: 0.5em; }
+        .how-it-works-card p { color: var(--light-grey); line-height: 1.6; }
+
+        /* Slide 6: Why Now? */
+        .why-now-container {
+            display: flex;
+            gap: 4em;
+            align-items: center;
+        }
+        .why-now-container i { font-size: 10rem; color: var(--primary-accent); }
+        .why-now-text { text-align: left; }
+        .why-now-text h2 { font-size: clamp(2.5rem, 5vw, 4.5rem); margin-bottom: 0.5em; }
+        .why-now-text p { font-size: 1.2rem; line-height: 1.7; color: var(--light-grey); }
+
+        /* Slide 7: Strategic Imperatives */
         .value-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 2vw;
             width: 100%;
-            max-width: 1200px;
         }
         .value-card {
             padding: 2.5em 2em;
-            background-color: var(--tech-green);
-            color: var(--dark-blue);
+            background-color: var(--dark-bg);
+            border: 1px solid rgba(0, 240, 255, 0.3);
             border-radius: 12px;
+            transition: transform 0.3s, box-shadow 0.3s;
         }
-        .value-card i {
-            font-size: 3rem;
-            margin-bottom: 0.5em;
+        .value-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 30px rgba(0, 240, 255, 0.2);
         }
-        .value-card h3 {
-            font-family: var(--font-headline);
-            font-size: 1.3rem;
-            color: var(--dark-blue);
-            margin-bottom: 0.5em;
-        }
-        .value-card p {
-            color: var(--dark-blue);
-            opacity: 0.9;
-            line-height: 1.5;
-        }
+        .value-card i { font-size: 3rem; margin-bottom: 0.5em; color: var(--primary-accent); }
+        .value-card h3 { font-family: var(--font-headline); font-weight: 700; font-size: 1.3rem; color: var(--white); margin-bottom: 0.5em; }
+        .value-card p { color: var(--light-grey); line-height: 1.5; }
 
         /* Slide 8: Roadmap */
-        #slide-8 { background-color: var(--light-grey); color: var(--dark-blue); }
-        .roadmap-container {
-            width: 100%;
-            max-width: 1200px;
-            position: relative;
-            padding: 2em 0;
-        }
-        .roadmap-line {
-            position: absolute;
-            top: 50%;
-            left: 5%;
-            right: 5%;
-            height: 4px;
-            background-color: var(--tech-green);
-            transform: translateY(-50%);
-        }
-        .roadmap-phases {
-            display: flex;
-            justify-content: space-between;
-            position: relative;
-        }
-        .roadmap-phase {
-            width: 30%;
-            text-align: center;
-        }
+        .roadmap-container { width: 100%; position: relative; padding: 2em 0; }
+        .roadmap-line { position: absolute; top: 30px; left: 5%; right: 5%; height: 2px; background: linear-gradient(90deg, var(--secondary-accent), var(--primary-accent)); }
+        .roadmap-phases { display: flex; justify-content: space-between; position: relative; }
+        .roadmap-phase { width: 30%; text-align: center; }
         .roadmap-phase::before {
             content: '';
             display: block;
-            width: 20px;
-            height: 20px;
-            background-color: var(--dark-blue);
-            border: 4px solid var(--tech-green);
+            width: 16px;
+            height: 16px;
+            background-color: var(--primary-accent);
+            border: 4px solid var(--dark-bg);
             border-radius: 50%;
-            margin: 0 auto 1em auto;
+            margin: -8px auto 1em auto;
             position: relative;
             z-index: 1;
+            box-shadow: 0 0 15px var(--primary-accent);
         }
-        .roadmap-phase h3 { font-family: var(--font-headline); font-size: 1.5rem; margin-bottom: 0.5em; }
-        .roadmap-phase p { font-size: 1rem; line-height: 1.5; }
-        .roadmap-phase ul { list-style: none; padding: 0; margin-top: 1em; font-size: 0.9rem; }
-        .roadmap-phase ul li { margin-bottom: 0.5em; }
+        .roadmap-phase h3 { font-family: var(--font-mono); color: var(--primary-accent); font-size: 1.2rem; margin-bottom: 0.5em; }
+        .roadmap-phase p { font-size: 1rem; line-height: 1.5; color: var(--light-grey); }
 
         /* Slide 9: Partners */
-        #slide-9 { background-color: var(--white); color: var(--dark-blue); }
-        .partners-container {
-            display: flex;
-            gap: 4vw;
-            width: 100%;
-            max-width: 1100px;
-            flex-wrap: wrap;
-        }
+        .partners-container { display: flex; gap: 4vw; width: 100%; flex-wrap: wrap; justify-content: center; }
         .partner-card {
             flex: 1;
-            min-width: 300px;
+            min-width: 350px;
+            max-width: 450px;
             padding: 2em;
-            border: 1px solid #ddd;
+            border: 1px solid rgba(0, 240, 255, 0.2);
             border-radius: 12px;
-            text-align: left;
+            text-align: center;
         }
-        .partner-card h3 { font-family: var(--font-headline); font-size: 2rem; margin-bottom: 0.75em; }
-        .partner-card p { font-size: 1rem; line-height: 1.6; }
-        .logo-placeholder {
-            height: 50px;
-            width: 150px;
-            background-color: var(--light-grey);
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-family: var(--font-accent);
-            color: #aaa;
-            margin-bottom: 1em;
-        }
+        .partner-card h3 { font-family: var(--font-headline); font-size: 2rem; margin-bottom: 0.75em; color: var(--primary-accent); }
+        .partner-card p { font-size: 1rem; line-height: 1.6; color: var(--light-grey); }
+        .partner-card .logo-placeholder { font-family: var(--font-mono); color: var(--primary-accent); opacity: 0.5; margin-bottom: 1em; }
+
 
         /* Slide 10: The Ask */
-        #slide-10 { background-color: var(--dark-blue); }
-        .ask-container {
-            display: flex;
-            gap: 4vw;
-            width: 100%;
-            max-width: 1100px;
-            text-align: left;
-            flex-wrap: wrap;
-        }
-        .ask-column { flex: 1; min-width: 300px; }
-        .ask-header { display: flex; align-items: center; margin-bottom: 1em; }
-        .ask-header i { font-size: 3rem; color: var(--tech-green); margin-right: 0.5em; }
-        .ask-header h2 { font-family: var(--font-headline); font-size: 2.5rem; }
-        .ask-column ul { list-style: none; padding-left: 1em; }
-        .ask-column ul li {
-            font-size: 1.1rem;
-            line-height: 1.6;
-            margin-bottom: 0.75em;
-            position: relative;
-            padding-left: 1.5em;
-        }
-        .ask-column ul li::before {
-            content: '✓';
-            color: var(--tech-green);
-            position: absolute;
-            left: 0;
-        }
+        .ask-container { text-align: center; }
+        .ask-container h2 { font-size: clamp(2.5rem, 6vw, 5rem); margin-bottom: 0.5em; }
+        .ask-container p { font-size: 1.2rem; color: var(--light-grey); max-width: 700px; margin: 0 auto 2em auto; }
+        .ask-columns { display: flex; gap: 2em; text-align: left; }
+        .ask-column { background-color: rgba(255,255,255,0.03); padding: 2em; border-radius: 10px; flex: 1; }
+        .ask-column h3 { font-family: var(--font-mono); color: var(--primary-accent); margin-bottom: 1em; }
+        .ask-column ul { list-style: none; }
+        .ask-column ul li { margin-bottom: 0.75em; padding-left: 1.5em; position: relative; }
+        .ask-column ul li::before { content: '>'; font-family: var(--font-mono); color: var(--primary-accent); position: absolute; left: 0; }
 
-        /* Slide 11: End State */
+        /* Slide 11: The Vision */
         #slide-11 {
-            background-image: url('https://images.unsplash.com/photo-1590372691648-35cb3c88a828?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1932&q=80');
+            background-image: url('https://images.unsplash.com/photo-1534796636912-3b95b3ab5986?auto=format&fit=crop&q=80&w=2071');
             background-size: cover;
             background-position: center;
         }
-        #slide-11 h2 {
-            font-family: var(--font-headline);
-            font-size: clamp(2.5rem, 6vw, 5rem);
-            margin-bottom: 0.5em;
-        }
-        #slide-11 p {
-            max-width: 900px;
-            font-size: 1.2rem;
-            line-height: 1.6;
-        }
+        #slide-11 h2 { font-size: clamp(2.5rem, 6vw, 5rem); margin-bottom: 0.5em; line-height: 1.2; }
+        #slide-11 p { max-width: 900px; font-size: 1.2rem; line-height: 1.6; color: var(--light-grey); background: rgba(10,15,26,0.7); padding: 1em; border-radius: 10px; }
 
         /* Slide 12: Q&A */
-        #slide-12 { background-color: var(--dark-blue); }
-        #slide-12 h1 { font-family: var(--font-headline); font-size: 6rem; }
-        #slide-12 h2 { font-family: var(--font-accent); font-size: 2rem; margin-top: 0.5em; letter-spacing: 2px; }
-
+        #slide-12 h1 { font-family: var(--font-mono); font-size: clamp(4rem, 10vw, 8rem); color: var(--primary-accent); }
 
         /* Navigation */
-        .navigation {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            z-index: 100;
-            display: flex;
-            gap: 10px;
-        }
+        .navigation { position: fixed; bottom: 30px; right: 30px; z-index: 100; display: flex; gap: 10px; }
         .nav-btn {
             width: 50px;
             height: 50px;
-            background-color: var(--tech-green);
-            color: var(--dark-blue);
+            background-color: var(--primary-accent);
+            color: var(--dark-bg);
             border: none;
             border-radius: 50%;
             font-size: 1.5rem;
@@ -448,165 +296,121 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            transition: transform 0.2s;
+            transition: transform 0.2s, box-shadow 0.2s;
         }
         .nav-btn:hover {
             transform: scale(1.1);
+            box-shadow: 0 0 20px var(--primary-accent);
         }
-        .slide-counter {
-            position: fixed;
-            bottom: 30px;
-            left: 30px;
-            z-index: 100;
-            background-color: rgba(0,0,0,0.3);
-            padding: 8px 15px;
-            border-radius: 20px;
-            font-family: var(--font-accent);
-            font-size: 0.9rem;
-        }
-
-        /* Consistent header */
-        .deck-header {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            z-index: 150;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 16px 24px;
-            background: linear-gradient(180deg, rgba(28,45,65,0.9), rgba(28,45,65,0.6));
-            backdrop-filter: blur(6px);
-            border-bottom: 1px solid rgba(255,255,255,0.08);
-        }
-        .deck-header .brand { font-family: var(--font-headline); letter-spacing: 0.08em; }
-        .deck-header .meta { font-family: var(--font-accent); font-size: 0.9rem; opacity: 0.9; display: flex; gap: 16px; align-items: center; }
-        .deck-header a { color: var(--white); text-decoration: none; opacity: 0.85; }
-        .deck-header a:hover { opacity: 1; }
+        .nav-btn:disabled { opacity: 0.4; cursor: not-allowed; box-shadow: none; transform: none; }
+        .nav-btn:focus-visible { outline: 2px solid var(--white); outline-offset: 3px; }
+        .slide-counter { position: fixed; bottom: 30px; left: 30px; z-index: 100; background-color: rgba(0,0,0,0.3); padding: 8px 15px; border-radius: 20px; font-family: var(--font-mono); font-size: 0.9rem; }
 
     </style>
 </head>
 <body>
 
-    <!-- Header -->
-    <header class="deck-header">
-        <div class="brand">PROJECT ORIENT</div>
-        <div class="meta">
+    <!-- Header (consistent across decks) -->
+    <header class="fixed top-0 left-0 w-full p-6 z-20 flex justify-between items-center">
+        <div class="text-lg font-extrabold tracking-wider">PROJECT ORIENT</div>
+        <div class="text-sm font-medium text-gray-300 flex items-center gap-4">
             <span>Investor Deck // Confidential</span>
-            <a href="index.html">Home</a>
+            <a href="index.html" class="hover:text-white">Home</a>
         </div>
     </header>
 
     <div class="deck-container">
         <!-- Slide 1: Title -->
-        <section class="slide active" id="slide-1">
+        <section class="slide active" id="slide-1" aria-label="Project Orient — Title">
             <div class="overlay"></div>
             <div class="slide-content">
-                <h1>Project Orient</h1>
-                <p>Building the Living History of Our Assets</p>
+                <h1>PROJECT ORIENT</h1>
+                <p>The Future of Infrastructure is Data</p>
             </div>
         </section>
 
-        <!-- Slide 2: The Vision -->
-        <section class="slide" id="slide-2">
+        <!-- Slide 2: The Problem -->
+        <section class="slide grid-bg" id="slide-2">
             <div class="slide-content">
-                 <p>"Our vision is to create a living digital memory of Iarnród Éireann's assets. We will turn fragmented, underutilised historical project data into an intelligent, predictive, and searchable platform. This will empower our teams to build the future of Irish rail smarter, faster, and more sustainably than ever before."</p>
+                <span class="problem-subtitle">[VULNERABILITY DETECTED]</span>
+                <h2>Our greatest asset is our experience. Right now, it's trapped in the dark.</h2>
+                <p>For decades, we've accumulated a wealth of knowledge, only to lock it away in static documents and fragmented reports. This isn't just inefficient—it's institutional amnesia. We are flying blind into our biggest ever infrastructure expansion, repeating mistakes and missing opportunities that are buried in our own archives.</p>
             </div>
         </section>
 
-        <!-- Slide 3: The Problem -->
+        <!-- Slide 3: The Urgency -->
         <section class="slide" id="slide-3">
-            <div class="slide-content problem-grid">
-                <div class="problem-card">
-                    <i class="ph-files"></i>
-                    <h3>Incomplete Contractor Data</h3>
-                    <p>Data submissions are often inconsistent and insufficient for deep analysis.</p>
-                </div>
-                <div class="problem-card">
-                    <i class="ph-lock-simple"></i>
-                    <h3>Locked Institutional Knowledge</h3>
-                    <p>Valuable data is trapped in unstructured documents, making it inaccessible.</p>
-                </div>
-                <div class="problem-card">
-                    <i class="ph-repeat"></i>
-                    <h3>Manual, Repetitive Work</h3>
-                    <p>Teams are forced to "reinvent the wheel" for each new project.</p>
-                </div>
-                <div class="problem-card">
-                    <i class="ph-magnifying-glass-x"></i>
-                    <h3>Missed Opportunities</h3>
-                    <p>We cannot effectively track material usage, manage resources, or drive sustainability goals.</p>
-                </div>
-            </div>
-        </section>
-
-        <!-- Slide 4: The Urgency -->
-        <section class="slide" id="slide-4">
             <div class="slide-content">
-                <div class="urgency-number">€1 Billion</div>
-                <p>We are about to deliver €1 billion of infrastructure upgrades each year for the next decade. Our current processes were not designed for this complexity or scale. The cost of inaction is a direct threat to the success of our entire capital program.</p>
+                <h2>We're spending <span class="accent-text">€1 Billion a year</span>. Guesswork is no longer an option.</h2>
+                <p>This level of investment demands a radical upgrade in intelligence. Continuing with our current methods is an invitation for budget overruns, critical delays, and preventable risks. The choice is simple: operate with precision, or manage chaos.</p>
             </div>
         </section>
 
-        <!-- Slide 5: The Solution -->
+        <!-- Slide 4: The Solution -->
+        <section class="slide grid-bg" id="slide-4">
+            <div class="slide-content">
+                <h2>The Solution is an <span class="accent-text">Intelligence Engine</span> for Irish Rail.</h2>
+                <p>Project Orient is not another database. It's a living, learning co-pilot for infrastructure delivery. It ingests our entire history and turns it into a strategic weapon for planning, execution, and innovation.</p>
+                <div class="solution-card">
+                    <h3>[SYSTEM CORE: ORIENT AI]</h3>
+                    <p>By deploying proprietary AI agents, we will decipher decades of unstructured data—from planning permissions to sustainability reports—and build a queryable, predictive model of our own operations. Every project, past and present, becomes fuel for smarter decisions tomorrow.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 5: How It Works -->
         <section class="slide" id="slide-5">
-            <div class="slide-content solution-container">
-                <div class="solution-diagram">
-                    <div class="diagram-core">
-                        Project Orient
-                        <div class="diagram-node node-in-1"><i class="ph-database"></i><span>Data</span></div>
-                        <div class="diagram-node node-in-2"><i class="ph-file-pdf"></i><span>Docs</span></div>
-                        <div class="diagram-node node-out-1"><i class="ph-lightbulb"></i><span>Insights</span></div>
-                        <div class="diagram-node node-out-2"><i class="ph-chart-bar"></i><span>Reports</span></div>
-                        <i class="ph-arrow-right arrow arrow-in-1"></i>
-                        <i class="ph-arrow-right arrow arrow-in-2"></i>
-                        <i class="ph-arrow-right arrow arrow-out-1"></i>
-                        <i class="ph-arrow-right arrow arrow-out-2"></i>
+            <div class="slide-content">
+                <div class="how-it-works-grid">
+                    <div class="how-it-works-card">
+                        <h3>01_INGEST & DECIPHER</h3>
+                        <p>AI agents automatically extract and structure critical data from any document format, creating a unified knowledge graph.</p>
+                    </div>
+                    <div class="how-it-works-card">
+                        <h3>02_QUERY & ANALYZE</h3>
+                        <p>Teams can ask complex questions in natural language, instantly retrieving insights that once took weeks to find.</p>
+                    </div>
+                    <div class="how-it-works-card">
+                        <h3>03_PREDICT & OPTIMIZE</h3>
+                        <p>The engine uses machine learning to forecast risks, model outcomes, and recommend optimal pathways for new projects.</p>
                     </div>
                 </div>
-                <div class="solution-text">
-                    <h2>An AI-Powered Intelligence Platform for Infrastructure Delivery</h2>
-                    <p>Project Orient is a data-driven asset intelligence platform that captures lessons from past projects and applies them to future delivery. It will be our organisation's central nervous system for all infrastructure projects, turning our vast archive of documents into a dynamic, queryable knowledge base.</p>
+            </div>
+        </section>
+        
+        <!-- Slide 6: Why Now? -->
+        <section class="slide" id="slide-6">
+            <div class="slide-content why-now-container">
+                <i class="ph-atom"></i>
+                <div class="why-now-text">
+                    <h2>A Unique Convergence of <span class="accent-text">Need & Power</span>.</h2>
+                    <p>This project is only possible today. The maturity of Large Language Models and AI has finally converged with the unprecedented scale of our infrastructure mandate. We have the technology, we have the data, and we have the critical need. The time to build is now.</p>
                 </div>
             </div>
         </section>
 
-        <!-- Slide 6: How It Works -->
-        <section class="slide" id="slide-6">
-            <div class="slide-content">
-                <ul class="how-it-works-list">
-                    <li><i class="ph-brain icon"></i><div class="text"><h3>1. Automated Data Extraction</h3><p>Using Natural Language Processing (NLP) to read and structure insights from PDFs, reports, and legacy files.</p></div></li>
-                    <li><i class="ph-folder-simple-user icon"></i><div class="text"><h3>2. Centralised, Searchable Repository</h3><p>A unified knowledge base to instantly find data on past projects, materials, and costs.</p></div></li>
-                    <li><i class="ph-chart-line-up icon"></i><div class="text"><h3>3. Predictive Analytics</h3><p>Applying machine learning to forecast material needs and flag planning risks.</p></div></li>
-                    <li><i class="ph-check-square icon"></i><div class="text"><h3>4. Automated Compliance & Sustainability Reporting</h3><p>Automatically generate regulatory reports, reducing manual effort.</p></div></li>
-                    <li><i class="ph-arrows-clockwise icon"></i><div class="text"><h3>5. Continuous Improvement Engine</h3><p>A system that "learns" from every new project, capturing lessons and refining its recommendations.</p></div></li>
-                </ul>
-            </div>
-        </section>
-
-        <!-- Slide 7: The Core Value Proposition -->
+        <!-- Slide 7: Strategic Imperatives -->
         <section class="slide" id="slide-7">
             <div class="slide-content value-grid">
                 <div class="value-card">
-                    <i class="ph-coins"></i>
-                    <h3>Significant Cost Savings</h3>
-                    <p>Optimise planning, improve procurement, and prevent costly project errors.</p>
+                    <i class="ph-swords"></i>
+                    <h3>Competitive Edge</h3>
+                    <p>Move from reactive problem-solving to proactive, data-driven execution. Outpace risk and inefficiency.</p>
                 </div>
                 <div class="value-card">
-                    <i class="ph-shield-warning"></i>
-                    <h3>Proactive Risk Mitigation</h3>
-                    <p>Use predictive analytics to spot bottlenecks and compliance issues before they occur.</p>
+                    <i class="ph-brain"></i>
+                    <h3>Permanent Knowledge</h3>
+                    <p>Build a permanent, evolving institutional memory that outlasts any single project or employee.</p>
                 </div>
                 <div class="value-card">
-                    <i class="ph-leaf"></i>
-                    <h3>Enhanced Sustainability</h3>
-                    <p>Enable data-driven decisions and automate sustainability reporting.</p>
+                    <i class="ph-chart-line-up"></i>
+                    <h3>Exponential ROI</h3>
+                    <p>Initial investment unlocks compounding returns by preventing multi-million euro errors and delays.</p>
                 </div>
                 <div class="value-card">
-                    <i class="ph-rocket-launch"></i>
-                    <h3>Future Revenue Generation</h3>
-                    <p>Create a platform with the potential to be licensed to other infrastructure operators.</p>
+                    <i class="ph-globe"></i>
+                    <h3>Commercial Asset</h3>
+                    <p>Develop a platform so powerful it can be spun out and licensed to other operators globally.</p>
                 </div>
             </div>
         </section>
@@ -617,38 +421,31 @@
                 <div class="roadmap-line"></div>
                 <div class="roadmap-phases">
                     <div class="roadmap-phase">
-                        <h3>Phase 1: Pilot</h3>
-                        <p>A focused 6-month incubator pilot to prove the model with one category of planning permission.</p>
-                        <ul>
-                            <li>✓ Gather Data</li>
-                            <li>✓ Select Partner</li>
-                            <li>✓ Define & Execute MVP</li>
-                        </ul>
+                        <h3>PHASE I: ALPHA</h3>
+                        <p>6-Month Pilot focused on planning permissions. Prove the core AI's ability to extract value and mitigate risk.</p>
                     </div>
                     <div class="roadmap-phase">
-                        <h3>Phase 2: Expansion</h3>
-                        <p>Roll out platform capabilities to include high-value areas like procurement and compliance.</p>
+                        <h3>PHASE II: BETA</h3>
+                        <p>Expand the engine to procurement and compliance. Integrate with live project workflows for real-time learning.</p>
                     </div>
                     <div class="roadmap-phase">
-                        <h3>Phase 3: Integration</h3>
-                        <p>Embed Project Orient as the core intelligence system for all of Irish Rail's project delivery.</p>
+                        <h3>PHASE III: SCALE</h3>
+                        <p>Full operational integration across Irish Rail & begin development of the commercial, external-facing platform.</p>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Slide 9: Potential Technology Partners -->
+        <!-- Slide 9: Strategic Accelerants -->
         <section class="slide" id="slide-9">
             <div class="slide-content partners-container">
                 <div class="partner-card">
-                    <div class="logo-placeholder">Starkdata Logo</div>
-                    <h3>Starkdata</h3>
-                    <p>Expertise in data integration, secure data management, and scalable reporting. Their platform provides a robust foundation for a unified knowledge base.</p>
+                     <h3 class="logo-placeholder">// STARKDATA //</h3>
+                    <p>A potential foundational partner for robust, secure data integration and creating the bedrock of our unified knowledge base.</p>
                 </div>
                 <div class="partner-card">
-                    <div class="logo-placeholder">Oraion Logo</div>
-                    <h3>Oraion Agentic AI</h3>
-                    <p>An AI platform specializing in unlocking insights from unstructured information. Their recent success summarizing a decade of corporate knowledge in minutes is a direct parallel to our challenge.</p>
+                     <h3 class="logo-placeholder">// ORAION //</h3>
+                    <p>Their Agentic AI platform is a powerful analogue to our mission, proving the model of turning unstructured corporate history into immediate, actionable intelligence.</p>
                 </div>
             </div>
         </section>
@@ -656,39 +453,40 @@
         <!-- Slide 10: The Ask -->
         <section class="slide" id="slide-10">
             <div class="slide-content ask-container">
-                <div class="ask-column">
-                    <div class="ask-header"><i class="ph-currency-circle-dollar"></i><h2>Funding</h2></div>
-                    <ul>
-                        <li>Seed funding for a 6-month Incubator Pilot to cover technology partner fees for MVP development.</li>
-                        <li>Allocation for a dedicated internal project team.</li>
-                    </ul>
-                </div>
-                <div class="ask-column">
-                    <div class="ask-header"><i class="ph-users-three"></i><h2>Resources</h2></div>
-                    <ul>
-                        <li>A dedicated Project Manager and Data Engineer.</li>
-                        <li>Prioritised access to historical project archives.</li>
-                        <li>Cross-functional support from project management, legal, and IT teams.</li>
-                    </ul>
+                <h2>This is not a cost. It's an investment in a revenue-generating asset.</h2>
+                <p>We are seeking seed funding and key personnel to execute the Alpha phase and validate the immense potential of this platform.</p>
+                <div class="ask-columns">
+                    <div class="ask-column">
+                        <h3>FUNDING</h3>
+                        <ul>
+                            <li>Pilot Phase budget for technology partner engagement & MVP development.</li>
+                            <li>Dedicated internal project team allocation.</li>
+                        </ul>
+                    </div>
+                    <div class="ask-column">
+                        <h3>RESOURCES</h3>
+                        <ul>
+                            <li>Dedicated Project Lead & Data Engineer.</li>
+                            <li>Executive mandate for priority access to all historical project archives.</li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </section>
 
-        <!-- Slide 11: The Ultimate End State -->
-        <section class="slide" id="slide-11">
+        <!-- Slide 11: The Vision -->
+        <section class="slide" id="slide-11" aria-label="Vision">
              <div class="overlay"></div>
              <div class="slide-content">
-                <h2>From Internal Tool to Commercial Powerhouse</h2>
-                <p>The vision extends beyond internal efficiency. We will create a platform with the opportunity to be spun out as a commercial white-label subsidiary, licensing it to other transport and infrastructure operators and turning a compliance burden into a revenue opportunity.</p>
+                <h2>Beyond Irish Rail: <span class="accent-text">A New Global Standard</span>.</h2>
+                <p>The problem we are solving is not unique to us. Every infrastructure operator in the world faces it. Our goal is to build the solution once, perfect it, and then license it globally, turning an internal imperative into a powerful new revenue stream for Irish Rail.</p>
              </div>
         </section>
 
         <!-- Slide 12: Q&A -->
-        <section class="slide" id="slide-12">
+        <section class="slide grid-bg" id="slide-12">
             <div class="slide-content">
-                <h2>Project Orient</h2>
-                <h1>Q&A</h1>
-                <h2>Thank You</h2>
+                <h1>ORIENT</h1>
             </div>
         </section>
     </div>
@@ -715,16 +513,23 @@
                     }
                 });
                 slideCounter.textContent = `${index + 1} / ${slides.length}`;
+                // update controls
+                prevBtn.disabled = index === 0;
+                nextBtn.disabled = index === slides.length - 1;
             }
 
             function nextSlide() {
-                currentSlide = (currentSlide + 1) % slides.length;
-                showSlide(currentSlide);
+                if (currentSlide < slides.length - 1) {
+                    currentSlide += 1;
+                    showSlide(currentSlide);
+                }
             }
 
             function prevSlide() {
-                currentSlide = (currentSlide - 1 + slides.length) % slides.length;
-                showSlide(currentSlide);
+                if (currentSlide > 0) {
+                    currentSlide -= 1;
+                    showSlide(currentSlide);
+                }
             }
 
             nextBtn.addEventListener('click', nextSlide);
