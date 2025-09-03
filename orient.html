@@ -60,7 +60,7 @@
         .slide {
             position: relative;
             width: 100%;
-            height: 100dvh;
+            min-height: 100dvh;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -90,9 +90,17 @@
             width: 100%;
             max-width: 1200px;
         }
+        /* Header styling consistent with other decks */
+        .deck-header { background: linear-gradient(180deg, rgba(17,24,39,0.85), rgba(17,24,39,0.55)); backdrop-filter: blur(6px); border-bottom: 1px solid rgba(255,255,255,0.08); }
+        .deck-header a { text-decoration: none; }
+        .deck-header a:hover { text-decoration: none; }
+
+        /* Centering helpers */
         /* Helpers for centering specific slides */
         .slide-content.centered { margin-left: auto; margin-right: auto; text-align: center; }
         .slide-content.centered.narrow { max-width: 900px; }
+        .slide-content.centered p { margin-left: auto; margin-right: auto; }
+        .slide-content.centered .solution-card { margin-left: auto; margin-right: auto; }
 
         h1, h2, h3 {
             font-family: var(--font-headline);
@@ -327,24 +335,13 @@
                 padding: 12vw 6vw; /* More vertical room */
             }
 
-            /* Fix header styles (they were not in the style block) */
-            header {
-                position: fixed;
-                top: 0; left: 0;
-                width: 100%;
-                padding: 1rem;
-                z-index: 20;
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-                font-family: var(--font-body);
-            }
-            header div:first-child {
+            /* Header sizing on small screens */
+            .deck-header div:first-child {
                 font-size: 1rem;
                 font-weight: 800;
                 letter-spacing: 0.05em;
             }
-             header div:last-child {
+             .deck-header div:last-child {
                 display: none; /* Hide confidential info on small screens */
             }
 
@@ -424,7 +421,7 @@
 <body>
 
     <!-- Header (consistent across decks) -->
-    <header class="fixed top-0 left-0 w-full p-6 z-20 flex justify-between items-center">
+    <header class="deck-header fixed top-0 left-0 w-full p-6 z-20 flex justify-between items-center">
         <div class="text-lg font-extrabold tracking-wider">PROJECT ORIENT</div>
         <div class="text-sm font-medium text-gray-300 flex items-center gap-4">
             <span>Investor Deck // Confidential</span>
