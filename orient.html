@@ -90,6 +90,9 @@
             width: 100%;
             max-width: 1200px;
         }
+        /* Helpers for centering specific slides */
+        .slide-content.centered { margin-left: auto; margin-right: auto; text-align: center; }
+        .slide-content.centered.narrow { max-width: 900px; }
 
         h1, h2, h3 {
             font-family: var(--font-headline);
@@ -340,7 +343,7 @@
 
         <!-- Slide 3: The Urgency -->
         <section class="slide" id="slide-3">
-            <div class="slide-content">
+            <div class="slide-content centered narrow">
                 <h2>We're spending <span class="accent-text">€1 Billion a year</span>. Guesswork is no longer an option.</h2>
                 <p>This level of investment demands a radical upgrade in intelligence. Continuing with our current methods is an invitation for budget overruns, critical delays, and preventable risks. The choice is simple: operate with precision, or manage chaos.</p>
             </div>
@@ -348,7 +351,7 @@
 
         <!-- Slide 4: The Solution -->
         <section class="slide grid-bg" id="slide-4">
-            <div class="slide-content">
+            <div class="slide-content centered">
                 <h2>The Solution is an <span class="accent-text">Intelligence Engine</span> for Irish Rail.</h2>
                 <p>Project Orient is not another database. It's a living, learning co-pilot for infrastructure delivery. It ingests our entire history and turns it into a strategic weapon for planning, execution, and innovation.</p>
                 <div class="solution-card">
@@ -477,7 +480,7 @@
         <!-- Slide 11: The Vision -->
         <section class="slide" id="slide-11" aria-label="Vision">
              <div class="overlay"></div>
-             <div class="slide-content">
+             <div class="slide-content centered narrow">
                 <h2>Beyond Irish Rail: <span class="accent-text">A New Global Standard</span>.</h2>
                 <p>The problem we are solving is not unique to us. Every infrastructure operator in the world faces it. Our goal is to build the solution once, perfect it, and then license it globally, turning an internal imperative into a powerful new revenue stream for Irish Rail.</p>
              </div>
