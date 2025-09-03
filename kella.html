@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kella Pitch Deck</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;700&family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #111827; /* Darker Charcoal */
+            color: #f9fafb; /* White */
+            overflow: hidden;
+        }
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Playfair Display', serif;
+        }
+        .slide {
+            width: 100vw;
+            height: 100vh;
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 5%;
+            box-sizing: border-box;
+            position: absolute;
+            top: 0;
+            left: 0;
+            transition: opacity 0.7s ease-in-out;
+            opacity: 0;
+        }
+        .slide.active {
+            display: flex;
+            opacity: 1;
+            z-index: 10;
+        }
+        .slide-content {
+            max-width: 1200px;
+            width: 100%;
+            text-align: center;
+        }
+        .bg-charcoal-dark { background-color: #111827; }
+        .bg-white { background-color: #ffffff; }
+        .text-white { color: #f9fafb; }
+        .text-charcoal { color: #111827; }
+        .text-gold { color: #D4AF37; } /* Gold Accent */
+        .bg-gold { background-color: #D4AF37; }
+
+        .nav-button {
+            position: fixed;
+            bottom: 2rem;
+            z-index: 20;
+            background-color: rgba(255, 255, 255, 0.1);
+            color: #f9fafb;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            backdrop-filter: blur(5px);
+            transition: all 0.2s;
+        }
+        .nav-button:hover {
+            transform: scale(1.1);
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+        #prevBtn { left: 2rem; }
+        #nextBtn { right: 2rem; }
+        
+        #slideCounter {
+            position: fixed;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 20;
+            background-color: rgba(0, 0, 0, 0.3);
+            color: #f9fafb;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            backdrop-filter: blur(5px);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Slide 1: Title -->
+    <div id="slide-1" class="slide active bg-charcoal-dark text-white" style="background-image: linear-gradient(rgba(17,24,39,0.82), rgba(17,24,39,0.82)), url('public/kella1.jpg'); background-size: cover; background-position: center;">
+        <div class="slide-content text-center">
+            <h1 class="text-7xl md:text-8xl font-bold mb-4">Build Power. Together.</h1>
+            <p class="text-2xl md:text-3xl font-light text-gray-200">The private network compounding female leadership, capital, and careers.</p>
+        </div>
+    </div>
+
+    <!-- Slide 2: Why Now -->
+    <div id="slide-2" class="slide bg-white text-charcoal">
+        <div class="slide-content">
+            <h2 class="text-5xl md:text-6xl font-bold mb-10">Why Now</h2>
+            <div class="grid md:grid-cols-2 gap-10 items-center">
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 text-center">
+                    <div class="p-6 rounded-xl shadow bg-gray-100">
+                        <p class="text-6xl font-extrabold text-gold">39%</p>
+                        <p class="mt-2 text-gray-700 font-semibold">More profitable</p>
+                    </div>
+                    <div class="p-6 rounded-xl shadow bg-gray-100">
+                        <p class="text-6xl font-extrabold text-gold">67%</p>
+                        <p class="mt-2 text-gray-700 font-semibold">Feel isolated</p>
+                    </div>
+                    <div class="p-6 rounded-xl shadow bg-gray-100">
+                        <p class="text-6xl font-extrabold text-gold">$Xbn</p>
+                        <p class="mt-2 text-gray-700 font-semibold">Value unlocked</p>
+                    </div>
+                </div>
+                <div class="rounded-2xl overflow-hidden shadow-xl">
+                    <img src="public/kella2.jpg" alt="Kella event" class="w-full h-full object-cover">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 3: The Market Gap -->
+    <div id="slide-3" class="slide bg-charcoal-dark text-white">
+        <div class="slide-content">
+            <h2 class="text-4xl md:text-5xl font-bold mb-6">The Old Guard Has Failed. A New Leader is Needed.</h2>
+            <p class="text-xl md:text-2xl max-w-4xl mx-auto mb-12">Chief's failed UK expansion created a market vacuum. Their mistake? A lack of genuine inclusivity.</p>
+            <div class="grid md:grid-cols-2 gap-8 text-left max-w-5xl mx-auto">
+                <div class="bg-gray-800/50 p-6 rounded-lg border border-gray-700 backdrop-blur-sm">
+                    <h3 class="text-2xl font-bold mb-2 text-gold">Their Failure</h3>
+                    <p class="text-gray-300">Perceived as a "white woman's fascist movement," alienating huge segments of the market and forcing a retreat.</p>
+                </div>
+                <div class="bg-gray-800/50 p-6 rounded-lg border border-gray-700 backdrop-blur-sm">
+                    <h3 class="text-2xl font-bold mb-2 text-gold">Our Opportunity</h3>
+                    <p class="text-gray-300">To build the premier, truly diverse and inclusive leadership network for women across the UK, Europe, and beyond.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 4: The Flywheel (compact, visual) -->
+    <div id="slide-4" class="slide bg-white text-charcoal">
+        <div class="slide-content">
+            <h2 class="text-5xl md:text-6xl font-bold mb-4">The Kella Flywheel</h2>
+            <p class="text-lg md:text-xl text-gray-600 mb-10">In‑person energy → online depth → outcomes.</p>
+
+            <div class="grid md:grid-cols-2 gap-10 items-center">
+                <!-- Donut chart -->
+                <div class="relative mx-auto w-full max-w-md">
+                    <svg viewBox="0 0 200 200" class="w-full h-auto">
+                        <circle cx="100" cy="100" r="80" stroke="#E5E7EB" stroke-width="22" fill="none" />
+                        <circle cx="100" cy="100" r="80" stroke="#f56565" stroke-width="22" fill="none"
+                                stroke-dasharray="301.59 502.65" stroke-linecap="round" transform="rotate(-90 100 100)" />
+                        <circle cx="100" cy="100" r="80" stroke="#9CA3AF" stroke-width="22" fill="none"
+                                stroke-dasharray="201.06 502.65" stroke-dashoffset="301.59" stroke-linecap="round" transform="rotate(-90 100 100)" />
+                        <text x="100" y="100" text-anchor="middle" dominant-baseline="middle" font-size="22" fill="#1a202c" font-weight="700">Engagement</text>
+                    </svg>
+                    <div class="mt-4 grid grid-cols-2 gap-4 text-sm">
+                        <div class="flex items-center gap-2"><span class="inline-block w-3 h-3 rounded-full" style="background:#f56565"></span><span class="font-semibold">In‑person 60%</span></div>
+                        <div class="flex items-center gap-2"><span class="inline-block w-3 h-3 rounded-full bg-gray-400"></span><span class="font-semibold">Online 40%</span></div>
+                    </div>
+                </div>
+
+                <!-- Three compact cards -->
+                <div class="grid gap-4">
+                    <div class="flex items-start gap-4 p-5 rounded-xl shadow-lg bg-gray-100">
+                        <svg class="w-10 h-10 text-coral" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20"/><path d="M2 12h20"/></svg>
+                        <div>
+                            <p class="text-xl font-bold">Catalyze</p>
+                            <p class="text-gray-600">Masterminds, summits, high‑signal rooms.</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start gap-4 p-5 rounded-xl shadow-lg bg-gray-100">
+                        <svg class="w-10 h-10 text-coral" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09a1.65 1.65 0 0 0-1-1.51 1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09a1.65 1.65 0 0 0 1.51-1 1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9c0 .66.26 1.3.73 1.77.47.47 1.11.73 1.77.73H21a2 2 0 1 1 0 4h-.09c-.66 0-1.3.26-1.77.73-.47.47-.73 1.11-.73 1.77z"/>
+                        </svg>
+                        <div>
+                            <p class="text-xl font-bold">Connect</p>
+                            <p class="text-gray-600">Always‑on private network.</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start gap-4 p-5 rounded-xl shadow-lg bg-gray-100">
+                        <svg class="w-10 h-10 text-coral" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M19 13c-3.87 0-7-3.13-7-7"/><path d="M5 19c3.87 0 7-3.13 7-7"/></svg>
+                        <div>
+                            <p class="text-xl font-bold">Compound</p>
+                            <p class="text-gray-600">Intros, capital, roles.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-10 grid grid-cols-3 gap-6 text-center">
+                <div class="bg-gray-100 p-4 rounded-lg shadow"><p class="text-3xl font-extrabold text-coral">72</p><p class="text-gray-600">NPS</p></div>
+                <div class="bg-gray-100 p-4 rounded-lg shadow"><p class="text-3xl font-extrabold text-coral">85%</p><p class="text-gray-600">Repeat</p></div>
+                <div class="bg-gray-100 p-4 rounded-lg shadow"><p class="text-3xl font-extrabold text-coral">3×</p><p class="text-gray-600">Avg. intros</p></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 5: Traction -->
+    <div id="slide-5" class="slide bg-charcoal-dark text-white">
+        <div class="slide-content">
+            <h2 class="text-5xl md:text-6xl font-bold mb-12">Market-Tested & Validated.</h2>
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="bg-gray-800/50 border border-gray-700 p-8 rounded-lg text-center">
+                    <p class="text-7xl font-bold text-gold">243</p>
+                    <p class="text-2xl font-semibold mt-2">Active Members</p>
+                    <p class="text-lg text-gray-400">And growing month-on-month.</p>
+                </div>
+                <div class="bg-gray-800/50 border border-gray-700 p-8 rounded-lg text-center">
+                    <p class="text-7xl font-bold text-gold">3</p>
+                    <p class="text-2xl font-semibold mt-2">Investments Made</p>
+                    <p class="text-lg text-gray-400">At our last Kella Summit alone.</p>
+                </div>
+                <div class="bg-gray-800/50 border border-gray-700 p-8 rounded-lg text-center">
+                    <p class="text-2xl font-semibold mb-2">Global Corporate Partner</p>
+                    <p class="text-6xl font-bold text-white mt-4">EY</p>
+                    <p class="text-lg text-gray-400 mt-2">Powering their "Winning Women" cohort.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 6: The Ecosystem -->
+    <div id="slide-6" class="slide bg-white text-charcoal">
+        <div class="slide-content text-center">
+            <h2 class="text-5xl md:text-6xl font-bold mb-8">The Ecosystem</h2>
+            <p class="text-xl max-w-3xl mx-auto mb-10 text-gray-700">More than a community — a system compounding relationships into capital and careers.</p>
+            <div class="grid md:grid-cols-3 gap-6 text-left max-w-6xl mx-auto">
+                <div class="rounded-2xl overflow-hidden shadow-lg">
+                    <div class="h-40 bg-center bg-cover" style="background-image:linear-gradient(rgba(0,0,0,.3), rgba(0,0,0,.3)), url('public/kella2.jpg')"></div>
+                    <div class="p-6">
+                        <h3 class="text-2xl font-bold">Kella Capital</h3>
+                        <p class="text-gray-700">Curated access to high‑growth deals.</p>
+                    </div>
+                </div>
+                <div class="rounded-2xl overflow-hidden shadow-lg">
+                    <div class="h-40 bg-center bg-cover" style="background-image:linear-gradient(rgba(0,0,0,.3), rgba(0,0,0,.3)), url('public/kella3.jpg')"></div>
+                    <div class="p-6">
+                        <h3 class="text-2xl font-bold">Kella Careers</h3>
+                        <p class="text-gray-700">Private, anonymized talent marketplace.</p>
+                    </div>
+                </div>
+                <div class="rounded-2xl overflow-hidden shadow-lg">
+                    <div class="h-40 bg-center bg-cover" style="background-image:linear-gradient(rgba(0,0,0,.3), rgba(0,0,0,.3)), url('public/kella4.jpg')"></div>
+                    <div class="p-6">
+                        <h3 class="text-2xl font-bold">Kella Platform</h3>
+                        <p class="text-gray-700">Always‑on network, content, and intros.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 7: Go-To-Market -->
+    <div id="slide-7" class="slide bg-charcoal-dark text-white">
+        <div class="slide-content">
+            <h2 class="text-5xl md:text-6xl font-bold mb-4">City by City</h2>
+            <p class="text-xl max-w-4xl mx-auto mb-10 text-gray-300">Proven “land and expand” playbook: launch with flagship events → build core community → scale.</p>
+            <div class="flex flex-wrap justify-center gap-4">
+                <span class="px-6 py-3 rounded-full bg-gray-800 border border-gray-700">Dublin — Proven</span>
+                <span class="px-6 py-3 rounded-full bg-gray-800 border border-gray-700">London — Launch</span>
+                <span class="px-6 py-3 rounded-full bg-gray-800 border border-gray-700">New York — Next</span>
+                <span class="px-6 py-3 rounded-full bg-gray-800 border border-gray-700">Toronto — Next</span>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Slide 8: The Team -->
+    <div id="slide-8" class="slide bg-white text-charcoal">
+        <div class="slide-content">
+            <h2 class="text-5xl md:text-6xl font-bold mb-12">Built By Leaders, For Leaders.</h2>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center max-w-6xl mx-auto">
+                <div>
+                    <img src="https://placehold.co/200x200/e2e8f0/333?text=Hannah+R." alt="Hannah Rixon" class="w-40 h-40 rounded-full mx-auto mb-4 shadow-lg">
+                    <h3 class="text-2xl font-bold">Hannah Rixon</h3>
+                    <p class="text-gold font-semibold">Co-Founder</p>
+                </div>
+                <div>
+                    <img src="https://placehold.co/200x200/e2e8f0/333?text=Caroline+D." alt="Caroline Dunleavy" class="w-40 h-40 rounded-full mx-auto mb-4 shadow-lg">
+                    <h3 class="text-2xl font-bold">Caroline Dunleavy</h3>
+                    <p class="text-gold font-semibold">Co-Founder</p>
+                </div>
+                <div>
+                    <img src="https://placehold.co/200x200/e2e8f0/333?text=Jean+L." alt="Jean London" class="w-40 h-40 rounded-full mx-auto mb-4 shadow-lg">
+                    <h3 class="text-2xl font-bold">Jean London</h3>
+                    <p class="text-gold font-semibold">Advisor (CNN Anchor)</p>
+                </div>
+                <div>
+                    <img src="https://placehold.co/200x200/e2e8f0/333?text=Sebastian+B." alt="Sebastian Brubaker" class="w-40 h-40 rounded-full mx-auto mb-4 shadow-lg">
+                    <h3 class="text-2xl font-bold">Sebastian Brubaker</h3>
+                    <p class="text-gold font-semibold">CTO</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Slide 9: The Ask -->
+    <div id="slide-9" class="slide bg-charcoal-dark text-white">
+        <div class="slide-content text-center">
+            <h2 class="text-5xl md:text-6xl font-bold mb-8">Raising €250k to launch London.</h2>
+            <div class="text-left max-w-6xl mx-auto grid md:grid-cols-2 gap-12 items-center">
+                <div>
+                    <h3 class="text-3xl font-bold mb-4">Use of Funds</h3>
+                    <div class="w-full bg-gray-700 rounded-full h-8 mb-4 flex">
+                        <div class="bg-gold h-8 rounded-l-full text-center text-charcoal font-bold flex items-center justify-center" style="width: 45%">Events</div>
+                        <div class="bg-yellow-300 h-8 text-center text-charcoal font-bold flex items-center justify-center" style="width: 35%">Marketing</div>
+                        <div class="bg-yellow-200 h-8 rounded-r-full text-center text-charcoal font-bold flex items-center justify-center" style="width: 20%">Platform</div>
+                    </div>
+                     <ul class="list-disc list-inside space-y-2 text-xl text-gray-300">
+                        <li>Hire London events lead to establish our presence.</li>
+                        <li>Execute targeted marketing campaigns.</li>
+                        <li>Ship our new proprietary platform.</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-3xl font-bold mb-4">12-Month Goal</h3>
+                    <div class="bg-gray-800/50 p-6 rounded-lg border border-gray-700 text-left">
+                        <p class="text-lg text-gray-400">Profitable London hub with</p>
+                        <p class="text-7xl font-bold my-2"><span class="text-gold">150+</span></p>
+                        <p class="text-xl">paying members → Europe scale.</p>
+                        <div class="mt-6 flex gap-4 justify-start">
+                            <a href="mailto:intros@kella.com" class="px-6 py-3 rounded-lg bg-gold text-charcoal font-bold">Make an Intro</a>
+                            <a href="#" class="px-6 py-3 rounded-lg border border-gray-600">View Data Room</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 10: Contact -->
+    <div id="slide-10" class="slide bg-white text-charcoal" style="background-image: linear-gradient(rgba(255,255,255,0.92), rgba(255,255,255,0.92)), url('public/kella4.jpg'); background-size: cover; background-position: center;">
+        <div class="slide-content text-center">
+            <h2 class="text-7xl md:text-8xl font-bold mb-6">Kella</h2>
+            <p class="text-2xl md:text-3xl mb-10 text-gray-800">Let's build the future of leadership, together.</p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <a href="mailto:hannah@kella.com" class="px-8 py-3 rounded-lg bg-gold text-charcoal font-bold">Request Intro</a>
+                <a href="https://www.kella.com" target="_blank" rel="noopener" class="px-8 py-3 rounded-lg border border-gray-300">Learn More</a>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Navigation -->
+    <button id="prevBtn" class="nav-button">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" /></svg>
+    </button>
+    <button id="nextBtn" class="nav-button">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" /></svg>
+    </button>
+    <div id="slideCounter">1 / 10</div>
+
+    <script>
+        let currentSlide = 1;
+        const totalSlides = 10;
+        const slideCounter = document.getElementById('slideCounter');
+
+        function showSlide(slideNumber) {
+            const current = document.querySelector('.slide.active');
+            if (current) {
+                current.classList.remove('active');
+            }
+            const next = document.getElementById(`slide-${slideNumber}`);
+            if (next) {
+                next.classList.add('active');
+            }
+            slideCounter.textContent = `${slideNumber} / ${totalSlides}`;
+        }
+
+        document.getElementById('nextBtn').addEventListener('click', () => {
+            if (currentSlide < totalSlides) {
+                currentSlide++;
+                showSlide(currentSlide);
+            }
+        });
+
+        document.getElementById('prevBtn').addEventListener('click', () => {
+            if (currentSlide > 1) {
+                currentSlide--;
+                showSlide(currentSlide);
+            }
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight') {
+                document.getElementById('nextBtn').click();
+            } else if (e.key === 'ArrowLeft') {
+                document.getElementById('prevBtn').click();
+            }
+        });
+
+        showSlide(currentSlide);
+    </script>
+</body>
+</html>
