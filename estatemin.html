@@ -33,8 +33,10 @@
         .deck-header { background: linear-gradient(180deg, rgba(17,24,39,0.85), rgba(17,24,39,0.55)); backdrop-filter: blur(6px); border-bottom: 1px solid rgba(255,255,255,0.08); }
         @media (max-width: 768px) {
             .slide { min-height: 100dvh; }
-            .deck-header { display: none; }
-            #deck-container { padding-top: 16px; }
+            /* Compact sticky header: brand only (prevents overlap) */
+            .deck-header { position: sticky; top: 0; z-index: 150; display: flex; align-items:center; justify-content: space-between; height: 48px; padding: calc(8px + env(safe-area-inset-top,0)) 12px 8px 12px; background: linear-gradient(180deg, rgba(17,24,39,0.9), rgba(17,24,39,0.6)); backdrop-filter: blur(6px); border-bottom: 1px solid rgba(255,255,255,0.08); }
+            .deck-header .meta { display: none; }
+            #deck-container { padding-top: 0; }
         }
     </style>
 </head>

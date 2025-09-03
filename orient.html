@@ -341,10 +341,17 @@
         /*********************************/
         @media (max-width: 768px) {
             .slide { padding: 12vw 6vw; /* More vertical room */ }
-            /* Show compact header on mobile: brand only */
-            .deck-header { display: flex; padding: 10px 14px; }
+            /* Compact sticky header (brand only) so it doesn't cover content */
+            .deck-header {
+                position: sticky; top: 0; z-index: 150;
+                display: flex; justify-content: space-between; align-items: center;
+                height: 48px; padding: calc(8px + env(safe-area-inset-top,0)) 12px 8px 12px;
+                background: linear-gradient(180deg, rgba(17,24,39,0.9), rgba(17,24,39,0.6));
+                backdrop-filter: blur(6px);
+                border-bottom: 1px solid rgba(255,255,255,0.08);
+            }
             .deck-header .meta { display: none; }
-            .deck-container { padding-top: 48px; }
+            .deck-container { padding-top: 0; }
 
             .deck-header div:first-child { font-size: 1rem; font-weight: 800; letter-spacing: 0.05em; }
             .deck-header div:last-child { display: none; }
