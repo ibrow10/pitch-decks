@@ -94,7 +94,11 @@
         @keyframes slowspin { from { transform: rotate(0deg);} to { transform: rotate(360deg);} }
         /* Mobile: use natural vertical scroll with scroll-snap */
         @media (max-width: 768px) {
-            header { display: none; }
+            /* Compact mobile header: show brand only */
+            header { display: flex; padding: 10px 14px; }
+            header > div:last-child { display: none; }
+            body { padding-top: 56px; }
+            /* Mobile navigation: natural scroll + snap */
             html, body { overflow-y: auto; scroll-snap-type: y mandatory; -webkit-overflow-scrolling: touch; }
             .slide { position: static; display: block; height: auto; min-height: 100svh; scroll-snap-align: start; opacity: 1 !important; }
             .nav-button { display: none !important; }

@@ -100,7 +100,11 @@
         }
         /* Mobile: natural scroll with snap; hide header */
         @media (max-width: 768px) {
-            header { display: none; }
+            /* Compact header: brand only */
+            header { display: flex; padding: 10px 14px; }
+            header > div:last-child { display: none; }
+            body { padding-top: 56px; }
+            /* Mobile nav */
             html, body { overflow-y: auto; scroll-snap-type: y mandatory; -webkit-overflow-scrolling: touch; }
             .slide { position: static; height: auto; min-height: 100svh; scroll-snap-align: start; }
             #slide-counter { bottom: 1rem; }
