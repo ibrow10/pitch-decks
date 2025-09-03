@@ -8,7 +8,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <style>
+  <style>
         body {
             font-family: 'Inter', sans-serif;
             background-color: #f8fafc; /* Editorial light */
@@ -61,7 +61,13 @@
         @media (max-width: 768px) {
             header { display: none; }
         }
-    </style>
+    /* Mobile: natural scroll with snap; hide header */
+    @media (max-width: 768px) {
+      header { display: none; }
+      html, body { overflow-y: auto; scroll-snap-type: y mandatory; -webkit-overflow-scrolling: touch; }
+      .slide { position: static; height: auto; min-height: 100svh; scroll-snap-align: start; opacity: 1 !important; }
+    }
+  </style>
 </head>
 <body class="relative">
 
@@ -441,8 +447,9 @@
         <span id="current-slide">1</span> / <span id="total-slides">11</span>
     </div>
 
-    <script>
+  <script>
         document.addEventListener('DOMContentLoaded', function () {
+            const isMobile = window.matchMedia('(max-width: 768px)').matches;
             // Gemini API Logic
             const sampleEmails = {
                 1: "URGENT - I've received a letter from HMRC and I don't understand it. Can we have a call ASAP?",
@@ -552,15 +559,28 @@
                 nextBtn.style.display = currentSlide === totalSlides - 1 ? 'none' : 'flex';
             }
 
-            prevBtn.addEventListener('click', () => goToSlide(currentSlide - 1));
-            nextBtn.addEventListener('click', () => goToSlide(currentSlide + 1));
-
-            document.addEventListener('keydown', (e) => {
-                if (e.key === 'ArrowRight') goToSlide(currentSlide + 1);
-                else if (e.key === 'ArrowLeft') goToSlide(currentSlide - 1);
-            });
-
-            goToSlide(0);
+            if (isMobile) {
+                // Use IntersectionObserver to update counter while scrolling natively
+                const io = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            slides.forEach(s => s.classList.remove('active'));
+                            entry.target.classList.add('active');
+                            currentSlide = Array.from(slides).indexOf(entry.target);
+                            currentSlideEl.textContent = currentSlide + 1;
+                        }
+                    });
+                }, { threshold: 0.6 });
+                slides.forEach(s => io.observe(s));
+            } else {
+                prevBtn.addEventListener('click', () => goToSlide(currentSlide - 1));
+                nextBtn.addEventListener('click', () => goToSlide(currentSlide + 1));
+                document.addEventListener('keydown', (e) => {
+                    if (e.key === 'ArrowRight') goToSlide(currentSlide + 1);
+                    else if (e.key === 'ArrowLeft') goToSlide(currentSlide - 1);
+                });
+                goToSlide(0);
+            }
         });
     </script>
 </body>

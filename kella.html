@@ -92,8 +92,13 @@
         .shape-1 { top: -20%; right: -15%; width: 50vw; }
         .shape-2 { bottom: -30%; left: -20%; width: 60vw; animation-direction: reverse; }
         @keyframes slowspin { from { transform: rotate(0deg);} to { transform: rotate(360deg);} }
+        /* Mobile: use natural vertical scroll with scroll-snap */
         @media (max-width: 768px) {
             header { display: none; }
+            html, body { overflow-y: auto; scroll-snap-type: y mandatory; -webkit-overflow-scrolling: touch; }
+            .slide { position: static; display: block; height: auto; min-height: 100svh; scroll-snap-align: start; opacity: 1 !important; }
+            .nav-button { display: none !important; }
+            #slideCounter { bottom: 1rem; }
         }
     </style>
 </head>
@@ -422,55 +427,46 @@
     <div id="slideCounter">1 / 10</div>
 
     <script>
-        let currentSlide = 1;
-        const totalSlides = 10;
+        (function(){
+          const slides = Array.from(document.querySelectorAll('.slide'));
+          const total = slides.length;
+          const counter = document.getElementById('slideCounter');
+          const isMobile = window.matchMedia('(max-width: 768px)').matches;
 
-        function showSlide(slideNumber) {
-            const current = document.querySelector('.slide.active');
-            if (current) {
-                current.classList.remove('active');
+          if (isMobile) {
+            // IO keeps counter and active state in sync while scrolling
+            const io = new IntersectionObserver((entries) => {
+              entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                  slides.forEach(s => s.classList.remove('active'));
+                  entry.target.classList.add('active');
+                  const idx = slides.indexOf(entry.target) + 1;
+                  if (counter) counter.textContent = `${idx} / ${total}`;
+                }
+              });
+            }, { threshold: 0.6 });
+            slides.forEach(s => io.observe(s));
+            if (counter) counter.textContent = `1 / ${total}`;
+          } else {
+            // Desktop retains click/keys navigation
+            let current = 1;
+            function showSlide(n){
+              const active = document.querySelector('.slide.active');
+              if (active) active.classList.remove('active');
+              const next = document.getElementById(`slide-${n}`);
+              if (next) next.classList.add('active');
+              if (counter) counter.textContent = `${n} / ${total}`;
             }
-            const next = document.getElementById(`slide-${slideNumber}`);
-            if (next) {
-                next.classList.add('active');
-            }
-            const counter = document.getElementById('slideCounter');
-            if (counter) counter.textContent = `${slideNumber} / ${totalSlides}`;
-        }
-
-        // click anywhere to advance
-        document.body.addEventListener('click', (e) => {
-            // avoid clicking links/buttons
-            if (e.target.closest('a,button')) return;
-            if (currentSlide < totalSlides) {
-                currentSlide++;
-                showSlide(currentSlide);
-            }
-        });
-
-        function nextSlide() {
-            if (currentSlide < totalSlides) {
-                currentSlide++;
-                showSlide(currentSlide);
-            }
-        }
-
-        function prevSlide() {
-            if (currentSlide > 1) {
-                currentSlide--;
-                showSlide(currentSlide);
-            }
-        }
-
-        document.getElementById('nextBtn').addEventListener('click', nextSlide);
-        document.getElementById('prevBtn').addEventListener('click', prevSlide);
-
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'ArrowRight') nextSlide();
-            else if (e.key === 'ArrowLeft') prevSlide();
-        });
-
-        showSlide(currentSlide);
+            function next(){ if (current < total){ current++; showSlide(current);} }
+            function prev(){ if (current > 1){ current--; showSlide(current);} }
+            document.getElementById('nextBtn').addEventListener('click', next);
+            document.getElementById('prevBtn').addEventListener('click', prev);
+            document.addEventListener('keydown', (e) => { if (e.key==='ArrowRight') next(); else if (e.key==='ArrowLeft') prev(); });
+            // click anywhere to advance (ignored on links/buttons)
+            document.body.addEventListener('click', (e)=>{ if (e.target.closest('a,button')) return; next(); });
+            showSlide(current);
+          }
+        })();
     </script>
 </body>
 </html>

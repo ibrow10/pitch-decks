@@ -102,6 +102,13 @@
         @media (max-width: 768px) {
             header { display: none; }
         }
+        /* Mobile: natural scroll with snap; hide header */
+        @media (max-width: 768px) {
+            header { display: none; }
+            html, body { overflow-y: auto; scroll-snap-type: y mandatory; -webkit-overflow-scrolling: touch; }
+            .slide { position: static; height: auto; min-height: 100svh; scroll-snap-align: start; }
+            #slide-counter { bottom: 1rem; }
+        }
     </style>
 </head>
 <body class="antialiased">
