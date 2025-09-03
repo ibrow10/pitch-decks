@@ -87,6 +87,11 @@
             font-size: 0.9rem;
             backdrop-filter: blur(5px);
         }
+        /* Subtle moving shapes */
+        .shape { position: absolute; opacity: 0.06; z-index: -1; animation: slowspin 60s linear infinite; filter: drop-shadow(0 10px 30px rgba(212,175,55,0.25)); }
+        .shape-1 { top: -20%; right: -15%; width: 50vw; }
+        .shape-2 { bottom: -30%; left: -20%; width: 60vw; animation-direction: reverse; }
+        @keyframes slowspin { from { transform: rotate(0deg);} to { transform: rotate(360deg);} }
         @media (max-width: 768px) {
             header { display: none; }
         }
@@ -246,7 +251,7 @@
                 </div>
                 <div class="bg-gray-800/50 border border-gray-700 p-8 rounded-lg text-center">
                     <p class="text-2xl font-semibold mb-4">Global Corporate Partner</p>
-                    <img src="public/ey.png" alt="EY" class="h-12 md:h-16 mx-auto" />
+                    <img src="public/ey.png" alt="EY" class="h-12 md:h-16 mx-auto" style="filter: grayscale(100%) invert(1) brightness(1.4); opacity:0.95;" />
                     <p class="text-lg text-gray-400 mt-4">Powering their "Winning Women" cohort.</p>
                 </div>
             </div>
@@ -254,8 +259,14 @@
     </div>
 
     <!-- Slide 6: The Ecosystem -->
-    <div id="slide-6" class="slide bg-white text-charcoal">
-        <div class="slide-content text-center">
+    <div id="slide-6" class="slide bg-white text-charcoal relative overflow-hidden">
+        <div class="shape shape-1">
+            <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"><path fill="#D4AF37" d="M49.8,-53.4C64.1,-42.6,75.1,-27.1,77.5,-10.1C79.9,6.9,73.7,25.3,62.8,40.1C51.9,54.9,36.3,66.1,18.8,72.2C1.3,78.2,-18.1,79,-34.4,72C-50.7,65,-64,49.9,-71.4,32.8C-78.7,15.7,-80.1,-3.4,-74.6,-19.3C-69,-35.1,-56.5,-47.7,-42.5,-57.1C-28.5,-66.5,-14.2,-72.7,2.1,-75.4C18.5,-78.1,37.1,-78,49.8,-53.4Z" transform="translate(100 100)"/></svg>
+        </div>
+        <div class="shape shape-2">
+            <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"><path fill="#F5D77C" d="M48.2,-64.8C62.4,-57,74,-42.5,79.5,-26.3C85,-10.1,84.4,7.8,77.6,22.8C70.9,37.8,58.1,49.8,43.6,58.9C29.2,67.9,13.2,74,-4.1,76.5C-21.4,79,-44.1,77.9,-58,68.2C-71.9,58.5,-77,40.2,-78.3,22.2C-79.7,4.3,-77.3,-13.2,-68.8,-26C-60.3,-38.8,-45.7,-46.9,-32.1,-54C-18.4,-61.2,-5.7,-67.5,8.8,-71.1C23.3,-74.8,48.2,-74.8,48.2,-64.8Z" transform="translate(100 100)"/></svg>
+        </div>
+        <div class="slide-content text-center relative">
             <h2 class="text-5xl md:text-6xl font-bold mb-8">The Ecosystem</h2>
             <p class="text-xl max-w-3xl mx-auto mb-10 text-gray-700">More than a community — a system compounding relationships into capital and careers.</p>
             <div class="grid md:grid-cols-3 gap-6 text-left max-w-6xl mx-auto">
@@ -361,46 +372,42 @@
     
     <!-- Slide 9: The Ask -->
     <div id="slide-9" class="slide bg-charcoal-dark text-white">
-        <div class="slide-content text-center">
-            <h2 class="text-5xl md:text-6xl font-bold mb-8">Raising €250k to launch London.</h2>
-            <div class="text-left max-w-6xl mx-auto grid md:grid-cols-2 gap-12 items-center">
-                <div>
-                    <h3 class="text-3xl font-bold mb-4">Use of Funds</h3>
-                    <div class="w-full bg-gray-700 rounded-full h-8 mb-4 flex">
-                        <div class="bg-gold h-8 rounded-l-full text-center text-charcoal font-bold flex items-center justify-center" style="width: 45%">Events</div>
-                        <div class="bg-yellow-300 h-8 text-center text-charcoal font-bold flex items-center justify-center" style="width: 35%">Marketing</div>
-                        <div class="bg-yellow-200 h-8 rounded-r-full text-center text-charcoal font-bold flex items-center justify-center" style="width: 20%">Platform</div>
+        <div class="slide-content">
+            <h2 class="text-5xl md:text-6xl font-bold mb-10 text-center">Seed <span class="text-gold">€250k</span> to Ignite London</h2>
+            <div class="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto">
+                <div class="bg-gray-800/50 border border-gray-700 p-6 rounded-lg">
+                    <h3 class="text-2xl font-bold mb-4">Allocation</h3>
+                    <div class="space-y-3 text-gray-200">
+                        <div class="flex justify-between"><span>Flagship events & community</span><span class="text-gold">45%</span></div>
+                        <div class="flex justify-between"><span>Targeted marketing</span><span class="text-gold">35%</span></div>
+                        <div class="flex justify-between"><span>Platform & ops</span><span class="text-gold">20%</span></div>
                     </div>
-                     <ul class="list-disc list-inside space-y-2 text-xl text-gray-300">
-                        <li>Hire London events lead to establish our presence.</li>
-                        <li>Execute targeted marketing campaigns.</li>
-                        <li>Ship our new proprietary platform.</li>
-                    </ul>
                 </div>
-                <div>
-                    <h3 class="text-3xl font-bold mb-4">12-Month Goal</h3>
-                    <div class="bg-gray-800/50 p-6 rounded-lg border border-gray-700 text-left">
-                        <p class="text-lg text-gray-400">Profitable London hub with</p>
-                        <p class="text-7xl font-bold my-2"><span class="text-gold">150+</span></p>
-                        <p class="text-xl">paying members → Europe scale.</p>
-                        <div class="mt-6 flex gap-4 justify-start">
-                            <a href="mailto:intros@kella.com" class="px-6 py-3 rounded-lg bg-gold text-charcoal font-bold">Make an Intro</a>
-                            <a href="#" class="px-6 py-3 rounded-lg border border-gray-600">View Data Room</a>
-                        </div>
+                <div class="bg-gray-800/50 border border-gray-700 p-6 rounded-lg">
+                    <h3 class="text-2xl font-bold mb-4">12‑Month Targets</h3>
+                    <div class="grid grid-cols-3 gap-4 text-center">
+                        <div><p class="text-4xl font-extrabold text-gold">150+</p><p class="text-gray-300">Members</p></div>
+                        <div><p class="text-4xl font-extrabold text-gold">12</p><p class="text-gray-300">Flagships</p></div>
+                        <div><p class="text-4xl font-extrabold text-gold">6</p><p class="text-gray-300">Partners</p></div>
                     </div>
+                    <p class="mt-4 text-gray-300">De‑risked path to a profitable London hub and European scale.</p>
                 </div>
             </div>
         </div>
     </div>
 
     <!-- Slide 10: Contact -->
-    <div id="slide-10" class="slide bg-white text-charcoal" style="background-image: linear-gradient(rgba(255,255,255,0.92), rgba(255,255,255,0.92)), url('public/kella4.jpg'); background-size: cover; background-position: center;">
-        <div class="slide-content text-center">
+    <div id="slide-10" class="slide bg-charcoal-dark text-white relative overflow-hidden">
+        <video class="absolute inset-0 w-full h-full object-cover opacity-40" autoplay muted loop playsinline poster="public/kella4.jpg">
+            <source src="public/kella.mp4" type="video/mp4">
+        </video>
+        <div class="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/80"></div>
+        <div class="slide-content text-center relative">
             <h2 class="text-7xl md:text-8xl font-bold mb-6">Kella</h2>
-            <p class="text-2xl md:text-3xl mb-10 text-gray-800">Let's build the future of leadership, together.</p>
+            <p class="text-2xl md:text-3xl mb-10 text-gray-200">Let's build the future of leadership, together.</p>
             <div class="flex flex-col sm:flex-row gap-4 justify-center">
                 <a href="mailto:hannah@kella.com" class="px-8 py-3 rounded-lg bg-gold text-charcoal font-bold">Request Intro</a>
-                <a href="https://www.kella.com" target="_blank" rel="noopener" class="px-8 py-3 rounded-lg border border-gray-300">Learn More</a>
+                <a href="https://www.kella.com" target="_blank" rel="noopener" class="px-8 py-3 rounded-lg border border-gray-500">Learn More</a>
             </div>
         </div>
     </div>
