@@ -91,9 +91,18 @@
             max-width: 1200px;
         }
         /* Header styling consistent with other decks */
-        .deck-header { background: linear-gradient(180deg, rgba(17,24,39,0.85), rgba(17,24,39,0.55)); backdrop-filter: blur(6px); border-bottom: 1px solid rgba(255,255,255,0.08); }
-        .deck-header a { text-decoration: none; }
-        .deck-header a:hover { text-decoration: none; }
+        .deck-header {
+            position: fixed; top: 0; left: 0; right: 0; z-index: 150;
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 16px 24px;
+            background: linear-gradient(180deg, rgba(17,24,39,0.85), rgba(17,24,39,0.55));
+            backdrop-filter: blur(6px);
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+        }
+        .deck-header .brand { font-family: var(--font-headline); font-weight: 800; letter-spacing: .08em; font-size: 1.125rem; }
+        .deck-header .meta { display: flex; align-items: center; gap: 16px; font-size: .875rem; color: #cbd5e1; }
+        .deck-header .meta a { color: #e6edf3; text-decoration: none; }
+        .deck-header .meta a:hover { color: #ffffff; text-decoration: none; }
 
         /* Centering helpers */
         /* Helpers for centering specific slides */
@@ -371,9 +380,9 @@
 <body>
 
     <!-- Header (consistent across decks) -->
-    <header class="deck-header fixed top-0 left-0 w-full p-6 z-20 flex justify-between items-center">
-        <div class="text-lg font-extrabold tracking-wider">PROJECT ORIENT</div>
-        <div class="meta text-sm font-medium text-gray-300 flex items-center gap-4">
+    <header class="deck-header">
+        <div class="brand">PROJECT ORIENT</div>
+        <div class="meta">
             <span>Investor Deck // Confidential</span>
             <a href="index.html" class="hover:text-white">Home</a>
         </div>
