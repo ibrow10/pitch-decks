@@ -25,21 +25,26 @@
             transform: scale(1.5);
         }
     </style>
+    <style>
         /* Mobile-friendly scroll container */
         #deck-container { height: 100dvh; overflow-y: auto; scroll-snap-type: y mandatory; -webkit-overflow-scrolling: touch; padding-top: 72px; padding-bottom: env(safe-area-inset-bottom, 0); }
         .slide { scroll-snap-align: start; }
+        /* Consistent header styling */
+        .deck-header { background: linear-gradient(180deg, rgba(17,24,39,0.85), rgba(17,24,39,0.55)); backdrop-filter: blur(6px); border-bottom: 1px solid rgba(255,255,255,0.08); }
         @media (max-width: 768px) {
             .slide { min-height: 100dvh; }
+            .deck-header .meta { display: none; }
         }
+    </style>
 </head>
 <body class="bg-gray-900 text-white">
 
     <!-- Header -->
-    <header class="fixed top-0 left-0 w-full p-6 z-20 flex justify-between items-center">
+    <header class="deck-header fixed top-0 left-0 w-full p-6 z-20 flex justify-between items-center">
         <div class="flex items-center gap-3">
             <img src="public/estatemin.svg" alt="EstateMin" class="h-7 w-auto" />
         </div>
-        <div class="text-sm font-medium text-gray-300 flex items-center gap-4">
+        <div class="meta text-sm font-medium text-gray-300 flex items-center gap-4">
             <span>Investor Deck // Confidential</span>
             <a href="index.html" class="hover:text-white">Home</a>
         </div>
