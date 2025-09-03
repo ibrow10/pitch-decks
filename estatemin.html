@@ -5,311 +5,341 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>EstateMin Pitch Deck</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;700&family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --bg: #0b0f10;
-            --panel: #0f1716;
-            --text: #e6f1ef;
-            --muted: #9fb8b4;
-            --accent: #2ec4b6;
-            --accent-2: #7de9dd;
-        }
         body {
             font-family: 'Inter', sans-serif;
-            background-color: var(--bg);
-            color: var(--text);
-            overflow: hidden;
+            overflow: hidden; /* Prevent scrolling the whole page */
         }
-        h1, h2, h3, h4, h5, h6 { font-family: 'Playfair Display', serif; }
         .slide {
-            width: 100vw; height: 100vh; display: none; flex-direction: column; justify-content: center; align-items: center; padding: 5%; box-sizing: border-box; position: absolute; top: 0; left: 0; transition: opacity 0.5s ease-in-out; opacity: 0; overflow: hidden;
+            transition: opacity 0.6s ease-in-out;
         }
-        .slide.active { display: flex; opacity: 1; z-index: 10; }
-        .slide-content { max-width: 1000px; width: 100%; text-align: center; }
-        /* Dark theme remap */
-        .bg-teal-dark { background-color: var(--bg); }
-        .bg-teal-light { background-color: var(--panel); }
-        .bg-cream { background-color: #0d1413; }
-        .text-cream, .text-teal-dark { color: var(--text); }
-        .text-teal-light { color: var(--accent-2); }
-        /* Accent styles */
-        .underline-accent { text-decoration-line: underline; text-decoration-color: var(--accent); text-decoration-thickness: 3px; text-underline-offset: 6px; }
-        .card { background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.02)); border: 1px solid rgba(255,255,255,0.06); border-radius: 16px; box-shadow: 0 10px 30px rgba(0,0,0,0.3); }
-        /* Shapes */
-        .shape { position: absolute; opacity: 0.06; z-index: -1; filter: drop-shadow(0 10px 30px rgba(46,196,182,0.35)); animation: slowspin 60s linear infinite; }
-        .shape-1 { top: -20%; right: -15%; width: 50vw; }
-        .shape-2 { bottom: -30%; left: -20%; width: 60vw; animation-direction: reverse; }
-        .shape-3 { top: 15%; left: 8%; width: 30vw; }
-        @keyframes slowspin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
-        /* Nav */
-        .nav-button { position: fixed; top: 50%; transform: translateY(-50%); z-index: 20; background-color: rgba(255,255,255,0.06); color: var(--text); border: 1px solid rgba(255,255,255,0.12); border-radius: 9999px; width: 50px; height: 50px; display: flex; justify-content: center; align-items: center; cursor: pointer; transition: background-color 0.2s ease, border-color 0.2s ease; }
-        .nav-button:hover { background-color: rgba(255,255,255,0.12); border-color: rgba(255,255,255,0.25); }
-        #prevBtn { left: 2vw; }
-        #nextBtn { right: 2vw; }
-        #slideCounter { position: fixed; bottom: 3vh; left: 50%; transform: translateX(-50%); z-index: 20; background: transparent; color: rgba(230,241,239,0.7); padding: 0; border-radius: 0; font-size: 0.85rem; letter-spacing: 0.1em; }
+        .slide-content {
+            animation: fadeIn 1s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .nav-dot.active {
+            background-color: #4f46e5; /* indigo-600 */
+            transform: scale(1.5);
+        }
     </style>
 </head>
-<body>
+<body class="bg-gray-900 text-white">
+
     <!-- Header -->
-    <header class="fixed top-0 left-0 w-full p-6 z-10 flex justify-between items-center">
-        <div class="flex items-center">
-            <img src="public/estatemin.svg" alt="EstateMin" style="height: 28px; width: auto; filter: invert(1) brightness(1.4);" />
+    <header class="fixed top-0 left-0 w-full p-6 z-20 flex justify-between items-center">
+        <div class="flex items-center gap-3">
+            <img src="public/estatemin.svg" alt="EstateMin" class="h-7 w-auto" />
         </div>
-        <div class="text-sm font-medium text-teal-light flex items-center gap-4">
+        <div class="text-sm font-medium text-gray-300 flex items-center gap-4">
             <span>Investor Deck // Confidential</span>
             <a href="index.html" class="hover:text-white">Home</a>
         </div>
     </header>
 
-    <!-- Slide 1: Title -->
-    <div id="slide-1" class="slide active bg-teal-dark text-cream">
-        <div class="shape shape-1">
-            <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"><path fill="#2ec4b6" d="M49.8,-53.4C64.1,-42.6,75.1,-27.1,77.5,-10.1C79.9,6.9,73.7,25.3,62.8,40.1C51.9,54.9,36.3,66.1,18.8,72.2C1.3,78.2,-18.1,79,-34.4,72C-50.7,65,-64,49.9,-71.4,32.8C-78.7,15.7,-80.1,-3.4,-74.6,-19.3C-69,-35.1,-56.5,-47.7,-42.5,-57.1C-28.5,-66.5,-14.2,-72.7,2.1,-75.4C18.5,-78.1,37.1,-78,49.8,-53.4Z" transform="translate(100 100)" /></svg>
-        </div>
-        <div class="shape shape-2">
-            <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"><path fill="#7de9dd" d="M48.2,-64.8C62.4,-57,74,-42.5,79.5,-26.3C85,-10.1,84.4,7.8,77.6,22.8C70.9,37.8,58.1,49.8,43.6,58.9C29.2,67.9,13.2,74,-4.1,76.5C-21.4,79,-44.1,77.9,-58,68.2C-71.9,58.5,-77,40.2,-78.3,22.2C-79.7,4.3,-77.3,-13.2,-68.8,-26C-60.3,-38.8,-45.7,-46.9,-32.1,-54C-18.4,-61.2,-5.7,-67.5,8.8,-71.1C23.3,-74.8,48.2,-74.8,48.2,-64.8Z" transform="translate(100 100)" /></svg>
-        </div>
-        <div class="slide-content text-center">
-            <img src="public/estatemin.svg" alt="EstateMin Logo" class="h-20 mx-auto mb-8" style="filter: invert(1) brightness(1.4);">
-            <p class="text-2xl md:text-3xl font-light text-teal-light">The Operating System for <span class="underline-accent">Estate Administration</span>.</p>
-        </div>
-    </div>
+    <div id="deck-container" class="relative w-full h-screen">
 
-    <!-- Slide 2: The Problem -->
-    <div id="slide-2" class="slide bg-cream text-teal-dark">
-        <div class="slide-content">
-            <h2 class="text-5xl md:text-6xl font-bold mb-6">Death is messy. <span class="underline-accent">Administration</span> is messier.</h2>
-            <p class="text-xl md:text-2xl max-w-4xl mx-auto mb-12" style="color: var(--muted);">Every year, trillions of dollars in assets are transferred between generations, but the process is stuck in the past.</p>
-            <div class="grid md:grid-cols-3 gap-8 text-left">
-                <div class="card p-6">
-                    <h3 class="text-2xl font-bold mb-2">Scattered Information</h3>
-                    <p style="color: var(--muted);">Endless email threads, phone calls, and shoeboxes full of documents.</p>
+        <!-- Slide 1: Title -->
+        <div class="slide absolute w-full h-full flex items-center justify-center p-8">
+            <div class="slide-content text-center">
+                <div class="inline-block bg-indigo-600 p-4 rounded-lg mb-6">
+                     <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-white"><path d="M12 22s-8-4.5-8-11.8A8 8 0 0 1 12 2a8 8 0 0 1 8 8.2c0 7.3-8 11.8-8 11.8z"/><circle cx="12" cy="10" r="3"/></svg>
                 </div>
-                <div class="card p-6">
-                    <h3 class="text-2xl font-bold mb-2">Manual Data Entry</h3>
-                    <p style="color: var(--muted);">Hours spent by expensive legal professionals typing handwritten notes into complex systems.</p>
-                </div>
-                <div class="card p-6">
-                    <h3 class="text-2xl font-bold mb-2">Insecurity & Inefficiency</h3>
-                    <p style="color: var(--muted);">Sensitive client data shared over insecure channels, and a slow, frustrating process for grieving families.</p>
-                </div>
+                <h1 class="text-7xl md:text-9xl font-black tracking-tighter text-white">EstateMin</h1>
+                <h3 class="text-2xl md:text-4xl mt-4 text-indigo-400 font-bold">The Operating System for Death.</h3>
             </div>
         </div>
-    </div>
 
-    <!-- Slide 3: Our Solution -->
-    <div id="slide-3" class="slide bg-teal-light text-cream">
-        <div class="slide-content">
-            <h2 class="text-5xl md:text-6xl font-bold mb-6">A Single Source of <span class="underline-accent">Truth</span> for Estate Administration.</h2>
-            <p class="text-xl md:text-2xl max-w-4xl mx-auto mb-12">EstateMin is a vertical SaaS platform that streamlines the entire post-death process, connecting the firm, the executor, and the family in one secure portal.</p>
-            <!-- Mockup of the dashboard -->
-            <div class="bg-white/10 p-6 rounded-xl text-left grid md:grid-cols-3 gap-6 backdrop-blur-sm border border-white/20">
-                <div class="md:col-span-1 bg-white/10 p-4 rounded-lg">
-                    <h4 class="text-lg font-bold mb-3">Case: John Doe Estate</h4>
-                    <ul>
-                        <li class="p-2 rounded-md bg-white/20 mb-2">Dashboard</li>
-                        <li class="p-2 rounded-md mb-2">Asset Inventory</li>
-                        <li class="p-2 rounded-md mb-2">Documents</li>
-                        <li class="p-2 rounded-md mb-2">Secure Messages</li>
-                    </ul>
-                </div>
-                <div class="md:col-span-2 bg-white/10 p-4 rounded-lg">
-                    <h4 class="text-xl font-bold mb-3">Asset Inventory</h4>
-                    <div class="space-y-3">
-                        <div class="flex justify-between items-center bg-white/20 p-3 rounded-md"><span>Bank of America - Acct #..1234</span><span class="font-bold text-green-300">Verified</span></div>
-                        <div class="flex justify-between items-center bg-white/20 p-3 rounded-md"><span>Fidelity Brokerage - Acct #..5678</span><span class="font-bold text-green-300">Verified</span></div>
-                        <div class="flex justify-between items-center bg-white/10 p-3 rounded-md"><span>MetLife Pension</span><span class="font-bold text-yellow-300">Pending</span></div>
+        <!-- Slide 2: The Problem -->
+        <div class="slide absolute w-full h-full flex items-center justify-center p-8 opacity-0 pointer-events-none">
+            <div class="slide-content text-center max-w-4xl">
+                <h2 class="text-5xl md:text-7xl font-black tracking-tight">Death is a <span class="text-red-500">$100 Billion</span> Mess.</h2>
+                <div class="mt-10 grid md:grid-cols-3 gap-8 text-left">
+                    <div class="bg-gray-800 p-6 rounded-lg">
+                        <h4 class="text-xl font-bold text-red-400">Fragmented Data</h4>
+                        <p class="mt-2 text-gray-300">Endless email threads, shoeboxes of documents, and panicked phone calls.</p>
+                    </div>
+                    <div class="bg-gray-800 p-6 rounded-lg">
+                        <h4 class="text-xl font-bold text-red-400">Manual Labor</h4>
+                        <p class="mt-2 text-gray-300">Hours wasted on data entry, chasing information, and administrative drudgery.</p>
+                    </div>
+                    <div class="bg-gray-800 p-6 rounded-lg">
+                        <h4 class="text-xl font-bold text-red-400">Zero Collaboration</h4>
+                        <p class="mt-2 text-gray-300">Lawyers, accountants, and executors operate in disconnected silos.</p>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
 
-    <!-- Slide 4: The Vision -->
-    <div id="slide-4" class="slide bg-cream text-teal-dark">
-        <div class="slide-content">
-            <h2 class="text-5xl md:text-6xl font-bold mb-6">We are building the infrastructure for the future of personal legal tech.</h2>
-            <p class="text-xl md:text-2xl max-w-4xl mx-auto mb-8">The world is moving towards AI agents managing our financial and legal lives. These agents will need a secure, trusted endpoint to manage estate information.</p>
-            <div class="bg-teal-dark text-cream p-8 rounded-lg inline-block shadow-2xl">
-                <h3 class="text-4xl font-bold">EstateMin is that endpoint.</h3>
-            </div>
-            <p class="text-xl md:text-2xl max-w-4xl mx-auto mt-8">We are building the rails for the automated, agent-driven future of estate planning.</p>
-        </div>
-    </div>
-
-    <!-- Slide 5: Traction -->
-    <div id="slide-5" class="slide bg-cream text-teal-dark">
-        <div class="slide-content">
-            <h2 class="text-5xl md:text-6xl font-bold mb-12">Launched in the U.S. 3 months ago and already have market validation.</h2>
-            <div class="grid md:grid-cols-3 gap-8">
-                <div class="card p-8 text-center">
-                    <p class="text-6xl font-bold" style="color: var(--accent);">7</p>
-                    <p class="text-2xl font-semibold">Paying Law Firms</p>
-                    <p class="text-lg" style="color: var(--muted);">Across 6 U.S. states.</p>
-                </div>
-                <div class="card p-8 text-center">
-                    <p class="text-6xl font-bold" style="color: var(--accent);">100+</p>
-                    <p class="text-2xl font-semibold">Firm Pipeline</p>
-                    <p class="text-lg" style="color: var(--muted);">Interested in piloting or subscribing.</p>
-                </div>
-                <div class="card p-8 text-center flex flex-col justify-center items-center">
-                    <p class="text-2xl font-semibold mb-4">Key Strategic Partnership</p>
-                    <div class="h-16 flex items-center">
-                        <img src="public/estatemin.svg" alt="Partner Logo" class="h-10 opacity-90" style="filter: invert(1) brightness(1.2);">
+        <!-- Slide 3: Our Solution (Today) -->
+        <div class="slide absolute w-full h-full flex items-center justify-center p-8 opacity-0 pointer-events-none">
+            <div class="slide-content text-center max-w-4xl">
+                 <h2 class="text-5xl md:text-7xl font-black tracking-tight">The <span class="text-indigo-400">Single Source of Truth</span> for Estate Administration.</h2>
+                 <p class="mt-6 text-xl text-gray-300">EstateMin is a vertical SaaS platform that replaces chaos with clarity.</p>
+                 <div class="mt-10 flex flex-col md:flex-row justify-center items-center gap-4 text-left">
+                    <div class="flex items-center bg-gray-800 p-4 rounded-lg w-full md:w-auto">
+                        <div class="text-5xl font-black text-indigo-500 mr-4">1.</div>
+                        <p class="text-lg">Executors easily upload all asset information.</p>
                     </div>
-                    <p class="text-lg mt-2" style="color: var(--muted);">with the world's largest legal CMS.</p>
-                </div>
+                    <div class="flex items-center bg-gray-800 p-4 rounded-lg w-full md:w-auto">
+                        <div class="text-5xl font-black text-indigo-500 mr-4">2.</div>
+                        <p class="text-lg">Data instantly populates the law firm's systems.</p>
+                    </div>
+                    <div class="flex items-center bg-gray-800 p-4 rounded-lg w-full md:w-auto">
+                        <div class="text-5xl font-black text-indigo-500 mr-4">3.</div>
+                        <p class="text-lg">Lawyers get what they need, instantly.</p>
+                    </div>
+                 </div>
             </div>
         </div>
-    </div>
 
-    <!-- Slide 6: Business Model -->
-    <div id="slide-6" class="slide bg-teal-dark text-cream">
-        <div class="slide-content text-center">
-            <h2 class="text-5xl md:text-6xl font-bold mb-8">Simple, Scalable SaaS.</h2>
-            <p class="text-xl md:text-2xl max-w-3xl mx-auto mb-12">A straightforward B2B SaaS model designed for efficient, self-serve onboarding to scale rapidly in the U.S. market.</p>
-            <div class="bg-cream text-teal-dark p-12 rounded-lg inline-block shadow-2xl">
-                <p class="text-7xl font-bold">$250</p>
-                <p class="text-2xl">per month / per law firm</p>
-            </div>
-        </div>
-    </div>
+        <!-- Slide 4: Product Pillars (Capture / Automate / Execute) -->
+        <div class="slide absolute w-full h-full flex items-center justify-center p-8 opacity-0 pointer-events-none">
+            <div class="slide-content max-w-5xl w-full text-left">
+                <h2 class="text-5xl md:text-7xl font-black tracking-tight">Capture. <span class="text-indigo-400">Automate.</span> Execute.</h2>
+                <p class="mt-4 text-xl text-gray-300 max-w-3xl">The three pillars that turn estate chaos into orderly, auditable execution.</p>
 
-    <!-- Slide 7: Our Team -->
-    <div id="slide-7" class="slide bg-cream text-teal-dark">
-        <div class="slide-content">
-            <h2 class="text-5xl md:text-6xl font-bold mb-12">Deep Industry & Technical Expertise.</h2>
-            <div class="grid md:grid-cols-3 gap-8 text-left">
-                <div class="card p-6 text-center">
-                    <div class="w-32 h-32 rounded-full mx-auto mb-4 flex items-center justify-center border border-white/20 bg-white/5"><span class="text-[color:var(--muted)]">Photo</span></div>
-                    <h3 class="text-2xl font-bold">Bella [Last Name]</h3>
-                    <p class="font-semibold" style="color: var(--accent);">CEO</p>
-                    <p class="mt-2 text-sm" style="color: var(--muted);">Serial entrepreneur with a passion for solving legacy problems.</p>
-                </div>
-                <div class="card p-6 text-center">
-                    <div class="w-32 h-32 rounded-full mx-auto mb-4 flex items-center justify-center border border-white/20 bg-white/5"><span class="text-[color:var(--muted)]">Photo</span></div>
-                    <h3 class="text-2xl font-bold">John Noonan</h3>
-                    <p class="font-semibold" style="color: var(--accent);">Growth</p>
-                    <p class="mt-2 text-sm" style="color: var(--muted);">5 years as Brand Manager at Cleo, the world's largest legal tech company.</p>
-                </div>
-                <div class="card p-6 text-center">
-                    <div class="w-32 h-32 rounded-full mx-auto mb-4 flex items-center justify-center border border-white/20 bg-white/5"><span class="text-[color:var(--muted)]">Photo</span></div>
-                    <h3 class="text-2xl font-bold">Oshi Dolphin</h3>
-                    <p class="font-semibold" style="color: var(--accent);">Technology</p>
-                    <p class="mt-2 text-sm" style="color: var(--muted);">Background in Machine Learning, building our intelligent infrastructure.</p>
-                </div>
-            </div>
-        </div>
-    </div>
-    
-    <!-- Slide 8: The Ask -->
-    <div id="slide-8" class="slide bg-teal-dark text-cream">
-        <div class="slide-content text-center relative">
-            <div class="shape shape-3">
-                <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"><path fill="#2ec4b6" d="M36.3,-59.6C47.6,-54.7,57.8,-47.1,63.5,-36.9C69.2,-26.7,70.5,-13.3,70.9,0.3C71.3,13.9,70.7,27.9,64.7,39.4C58.7,50.8,47.3,59.8,34.8,64.9C22.3,70,11.1,71.3,-1.8,74.1C-14.7,76.9,-29.5,81.1,-42.7,77.6C-55.9,74.2,-67.5,63.1,-73.1,49.3C-78.8,35.5,-78.5,19,-76,3.5C-73.4,-12,-68.6,-26.3,-60.6,-37.1C-52.7,-47.8,-41.5,-55,-29.7,-60.5C-18,-66.1,-9,-70.1,1.4,-72.8C11.8,-75.5,23.6,-76.9,36.3,-59.6Z" transform="translate(100 100)" /></svg>
-            </div>
-            <h2 class="text-5xl md:text-6xl font-bold mb-8">Raising $1 Million to become the U.S. market leader.</h2>
-            <div class="text-left max-w-4xl mx-auto grid md:grid-cols-2 gap-10">
-                <div class="card p-6">
-                    <div class="mb-4 h-1.5 w-24 rounded-full" style="background: linear-gradient(90deg,var(--accent),var(--accent-2));"></div>
-                    <h3 class="text-3xl font-bold mb-4">Use of Funds</h3>
-                    <ul class="space-y-2 text-xl">
-                        <li>Scale sales & marketing</li>
-                        <li>Hire key engineering talent</li>
-                        <li>Build our pre-death product</li>
-                    </ul>
-                </div>
-                <div class="card p-6">
-                    <div class="mb-4 h-1.5 w-24 rounded-full" style="background: linear-gradient(90deg,var(--accent),var(--accent-2));"></div>
-                    <h3 class="text-3xl font-bold mb-4">Our Goal</h3>
-                    <p class="text-xl">Grow from <span class="text-4xl font-bold" style="color: var(--accent);">7 to 300</span> paying customers in the next 12-18 months, positioning us for a dominant Series A.</p>
-                    <div class="mt-6 grid grid-cols-3 gap-4 text-center">
-                        <div class="p-4 rounded-lg" style="background: rgba(255,255,255,0.04);">
-                            <p class="text-3xl font-extrabold" style="color: var(--accent);">50+</p>
-                            <p class="text-sm" style="color: var(--muted);">Markets</p>
+                <div class="mt-10 grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <!-- Capture -->
+                    <div class="bg-gray-800/60 border border-gray-700 rounded-xl p-6">
+                        <div class="flex items-center gap-3">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 text-indigo-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="14" rx="2"/><path d="M8 21h8"/><path d="M12 17v4"/></svg>
+                            <h3 class="text-2xl font-bold">Capture</h3>
                         </div>
-                        <div class="p-4 rounded-lg" style="background: rgba(255,255,255,0.04);">
-                            <p class="text-3xl font-extrabold" style="color: var(--accent);">300</p>
-                            <p class="text-sm" style="color: var(--muted);">Firms</p>
+                        <p class="mt-3 text-gray-300">Intake assets, liabilities, beneficiaries, and documents in minutes—not months.</p>
+                    </div>
+
+                    <!-- Automate -->
+                    <div class="bg-gray-800/60 border border-gray-700 rounded-xl p-6">
+                        <div class="flex items-center gap-3">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 text-indigo-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10h18"/><path d="M5 6h14"/><path d="M7 14h10"/><path d="M9 18h6"/></svg>
+                            <h3 class="text-2xl font-bold">Automate</h3>
                         </div>
-                        <div class="p-4 rounded-lg" style="background: rgba(255,255,255,0.04);">
-                            <p class="text-3xl font-extrabold" style="color: var(--accent);">12–18</p>
-                            <p class="text-sm" style="color: var(--muted);">Months</p>
+                        <p class="mt-3 text-gray-300">Generate checklists, chase information, and sync data bi‑directionally with firm systems.</p>
+                    </div>
+
+                    <!-- Execute -->
+                    <div class="bg-gray-800/60 border border-gray-700 rounded-xl p-6">
+                        <div class="flex items-center gap-3">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 text-indigo-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
+                            <h3 class="text-2xl font-bold">Execute</h3>
                         </div>
+                        <p class="mt-3 text-gray-300">Track progress, produce filings, and close estates with auditable confidence.</p>
                     </div>
                 </div>
             </div>
         </div>
+
+        <!-- Slide 5: The Inevitable Future (dark, left-aligned) -->
+        <div class="slide absolute w-full h-full flex items-center justify-center p-8 opacity-0 pointer-events-none">
+            <div class="slide-content max-w-5xl w-full text-left">
+                <div class="bg-gray-800/60 border border-gray-700 rounded-xl p-8">
+                    <h2 class="text-5xl md:text-7xl font-black tracking-tight">The Future of Death is <span class="text-indigo-400">Autonomous.</span></h2>
+                    <p class="mt-4 text-xl text-gray-300 max-w-3xl">
+                        Personal AI agents will manage our financial lives. When we die, they will execute our wills.
+                        Any company building a better form‑filler today will be <span class="text-red-500 font-bold">irrelevant tomorrow.</span>
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 5: Our Real Vision -->
+        <div class="slide absolute w-full h-full flex items-center justify-center p-8 opacity-0 pointer-events-none">
+            <div class="slide-content text-center max-w-4xl">
+                <h2 class="text-5xl md:text-7xl font-black tracking-tight">We're Not Building a Tool. We're Building <span class="text-indigo-400">the Infrastructure.</span></h2>
+                <p class="mt-6 text-xl text-gray-300">The autonomous future needs a secure, trusted platform. AI agents can't negotiate with thousands of banks and law firms independently.</p>
+                <div class="mt-8 bg-indigo-900/50 border border-indigo-700 p-6 rounded-lg">
+                    <h3 class="text-3xl font-bold text-white">We are the operating system for this new world.</h3>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Slide 6: Why Now? -->
+        <div class="slide absolute w-full h-full flex items-center justify-center p-8 opacity-0 pointer-events-none">
+            <div class="slide-content text-center max-w-4xl">
+                <h2 class="text-5xl md:text-7xl font-black tracking-tight">The Tipping Point for Legal Tech is <span class="text-indigo-400">Here.</span></h2>
+                <div class="mt-10 grid md:grid-cols-3 gap-8 text-left">
+                    <div class="bg-gray-800 p-6 rounded-lg">
+                        <h4 class="text-xl font-bold text-indigo-400">Market Pull</h4>
+                        <p class="mt-2 text-gray-300">Firms are actively seeking solutions to stay competitive.</p>
+                    </div>
+                    <div class="bg-gray-800 p-6 rounded-lg">
+                        <h4 class="text-xl font-bold text-indigo-400">AI Readiness</h4>
+                        <p class="mt-2 text-gray-300">The technology is no longer science fiction.</p>
+                    </div>
+                    <div class="bg-gray-800 p-6 rounded-lg">
+                        <h4 class="text-xl font-bold text-indigo-400">First-Mover Advantage</h4>
+                        <p class="mt-2 text-gray-300">We are establishing critical infrastructure *before* the market is saturated.</p>
+                    </div>
+                </div>
+                 <p class="mt-8 text-2xl font-bold text-gray-300 italic">"We are building the rails for the trains that are coming."</p>
+            </div>
+        </div>
+
+        <!-- Slide 7: Traction -->
+        <div class="slide absolute w-full h-full flex items-center justify-center p-8 opacity-0 pointer-events-none">
+            <div class="slide-content text-center max-w-5xl">
+                <h2 class="text-5xl md:text-7xl font-black tracking-tight">Launched 3 Months Ago. The Market Is <span class="text-indigo-400">Pulling Us In.</span></h2>
+                <div class="mt-10 grid md:grid-cols-3 gap-8">
+                    <div class="bg-gray-800 p-6 rounded-lg">
+                        <p class="text-6xl font-black text-indigo-400">7</p>
+                        <p class="text-xl mt-2">Paying Law Firms</p>
+                        <p class="text-md text-gray-400">across 6 US States</p>
+                    </div>
+                    <div class="bg-gray-800 p-6 rounded-lg flex flex-col items-center justify-center">
+                         <img src="https://placehold.co/150x50/1f2937/a5b4fc?text=Cleo" alt="Cleo Logo" class="h-10 mb-3 grayscale opacity-70">
+                        <p class="text-xl text-center">Official Integration Partner with the world's largest legal tech co.</p>
+                    </div>
+                    <div class="bg-gray-800 p-6 rounded-lg">
+                        <p class="text-6xl font-black text-indigo-400">100+</p>
+                        <p class="text-xl mt-2">Firms in Pipeline</p>
+                        <p class="text-md text-gray-400">ready for onboarding</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Slide 8: Team -->
+        <div class="slide absolute w-full h-full flex items-center justify-center p-8 opacity-0 pointer-events-none">
+            <div class="slide-content text-center max-w-5xl">
+                <h2 class="text-5xl md:text-7xl font-black tracking-tight">The <span class="text-indigo-400">Right Team</span> to Build the Future.</h2>
+                <div class="mt-10 grid md:grid-cols-3 gap-8">
+                    <div class="bg-gray-800 p-6 rounded-lg text-center">
+                        <img src="https://placehold.co/150x150/4f46e5/ffffff?text=B" class="w-32 h-32 rounded-full mx-auto mb-4 border-4 border-gray-700">
+                        <h4 class="text-2xl font-bold">Bella [Surname]</h4>
+                        <p class="text-indigo-400">Founder & CEO</p>
+                        <p class="mt-2 text-gray-300">Deep domain expertise in estate law.</p>
+                    </div>
+                    <div class="bg-gray-800 p-6 rounded-lg text-center">
+                        <img src="https://placehold.co/150x150/4f46e5/ffffff?text=J" class="w-32 h-32 rounded-full mx-auto mb-4 border-4 border-gray-700">
+                        <h4 class="text-2xl font-bold">John Noonan</h4>
+                        <p class="text-indigo-400">Go-To-Market</p>
+                        <p class="mt-2 text-gray-300">5 years at <span class="font-bold">Cleo</span>, the world's biggest legal tech co.</p>
+                    </div>
+                    <div class="bg-gray-800 p-6 rounded-lg text-center">
+                        <img src="https://placehold.co/150x150/4f46e5/ffffff?text=O" class="w-32 h-32 rounded-full mx-auto mb-4 border-4 border-gray-700">
+                        <h4 class="text-2xl font-bold">Oshi Dolphin</h4>
+                        <p class="text-indigo-400">Technology</p>
+                        <p class="mt-2 text-gray-300">Background in Machine Learning.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 9: The Ask -->
+        <div class="slide absolute w-full h-full flex items-center justify-center p-8 opacity-0 pointer-events-none">
+             <div class="slide-content text-center max-w-4xl">
+                <h2 class="text-5xl md:text-7xl font-black tracking-tight">We're Raising <span class="text-indigo-400">$1M</span> to Dominate the US Market.</h2>
+                <p class="mt-6 text-xl text-gray-300">This isn't a science project. This is fuel on the fire.</p>
+                <div class="mt-10 text-left grid md:grid-cols-3 gap-6">
+                    <div class="bg-gray-800 p-6 rounded-lg">
+                        <h4 class="text-xl font-bold">Scale Sales & Marketing</h4>
+                        <p class="mt-2 text-gray-300">Go from 7 to <span class="font-bold text-indigo-400">300 law firms</span>.</p>
+                    </div>
+                    <div class="bg-gray-800 p-6 rounded-lg">
+                        <h4 class="text-xl font-bold">Deepen Integrations</h4>
+                        <p class="mt-2 text-gray-300">Expand our ecosystem partnerships.</p>
+                    </div>
+                     <div class="bg-gray-800 p-6 rounded-lg">
+                        <h4 class="text-xl font-bold">Accelerate Roadmap</h4>
+                        <p class="mt-2 text-gray-300">Build the next generation of infrastructure.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 10: The Goal -->
+        <div class="slide absolute w-full h-full flex items-center justify-center p-8 opacity-0 pointer-events-none">
+            <div class="slide-content text-center max-w-4xl">
+                <h2 class="text-5xl md:text-7xl font-black tracking-tight">The Path to the <span class="text-indigo-400">Series A.</span></h2>
+                 <div class="mt-10 flex flex-col md:flex-row items-center justify-center space-y-6 md:space-y-0 md:space-x-6">
+                    <div class="text-center">
+                        <p class="text-6xl font-black text-white">300</p>
+                        <p class="text-2xl text-gray-300">Firms</p>
+                    </div>
+                    <div class="text-4xl font-thin text-gray-500">&rarr;</div>
+                     <div class="text-center">
+                        <p class="text-6xl font-black text-white">$100k</p>
+                        <p class="text-2xl text-gray-300">MRR</p>
+                    </div>
+                    <div class="text-4xl font-thin text-gray-500">&rarr;</div>
+                     <div class="text-center">
+                        <p class="text-6xl font-black text-indigo-400">$5M+</p>
+                        <p class="text-2xl text-gray-300">Series A</p>
+                    </div>
+                 </div>
+                 <p class="mt-8 text-xl text-gray-300">This initial $1M allows us to build a dominant position and raise a significant Series A in the US to become the undisputed category leader.</p>
+            </div>
+        </div>
+
+        <!-- Slide 11: Final Slide -->
+        <div class="slide absolute w-full h-full flex items-center justify-center p-8 opacity-0 pointer-events-none">
+             <div class="slide-content text-center">
+                <div class="inline-block bg-indigo-600 p-4 rounded-lg mb-6">
+                     <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-white"><path d="M12 22s-8-4.5-8-11.8A8 8 0 0 1 12 2a8 8 0 0 1 8 8.2c0 7.3-8 11.8-8 11.8z"/><circle cx="12" cy="10" r="3"/></svg>
+                </div>
+                <h1 class="text-7xl md:text-9xl font-black tracking-tighter text-white">EstateMin</h1>
+                <h3 class="text-2xl md:text-3xl mt-6 text-gray-300 font-bold">Invest in the future of an industry.</h3>
+                 <p class="mt-4 text-lg text-indigo-400">bella@estatemin.com</p>
+            </div>
+        </div>
+
     </div>
 
-    <!-- Slide 9: Contact -->
-    <div id="slide-9" class="slide bg-cream text-teal-dark">
-        <div class="slide-content text-center">
-            <img src="public/estatemin.svg" alt="EstateMin Logo" class="h-16 mx-auto mb-8" style="filter: invert(1) brightness(1.4);">
-            <h2 class="text-6xl font-bold mb-8">Thank You.</h2>
-            <p class="text-2xl">Bella [Last Name]</p>
-            <p class="text-2xl font-semibold text-teal-light"><a href="mailto:bella@estatemin.com" class="underline">bella@estatemin.com</a></p>
-            <p class="text-2xl"><a href="https://www.estatemin.com" target="_blank" rel="noopener" class="underline">www.estatemin.com</a></p>
-        </div>
-    </div>
-    
-    <!-- Navigation -->
-    <button id="prevBtn" class="nav-button">
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
-    </button>
-    <button id="nextBtn" class="nav-button">
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
-    </button>
-    <div id="slideCounter">1 / 9</div>
+    <!-- Navigation (footer removed; keyboard/click advance only) -->
 
     <script>
-        let currentSlide = 1;
-        const totalSlides = 9;
-        const slideCounter = document.getElementById('slideCounter');
+        document.addEventListener('DOMContentLoaded', function () {
+            const slides = document.querySelectorAll('.slide');
+            let currentSlide = 0;
 
-        function showSlide(slideNumber) {
-            // Hide current slide
-            const current = document.querySelector('.slide.active');
-            if (current) {
-                current.classList.remove('active');
-            }
-
-            // Show new slide
-            const next = document.getElementById(`slide-${slideNumber}`);
-            if (next) {
-                next.classList.add('active');
+            function showSlide(n) {
+                slides.forEach((slide, index) => {
+                    if (index === n) {
+                        slide.style.opacity = '1';
+                        slide.style.pointerEvents = 'auto';
+                    } else {
+                        slide.style.opacity = '0';
+                        slide.style.pointerEvents = 'none';
+                    }
+                });
+                
+                currentSlide = n;
             }
             
-            slideCounter.textContent = `${slideNumber} / ${totalSlides}`;
-        }
-
-        document.getElementById('nextBtn').addEventListener('click', () => {
-            if (currentSlide < totalSlides) {
-                currentSlide++;
-                showSlide(currentSlide);
+            function nextSlide() {
+                if (currentSlide < slides.length - 1) {
+                    showSlide(currentSlide + 1);
+                }
             }
-        });
 
-        document.getElementById('prevBtn').addEventListener('click', () => {
-            if (currentSlide > 1) {
-                currentSlide--;
-                showSlide(currentSlide);
+            function prevSlide() {
+                if (currentSlide > 0) {
+                    showSlide(currentSlide - 1);
+                }
             }
-        });
 
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'ArrowRight') {
-                document.getElementById('nextBtn').click();
-            } else if (e.key === 'ArrowLeft') {
-                document.getElementById('prevBtn').click();
-            }
-        });
+            // Keyboard navigation
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'ArrowRight') {
+                    nextSlide();
+                } else if (e.key === 'ArrowLeft') {
+                    prevSlide();
+                }
+            });
 
-        // Initialize first slide
-        showSlide(currentSlide);
+            // Click anywhere to advance
+            document.getElementById('deck-container').addEventListener('click', (e) => {
+                // avoid accidental double clicks at end
+                if (currentSlide < slides.length - 1) nextSlide();
+            });
+
+            // Initial setup
+            showSlide(0);
+        });
     </script>
 </body>
 </html>

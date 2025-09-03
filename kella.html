@@ -90,6 +90,14 @@
     </style>
 </head>
 <body>
+    <!-- Header -->
+    <header class="fixed top-0 left-0 w-full p-6 z-20 flex justify-between items-center">
+        <div class="text-lg font-bold tracking-wider">KELLA</div>
+        <div class="text-sm font-medium text-gray-300 flex items-center gap-4">
+            <span>Investor Deck // Confidential</span>
+            <a href="index.html" class="hover:text-white">Home</a>
+        </div>
+    </header>
 
     <!-- Slide 1: Title -->
     <div id="slide-1" class="slide active bg-charcoal-dark text-white" style="background-image: linear-gradient(rgba(17,24,39,0.82), rgba(17,24,39,0.82)), url('public/kella1.jpg'); background-size: cover; background-position: center;">
@@ -143,61 +151,57 @@
         </div>
     </div>
 
-    <!-- Slide 4: The Flywheel (compact, visual) -->
-    <div id="slide-4" class="slide bg-white text-charcoal">
-        <div class="slide-content">
-            <h2 class="text-5xl md:text-6xl font-bold mb-4">The Kella Flywheel</h2>
-            <p class="text-lg md:text-xl text-gray-600 mb-10">In‑person energy → online depth → outcomes.</p>
+    <!-- Slide 4: The Flywheel (dark, left-aligned) -->
+    <div id="slide-4" class="slide bg-charcoal-dark text-white">
+        <div class="slide-content text-left pt-8 md:pt-16">
+            <h2 class="text-5xl md:text-6xl font-bold mb-3">The Kella Flywheel</h2>
+            <p class="text-lg md:text-xl text-gray-300 mb-8">In‑person energy → online depth → outcomes.</p>
 
             <div class="grid md:grid-cols-2 gap-10 items-center">
                 <!-- Donut chart -->
                 <div class="relative mx-auto w-full max-w-md">
                     <svg viewBox="0 0 200 200" class="w-full h-auto">
-                        <circle cx="100" cy="100" r="80" stroke="#E5E7EB" stroke-width="22" fill="none" />
+                        <circle cx="100" cy="100" r="80" stroke="#374151" stroke-width="22" fill="none" />
                         <circle cx="100" cy="100" r="80" stroke="#f56565" stroke-width="22" fill="none"
                                 stroke-dasharray="301.59 502.65" stroke-linecap="round" transform="rotate(-90 100 100)" />
-                        <circle cx="100" cy="100" r="80" stroke="#9CA3AF" stroke-width="22" fill="none"
+                        <circle cx="100" cy="100" r="80" stroke="#6B7280" stroke-width="22" fill="none"
                                 stroke-dasharray="201.06 502.65" stroke-dashoffset="301.59" stroke-linecap="round" transform="rotate(-90 100 100)" />
-                        <text x="100" y="100" text-anchor="middle" dominant-baseline="middle" font-size="22" fill="#1a202c" font-weight="700">Engagement</text>
+                        <text x="100" y="100" text-anchor="middle" dominant-baseline="middle" font-size="22" fill="#f9fafb" font-weight="700">Engagement</text>
                     </svg>
-                    <div class="mt-4 grid grid-cols-2 gap-4 text-sm">
+                    <div class="mt-4 grid grid-cols-2 gap-4 text-sm text-gray-300">
                         <div class="flex items-center gap-2"><span class="inline-block w-3 h-3 rounded-full" style="background:#f56565"></span><span class="font-semibold">In‑person 60%</span></div>
-                        <div class="flex items-center gap-2"><span class="inline-block w-3 h-3 rounded-full bg-gray-400"></span><span class="font-semibold">Online 40%</span></div>
+                        <div class="flex items-center gap-2"><span class="inline-block w-3 h-3 rounded-full" style="background:#6B7280"></span><span class="font-semibold">Online 40%</span></div>
                     </div>
                 </div>
 
                 <!-- Three compact cards -->
                 <div class="grid gap-4">
-                    <div class="flex items-start gap-4 p-5 rounded-xl shadow-lg bg-gray-100">
+                    <div class="flex items-start gap-4 p-5 rounded-xl bg-gray-800/50 border border-gray-700">
                         <svg class="w-10 h-10 text-coral" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20"/><path d="M2 12h20"/></svg>
-                        <div>
+                        <div class="text-left">
                             <p class="text-xl font-bold">Catalyze</p>
-                            <p class="text-gray-600">Masterminds, summits, high‑signal rooms.</p>
+                            <p class="text-gray-300">Masterminds, summits, high‑signal rooms.</p>
                         </div>
                     </div>
-                    <div class="flex items-start gap-4 p-5 rounded-xl shadow-lg bg-gray-100">
+                    <div class="flex items-start gap-4 p-5 rounded-xl bg-gray-800/50 border border-gray-700">
                         <svg class="w-10 h-10 text-coral" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09a1.65 1.65 0 0 0-1-1.51 1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09a1.65 1.65 0 0 0 1.51-1 1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9c0 .66.26 1.3.73 1.77.47.47 1.11.73 1.77.73H21a2 2 0 1 1 0 4h-.09c-.66 0-1.3.26-1.77.73-.47.47-.73 1.11-.73 1.77z"/>
                         </svg>
-                        <div>
+                        <div class="text-left">
                             <p class="text-xl font-bold">Connect</p>
-                            <p class="text-gray-600">Always‑on private network.</p>
+                            <p class="text-gray-300">Always‑on private network.</p>
                         </div>
                     </div>
-                    <div class="flex items-start gap-4 p-5 rounded-xl shadow-lg bg-gray-100">
+                    <div class="flex items-start gap-4 p-5 rounded-xl bg-gray-800/50 border border-gray-700">
                         <svg class="w-10 h-10 text-coral" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M19 13c-3.87 0-7-3.13-7-7"/><path d="M5 19c3.87 0 7-3.13 7-7"/></svg>
-                        <div>
+                        <div class="text-left">
                             <p class="text-xl font-bold">Compound</p>
-                            <p class="text-gray-600">Intros, capital, roles.</p>
+                            <p class="text-gray-300">Intros, capital, roles.</p>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <div class="mt-10 grid grid-cols-3 gap-6 text-center">
-                <div class="bg-gray-100 p-4 rounded-lg shadow"><p class="text-3xl font-extrabold text-coral">72</p><p class="text-gray-600">NPS</p></div>
-                <div class="bg-gray-100 p-4 rounded-lg shadow"><p class="text-3xl font-extrabold text-coral">85%</p><p class="text-gray-600">Repeat</p></div>
-                <div class="bg-gray-100 p-4 rounded-lg shadow"><p class="text-3xl font-extrabold text-coral">3×</p><p class="text-gray-600">Avg. intros</p></div>
-            </div>
+            
         </div>
     </div>
 
@@ -217,9 +221,9 @@
                     <p class="text-lg text-gray-400">At our last Kella Summit alone.</p>
                 </div>
                 <div class="bg-gray-800/50 border border-gray-700 p-8 rounded-lg text-center">
-                    <p class="text-2xl font-semibold mb-2">Global Corporate Partner</p>
-                    <p class="text-6xl font-bold text-white mt-4">EY</p>
-                    <p class="text-lg text-gray-400 mt-2">Powering their "Winning Women" cohort.</p>
+                    <p class="text-2xl font-semibold mb-4">Global Corporate Partner</p>
+                    <img src="public/ey.png" alt="EY" class="h-12 md:h-16 mx-auto" />
+                    <p class="text-lg text-gray-400 mt-4">Powering their "Winning Women" cohort.</p>
                 </div>
             </div>
         </div>
@@ -266,6 +270,38 @@
                 <span class="px-6 py-3 rounded-full bg-gray-800 border border-gray-700">London — Launch</span>
                 <span class="px-6 py-3 rounded-full bg-gray-800 border border-gray-700">New York — Next</span>
                 <span class="px-6 py-3 rounded-full bg-gray-800 border border-gray-700">Toronto — Next</span>
+            </div>
+
+            <!-- City images -->
+            <div class="mt-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div class="relative rounded-xl overflow-hidden border border-gray-700 bg-gray-900/40">
+                    <img src="public/dublincity.jpg" alt="Dublin" class="w-full h-full object-cover opacity-90">
+                    <div class="absolute inset-x-0 bottom-0 p-3 bg-gradient-to-t from-black/60 to-transparent">
+                        <p class="text-lg font-semibold">Dublin</p>
+                        <p class="text-sm text-gray-300">Proven</p>
+                    </div>
+                </div>
+                <div class="relative rounded-xl overflow-hidden border border-gray-700 bg-gray-900/40">
+                    <img src="public/londoncity.jpg" alt="London" class="w-full h-full object-cover opacity-90">
+                    <div class="absolute inset-x-0 bottom-0 p-3 bg-gradient-to-t from-black/60 to-transparent">
+                        <p class="text-lg font-semibold">London</p>
+                        <p class="text-sm text-gray-300">Launch</p>
+                    </div>
+                </div>
+                <div class="relative rounded-xl overflow-hidden border border-gray-700 bg-gray-900/40">
+                    <img src="public/newyorkcity.jpg" alt="New York" class="w-full h-full object-cover opacity-90">
+                    <div class="absolute inset-x-0 bottom-0 p-3 bg-gradient-to-t from-black/60 to-transparent">
+                        <p class="text-lg font-semibold">New York</p>
+                        <p class="text-sm text-gray-300">Next</p>
+                    </div>
+                </div>
+                <div class="relative rounded-xl overflow-hidden border border-gray-700 bg-gray-900/40">
+                    <img src="public/torontocity.webp" alt="Toronto" class="w-full h-full object-cover opacity-90">
+                    <div class="absolute inset-x-0 bottom-0 p-3 bg-gradient-to-t from-black/60 to-transparent">
+                        <p class="text-lg font-semibold">Toronto</p>
+                        <p class="text-sm text-gray-300">Next</p>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -357,7 +393,6 @@
     <script>
         let currentSlide = 1;
         const totalSlides = 10;
-        const slideCounter = document.getElementById('slideCounter');
 
         function showSlide(slideNumber) {
             const current = document.querySelector('.slide.active');
@@ -368,29 +403,40 @@
             if (next) {
                 next.classList.add('active');
             }
-            slideCounter.textContent = `${slideNumber} / ${totalSlides}`;
+            const counter = document.getElementById('slideCounter');
+            if (counter) counter.textContent = `${slideNumber} / ${totalSlides}`;
         }
 
-        document.getElementById('nextBtn').addEventListener('click', () => {
+        // click anywhere to advance
+        document.body.addEventListener('click', (e) => {
+            // avoid clicking links/buttons
+            if (e.target.closest('a,button')) return;
             if (currentSlide < totalSlides) {
                 currentSlide++;
                 showSlide(currentSlide);
             }
         });
 
-        document.getElementById('prevBtn').addEventListener('click', () => {
+        function nextSlide() {
+            if (currentSlide < totalSlides) {
+                currentSlide++;
+                showSlide(currentSlide);
+            }
+        }
+
+        function prevSlide() {
             if (currentSlide > 1) {
                 currentSlide--;
                 showSlide(currentSlide);
             }
-        });
+        }
+
+        document.getElementById('nextBtn').addEventListener('click', nextSlide);
+        document.getElementById('prevBtn').addEventListener('click', prevSlide);
 
         document.addEventListener('keydown', (e) => {
-            if (e.key === 'ArrowRight') {
-                document.getElementById('nextBtn').click();
-            } else if (e.key === 'ArrowLeft') {
-                document.getElementById('prevBtn').click();
-            }
+            if (e.key === 'ArrowRight') nextSlide();
+            else if (e.key === 'ArrowLeft') prevSlide();
         });
 
         showSlide(currentSlide);
