@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EstateMin Pitch Deck</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;700&family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #F7F5F2; /* Cream background from website */
+            color: #143736; /* Dark Teal text color */
+            overflow: hidden;
+        }
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Playfair Display', serif;
+        }
+        .slide {
+            width: 100vw;
+            height: 100vh;
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 5%;
+            box-sizing: border-box;
+            position: absolute;
+            top: 0;
+            left: 0;
+            transition: opacity 0.5s ease-in-out;
+            opacity: 0;
+        }
+        .slide.active {
+            display: flex;
+            opacity: 1;
+            z-index: 10;
+        }
+        .slide-content {
+            max-width: 1000px;
+            width: 100%;
+            text-align: center;
+        }
+        .bg-teal-dark { background-color: #143736; }
+        .bg-teal-light { background-color: #286D6B; }
+        .bg-cream { background-color: #F7F5F2; }
+        .text-cream { color: #F7F5F2; }
+        .text-teal-dark { color: #143736; }
+        .text-teal-light { color: #286D6B; }
+        
+        .nav-button {
+            position: fixed;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 20;
+            background-color: rgba(20,55,54,0.06);
+            color: #143736;
+            border: 1px solid rgba(20,55,54,0.15);
+            border-radius: 9999px;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            transition: background-color 0.2s ease, border-color 0.2s ease;
+        }
+        .nav-button:hover { background-color: rgba(20,55,54,0.12); border-color: rgba(20,55,54,0.3); }
+        #prevBtn { left: 2vw; }
+        #nextBtn { right: 2vw; }
+        
+        #slideCounter {
+            position: fixed;
+            bottom: 3vh;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 20;
+            background: transparent;
+            color: rgba(20,55,54,0.7);
+            padding: 0;
+            border-radius: 0;
+            font-size: 0.85rem;
+            letter-spacing: 0.1em;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="fixed top-0 left-0 w-full p-6 z-10 flex justify-between items-center">
+        <div class="flex items-center">
+            <img src="public/estatemin.svg" alt="EstateMin" style="height: 28px; width: auto;" />
+        </div>
+        <div class="text-sm font-medium text-teal-light flex items-center gap-4">
+            <span>Investor Deck // Confidential</span>
+            <a href="index.html" class="hover:text-teal-dark">Home</a>
+        </div>
+    </header>
+
+    <!-- Slide 1: Title -->
+    <div id="slide-1" class="slide active bg-teal-dark text-cream">
+        <div class="slide-content text-center">
+            <img src="public/estatemin.svg" alt="EstateMin Logo" class="h-20 mx-auto mb-8">
+            <h1 class="text-6xl md:text-8xl font-bold mb-4">EstateMin</h1>
+            <p class="text-2xl md:text-3xl font-light">The Operating System for Estate Administration.</p>
+        </div>
+    </div>
+
+    <!-- Slide 2: The Problem -->
+    <div id="slide-2" class="slide bg-cream text-teal-dark">
+        <div class="slide-content">
+            <h2 class="text-5xl md:text-6xl font-bold mb-6">Death is messy. The administration is messier.</h2>
+            <p class="text-xl md:text-2xl max-w-4xl mx-auto mb-12">Every year, trillions of dollars in assets are transferred between generations, but the process is stuck in the past.</p>
+            <div class="grid md:grid-cols-3 gap-8 text-left">
+                <div class="bg-white p-6 rounded-lg shadow-lg">
+                    <h3 class="text-2xl font-bold mb-2">Scattered Information</h3>
+                    <p>Endless email threads, phone calls, and shoeboxes full of documents.</p>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-lg">
+                    <h3 class="text-2xl font-bold mb-2">Manual Data Entry</h3>
+                    <p>Hours spent by expensive legal professionals typing handwritten notes into complex systems.</p>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-lg">
+                    <h3 class="text-2xl font-bold mb-2">Insecurity & Inefficiency</h3>
+                    <p>Sensitive client data shared over insecure channels, and a slow, frustrating process for grieving families.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 3: Our Solution -->
+    <div id="slide-3" class="slide bg-teal-light text-cream">
+        <div class="slide-content">
+            <h2 class="text-5xl md:text-6xl font-bold mb-6">A Single Source of Truth for Estate Administration.</h2>
+            <p class="text-xl md:text-2xl max-w-4xl mx-auto mb-12">EstateMin is a vertical SaaS platform that streamlines the entire post-death process, connecting the firm, the executor, and the family in one secure portal.</p>
+            <!-- Mockup of the dashboard -->
+            <div class="bg-white/10 p-6 rounded-xl text-left grid md:grid-cols-3 gap-6 backdrop-blur-sm border border-white/20">
+                <div class="md:col-span-1 bg-white/10 p-4 rounded-lg">
+                    <h4 class="text-lg font-bold mb-3">Case: John Doe Estate</h4>
+                    <ul>
+                        <li class="p-2 rounded-md bg-white/20 mb-2">Dashboard</li>
+                        <li class="p-2 rounded-md mb-2">Asset Inventory</li>
+                        <li class="p-2 rounded-md mb-2">Documents</li>
+                        <li class="p-2 rounded-md mb-2">Secure Messages</li>
+                    </ul>
+                </div>
+                <div class="md:col-span-2 bg-white/10 p-4 rounded-lg">
+                    <h4 class="text-xl font-bold mb-3">Asset Inventory</h4>
+                    <div class="space-y-3">
+                        <div class="flex justify-between items-center bg-white/20 p-3 rounded-md"><span>Bank of America - Acct #..1234</span><span class="font-bold text-green-300">Verified</span></div>
+                        <div class="flex justify-between items-center bg-white/20 p-3 rounded-md"><span>Fidelity Brokerage - Acct #..5678</span><span class="font-bold text-green-300">Verified</span></div>
+                        <div class="flex justify-between items-center bg-white/10 p-3 rounded-md"><span>MetLife Pension</span><span class="font-bold text-yellow-300">Pending</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 4: The Vision -->
+    <div id="slide-4" class="slide bg-cream text-teal-dark">
+        <div class="slide-content">
+            <h2 class="text-5xl md:text-6xl font-bold mb-6">We are building the infrastructure for the future of personal legal tech.</h2>
+            <p class="text-xl md:text-2xl max-w-4xl mx-auto mb-8">The world is moving towards AI agents managing our financial and legal lives. These agents will need a secure, trusted endpoint to manage estate information.</p>
+            <div class="bg-teal-dark text-cream p-8 rounded-lg inline-block shadow-2xl">
+                <h3 class="text-4xl font-bold">EstateMin is that endpoint.</h3>
+            </div>
+            <p class="text-xl md:text-2xl max-w-4xl mx-auto mt-8">We are building the rails for the automated, agent-driven future of estate planning.</p>
+        </div>
+    </div>
+
+    <!-- Slide 5: Traction -->
+    <div id="slide-5" class="slide bg-cream text-teal-dark">
+        <div class="slide-content">
+            <h2 class="text-5xl md:text-6xl font-bold mb-12">Launched in the U.S. 3 months ago and already have market validation.</h2>
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="bg-white p-8 rounded-lg shadow-xl text-center">
+                    <p class="text-6xl font-bold text-teal-light">7</p>
+                    <p class="text-2xl font-semibold">Paying Law Firms</p>
+                    <p class="text-lg">Across 6 U.S. states.</p>
+                </div>
+                <div class="bg-white p-8 rounded-lg shadow-xl text-center">
+                    <p class="text-6xl font-bold text-teal-light">100+</p>
+                    <p class="text-2xl font-semibold">Firm Pipeline</p>
+                    <p class="text-lg">Interested in piloting or subscribing.</p>
+                </div>
+                <div class="bg-white p-8 rounded-lg shadow-xl text-center flex flex-col justify-center items-center">
+                    <p class="text-2xl font-semibold mb-4">Key Strategic Partnership</p>
+                    <img src="https://assets-global.website-files.com/645b8537a3461238a24558e8/645b91b8a531f81014a09a5b_Cleo-Integration-p-500.png" alt="Cleo Logo" class="max-h-16">
+                    <p class="text-lg mt-2">with the world's largest legal CMS.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 6: Business Model -->
+    <div id="slide-6" class="slide bg-teal-dark text-cream">
+        <div class="slide-content text-center">
+            <h2 class="text-5xl md:text-6xl font-bold mb-8">Simple, Scalable SaaS.</h2>
+            <p class="text-xl md:text-2xl max-w-3xl mx-auto mb-12">A straightforward B2B SaaS model designed for efficient, self-serve onboarding to scale rapidly in the U.S. market.</p>
+            <div class="bg-cream text-teal-dark p-12 rounded-lg inline-block shadow-2xl">
+                <p class="text-7xl font-bold">$250</p>
+                <p class="text-2xl">per month / per law firm</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 7: Our Team -->
+    <div id="slide-7" class="slide bg-cream text-teal-dark">
+        <div class="slide-content">
+            <h2 class="text-5xl md:text-6xl font-bold mb-12">Deep Industry & Technical Expertise.</h2>
+            <div class="grid md:grid-cols-3 gap-8 text-left">
+                <div class="bg-white p-6 rounded-lg shadow-lg text-center">
+                    <div class="w-32 h-32 bg-gray-200 rounded-full mx-auto mb-4 flex items-center justify-center"><span class="text-gray-500">Photo</span></div>
+                    <h3 class="text-2xl font-bold">Bella [Last Name]</h3>
+                    <p class="text-teal-light font-semibold">CEO</p>
+                    <p class="mt-2 text-sm">Serial entrepreneur with a passion for solving legacy problems.</p>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-lg text-center">
+                    <div class="w-32 h-32 bg-gray-200 rounded-full mx-auto mb-4 flex items-center justify-center"><span class="text-gray-500">Photo</span></div>
+                    <h3 class="text-2xl font-bold">John Noonan</h3>
+                    <p class="text-teal-light font-semibold">Growth</p>
+                    <p class="mt-2 text-sm">5 years as Brand Manager at Cleo, the world's largest legal tech company.</p>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-lg text-center">
+                    <div class="w-32 h-32 bg-gray-200 rounded-full mx-auto mb-4 flex items-center justify-center"><span class="text-gray-500">Photo</span></div>
+                    <h3 class="text-2xl font-bold">Oshi Dolphin</h3>
+                    <p class="text-teal-light font-semibold">Technology</p>
+                    <p class="mt-2 text-sm">Background in Machine Learning, building our intelligent infrastructure.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Slide 8: The Ask -->
+    <div id="slide-8" class="slide bg-teal-dark text-cream">
+        <div class="slide-content text-center">
+            <h2 class="text-5xl md:text-6xl font-bold mb-8">Raising $1 Million to become the U.S. market leader.</h2>
+            <div class="text-left max-w-4xl mx-auto grid md:grid-cols-2 gap-10">
+                <div>
+                    <h3 class="text-3xl font-bold mb-4">Use of Funds</h3>
+                    <ul class="list-disc list-inside space-y-2 text-xl">
+                        <li>Scale sales & marketing</li>
+                        <li>Hire key engineering talent</li>
+                        <li>Build our pre-death product</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-3xl font-bold mb-4">Our Goal</h3>
+                    <p class="text-xl">Grow from <span class="text-4xl font-bold">7 to 300</span> paying customers in the next 12-18 months, positioning us for a dominant Series A.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 9: Contact -->
+    <div id="slide-9" class="slide bg-cream text-teal-dark">
+        <div class="slide-content text-center">
+            <img src="public/estatemin.svg" alt="EstateMin Logo" class="h-16 mx-auto mb-8">
+            <h2 class="text-6xl font-bold mb-8">Thank You.</h2>
+            <p class="text-2xl">Bella [Last Name]</p>
+            <p class="text-2xl font-semibold text-teal-light"><a href="mailto:bella@estatemin.com" class="underline">bella@estatemin.com</a></p>
+            <p class="text-2xl"><a href="https://www.estatemin.com" target="_blank" rel="noopener" class="underline">www.estatemin.com</a></p>
+        </div>
+    </div>
+    
+    <!-- Navigation -->
+    <button id="prevBtn" class="nav-button">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+    </button>
+    <button id="nextBtn" class="nav-button">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+    </button>
+    <div id="slideCounter">1 / 9</div>
+
+    <script>
+        let currentSlide = 1;
+        const totalSlides = 9;
+        const slideCounter = document.getElementById('slideCounter');
+
+        function showSlide(slideNumber) {
+            // Hide current slide
+            const current = document.querySelector('.slide.active');
+            if (current) {
+                current.classList.remove('active');
+            }
+
+            // Show new slide
+            const next = document.getElementById(`slide-${slideNumber}`);
+            if (next) {
+                next.classList.add('active');
+            }
+            
+            slideCounter.textContent = `${slideNumber} / ${totalSlides}`;
+        }
+
+        document.getElementById('nextBtn').addEventListener('click', () => {
+            if (currentSlide < totalSlides) {
+                currentSlide++;
+                showSlide(currentSlide);
+            }
+        });
+
+        document.getElementById('prevBtn').addEventListener('click', () => {
+            if (currentSlide > 1) {
+                currentSlide--;
+                showSlide(currentSlide);
+            }
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight') {
+                document.getElementById('nextBtn').click();
+            } else if (e.key === 'ArrowLeft') {
+                document.getElementById('prevBtn').click();
+            }
+        });
+
+        // Initialize first slide
+        showSlide(currentSlide);
+    </script>
+</body>
+</html>
