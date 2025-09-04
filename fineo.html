@@ -58,6 +58,40 @@
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
         }
+        /* Shared nav styles (match Latinum/Kella behavior) */
+        .nav-button {
+            position: fixed;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(0, 0, 0, 0.05);
+            color: #0f172a;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            border-radius: 9999px;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            z-index: 10;
+        }
+        .nav-button:hover {
+            background-color: rgba(0, 0, 0, 0.08);
+            border-color: rgba(15, 23, 42, 0.2);
+        }
+        #prev-btn { left: 2vw; }
+        #next-btn { right: 2vw; }
+        .slide-counter {
+            position: fixed;
+            bottom: 3vh;
+            left: 50%;
+            transform: translateX(-50%);
+            color: rgba(0, 0, 0, 0.6);
+            font-size: 0.8rem;
+            letter-spacing: 0.1em;
+            z-index: 10;
+        }
         @media (max-width: 768px) {
             header { display: none; }
         }
@@ -70,10 +104,11 @@
       /* Mobile nav */
       html, body { overflow-y: auto; scroll-snap-type: y mandatory; -webkit-overflow-scrolling: touch; }
       .slide { position: static; height: auto; min-height: 100svh; scroll-snap-align: start; opacity: 1 !important; }
+      #slide-counter { bottom: 1rem; }
     }
   </style>
 </head>
-<body class="relative">
+<body class="relative antialiased">
 
     <header class="fixed top-0 left-0 w-full p-6 z-10 flex justify-between items-center">
         <div class="flex items-center">
@@ -440,14 +475,14 @@
     </main>
 
     <!-- Navigation (match other decks) -->
-    <button id="prev-btn" class="nav-button" aria-label="Previous slide" style="position: fixed; top: 50%; left: 2vw; transform: translateY(-50%); background-color: rgba(0,0,0,0.05); color: #0f172a; border: 1px solid rgba(0,0,0,0.1); border-radius: 9999px; width: 50px; height: 50px; display: flex; align-items: center; justify-content: center; cursor: pointer; z-index: 20;">
+    <button id="prev-btn" class="nav-button" aria-label="Previous slide">
         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
     </button>
-    <button id="next-btn" class="nav-button" aria-label="Next slide" style="position: fixed; top: 50%; right: 2vw; transform: translateY(-50%); background-color: rgba(0,0,0,0.05); color: #0f172a; border: 1px solid rgba(0,0,0,0.1); border-radius: 9999px; width: 50px; height: 50px; display: flex; align-items: center; justify-content: center; cursor: pointer; z-index: 20;">
+    <button id="next-btn" class="nav-button" aria-label="Next slide">
          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
     </button>
 
-    <div id="slide-counter" class="slide-counter" style="position: fixed; bottom: 3vh; left: 50%; transform: translateX(-50%); color: rgba(0,0,0,0.6); font-size: 0.8rem; letter-spacing: 0.1em; z-index: 20;">
+    <div id="slide-counter" class="slide-counter">
         <span id="current-slide">1</span> / <span id="total-slides">11</span>
     </div>
 
