@@ -18,25 +18,23 @@
         h1, h2, h3, h4, h5, h6 {
             font-family: 'Playfair Display', serif;
         }
-        .slide {
-            width: 100vw;
+        main {
+            display: flex;
+            width: 100%;
             height: 100vh;
-            display: none;
+            transition: transform 0.6s cubic-bezier(0.65, 0, 0.35, 1);
+        }
+        .slide {
+            flex: 0 0 100vw;
+            height: 100vh;
+            display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            padding: 5%;
-            box-sizing: border-box;
-            position: absolute;
-            top: 0;
-            left: 0;
-            transition: opacity 0.7s ease-in-out;
-            opacity: 0;
-        }
-        .slide.active {
-            display: flex;
-            opacity: 1;
-            z-index: 10;
+            padding: 5vw;
+            position: relative;
+            overflow: hidden;
+            border-left: 1px solid rgba(212, 175, 55, 0.1);
         }
         .slide-content {
             max-width: 1200px;
@@ -52,80 +50,79 @@
 
         .nav-button {
             position: fixed;
-            bottom: 2rem;
-            z-index: 20;
-            background-color: rgba(255, 255, 255, 0.1);
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(212, 175, 55, 0.05);
             color: #f9fafb;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 50%;
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            border-radius: 9999px;
             width: 50px;
             height: 50px;
             display: flex;
-            justify-content: center;
             align-items: center;
+            justify-content: center;
             cursor: pointer;
-            backdrop-filter: blur(5px);
-            transition: all 0.2s;
+            transition: all 0.2s ease;
+            z-index: 10;
         }
         .nav-button:hover {
-            transform: scale(1.1);
-            background-color: rgba(255, 255, 255, 0.2);
+            background-color: rgba(212, 175, 55, 0.1);
+            border-color: #D4AF37;
         }
-        #prevBtn { left: 2rem; }
-        #nextBtn { right: 2rem; }
-        
-        #slideCounter {
+        #prev-btn { left: 2vw; }
+        #next-btn { right: 2vw; }
+        .slide-counter {
             position: fixed;
-            bottom: 2rem;
+            bottom: 3vh;
             left: 50%;
             transform: translateX(-50%);
-            z-index: 20;
-            background-color: rgba(0, 0, 0, 0.3);
-            color: #f9fafb;
-            padding: 8px 16px;
-            border-radius: 20px;
-            font-size: 0.9rem;
-            backdrop-filter: blur(5px);
+            color: rgba(240, 240, 240, 0.3);
+            font-size: 0.8rem;
+            letter-spacing: 0.1em;
+            z-index: 10;
         }
         /* Subtle moving shapes */
         .shape { position: absolute; opacity: 0.06; z-index: -1; animation: slowspin 60s linear infinite; filter: drop-shadow(0 10px 30px rgba(212,175,55,0.25)); }
         .shape-1 { top: -20%; right: -15%; width: 50vw; }
         .shape-2 { bottom: -30%; left: -20%; width: 60vw; animation-direction: reverse; }
         @keyframes slowspin { from { transform: rotate(0deg);} to { transform: rotate(360deg);} }
-        /* Mobile: use natural vertical scroll with scroll-snap */
         @media (max-width: 768px) {
-            /* Compact mobile header: show brand only */
+            header { display: none; }
+        }
+        /* Mobile: natural scroll with snap; hide header */
+        @media (max-width: 768px) {
+            /* Compact header: brand only */
             header { display: flex; padding: 10px 14px; }
             header > div:last-child { display: none; }
             body { padding-top: 56px; }
-            /* Mobile navigation: natural scroll + snap */
+            /* Mobile nav */
             html, body { overflow-y: auto; scroll-snap-type: y mandatory; -webkit-overflow-scrolling: touch; }
-            .slide { position: static; display: block; height: auto; min-height: 100svh; scroll-snap-align: start; opacity: 1 !important; }
-            .nav-button { display: none !important; }
-            #slideCounter { bottom: 1rem; }
+            .slide { position: static; height: auto; min-height: 100svh; scroll-snap-align: start; }
+            #slide-counter { bottom: 1rem; }
         }
     </style>
 </head>
-<body>
+<body class="antialiased">
     <!-- Header -->
-    <header class="fixed top-0 left-0 w-full p-6 z-20 flex justify-between items-center">
-        <div class="text-lg font-bold tracking-wider">KELLA</div>
+    <header class="fixed top-0 left-0 w-full p-6 z-10 flex justify-between items-center">
+        <div class="text-lg font-bold tracking-wider font-mono">KELLA</div>
         <div class="text-sm font-medium text-gray-300 flex items-center gap-4">
             <span>Investor Deck // Confidential</span>
             <a href="index.html" class="hover:text-white">Home</a>
         </div>
     </header>
 
-    <!-- Slide 1: Title -->
-    <div id="slide-1" class="slide active bg-charcoal-dark text-white" style="background-image: linear-gradient(rgba(17,24,39,0.82), rgba(17,24,39,0.82)), url('public/kella1.jpg'); background-size: cover; background-position: center;">
+    <main id="deck">
+        <!-- Slide 1: Title -->
+        <section class="slide bg-charcoal-dark text-white" style="background-image: linear-gradient(rgba(17,24,39,0.82), rgba(17,24,39,0.82)), url('public/kella1.jpg'); background-size: cover; background-position: center;">
         <div class="slide-content text-center">
             <h1 class="text-7xl md:text-8xl font-bold mb-4">Build Power. Together.</h1>
             <p class="text-2xl md:text-3xl font-light text-gray-200">The private network compounding female leadership, capital, and careers.</p>
         </div>
-    </div>
+        </section>
 
-    <!-- Slide 2: 39% Impact (hero focus) -->
-    <div id="slide-2" class="slide bg-charcoal-dark text-white">
+        <!-- Slide 2: 39% Impact (hero focus) -->
+        <section class="slide bg-charcoal-dark text-white">
         <div class="relative w-full h-full rounded-xl overflow-hidden">
             <!-- Background video (replace src when provided) -->
             <video class="absolute inset-0 w-full h-full object-cover opacity-50" autoplay muted loop playsinline poster="public/kella2.jpg">
@@ -169,10 +166,10 @@
                 </div>
             </div>
         </div>
-    </div>
+        </section>
 
-    <!-- Slide 3: The Market Gap -->
-    <div id="slide-3" class="slide bg-charcoal-dark text-white">
+        <!-- Slide 3: The Market Gap -->
+        <section class="slide bg-charcoal-dark text-white">
         <div class="slide-content">
             <h2 class="text-4xl md:text-5xl font-bold mb-6">The Old Guard Has Failed. A New Leader is Needed.</h2>
             <p class="text-xl md:text-2xl max-w-4xl mx-auto mb-12">Chief's failed UK expansion created a market vacuum. Their mistake? A lack of genuine inclusivity.</p>
@@ -187,10 +184,10 @@
                 </div>
             </div>
         </div>
-    </div>
+        </section>
 
-    <!-- Slide 4: The Flywheel (dark, left-aligned) -->
-    <div id="slide-4" class="slide bg-charcoal-dark text-white">
+        <!-- Slide 4: The Flywheel (dark, left-aligned) -->
+        <section class="slide bg-charcoal-dark text-white">
         <div class="slide-content text-left pt-8 md:pt-16">
             <h2 class="text-5xl md:text-6xl font-bold mb-3">The Kella Flywheel</h2>
             <p class="text-lg md:text-xl text-gray-300 mb-8">In‑person energy → online depth → outcomes.</p>
@@ -241,10 +238,10 @@
 
             
         </div>
-    </div>
+        </section>
 
-    <!-- Slide 5: Traction -->
-    <div id="slide-5" class="slide bg-charcoal-dark text-white">
+        <!-- Slide 5: Traction -->
+        <section class="slide bg-charcoal-dark text-white">
         <div class="slide-content">
             <h2 class="text-5xl md:text-6xl font-bold mb-12">Market-Tested & Validated.</h2>
             <div class="grid md:grid-cols-3 gap-8">
@@ -265,10 +262,10 @@
                 </div>
             </div>
         </div>
-    </div>
+        </section>
 
-    <!-- Slide 6: The Ecosystem -->
-    <div id="slide-6" class="slide bg-white text-charcoal relative overflow-hidden">
+        <!-- Slide 6: The Ecosystem -->
+        <section class="slide bg-white text-charcoal relative overflow-hidden">
         <div class="shape shape-1">
             <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"><path fill="#D4AF37" d="M49.8,-53.4C64.1,-42.6,75.1,-27.1,77.5,-10.1C79.9,6.9,73.7,25.3,62.8,40.1C51.9,54.9,36.3,66.1,18.8,72.2C1.3,78.2,-18.1,79,-34.4,72C-50.7,65,-64,49.9,-71.4,32.8C-78.7,15.7,-80.1,-3.4,-74.6,-19.3C-69,-35.1,-56.5,-47.7,-42.5,-57.1C-28.5,-66.5,-14.2,-72.7,2.1,-75.4C18.5,-78.1,37.1,-78,49.8,-53.4Z" transform="translate(100 100)"/></svg>
         </div>
@@ -302,10 +299,10 @@
                 </div>
             </div>
         </div>
-    </div>
+        </section>
 
-    <!-- Slide 7: Go-To-Market -->
-    <div id="slide-7" class="slide bg-charcoal-dark text-white">
+        <!-- Slide 7: Go-To-Market -->
+        <section class="slide bg-charcoal-dark text-white">
         <div class="slide-content">
             <h2 class="text-5xl md:text-6xl font-bold mb-4">City by City</h2>
             <p class="text-xl max-w-4xl mx-auto mb-10 text-gray-300">Proven “land and expand” playbook: launch with flagship events → build core community → scale.</p>
@@ -348,10 +345,10 @@
                 </div>
             </div>
         </div>
-    </div>
-    
-    <!-- Slide 8: The Team -->
-    <div id="slide-8" class="slide bg-white text-charcoal">
+        </section>
+        
+        <!-- Slide 8: The Team -->
+        <section class="slide bg-white text-charcoal">
         <div class="slide-content">
             <h2 class="text-5xl md:text-6xl font-bold mb-12">Built By Leaders, For Leaders.</h2>
             <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center max-w-6xl mx-auto">
@@ -377,10 +374,10 @@
                 </div>
             </div>
         </div>
-    </div>
-    
-    <!-- Slide 9: The Ask -->
-    <div id="slide-9" class="slide bg-charcoal-dark text-white">
+        </section>
+        
+        <!-- Slide 9: The Ask -->
+        <section class="slide bg-charcoal-dark text-white">
         <div class="slide-content">
             <h2 class="text-5xl md:text-6xl font-bold mb-10 text-center">Seed <span class="text-gold">€250k</span> to Ignite London</h2>
             <div class="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto">
@@ -403,10 +400,10 @@
                 </div>
             </div>
         </div>
-    </div>
+        </section>
 
-    <!-- Slide 10: Contact -->
-    <div id="slide-10" class="slide bg-charcoal-dark text-white relative overflow-hidden">
+        <!-- Slide 10: Contact -->
+        <section class="slide bg-charcoal-dark text-white relative overflow-hidden">
         <video class="absolute inset-0 w-full h-full object-cover opacity-40" autoplay muted loop playsinline poster="public/kella4.jpg">
             <source src="public/kella.mp4" type="video/mp4">
         </video>
@@ -419,47 +416,60 @@
                 <a href="https://www.kella.com" target="_blank" rel="noopener" class="px-8 py-3 rounded-lg border border-gray-500">Learn More</a>
             </div>
         </div>
-    </div>
+        </section>
+    </main>
     
     <!-- Navigation -->
-    <button id="prevBtn" class="nav-button">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" /></svg>
+    <button id="prev-btn" class="nav-button">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
     </button>
-    <button id="nextBtn" class="nav-button">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" /></svg>
+    <button id="next-btn" class="nav-button">
+         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
     </button>
-    <div id="slideCounter">1 / 10</div>
+
+    <div id="slide-counter" class="slide-counter">
+        <span id="current-slide">1</span> / <span id="total-slides">10</span>
+    </div>
 
     <script>
-        (function(){
-          const slides = Array.from(document.querySelectorAll('.slide'));
-          const total = slides.length;
-          const counter = document.getElementById('slideCounter');
-          let currentIndex = 0;
+        document.addEventListener('DOMContentLoaded', () => {
+            const deck = document.getElementById('deck');
+            const slides = document.querySelectorAll('.slide');
+            const prevBtn = document.getElementById('prev-btn');
+            const nextBtn = document.getElementById('next-btn');
+            const currentSlideEl = document.getElementById('current-slide');
+            const totalSlidesEl = document.getElementById('total-slides');
 
-          // IntersectionObserver keeps counter and active state in sync while scrolling
-          const io = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-              if (entry.isIntersecting) {
-                slides.forEach(s => s.classList.remove('active'));
-                entry.target.classList.add('active');
-                currentIndex = slides.indexOf(entry.target);
-                if (counter) counter.textContent = `${currentIndex + 1} / ${total}`;
-              }
+            let currentSlide = 0;
+            const totalSlides = slides.length;
+            totalSlidesEl.textContent = totalSlides;
+
+            function goToSlide(slideIndex) {
+                if (slideIndex < 0 || slideIndex >= totalSlides) {
+                    return;
+                }
+                currentSlide = slideIndex;
+                deck.style.transform = `translateX(-${currentSlide * 100}vw)`;
+                updateNav();
+            }
+
+            function updateNav() {
+                currentSlideEl.textContent = currentSlide + 1;
+                prevBtn.style.display = currentSlide === 0 ? 'none' : 'flex';
+                nextBtn.style.display = currentSlide === totalSlides - 1 ? 'none' : 'flex';
+            }
+
+            prevBtn.addEventListener('click', () => goToSlide(currentSlide - 1));
+            nextBtn.addEventListener('click', () => goToSlide(currentSlide + 1));
+
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'ArrowRight') goToSlide(currentSlide + 1);
+                else if (e.key === 'ArrowLeft') goToSlide(currentSlide - 1);
             });
-          }, { threshold: 0.6 });
-          slides.forEach(s => io.observe(s));
-          if (counter) counter.textContent = `1 / ${total}`;
 
-          function scrollToIndex(idx){
-            if (idx < 0 || idx >= total) return;
-            slides[idx].scrollIntoView({ behavior: 'smooth', block: 'start' });
-          }
-
-          document.getElementById('nextBtn').addEventListener('click', () => scrollToIndex(currentIndex + 1));
-          document.getElementById('prevBtn').addEventListener('click', () => scrollToIndex(currentIndex - 1));
-          document.addEventListener('keydown', (e) => { if (e.key==='ArrowRight') scrollToIndex(currentIndex+1); else if (e.key==='ArrowLeft') scrollToIndex(currentIndex-1); });
-        })();
+            // Initial setup
+            goToSlide(0);
+        });
     </script>
 </body>
 </html>
