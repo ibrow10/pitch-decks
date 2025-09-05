@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DevDay // Investor Deck</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&family=Fira+Code:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0A0A0A;
+            color: #EAEAEA;
+            overflow: hidden;
+        }
+        main {
+            display: flex;
+            width: 100%;
+            height: 100vh;
+            transition: transform 0.6s cubic-bezier(0.65, 0, 0.35, 1);
+        }
+        .slide {
+            flex: 0 0 100vw;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 5vw;
+            position: relative;
+            overflow: hidden;
+            border-left: 1px solid rgba(57, 255, 20, 0.1);
+        }
+        .accent { color: #39FF14; }
+        .font-mono { font-family: 'Fira Code', monospace; }
+        .nav-button {
+            position: fixed;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(57, 255, 20, 0.05);
+            color: #EAEAEA;
+            border: 1px solid rgba(57, 255, 20, 0.2);
+            border-radius: 9999px;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            z-index: 10;
+        }
+        .nav-button:hover { background-color: rgba(57, 255, 20, 0.1); border-color: #39FF14; }
+        #prev-btn { left: 2vw; }
+        #next-btn { right: 2vw; }
+        .slide-counter {
+            position: fixed;
+            bottom: 3vh;
+            left: 50%;
+            transform: translateX(-50%);
+            color: rgba(234, 234, 234, 0.3);
+            font-size: 0.8rem;
+            letter-spacing: 0.1em;
+            z-index: 10;
+        }
+        .slide .content { animation: fadeIn 0.8s ease-out 0.3s forwards; opacity: 0; transform: translateY(20px); }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        .bg-grid {
+            position: absolute; inset: 0; z-index: -1; opacity: 0.5;
+            background-image:
+                linear-gradient(rgba(57, 255, 20, 0.05) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(57, 255, 20, 0.05) 1px, transparent 1px);
+            background-size: 40px 40px;
+        }
+        /* Mobile: natural scroll with snap; compact header */
+        @media (max-width: 768px) {
+            header { display: flex; padding: 10px 14px; }
+            header > div:last-child { display: none; }
+            body { padding-top: 56px; }
+            html, body { overflow-y: auto; scroll-snap-type: y mandatory; -webkit-overflow-scrolling: touch; }
+            .slide { position: static; height: auto; min-height: 100svh; scroll-snap-align: start; }
+            #slide-counter { bottom: 1rem; }
+        }
+    </style>
+    
+</head>
+<body class="antialiased">
+    <!-- Header -->
+    <header class="fixed top-0 left-0 w-full p-6 z-10 flex justify-between items-center">
+        <div class="text-lg font-bold tracking-wider font-mono">DevDay</div>
+        <div class="text-sm font-medium text-gray-500">Pre-Seed Deck // Strictly Confidential</div>
+    </header>
+
+    <main id="deck">
+        <!-- Slide 1: Title -->
+        <section class="slide text-center">
+            <div class="bg-grid"></div>
+            <div class="content max-w-4xl relative">
+                <h1 class="text-5xl md:text-8xl font-black tracking-tighter leading-none">
+                    The Flight Simulator for <br/><span class="accent">Human+AI Teams.</span>
+                </h1>
+                <p class="mt-8 text-lg md:text-2xl text-gray-400 max-w-3xl mx-auto">
+                    We measure what truly matters in the AI-native workforce, enabling companies to hire, promote, and build the teams of the future.
+                </p>
+            </div>
+        </section>
+
+        <!-- Slide 2: The World Has Changed -->
+        <section class="slide">
+            <div class="bg-grid"></div>
+            <div class="content max-w-5xl w-full text-center">
+                <h2 class="text-4xl md:text-6xl font-black tracking-tighter">
+                    AI Isn't a Tool. It's a <br/><span class="accent">New Team Member.</span>
+                </h2>
+                <p class="mt-6 text-xl text-gray-400 max-w-3xl mx-auto">
+                    The age of the solo developer is over. High-performing teams are now a synthesis of human talent and AI agents. Yet, companies are still hiring for a world that no longer exists.
+                </p>
+                <div class="mt-12 p-6 border border-gray-800 rounded-2xl bg-gray-900/40 font-mono text-left max-w-2xl mx-auto">
+                    <p class="text-gray-500">// Old Paradigm</p>
+                    <p class="text-white">&gt; Individual technical skill is paramount.</p>
+                    <p class="text-gray-500 mt-4">// New Paradigm</p>
+                    <p class="text-white">&gt; Human-AI collaboration is the key performance indicator.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 3: The Cost of Flying Blind -->
+        <section class="slide">
+            <div class="bg-grid"></div>
+             <div class="content max-w-5xl w-full grid md:grid-cols-2 gap-12 items-center">
+                <div>
+                    <h2 class="text-4xl md:text-6xl font-black tracking-tighter">Hiring for Yesterday Costs <span class="accent">£75,000</span> per Mishire.</h2>
+                    <p class="mt-6 text-xl text-gray-400">
+                        Traditional coding tests are obsolete. They measure isolated technical skills and completely ignore the critical behavioral traits required to excel in an AI-augmented team.
+                    </p>
+                </div>
+                <div class="p-6 border border-gray-800 rounded-lg bg-black/50 text-lg">
+                    <p class="text-red-500 flex items-center"><svg class="w-5 h-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>No assessment for AI collaboration.</p>
+                    <p class="text-red-500 flex items-center mt-4"><svg class="w-5 h-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>Ignores problem-solving & resilience.</p>
+                    <p class="text-red-500 flex items-center mt-4"><svg class="w-5 h-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>Fails to predict team dynamics.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 4: The Simulator (High Impact) -->
+        <section class="slide">
+            <div class="bg-grid"></div>
+            <div class="content max-w-6xl w-full grid md:grid-cols-2 gap-10 items-center">
+                <div>
+                    <p class="text-sm font-mono text-green-400">Introducing DevDay</p>
+                    <h2 class="text-4xl md:text-6xl font-black tracking-tighter mt-2">Your <span class="accent">Flight Simulator</span> for Human + Agent Teams.</h2>
+                    <p class="mt-6 text-xl text-gray-400">Spin up a role‑accurate repo, fly a simulated sprint with AI teammates, and land a defensible hiring score plus squad allocation.</p>
+                    <ul class="mt-6 space-y-3 text-lg">
+                        <li class="flex items-start"><span class="accent font-mono mr-3">▸</span>Real code, issues, PRs, tests and docs</li>
+                        <li class="flex items-start"><span class="accent font-mono mr-3">▸</span>Multi‑agent collaboration with guardrails</li>
+                        <li class="flex items-start"><span class="accent font-mono mr-3">▸</span>Telemetry on execution, leadership, resilience</li>
+                    </ul>
+                </div>
+                <!-- HUD-style instrument panel -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div class="p-5 rounded-2xl border border-green-500/30 bg-black/50 shadow-[0_0_40px_rgba(57,255,20,0.06)]">
+                        <p class="text-sm font-mono text-green-400">Scenario</p>
+                        <h3 class="text-xl font-bold mt-1">Role‑Specific Mission</h3>
+                        <p class="text-gray-400 mt-2 text-sm">Repo seeded from the JD: stack, constraints, and success criteria.</p>
+                        <div class="mt-3 h-1.5 w-full bg-gray-800 rounded-full overflow-hidden">
+                            <div class="h-full w-3/4 bg-green-500/70"></div>
+                        </div>
+                    </div>
+                    <div class="p-5 rounded-2xl border border-green-500/30 bg-black/50 shadow-[0_0_40px_rgba(57,255,20,0.06)]">
+                        <p class="text-sm font-mono text-green-400">Agents</p>
+                        <h3 class="text-xl font-bold mt-1">AI Teammates</h3>
+                        <p class="text-gray-400 mt-2 text-sm">Planner • Coder • Reviewer • Docs — collaborate under time pressure.</p>
+                        <div class="mt-3 grid grid-cols-4 gap-2 text-center text-xs">
+                            <div class="rounded bg-green-500/10 border border-green-500/30 py-1">Plan</div>
+                            <div class="rounded bg-green-500/10 border border-green-500/30 py-1">Code</div>
+                            <div class="rounded bg-green-500/10 border border-green-500/30 py-1">Review</div>
+                            <div class="rounded bg-green-500/10 border border-green-500/30 py-1">Docs</div>
+                        </div>
+                    </div>
+                    <div class="p-5 rounded-2xl border border-green-500/30 bg-black/50 sm:col-span-2 shadow-[0_0_40px_rgba(57,255,20,0.06)]">
+                        <p class="text-sm font-mono text-green-400">Signals</p>
+                        <h3 class="text-xl font-bold mt-1">Hiring Score + Squad Fit</h3>
+                        <div class="mt-4 grid grid-cols-3 gap-4 text-sm">
+                            <div><p class="text-gray-400">Execution</p><p class="text-2xl font-extrabold accent">A-</p></div>
+                            <div><p class="text-gray-400">Collaboration</p><p class="text-2xl font-extrabold accent">A</p></div>
+                            <div><p class="text-gray-400">Resilience</p><p class="text-2xl font-extrabold accent">B+</p></div>
+                        </div>
+                        <p class="mt-3 text-gray-300">Recommendation: Backend squad with Reviewer agent; promotion readiness in 3–6 months.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Slide 5: How It Works -->
+        <section class="slide">
+            <div class="bg-grid"></div>
+            <div class="content max-w-6xl w-full text-center">
+                 <h2 class="text-4xl md:text-6xl font-black tracking-tighter">From Job Description to <span class="accent">Deep Insight.</span></h2>
+                 <p class="mt-4 text-xl text-gray-400 max-w-3xl mx-auto">Our platform provides a seamless, data-driven process to identify elite performers.</p>
+                 <div class="mt-12 grid md:grid-cols-3 gap-8 text-left items-start">
+                    <div class="p-6 border border-gray-800 rounded-2xl bg-gray-900/40 h-full">
+                        <p class="font-mono text-green-400">1. Custom Simulation</p>
+                        <h3 class="text-2xl font-bold mt-2">Built from Your JD</h3>
+                        <p class="mt-2 text-gray-400">Our platform ingests any job description to create a bespoke simulation with relevant technical challenges and team scenarios.</p>
+                    </div>
+                    <div class="p-6 border border-gray-800 rounded-2xl bg-gray-900/40 h-full">
+                        <p class="font-mono text-green-400">2. Collaborative Environment</p>
+                        <h3 class="text-2xl font-bold mt-2">Work with AI Teammates</h3>
+                        <p class="mt-2 text-gray-400">Candidates enter the simulation and work alongside AI agents to solve problems, just like they would on the job.</p>
+                    </div>
+                    <div class="p-6 border border-gray-800 rounded-2xl bg-gray-900/40 h-full">
+                        <p class="font-mono text-green-400">3. In-Depth Intelligence</p>
+                        <h3 class="text-2xl font-bold mt-2">Beyond the Code</h3>
+                        <p class="mt-2 text-gray-400">We generate a detailed report analyzing technical competency, behavioral traits, and overall effectiveness in a Human+AI team.</p>
+                    </div>
+                 </div>
+            </div>
+        </section>
+
+        <!-- Slide 6: Go-To-Market (Refined) -->
+        <section class="slide">
+            <div class="bg-grid"></div>
+            <div class="content max-w-6xl w-full">
+                <h2 class="text-4xl md:text-6xl font-black tracking-tighter text-center">Targeted, Network‑Driven <span class="accent">Go‑To‑Market.</span></h2>
+                <p class="mt-4 text-xl text-gray-400 text-center max-w-3xl mx-auto">Embed in the engineering community to win design partners and expand within accounts.</p>
+                <div class="mt-10 grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="p-6 rounded-2xl border border-green-500/30 bg-gray-900/40">
+                        <div class="flex items-center gap-3">
+                            <svg class="w-6 h-6 accent" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M2 12h20"/></svg>
+                            <p class="text-lg font-bold">Wedge</p>
+                        </div>
+                        <p class="mt-3 text-gray-300">Start with CTOs & VPs Engineering at growth‑stage (Series A+) UK tech companies.</p>
+                    </div>
+                    <div class="p-6 rounded-2xl border border-green-500/30 bg-gray-900/40">
+                        <div class="flex items-center gap-3">
+                            <svg class="w-6 h-6 accent" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
+                            <p class="text-lg font-bold">Approach</p>
+                        </div>
+                        <p class="mt-3 text-gray-300">White‑glove Design Partner Program co‑developed with first 6–10 customers.</p>
+                    </div>
+                    <div class="p-6 rounded-2xl border border-green-500/30 bg-gray-900/40">
+                        <div class="flex items-center gap-3">
+                            <svg class="w-6 h-6 accent" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h18M3 6h12M3 18h6"/></svg>
+                            <p class="text-lg font-bold">Growth Engine</p>
+                        </div>
+                        <p class="mt-3 text-gray-300">Community‑led growth: meetups, hackathons and thought leadership for technical leaders.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 7: The Vision -->
+        <section class="slide text-center">
+            <div class="bg-grid"></div>
+            <div class="content max-w-4xl">
+                 <h2 class="text-4xl md:text-6xl font-black tracking-tighter">Beyond Hiring: The Operating System for <span class="accent">Team Performance.</span></h2>
+                 <p class="mt-8 text-xl text-gray-400 max-w-3xl mx-auto">
+                    Hiring is just the entry point. DevDay will become the core platform that companies use to manage the entire lifecycle of their Human+AI teams—from onboarding and upskilling to promotion and resource allocation.
+                 </p>
+                 <p class="font-mono text-xl mt-8"><span class="text-gray-500">Engineering</span> → <span class="text-gray-300">Product</span> → <span class="text-white">Sales & Marketing</span> → <span class="accent">The Entire Organization</span></p>
+            </div>
+        </section>
+
+        <!-- Slide 8: Why Now -->
+        <section class="slide">
+            <div class="bg-grid"></div>
+            <div class="content max-w-6xl w-full text-center">
+                <h2 class="text-4xl md:text-6xl font-black tracking-tighter">Why Now</h2>
+                <p class="mt-6 text-xl text-gray-300 max-w-4xl mx-auto">Teams are shipping with AI agents, but hiring and staffing haven’t caught up — we don’t interview for human–agent collaboration yet.</p>
+                <div class="relative mt-10">
+                    <!-- subtle glow + dotted overlay -->
+                    <div class="pointer-events-none absolute -inset-8 blur-3xl opacity-20 bg-[radial-gradient(circle_at_center,rgba(57,255,20,0.25),transparent_60%)]"></div>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 relative">
+                        <!-- Card 1 -->
+                        <div class="p-6 rounded-3xl relative overflow-hidden border border-green-500/30 bg-gray-900/40 shadow-[0_0_30px_rgba(57,255,20,0.06)] text-left">
+                            <div class="absolute -top-8 -right-10 h-24 w-24 rounded-full bg-green-500/10 blur-xl"></div>
+                            <div class="flex items-center gap-3">
+                                <div class="h-10 w-10 rounded-full flex items-center justify-center bg-green-500/10 border border-green-500/40 text-green-400">
+                                    <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 12l6-9 6 9-6 9-6-9z"/></svg>
+                                </div>
+                                <p class="text-lg font-semibold">Copilots are mainstream</p>
+                            </div>
+                            <p class="text-gray-400 mt-3">Agent frameworks are standard in engineering flows.</p>
+                        </div>
+                        <!-- Card 2 -->
+                        <div class="p-6 rounded-3xl relative overflow-hidden border border-green-500/30 bg-gray-900/40 shadow-[0_0_30px_rgba(57,255,20,0.06)] text-left">
+                            <div class="absolute -top-8 -right-10 h-24 w-24 rounded-full bg-green-500/10 blur-xl"></div>
+                            <div class="flex items-center gap-3">
+                                <div class="h-10 w-10 rounded-full flex items-center justify-center bg-green-500/10 border border-green-500/40 text-green-400">
+                                    <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 7h18M3 12h12M3 17h6"/></svg>
+                                </div>
+                                <p class="text-lg font-semibold">Toolchains standardize</p>
+                            </div>
+                            <p class="text-gray-400 mt-3">GitHub • Jira • Slack make realistic sims feasible.</p>
+                        </div>
+                        <!-- Card 3 -->
+                        <div class="p-6 rounded-3xl relative overflow-hidden border border-green-500/30 bg-gray-900/40 shadow-[0_0_30px_rgba(57,255,20,0.06)] text-left">
+                            <div class="absolute -top-8 -right-10 h-24 w-24 rounded-full bg-green-500/10 blur-xl"></div>
+                            <div class="flex items-center gap-3">
+                                <div class="h-10 w-10 rounded-full flex items-center justify-center bg-green-500/10 border border-green-500/40 text-green-400">
+                                    <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l7 4v6c0 5-3.5 9-7 10-3.5-1-7-5-7-10V6l7-4z"/></svg>
+                                </div>
+                                <p class="text-lg font-semibold">Proof before scale</p>
+                            </div>
+                            <p class="text-gray-400 mt-3">Enterprises need safe, measurable adoption.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 9: The Team -->
+        <section class="slide">
+            <div class="bg-grid"></div>
+            <div class="content max-w-4xl w-full text-center">
+                <h2 class="text-4xl md:text-6xl font-black tracking-tighter">The <span class="accent">Builder</span> & The <span class="accent">Seller.</span></h2>
+                <div class="mt-12 flex flex-col md:flex-row justify-center items-center gap-12">
+                    <div class="text-center">
+                        <div class="w-48 h-48 rounded-full mx-auto border-2 border-gray-700 overflow-hidden">
+                            <img src="people/devdaybeth.jpeg" alt="Beth — Co‑founder, Product" class="w-full h-full object-cover" />
+                        </div>
+                        <h3 class="mt-4 text-2xl font-bold">Beth</h3>
+                        <p class="font-mono text-green-400">Builds the Product</p>
+                    </div>
+                    <div class="text-center">
+                        <div class="w-48 h-48 rounded-full mx-auto border-2 border-gray-700 overflow-hidden">
+                            <img src="people/devdaylaura.jpeg" alt="Laura — Co‑founder, Commercial" class="w-full h-full object-cover" />
+                        </div>
+                        <h3 class="mt-4 text-2xl font-bold">Laura</h3>
+                        <p class="font-mono text-green-400">Sells the Vision</p>
+                    </div>
+                </div>
+                <p class="text-center mt-12 text-xl text-gray-400 max-w-2xl mx-auto">
+                    A founding team with the ideal blend of deep technical capability and a proven network to drive commercial traction from day one.
+                </p>
+            </div>
+        </section>
+
+        <!-- Slide 10: The Ask -->
+        <section class="slide text-center">
+             <div class="bg-grid"></div>
+            <div class="content max-w-4xl">
+                 <h2 class="text-4xl md:text-6xl font-black tracking-tighter">We're Raising to Build the <span class="accent">Future of Work.</span></h2>
+                <div class="my-10 p-8 border-2 border-green-500/30 rounded-2xl bg-gray-900/40">
+                    <p class="text-xl text-gray-400">Raising a</p>
+                    <p class="text-6xl md:text-8xl font-black tracking-tighter my-2"><span class="accent">£1.2M</span> Pre-Seed</p>
+                    <p class="text-xl text-gray-300">To provide 18 months of runway and achieve our key milestones:</p>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-left font-mono">
+                    <div class="p-4"><strong class="accent">&gt;</strong> Onboard 10 paying Design Partners</div>
+                    <div class="p-4"><strong class="accent">&gt;</strong> Achieve £100k+ in ARR</div>
+                    <div class="p-4"><strong class="accent">&gt;</strong> Solidify US market entry plan</div>
+                </div>
+            </div>
+        </section>
+        
+    </main>
+
+    <!-- Navigation -->
+    <button id="prev-btn" class="nav-button" aria-label="Previous slide">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
+    </button>
+    <button id="next-btn" class="nav-button" aria-label="Next slide">
+         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+    </button>
+
+    <div id="slide-counter" class="slide-counter">
+        <span id="current-slide">1</span> / <span id="total-slides">10</span>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const deck = document.getElementById('deck');
+            const slides = document.querySelectorAll('.slide');
+            const prevBtn = document.getElementById('prev-btn');
+            const nextBtn = document.getElementById('next-btn');
+            const currentSlideEl = document.getElementById('current-slide');
+            const totalSlidesEl = document.getElementById('total-slides');
+
+            let currentSlide = 0;
+            const totalSlides = slides.length;
+            totalSlidesEl.textContent = totalSlides;
+
+            function goToSlide(slideIndex) {
+                if (slideIndex < 0 || slideIndex >= totalSlides) { return; }
+                currentSlide = slideIndex;
+                deck.style.transform = `translateX(-${currentSlide * 100}vw)`;
+                updateNav();
+            }
+
+            function updateNav() {
+                currentSlideEl.textContent = currentSlide + 1;
+                prevBtn.style.display = currentSlide === 0 ? 'none' : 'flex';
+                nextBtn.style.display = currentSlide === totalSlides - 1 ? 'none' : 'flex';
+            }
+
+            prevBtn.addEventListener('click', () => goToSlide(currentSlide - 1));
+            nextBtn.addEventListener('click', () => goToSlide(currentSlide + 1));
+
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'ArrowRight') goToSlide(currentSlide + 1);
+                else if (e.key === 'ArrowLeft') goToSlide(currentSlide - 1);
+            });
+
+            // Initial setup
+            goToSlide(0);
+        });
+    </script>
+</body>
+</html>
