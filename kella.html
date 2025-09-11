@@ -3,473 +3,217 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kella Pitch Deck</title>
+    <title>Kella Pre-Seed Deck</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;700&family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: #111827; /* Darker Charcoal */
-            color: #f9fafb; /* White */
-            overflow: hidden;
+        html, body { height: 100%; margin: 0; scroll-snap-type: y mandatory; overflow-y: scroll; background-color: #111827; color: #f9fafb; }
+        section { scroll-snap-align: start; min-height: 100vh; display:flex; flex-direction:column; justify-content:center; align-items:center; position:relative; padding:4rem 1rem; }
+        h1, h2, h3 { font-family: 'Playfair Display', serif; }
+        .overlay { position:absolute; inset:0; background:rgba(0,0,0,0.55); }
+        @keyframes gradient {
+            0%{background-position:0% 50%;}
+            50%{background-position:100% 50%;}
+            100%{background-position:0% 50%;}
         }
-        h1, h2, h3, h4, h5, h6 {
-            font-family: 'Playfair Display', serif;
-        }
-        main {
-            display: flex;
-            width: 100%;
-            height: 100vh;
-            transition: transform 0.6s cubic-bezier(0.65, 0, 0.35, 1);
-        }
-        .slide {
-            flex: 0 0 100vw;
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            padding: 5vw;
-            position: relative;
-            overflow: hidden;
-            border-left: 1px solid rgba(212, 175, 55, 0.1);
-        }
-        .slide-content {
-            max-width: 1200px;
-            width: 100%;
-            text-align: center;
-        }
-        .bg-charcoal-dark { background-color: #111827; }
-        .bg-white { background-color: #ffffff; }
-        .text-white { color: #f9fafb; }
-        .text-charcoal { color: #111827; }
-        .text-gold { color: #D4AF37; } /* Gold Accent */
-        .bg-gold { background-color: #D4AF37; }
-
-        .nav-button {
-            position: fixed;
-            top: 50%;
-            transform: translateY(-50%);
-            background-color: rgba(212, 175, 55, 0.05);
-            color: #f9fafb;
-            border: 1px solid rgba(212, 175, 55, 0.2);
-            border-radius: 9999px;
-            width: 50px;
-            height: 50px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            z-index: 10;
-        }
-        .nav-button:hover {
-            background-color: rgba(212, 175, 55, 0.1);
-            border-color: #D4AF37;
-        }
-        #prev-btn { left: 2vw; }
-        #next-btn { right: 2vw; }
-        .slide-counter {
-            position: fixed;
-            bottom: 3vh;
-            left: 50%;
-            transform: translateX(-50%);
-            color: rgba(240, 240, 240, 0.3);
-            font-size: 0.8rem;
-            letter-spacing: 0.1em;
-            z-index: 10;
-        }
-        /* Subtle moving shapes */
-        .shape { position: absolute; opacity: 0.06; z-index: -1; animation: slowspin 60s linear infinite; filter: drop-shadow(0 10px 30px rgba(212,175,55,0.25)); }
-        .shape-1 { top: -20%; right: -15%; width: 50vw; }
-        .shape-2 { bottom: -30%; left: -20%; width: 60vw; animation-direction: reverse; }
-        @keyframes slowspin { from { transform: rotate(0deg);} to { transform: rotate(360deg);} }
-        @media (max-width: 768px) {
-            header { display: none; }
-        }
-        /* Mobile: natural scroll with snap; hide header */
-        @media (max-width: 768px) {
-            /* Compact header: brand only */
-            header { display: flex; padding: 10px 14px; }
-            header > div:last-child { display: none; }
-            body { padding-top: 56px; }
-            /* Mobile nav */
-            html, body { overflow-y: auto; scroll-snap-type: y mandatory; -webkit-overflow-scrolling: touch; }
-            .slide { position: static; height: auto; min-height: 100svh; scroll-snap-align: start; }
-            #slide-counter { bottom: 1rem; }
-        }
+        .animated-bg { background:linear-gradient(-45deg,#1e3a8a,#111827,#d4af37,#1e3a8a); background-size:400% 400%; animation:gradient 20s ease infinite; }
+        @keyframes fadeup { from{opacity:0; transform:translateY(20px);} to{opacity:1; transform:translateY(0);} }
+        .fadeup { animation:fadeup 1s ease forwards; }
+        #progress-container{position:fixed;top:0;right:0;width:6px;height:100vh;background:rgba(255,255,255,0.1);z-index:50;}
+        #progress{width:100%;height:0;background:#d4af37;}
+        .bar{position:relative;width:100%;height:2rem;background:#374151;border-radius:0.375rem;overflow:hidden;margin-bottom:1rem;}
+        .bar .fill{background:#d4af37;height:100%;width:0;transition:width 2s ease;}
+        .bar span{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:.75rem;}
+        #network .node{animation:pulse 3s ease-in-out infinite;}
+        @keyframes pulse{0%{r:6;}50%{r:10;}100%{r:6;}}
+        #fundsPie{background:conic-gradient(#374151 0 100%);}
     </style>
 </head>
 <body class="antialiased">
-    <!-- Header -->
-    <header class="fixed top-0 left-0 w-full p-6 z-10 flex justify-between items-center">
-        <div class="text-lg font-bold tracking-wider font-mono">KELLA</div>
-        <div class="text-sm font-medium text-gray-300 flex items-center gap-4">
-            <span>Investor Deck // Confidential</span>
-            <a href="index.html" class="hover:text-white">Home</a>
+    <div id="progress-container"><div id="progress"></div></div>
+    <!-- Slide 1: Hero -->
+    <section class="text-center" style="background:url('public/kella3.jpg') center/cover no-repeat;">
+        <div class="overlay"></div>
+        <video class="absolute inset-0 w-full h-full object-cover opacity-40" autoplay muted loop playsinline poster="public/kella4.jpg">
+            <source src="public/kella.mp4" type="video/mp4">
+        </video>
+        <div class="relative z-10 max-w-3xl mx-auto fadeup">
+            <h1 class="text-6xl md:text-7xl font-bold mb-6">Kella</h1>
+            <p class="text-2xl md:text-3xl">Fueling the female wealth revolution.</p>
         </div>
-    </header>
-
-    <main id="deck">
-        <!-- Slide 1: Title -->
-        <section class="slide bg-charcoal-dark text-white" style="background-image: linear-gradient(rgba(17,24,39,0.82), rgba(17,24,39,0.82)), url('public/kella1.jpg'); background-size: cover; background-position: center;">
-        <div class="slide-content text-center">
-            <h1 class="text-7xl md:text-8xl font-bold mb-4">Build Power. Together.</h1>
-            <p class="text-2xl md:text-3xl font-light text-gray-200">The private network compounding female leadership, capital, and careers.</p>
+    </section>
+    <!-- Slide 2: Problem -->
+    <section class="animated-bg text-center">
+        <div class="max-w-4xl mx-auto fadeup">
+            <h2 class="text-5xl md:text-6xl font-bold mb-8">Funding Gap</h2>
+            <p class="text-xl md:text-2xl">Women start 30% of new ventures yet secure only 2% of VC capital.</p>
+            <div class="max-w-md mx-auto mt-10">
+                <div class="bar" data-width="30"><div class="fill"></div><span>30% ventures by women</span></div>
+                <div class="bar" data-width="2"><div class="fill"></div><span>2% funding to women</span></div>
+            </div>
+            <p class="mt-6 text-lg">Over €42B left on the table every year.</p>
         </div>
-        </section>
-
-        <!-- Slide 2: 39% Impact (hero focus) -->
-        <section class="slide bg-charcoal-dark text-white">
-        <div class="relative w-full h-full rounded-xl overflow-hidden">
-            <!-- Background video (replace src when provided) -->
-            <video class="absolute inset-0 w-full h-full object-cover opacity-50" autoplay muted loop playsinline poster="public/kella2.jpg">
-                <source src="public/kella-impact.mp4" type="video/mp4">
-            </video>
-            <div class="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/70"></div>
-
-            <div class="relative h-full flex items-center justify-center p-8">
-                <div class="slide-content text-left max-w-6xl">
-                    <div class="grid md:grid-cols-2 gap-10 items-center">
-                        <!-- Supergraphic 39% -->
-                        <div class="flex items-center gap-6">
-                            <svg viewBox="0 0 200 200" class="w-40 h-40 hidden sm:block">
-                                <circle cx="100" cy="100" r="70" stroke="#374151" stroke-width="16" fill="none" />
-                                <!-- 39% arc -->
-                                <circle cx="100" cy="100" r="70" stroke="#D4AF37" stroke-width="16" fill="none" stroke-linecap="round"
-                                        transform="rotate(-90 100 100)" stroke-dasharray="171 440" />
-                            </svg>
-                            <div>
-                                <div class="text-gold" style="font-size: clamp(64px, 12vw, 120px); line-height: .9; font-weight: 900;">39%</div>
-                                <p class="text-xl md:text-2xl text-gray-200">Companies with <span class="font-bold">30%+ women executives</span> are more profitable.</p>
-                            </div>
-                        </div>
-
-                        <!-- Supporting bullets -->
-                        <div class="space-y-4 text-lg md:text-xl text-gray-200">
-                            <div class="flex items-start gap-3">
-                                <span class="mt-1 inline-block h-2 w-2 rounded-full bg-gold"></span>
-                                <p>Yet <span class="font-semibold">67% of senior women</span> report isolation at the top.</p>
-                            </div>
-                            <div class="flex items-start gap-3">
-                                <span class="mt-1 inline-block h-2 w-2 rounded-full bg-gold"></span>
-                                <p>Boards want outcomes, not talk. We’re the <span class="font-semibold">operating system</span> for action.</p>
-                            </div>
-                            <div class="flex items-start gap-3">
-                                <span class="mt-1 inline-block h-2 w-2 rounded-full bg-gold"></span>
-                                <p>39% is not a slogan — it’s an <span class="font-semibold">investment thesis</span>.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+    </section>
+    <!-- Slide 3: Solution -->
+    <section class="text-center" style="background:url('public/kella1.jpg') center/cover no-repeat;">
+        <div class="overlay"></div>
+        <div class="relative z-10 max-w-3xl mx-auto fadeup">
+            <h2 class="text-5xl md:text-6xl font-bold mb-8">Kella Engine</h2>
+            <p class="text-xl md:text-2xl">A private deal network turning female expertise into equity.</p>
+            <svg id="network" viewBox="0 0 200 200" class="w-full max-w-xs mx-auto mt-10">
+                <defs>
+                    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+                        <polygon points="0 0, 10 3.5, 0 7" fill="#d4af37"/>
+                    </marker>
+                </defs>
+                <line x1="100" y1="100" x2="40" y2="40" stroke="#d4af37" stroke-width="2" marker-end="url(#arrowhead)" />
+                <line x1="100" y1="100" x2="160" y2="40" stroke="#d4af37" stroke-width="2" marker-end="url(#arrowhead)" />
+                <line x1="100" y1="100" x2="40" y2="160" stroke="#d4af37" stroke-width="2" marker-end="url(#arrowhead)" />
+                <line x1="100" y1="100" x2="160" y2="160" stroke="#d4af37" stroke-width="2" marker-end="url(#arrowhead)" />
+                <circle cx="100" cy="100" r="20" fill="#d4af37"/>
+                <circle class="node" cx="40" cy="40" r="6" fill="#f9fafb"/>
+                <circle class="node" cx="160" cy="40" r="6" fill="#f9fafb"/>
+                <circle class="node" cx="40" cy="160" r="6" fill="#f9fafb"/>
+                <circle class="node" cx="160" cy="160" r="6" fill="#f9fafb"/>
+            </svg>
+        </div>
+    </section>
+    <!-- Slide 4: Product -->
+    <section class="bg-black text-center">
+        <div class="max-w-5xl mx-auto fadeup">
+            <h2 class="text-5xl md:text-6xl font-bold mb-8">Product</h2>
+            <div class="grid md:grid-cols-3 gap-8 text-left">
+                <div class="p-6 bg-gray-800/50 rounded-lg"><h3 class="text-2xl font-semibold mb-2">Platform Core</h3><p>Members-only hub with dealflow, resources and peer connection.</p></div>
+                <div class="p-6 bg-gray-800/50 rounded-lg"><h3 class="text-2xl font-semibold mb-2">Live Labs</h3><p>Signature gatherings pairing investors and operators across global cities.</p></div>
+                <div class="p-6 bg-gray-800/50 rounded-lg"><h3 class="text-2xl font-semibold mb-2">Investment Collective</h3><p>Angel syndicate mobilizing wealth toward women-led innovation.</p></div>
             </div>
         </div>
-        </section>
-
-        <!-- Slide 3: The Market Gap -->
-        <section class="slide bg-charcoal-dark text-white">
-        <div class="slide-content">
-            <h2 class="text-4xl md:text-5xl font-bold mb-6">The Old Guard Has Failed. A New Leader is Needed.</h2>
-            <p class="text-xl md:text-2xl max-w-4xl mx-auto mb-12">Chief's failed UK expansion created a market vacuum. Their mistake? A lack of genuine inclusivity.</p>
-            <div class="grid md:grid-cols-2 gap-8 text-left max-w-5xl mx-auto">
-                <div class="bg-gray-800/50 p-6 rounded-lg border border-gray-700 backdrop-blur-sm">
-                    <h3 class="text-2xl font-bold mb-2 text-gold">Their Failure</h3>
-                    <p class="text-gray-300">Perceived as a "white woman's fascist movement," alienating huge segments of the market and forcing a retreat.</p>
-                </div>
-                <div class="bg-gray-800/50 p-6 rounded-lg border border-gray-700 backdrop-blur-sm">
-                    <h3 class="text-2xl font-bold mb-2 text-gold">Our Opportunity</h3>
-                    <p class="text-gray-300">To build the premier, truly diverse and inclusive leadership network for women across the UK, Europe, and beyond.</p>
-                </div>
+    </section>
+    <!-- Slide 5: Market -->
+    <section class="text-center" style="background:url('public/londoncity.jpg') center/cover no-repeat;">
+        <div class="overlay"></div>
+        <div class="relative z-10 max-w-4xl mx-auto fadeup">
+            <h2 class="text-5xl md:text-6xl font-bold mb-8">Market</h2>
+            <p class="text-xl md:text-2xl mb-8">Women will control <span class="text-gold font-bold">$72T</span> in assets by 2030. High-growth operators seek a trusted community.</p>
+            <p class="text-lg">Beachhead: London & New York with rapid expansion to global hubs.</p>
+        </div>
+    </section>
+    <!-- Slide 6: Business Model -->
+    <section class="animated-bg text-center">
+        <div class="max-w-4xl mx-auto fadeup">
+            <h2 class="text-5xl md:text-6xl font-bold mb-8">Business Model</h2>
+            <p class="text-xl md:text-2xl mb-8">Three flywheels feed our growth.</p>
+            <svg viewBox="0 0 300 200" class="w-full max-w-md mx-auto">
+                <defs>
+                    <marker id="bm-arrow" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+                        <polygon points="0 0,10 3.5,0 7" fill="#d4af37"/>
+                    </marker>
+                </defs>
+                <circle cx="150" cy="40" r="30" fill="transparent" stroke="#d4af37" stroke-width="2"/>
+                <text x="150" y="45" text-anchor="middle" font-size="10" fill="#f9fafb">Memberships</text>
+                <circle cx="60" cy="150" r="30" fill="transparent" stroke="#d4af37" stroke-width="2"/>
+                <text x="60" y="155" text-anchor="middle" font-size="10" fill="#f9fafb">Sponsorships</text>
+                <circle cx="240" cy="150" r="30" fill="transparent" stroke="#d4af37" stroke-width="2"/>
+                <text x="240" y="155" text-anchor="middle" font-size="10" fill="#f9fafb">Carry</text>
+                <line x1="135" y1="65" x2="75" y2="120" stroke="#d4af37" stroke-width="2" marker-end="url(#bm-arrow)" />
+                <line x1="165" y1="65" x2="225" y2="120" stroke="#d4af37" stroke-width="2" marker-end="url(#bm-arrow)" />
+                <line x1="90" y1="150" x2="210" y2="150" stroke="#d4af37" stroke-width="2" marker-end="url(#bm-arrow)" />
+                <line x1="210" y1="150" x2="150" y2="70" stroke="#d4af37" stroke-width="2" marker-end="url(#bm-arrow)" />
+            </svg>
+        </div>
+    </section>
+    <!-- Slide 7: Traction -->
+    <section class="text-center" style="background:url('public/kella2.jpg') center/cover no-repeat;">
+        <div class="overlay"></div>
+        <div class="relative z-10 max-w-4xl mx-auto fadeup">
+            <h2 class="text-5xl md:text-6xl font-bold mb-8">Momentum</h2>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+                <div><p class="text-5xl font-extrabold text-gold">600</p><p>waitlist</p></div>
+                <div><p class="text-5xl font-extrabold text-gold">8</p><p>pilot labs</p></div>
+                <div><p class="text-5xl font-extrabold text-gold">50%</p><p>conversion</p></div>
+                <div><p class="text-5xl font-extrabold text-gold">5</p><p>brand partners</p></div>
             </div>
         </div>
-        </section>
-
-        <!-- Slide 4: The Flywheel (dark, left-aligned) -->
-        <section class="slide bg-charcoal-dark text-white">
-        <div class="slide-content text-left pt-8 md:pt-16">
-            <h2 class="text-5xl md:text-6xl font-bold mb-3">The Kella Flywheel</h2>
-            <p class="text-lg md:text-xl text-gray-300 mb-8">In‑person energy → online depth → outcomes.</p>
-
-            <div class="grid md:grid-cols-2 gap-10 items-center">
-                <!-- Donut chart -->
-                <div class="relative mx-auto w-full max-w-md">
-                    <svg viewBox="0 0 200 200" class="w-full h-auto">
-                        <circle cx="100" cy="100" r="80" stroke="#374151" stroke-width="22" fill="none" />
-                        <circle cx="100" cy="100" r="80" stroke="#f56565" stroke-width="22" fill="none"
-                                stroke-dasharray="301.59 502.65" stroke-linecap="round" transform="rotate(-90 100 100)" />
-                        <circle cx="100" cy="100" r="80" stroke="#6B7280" stroke-width="22" fill="none"
-                                stroke-dasharray="201.06 502.65" stroke-dashoffset="301.59" stroke-linecap="round" transform="rotate(-90 100 100)" />
-                        <text x="100" y="100" text-anchor="middle" dominant-baseline="middle" font-size="22" fill="#f9fafb" font-weight="700">Engagement</text>
-                    </svg>
-                    <div class="mt-4 grid grid-cols-2 gap-4 text-sm text-gray-300">
-                        <div class="flex items-center gap-2"><span class="inline-block w-3 h-3 rounded-full" style="background:#f56565"></span><span class="font-semibold">In‑person 60%</span></div>
-                        <div class="flex items-center gap-2"><span class="inline-block w-3 h-3 rounded-full" style="background:#6B7280"></span><span class="font-semibold">Online 40%</span></div>
-                    </div>
-                </div>
-
-                <!-- Three compact cards -->
-                <div class="grid gap-4">
-                    <div class="flex items-start gap-4 p-5 rounded-xl bg-gray-800/50 border border-gray-700">
-                        <svg class="w-10 h-10 text-coral" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20"/><path d="M2 12h20"/></svg>
-                        <div class="text-left">
-                            <p class="text-xl font-bold">Catalyze</p>
-                            <p class="text-gray-300">Masterminds, summits, high‑signal rooms.</p>
-                        </div>
-                    </div>
-                    <div class="flex items-start gap-4 p-5 rounded-xl bg-gray-800/50 border border-gray-700">
-                        <svg class="w-10 h-10 text-coral" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09a1.65 1.65 0 0 0-1-1.51 1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09a1.65 1.65 0 0 0 1.51-1 1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9c0 .66.26 1.3.73 1.77.47.47 1.11.73 1.77.73H21a2 2 0 1 1 0 4h-.09c-.66 0-1.3.26-1.77.73-.47.47-.73 1.11-.73 1.77z"/>
-                        </svg>
-                        <div class="text-left">
-                            <p class="text-xl font-bold">Connect</p>
-                            <p class="text-gray-300">Always‑on private network.</p>
-                        </div>
-                    </div>
-                    <div class="flex items-start gap-4 p-5 rounded-xl bg-gray-800/50 border border-gray-700">
-                        <svg class="w-10 h-10 text-coral" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M19 13c-3.87 0-7-3.13-7-7"/><path d="M5 19c3.87 0 7-3.13 7-7"/></svg>
-                        <div class="text-left">
-                            <p class="text-xl font-bold">Compound</p>
-                            <p class="text-gray-300">Intros, capital, roles.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            
-        </div>
-        </section>
-
-        <!-- Slide 5: Traction -->
-        <section class="slide bg-charcoal-dark text-white">
-        <div class="slide-content">
-            <h2 class="text-5xl md:text-6xl font-bold mb-12">Market-Tested & Validated.</h2>
+    </section>
+    <!-- Slide 8: Team -->
+    <section class="bg-black text-center">
+        <div class="max-w-5xl mx-auto fadeup">
+            <h2 class="text-5xl md:text-6xl font-bold mb-8">Team</h2>
             <div class="grid md:grid-cols-3 gap-8">
-                <div class="bg-gray-800/50 border border-gray-700 p-8 rounded-lg text-center">
-                    <p class="text-7xl font-bold text-gold">243</p>
-                    <p class="text-2xl font-semibold mt-2">Active Members</p>
-                    <p class="text-lg text-gray-400">And growing month-on-month.</p>
+                <div class="p-4">
+                    <img src="https://placehold.co/200x200/e2e8f0/333?text=Hannah+D" alt="Hannah Donovan" class="w-40 h-40 rounded-full mx-auto mb-4 shadow-lg">
+                    <h3 class="text-2xl font-bold">Hannah Donovan</h3>
+                    <p class="text-gold font-semibold">CEO & Co-Founder</p>
                 </div>
-                <div class="bg-gray-800/50 border border-gray-700 p-8 rounded-lg text-center">
-                    <p class="text-7xl font-bold text-gold">3</p>
-                    <p class="text-2xl font-semibold mt-2">Investments Made</p>
-                    <p class="text-lg text-gray-400">At our last Kella Summit alone.</p>
-                </div>
-                <div class="bg-gray-800/50 border border-gray-700 p-8 rounded-lg text-center">
-                    <p class="text-2xl font-semibold mb-4">Global Corporate Partner</p>
-                    <img src="public/ey.png" alt="EY" class="h-12 md:h-16 mx-auto" style="filter: grayscale(100%) invert(1) brightness(1.4); opacity:0.95;" />
-                    <p class="text-lg text-gray-400 mt-4">Powering their "Winning Women" cohort.</p>
-                </div>
-            </div>
-        </div>
-        </section>
-
-        <!-- Slide 6: The Ecosystem -->
-        <section class="slide bg-white text-charcoal relative overflow-hidden">
-        <div class="shape shape-1">
-            <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"><path fill="#D4AF37" d="M49.8,-53.4C64.1,-42.6,75.1,-27.1,77.5,-10.1C79.9,6.9,73.7,25.3,62.8,40.1C51.9,54.9,36.3,66.1,18.8,72.2C1.3,78.2,-18.1,79,-34.4,72C-50.7,65,-64,49.9,-71.4,32.8C-78.7,15.7,-80.1,-3.4,-74.6,-19.3C-69,-35.1,-56.5,-47.7,-42.5,-57.1C-28.5,-66.5,-14.2,-72.7,2.1,-75.4C18.5,-78.1,37.1,-78,49.8,-53.4Z" transform="translate(100 100)"/></svg>
-        </div>
-        <div class="shape shape-2">
-            <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"><path fill="#F5D77C" d="M48.2,-64.8C62.4,-57,74,-42.5,79.5,-26.3C85,-10.1,84.4,7.8,77.6,22.8C70.9,37.8,58.1,49.8,43.6,58.9C29.2,67.9,13.2,74,-4.1,76.5C-21.4,79,-44.1,77.9,-58,68.2C-71.9,58.5,-77,40.2,-78.3,22.2C-79.7,4.3,-77.3,-13.2,-68.8,-26C-60.3,-38.8,-45.7,-46.9,-32.1,-54C-18.4,-61.2,-5.7,-67.5,8.8,-71.1C23.3,-74.8,48.2,-74.8,48.2,-64.8Z" transform="translate(100 100)"/></svg>
-        </div>
-        <div class="slide-content text-center relative">
-            <h2 class="text-5xl md:text-6xl font-bold mb-8">The Ecosystem</h2>
-            <p class="text-xl max-w-3xl mx-auto mb-10 text-gray-700">More than a community — a system compounding relationships into capital and careers.</p>
-            <div class="grid md:grid-cols-3 gap-6 text-left max-w-6xl mx-auto">
-                <div class="rounded-2xl overflow-hidden shadow-lg">
-                    <div class="h-40 bg-center bg-cover" style="background-image:linear-gradient(rgba(0,0,0,.3), rgba(0,0,0,.3)), url('public/kella2.jpg')"></div>
-                    <div class="p-6">
-                        <h3 class="text-2xl font-bold">Kella Capital</h3>
-                        <p class="text-gray-700">Curated access to high‑growth deals.</p>
-                    </div>
-                </div>
-                <div class="rounded-2xl overflow-hidden shadow-lg">
-                    <div class="h-40 bg-center bg-cover" style="background-image:linear-gradient(rgba(0,0,0,.3), rgba(0,0,0,.3)), url('public/kella3.jpg')"></div>
-                    <div class="p-6">
-                        <h3 class="text-2xl font-bold">Kella Careers</h3>
-                        <p class="text-gray-700">Private, anonymized talent marketplace.</p>
-                    </div>
-                </div>
-                <div class="rounded-2xl overflow-hidden shadow-lg">
-                    <div class="h-40 bg-center bg-cover" style="background-image:linear-gradient(rgba(0,0,0,.3), rgba(0,0,0,.3)), url('public/kella4.jpg')"></div>
-                    <div class="p-6">
-                        <h3 class="text-2xl font-bold">Kella Platform</h3>
-                        <p class="text-gray-700">Always‑on network, content, and intros.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        </section>
-
-        <!-- Slide 7: Go-To-Market -->
-        <section class="slide bg-charcoal-dark text-white">
-        <div class="slide-content">
-            <h2 class="text-5xl md:text-6xl font-bold mb-4">City by City</h2>
-            <p class="text-xl max-w-4xl mx-auto mb-10 text-gray-300">Proven “land and expand” playbook: launch with flagship events → build core community → scale.</p>
-            <div class="flex flex-wrap justify-center gap-4">
-                <span class="px-6 py-3 rounded-full bg-gray-800 border border-gray-700">Dublin — Proven</span>
-                <span class="px-6 py-3 rounded-full bg-gray-800 border border-gray-700">London — Launch</span>
-                <span class="px-6 py-3 rounded-full bg-gray-800 border border-gray-700">New York — Next</span>
-                <span class="px-6 py-3 rounded-full bg-gray-800 border border-gray-700">Toronto — Next</span>
-            </div>
-
-            <!-- City images -->
-            <div class="mt-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                <div class="relative rounded-xl overflow-hidden border border-gray-700 bg-gray-900/40">
-                    <img src="public/dublincity.jpg" alt="Dublin" class="w-full h-full object-cover opacity-90">
-                    <div class="absolute inset-x-0 bottom-0 p-3 bg-gradient-to-t from-black/60 to-transparent">
-                        <p class="text-lg font-semibold">Dublin</p>
-                        <p class="text-sm text-gray-300">Proven</p>
-                    </div>
-                </div>
-                <div class="relative rounded-xl overflow-hidden border border-gray-700 bg-gray-900/40">
-                    <img src="public/londoncity.jpg" alt="London" class="w-full h-full object-cover opacity-90">
-                    <div class="absolute inset-x-0 bottom-0 p-3 bg-gradient-to-t from-black/60 to-transparent">
-                        <p class="text-lg font-semibold">London</p>
-                        <p class="text-sm text-gray-300">Launch</p>
-                    </div>
-                </div>
-                <div class="relative rounded-xl overflow-hidden border border-gray-700 bg-gray-900/40">
-                    <img src="public/newyorkcity.jpg" alt="New York" class="w-full h-full object-cover opacity-90">
-                    <div class="absolute inset-x-0 bottom-0 p-3 bg-gradient-to-t from-black/60 to-transparent">
-                        <p class="text-lg font-semibold">New York</p>
-                        <p class="text-sm text-gray-300">Next</p>
-                    </div>
-                </div>
-                <div class="relative rounded-xl overflow-hidden border border-gray-700 bg-gray-900/40">
-                    <img src="public/torontocity.webp" alt="Toronto" class="w-full h-full object-cover opacity-90">
-                    <div class="absolute inset-x-0 bottom-0 p-3 bg-gradient-to-t from-black/60 to-transparent">
-                        <p class="text-lg font-semibold">Toronto</p>
-                        <p class="text-sm text-gray-300">Next</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        </section>
-        
-        <!-- Slide 8: The Team -->
-        <section class="slide bg-white text-charcoal">
-        <div class="slide-content">
-            <h2 class="text-5xl md:text-6xl font-bold mb-12">Built By Leaders, For Leaders.</h2>
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center max-w-6xl mx-auto">
-                <div>
-                    <img src="https://placehold.co/200x200/e2e8f0/333?text=Hannah+R." alt="Hannah Rixon" class="w-40 h-40 rounded-full mx-auto mb-4 shadow-lg">
-                    <h3 class="text-2xl font-bold">Hannah Rixon</h3>
-                    <p class="text-gold font-semibold">Co-Founder</p>
-                </div>
-                <div>
-                    <img src="https://placehold.co/200x200/e2e8f0/333?text=Caroline+D." alt="Caroline Dunleavy" class="w-40 h-40 rounded-full mx-auto mb-4 shadow-lg">
+                <div class="p-4">
+                    <img src="https://placehold.co/200x200/e2e8f0/333?text=Caroline+D" alt="Caroline Dunleavy" class="w-40 h-40 rounded-full mx-auto mb-4 shadow-lg">
                     <h3 class="text-2xl font-bold">Caroline Dunleavy</h3>
-                    <p class="text-gold font-semibold">Co-Founder</p>
+                    <p class="text-gold font-semibold">COO & Co-Founder</p>
                 </div>
-                <div>
-                    <img src="https://placehold.co/200x200/e2e8f0/333?text=Jean+L." alt="Jean London" class="w-40 h-40 rounded-full mx-auto mb-4 shadow-lg">
-                    <h3 class="text-2xl font-bold">Jean London</h3>
-                    <p class="text-gold font-semibold">Advisor (CNN Anchor)</p>
-                </div>
-                <div>
-                    <img src="https://placehold.co/200x200/e2e8f0/333?text=Sebastian+B." alt="Sebastian Brubaker" class="w-40 h-40 rounded-full mx-auto mb-4 shadow-lg">
+                <div class="p-4">
+                    <img src="https://placehold.co/200x200/e2e8f0/333?text=Sebastian+B" alt="Sebastian Brubaker" class="w-40 h-40 rounded-full mx-auto mb-4 shadow-lg">
                     <h3 class="text-2xl font-bold">Sebastian Brubaker</h3>
                     <p class="text-gold font-semibold">CTO</p>
                 </div>
             </div>
         </div>
-        </section>
-        
-        <!-- Slide 9: The Ask -->
-        <section class="slide bg-charcoal-dark text-white">
-        <div class="slide-content">
-            <h2 class="text-5xl md:text-6xl font-bold mb-10 text-center">Seed <span class="text-gold">€250k</span> to Ignite London</h2>
-            <div class="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto">
-                <div class="bg-gray-800/50 border border-gray-700 p-6 rounded-lg">
-                    <h3 class="text-2xl font-bold mb-4">Allocation</h3>
-                    <div class="space-y-3 text-gray-200">
-                        <div class="flex justify-between"><span>Flagship events & community</span><span class="text-gold">45%</span></div>
-                        <div class="flex justify-between"><span>Targeted marketing</span><span class="text-gold">35%</span></div>
-                        <div class="flex justify-between"><span>Platform & ops</span><span class="text-gold">20%</span></div>
-                    </div>
+    </section>
+    <!-- Slide 9: The Ask -->
+    <section class="animated-bg text-center">
+        <div class="max-w-4xl mx-auto fadeup">
+            <h2 class="text-5xl md:text-6xl font-bold mb-8">Pre-Seed Raise</h2>
+            <p class="text-2xl md:text-3xl mb-10">Raising <span class="text-gold font-extrabold">€1.5M</span> to launch the platform.</p>
+            <div class="grid md:grid-cols-2 gap-8 text-left">
+                <div class="p-6 bg-black/40 rounded-lg">
+                    <h3 class="text-2xl font-semibold mb-4">Use of Funds</h3>
+                    <div id="fundsPie" class="w-40 h-40 mx-auto rounded-full mb-4 transition-all duration-1000"></div>
+                    <ul class="space-y-2 list-disc list-inside text-sm">
+                        <li>Product & engineering 40%</li>
+                        <li>Market expansion 35%</li>
+                        <li>Community growth 25%</li>
+                    </ul>
                 </div>
-                <div class="bg-gray-800/50 border border-gray-700 p-6 rounded-lg">
-                    <h3 class="text-2xl font-bold mb-4">12‑Month Targets</h3>
-                    <div class="grid grid-cols-3 gap-4 text-center">
-                        <div><p class="text-4xl font-extrabold text-gold">150+</p><p class="text-gray-300">Members</p></div>
-                        <div><p class="text-4xl font-extrabold text-gold">12</p><p class="text-gray-300">Flagships</p></div>
-                        <div><p class="text-4xl font-extrabold text-gold">6</p><p class="text-gray-300">Partners</p></div>
-                    </div>
-                    <p class="mt-4 text-gray-300">De‑risked path to a profitable London hub and European scale.</p>
-                </div>
+                <div class="p-6 bg-black/40 rounded-lg"><h3 class="text-2xl font-semibold mb-4">Runway</h3><p>18 months with break-even at 1k members.</p></div>
             </div>
         </div>
-        </section>
-
-        <!-- Slide 10: Contact -->
-        <section class="slide bg-charcoal-dark text-white relative overflow-hidden">
-        <video class="absolute inset-0 w-full h-full object-cover opacity-40" autoplay muted loop playsinline poster="public/kella4.jpg">
-            <source src="public/kella.mp4" type="video/mp4">
-        </video>
-        <div class="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/80"></div>
-        <div class="slide-content text-center relative">
-            <h2 class="text-7xl md:text-8xl font-bold mb-6">Kella</h2>
-            <p class="text-2xl md:text-3xl mb-10 text-gray-200">Let's build the future of leadership, together.</p>
+    </section>
+    <!-- Slide 10: Contact -->
+    <section class="text-center" style="background:url('public/kella4.jpg') center/cover no-repeat;">
+        <div class="overlay"></div>
+        <div class="relative z-10 max-w-3xl mx-auto fadeup">
+            <h2 class="text-6xl md:text-7xl font-bold mb-6">Join Us</h2>
+            <p class="text-2xl md:text-3xl mb-8">Let's build power together.</p>
             <div class="flex flex-col sm:flex-row gap-4 justify-center">
                 <a href="mailto:hannah@kella.com" class="px-8 py-3 rounded-lg bg-gold text-charcoal font-bold">Request Intro</a>
-                <a href="https://www.kella.com" target="_blank" rel="noopener" class="px-8 py-3 rounded-lg border border-gray-500">Learn More</a>
+                <a href="https://www.kella.com" target="_blank" rel="noopener" class="px-8 py-3 rounded-lg border border-gray-200">Learn More</a>
             </div>
         </div>
-        </section>
-    </main>
-    
-    <!-- Navigation -->
-    <button id="prev-btn" class="nav-button">
-        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
-    </button>
-    <button id="next-btn" class="nav-button">
-         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
-    </button>
-
-    <div id="slide-counter" class="slide-counter">
-        <span id="current-slide">1</span> / <span id="total-slides">10</span>
-    </div>
-
+    </section>
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const deck = document.getElementById('deck');
-            const slides = document.querySelectorAll('.slide');
-            const prevBtn = document.getElementById('prev-btn');
-            const nextBtn = document.getElementById('next-btn');
-            const currentSlideEl = document.getElementById('current-slide');
-            const totalSlidesEl = document.getElementById('total-slides');
-
-            let currentSlide = 0;
-            const totalSlides = slides.length;
-            totalSlidesEl.textContent = totalSlides;
-
-            function goToSlide(slideIndex) {
-                if (slideIndex < 0 || slideIndex >= totalSlides) {
-                    return;
-                }
-                currentSlide = slideIndex;
-                deck.style.transform = `translateX(-${currentSlide * 100}vw)`;
-                updateNav();
-            }
-
-            function updateNav() {
-                currentSlideEl.textContent = currentSlide + 1;
-                prevBtn.style.display = currentSlide === 0 ? 'none' : 'flex';
-                nextBtn.style.display = currentSlide === totalSlides - 1 ? 'none' : 'flex';
-            }
-
-            prevBtn.addEventListener('click', () => goToSlide(currentSlide - 1));
-            nextBtn.addEventListener('click', () => goToSlide(currentSlide + 1));
-
-            document.addEventListener('keydown', (e) => {
-                if (e.key === 'ArrowRight') goToSlide(currentSlide + 1);
-                else if (e.key === 'ArrowLeft') goToSlide(currentSlide - 1);
-            });
-
-            // Initial setup
-            goToSlide(0);
+        const progress = document.getElementById('progress');
+        document.addEventListener('scroll', () => {
+            const h = document.body.scrollHeight - window.innerHeight;
+            const scrolled = window.scrollY / h;
+            progress.style.height = `${scrolled * 100}%`;
         });
+        const bars = document.querySelectorAll('.bar');
+        const fundsPie = document.getElementById('fundsPie');
+        const io = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+                if(entry.isIntersecting){
+                    if(entry.target.classList.contains('bar')){
+                        entry.target.querySelector('.fill').style.width = entry.target.dataset.width + '%';
+                    }
+                    if(entry.target.id === 'fundsPie'){
+                        entry.target.style.background = 'conic-gradient(#d4af37 0 40%, #f59e0b 40% 75%, #4b5563 75% 100%)';
+                    }
+                }
+            });
+        },{threshold:0.6});
+        bars.forEach(bar => io.observe(bar));
+        if(fundsPie) io.observe(fundsPie);
     </script>
 </body>
 </html>
