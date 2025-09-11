@@ -46,6 +46,10 @@
                 rgba(0,0,0,0.22) 90%,
                 rgba(0,0,0,0.28) 100%);
         }
+        /* Rim-light edge glow */
+        .rimlight::before { content: ""; position: absolute; inset: 0; pointer-events: none; mix-blend-mode: screen;
+            background: radial-gradient(ellipse at center, rgba(0,242,234,0.15) 0%, rgba(0,242,234,0.08) 35%, rgba(0,242,234,0.02) 60%, rgba(0,0,0,0) 80%);
+        }
 
         /* Animated arrows for workflow */
         .arrow { animation: nudge 1.6s ease-in-out infinite; }
@@ -66,6 +70,26 @@
         .ring-pulse { transform-origin: 50% 50%; animation: ringpulse 2.2s ease-out infinite; }
         @keyframes ringpulse { 0% { transform: scale(0.5); opacity: 0.7; } 100% { transform: scale(2.4); opacity: 0; } }
         .icon-graphic { opacity: 0.95; color: #00F2EA; }
+
+        /* Mini-map progress */
+        #mini-map { position: fixed; bottom: 6.5vh; left: 50%; transform: translateX(-50%); display: flex; gap: 8px; z-index: 10; }
+        .mini-dot { width: 8px; height: 8px; border-radius: 9999px; background: rgba(255,255,255,0.15); border: 1px solid rgba(0,242,234,0.35); cursor: pointer; transition: transform .15s ease, background .15s ease, box-shadow .15s ease; }
+        .mini-dot:hover { transform: scale(1.2); }
+        .mini-dot.active { background: #00F2EA; box-shadow: 0 0 10px rgba(0,242,234,0.5); transform: scale(1.35); }
+
+        /* Print / PDF styles */
+        @media print {
+            body { background: #ffffff !important; color: #000 !important; }
+            main { display: block; transform: none !important; }
+            .slide { display: block; height: auto; min-height: 90vh; border-left: none; padding: 24mm 16mm; page-break-inside: avoid; }
+            .nav-button, .slide-counter, #mini-map { display: none !important; }
+            .background-grid { opacity: 0.08; }
+        }
+        body.print-preview { background: #ffffff; color: #000; }
+        body.print-preview main { transform: none !important; display: block; }
+        body.print-preview .slide { display: block; height: auto; min-height: 90vh; border-left: none; padding: 6vh 6vw; }
+        body.print-preview .nav-button, body.print-preview .slide-counter, body.print-preview #mini-map { display: none !important; }
+        body.print-preview .background-grid { opacity: 0.08; }
 
         /* Respect reduced motion */
         @media (prefers-reduced-motion: reduce) { .spin-slow, .spin-med, .spin-fast, .pulse, .dash, .scan-sweep, .arrow { animation: none !important; } }
@@ -125,7 +149,7 @@
                 </ul>
             </div>
             <div class="content-box col-start-8 col-span-4 row-start-3 row-span-8 flex items-center">
-                <div class="w-full device-frame">
+                <div class="w-full device-frame vignette rimlight">
                     <img class="device-img" src="public/slide.png" alt="Pathology slide image">
                     <div class="scan-sweep"></div>
                 </div>
@@ -142,17 +166,39 @@
                     <p class="mt-4 text-lg text-gray-400">The failure check happens <span class="text-white font-medium">after</span> a two-week queue. When a slide fails, everything restarts.</p>
                 </div>
                 <div class="md:col-span-3">
-                    <div class="grid grid-cols-5 gap-3 text-center font-mono text-sm">
-                        <div class="p-4 rounded-lg border border-gray-800 bg-[#101010]">Biopsy</div>
-                        <div class="flex items-center justify-center text-2xl arrow">→</div>
-                        <div class="p-4 rounded-lg border border-gray-800 bg-[#101010]">Prep Slide</div>
-                        <div class="flex items-center justify-center text-2xl arrow">→</div>
-                        <div class="p-4 rounded-lg border border-gray-800 bg-[#101010]">Queue 2w</div>
-                        <div class="col-span-5 flex items-center justify-center text-2xl my-2 arrow">↓</div>
-                        <div class="col-span-2 p-4 rounded-lg border border-gray-800 bg-[#101010]">Pathologist</div>
-                        <div class="flex items-center justify-center text-2xl arrow">→</div>
-                        <div class="col-span-2 p-4 rounded-lg border border-red-800 text-red-400 bg-[#140b0b] font-semibold">15% Rejected</div>
-                    </div>
+                    <!-- Inline SVG flow diagram -->
+                    <svg class="w-full h-auto mini-graphic" viewBox="0 0 900 260" role="img" aria-label="Broken workflow diagram">
+                        <defs>
+                            <marker id="arrow" markerWidth="10" markerHeight="10" refX="6" refY="3" orient="auto" markerUnits="strokeWidth">
+                                <path d="M0,0 L0,6 L9,3 z" fill="#00F2EA" />
+                            </marker>
+                        </defs>
+                        <!-- Boxes -->
+                        <g font-family="IBM Plex Mono, monospace" font-size="14" fill="#EAEAEA">
+                            <rect x="20" y="30" width="180" height="60" rx="10" fill="#101010" stroke="#2a2a2a"/>
+                            <text x="110" y="66" text-anchor="middle">Biopsy</text>
+
+                            <rect x="240" y="30" width="180" height="60" rx="10" fill="#101010" stroke="#2a2a2a"/>
+                            <text x="330" y="66" text-anchor="middle">Prep Slide</text>
+
+                            <rect x="460" y="30" width="180" height="60" rx="10" fill="#101010" stroke="#2a2a2a"/>
+                            <text x="550" y="66" text-anchor="middle">Queue 2w</text>
+
+                            <rect x="680" y="30" width="200" height="60" rx="10" fill="#101010" stroke="#2a2a2a"/>
+                            <text x="780" y="66" text-anchor="middle">Pathologist</text>
+
+                            <rect x="680" y="160" width="200" height="60" rx="10" fill="#140b0b" stroke="#5a1a1a"/>
+                            <text x="780" y="196" text-anchor="middle" fill="#ff6b6b">15% Rejected</text>
+                        </g>
+
+                        <!-- Arrows top row -->
+                        <path class="dash-flow" d="M200 60 H 240" stroke="#00F2EA" stroke-width="3" fill="none" marker-end="url(#arrow)"/>
+                        <path class="dash-flow" d="M420 60 H 460" stroke="#00F2EA" stroke-width="3" fill="none" marker-end="url(#arrow)" style="animation-delay:.2s"/>
+                        <path class="dash-flow" d="M640 60 H 680" stroke="#00F2EA" stroke-width="3" fill="none" marker-end="url(#arrow)" style="animation-delay:.4s"/>
+
+                        <!-- Down arrow to rejection -->
+                        <path class="dash-flow" d="M780 90 V 160" stroke="#ff6b6b" stroke-width="3" fill="none" marker-end="url(#arrow)" style="animation-delay:.6s"/>
+                    </svg>
                 </div>
             </div>
         </section>
@@ -300,11 +346,11 @@
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8">
                     <div class="p-6 bg-[#101010] border border-gray-800 rounded-xl">
                         <h3 class="text-2xl font-bold">MVP Complete</h3>
-                        <p class="mt-2 text-gray-400">Functional prototype built and tested in-house; sub-5s scans verified.</p>
+                        <p class="mt-2 text-gray-400">Functional prototype built and tested in-house; sub-<span class="counter" data-target="5" data-decimals="1">0</span>s scans verified.</p>
                     </div>
                     <div class="p-6 bg-[#101010] border border-gray-800 rounded-xl">
                         <h3 class="text-2xl font-bold">ICR Collaboration</h3>
-                        <p class="mt-2 text-gray-400">Validating against <span class="text-white font-semibold">15,000</span> expertly annotated slides at the Institute of Cancer Research.</p>
+                        <p class="mt-2 text-gray-400">Validating against <span class="counter text-white font-semibold" data-target="15000" data-format="comma">0</span> expertly annotated slides at the Institute of Cancer Research.</p>
                     </div>
                     <div class="p-6 bg-[#101010] border border-gray-800 rounded-xl">
                         <h3 class="text-2xl font-bold">Live Clinical Trial</h3>
@@ -322,11 +368,11 @@
                 <h2 class="text-4xl md:text-6xl font-black tracking-tighter mt-2">We serve <span class="text-white">all</span> labs, not just digital.</h2>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
                     <div class="p-6 bg-[#101010] border border-gray-800 rounded-xl text-center">
-                        <div class="text-6xl font-black accent-cyan">$30B</div>
+                        <div class="text-6xl font-black accent-cyan"><span class="counter" data-target="30" data-prefix="$" data-suffix="B">$0</span></div>
                         <div class="mt-2 text-gray-400">Total Available Market (Anatomic Pathology)</div>
                     </div>
                     <div class="p-6 bg-[#101010] border border-gray-800 rounded-xl text-center">
-                        <div class="text-6xl font-black text-white">~£20M</div>
+                        <div class="text-6xl font-black text-white">~<span class="counter" data-target="20" data-prefix="£" data-suffix="M">£0</span></div>
                         <div class="mt-2 text-gray-400">Serviceable Obtainable Market (Yr 5 ARR)</div>
                     </div>
                 </div>
@@ -478,6 +524,7 @@
     <div id="slide-counter" class="slide-counter">
         <span id="current-slide">1</span> / <span id="total-slides">12</span>
     </div>
+    <div id="mini-map"></div>
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
@@ -487,6 +534,7 @@
             const nextBtn = document.getElementById('next-btn');
             const currentSlideEl = document.getElementById('current-slide');
             const totalSlidesEl = document.getElementById('total-slides');
+            const miniMap = document.getElementById('mini-map');
 
             let currentSlide = 0;
             const totalSlides = slides.length;
@@ -503,6 +551,11 @@
                 currentSlideEl.textContent = currentSlide + 1;
                 prevBtn.style.display = currentSlide === 0 ? 'none' : 'flex';
                 nextBtn.style.display = currentSlide === totalSlides - 1 ? 'none' : 'flex';
+                // Update mini-map
+                if (miniMap) {
+                    const dots = miniMap.querySelectorAll('.mini-dot');
+                    dots.forEach((d, i) => d.classList.toggle('active', i === currentSlide));
+                }
             }
 
             prevBtn.addEventListener('click', () => goToSlide(currentSlide - 1));
@@ -517,6 +570,58 @@
             let touchStartX = 0; let touchEndX = 0; const threshold = 50;
             deck.addEventListener('touchstart', (e) => { if (e.changedTouches[0]) touchStartX = e.changedTouches[0].clientX; }, { passive: true });
             deck.addEventListener('touchend', (e) => { if (e.changedTouches[0]) { touchEndX = e.changedTouches[0].clientX; const dx = touchEndX - touchStartX; if (Math.abs(dx) > threshold) { if (dx < 0) goToSlide(currentSlide + 1); else goToSlide(currentSlide - 1); } } }, { passive: true });
+
+            // Build mini-map dots
+            if (miniMap) {
+                miniMap.innerHTML = Array.from({ length: totalSlides }).map((_, i) => `<span class="mini-dot" data-idx="${i}"></span>`).join('');
+                miniMap.addEventListener('click', (e) => {
+                    const target = e.target;
+                    if (target && target.classList.contains('mini-dot')) {
+                        const idx = parseInt(target.getAttribute('data-idx'), 10);
+                        if (!Number.isNaN(idx)) goToSlide(idx);
+                    }
+                });
+            }
+
+            // Animated counters on intersection
+            function formatNumber(n, format, decimals = 0) {
+                if (format === 'comma') return n.toLocaleString();
+                if (decimals > 0) return n.toFixed(decimals);
+                return String(Math.round(n));
+            }
+            function animateCounter(el) {
+                const target = parseFloat(el.dataset.target || '0');
+                const prefix = el.dataset.prefix || '';
+                const suffix = el.dataset.suffix || '';
+                const format = el.dataset.format || '';
+                const decimals = parseInt(el.dataset.decimals || '0', 10);
+                const duration = 1200;
+                const start = performance.now();
+                function tick(now) {
+                    const p = Math.min(1, (now - start) / duration);
+                    const val = target * p;
+                    el.textContent = `${prefix}${formatNumber(val, format, decimals)}${suffix}`;
+                    if (p < 1) requestAnimationFrame(tick);
+                }
+                requestAnimationFrame(tick);
+            }
+            const counters = document.querySelectorAll('.counter');
+            const io = new IntersectionObserver((entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        animateCounter(entry.target);
+                        io.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.4 });
+            counters.forEach(c => io.observe(c));
+
+            // Print preview toggle (P)
+            document.addEventListener('keydown', (e) => {
+                if (e.key.toLowerCase() === 'p') {
+                    document.body.classList.toggle('print-preview');
+                }
+            });
 
             goToSlide(0);
         });
