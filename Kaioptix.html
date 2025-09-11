@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kaioptix // Zero-Delay Pathology</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #0A0A0A; color: #EAEAEA; overflow: hidden; }
+        main { display: flex; width: 100%; height: 100svh; transition: transform 0.7s cubic-bezier(0.65, 0, 0.35, 1); }
+        .slide { flex: 0 0 100vw; height: 100svh; display: grid; grid-template-columns: repeat(12, 1fr); grid-template-rows: repeat(12, 1fr); padding: 4vw; position: relative; overflow: hidden; border-left: 1px solid #222; }
+        .background-grid { position: absolute; inset: 0; background-image: linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px); background-size: 50px 50px; z-index: -1; }
+        .nav-button { position: fixed; top: 50%; transform: translateY(-50%); background-color: rgba(0, 242, 234, 0.10); color: #EAEAEA; border: 1px solid rgba(0, 242, 234, 0.35); border-radius: 9999px; width: 50px; height: 50px; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.2s ease; z-index: 10; }
+        .nav-button:hover { background-color: rgba(0, 242, 234, 0.18); border-color: #00F2EA; }
+        #prev-btn { left: 2vw; } #next-btn { right: 2vw; }
+        .slide-counter { position: fixed; bottom: 3vh; left: 50%; transform: translateX(-50%); color: rgba(234,234,234,0.35); font-size: 0.8rem; letter-spacing: 0.1em; z-index: 10; }
+        .content-box { grid-column: span 12; opacity: 0; transform: translateY(20px); animation: fadeIn 0.8s ease-out 0.4s forwards; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px);} to { opacity: 1; transform: translateY(0);} }
+        .accent-cyan { color: #00F2EA; }
+        .font-mono { font-family: 'IBM Plex Mono', monospace; }
+
+        /* Animated optics motif */
+        .vision-orb { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: min(62vw, 700px); height: auto; opacity: 0.28; z-index: 0; pointer-events: none; filter: drop-shadow(0 0 30px rgba(0,242,234,0.18)); }
+        .spin-slow { animation: spin 38s linear infinite; transform-origin: 50% 50%; }
+        .spin-med  { animation: spin 20s linear infinite; transform-origin: 50% 50%; }
+        .spin-fast { animation: spin 11s linear infinite reverse; transform-origin: 50% 50%; }
+        .pulse     { animation: orb-pulse 4s ease-in-out infinite; transform-origin: 50% 50%; }
+        .dash { stroke-dasharray: 2 8; animation: dash 9s linear infinite; }
+        @keyframes spin { from { transform: rotate(0deg);} to { transform: rotate(360deg);} }
+        @keyframes orb-pulse { 0%,100% { transform: scale(0.98); opacity: 0.55; } 50% { transform: scale(1.02); opacity: 0.9; } }
+        @keyframes dash { 0% { stroke-dashoffset: 0; } 100% { stroke-dashoffset: -200; } }
+
+        /* Device scan sweep overlay */
+        .device-frame { position: relative; border-radius: 16px; overflow: hidden; border: 1px solid rgba(0,242,234,0.25); background: #0b0f13; }
+        .device-img { display: block; width: 100%; height: auto; opacity: 0.9; }
+        .scan-sweep { position: absolute; inset: 0; background: linear-gradient(90deg, rgba(0,242,234,0) 0%, rgba(0,242,234,0.18) 45%, rgba(0,242,234,0.28) 50%, rgba(0,242,234,0.18) 55%, rgba(0,242,234,0) 100%); transform: translateX(-120%); animation: sweep 4s ease-in-out infinite; mix-blend-mode: screen; }
+        @keyframes sweep { 0% { transform: translateX(-120%);} 60% { transform: translateX(120%);} 100% { transform: translateX(120%);} }
+        /* Subtle vignette overlay */
+        .vignette::after { content: ""; position: absolute; inset: 0; pointer-events: none;
+            background: radial-gradient(ellipse at center,
+                rgba(0,0,0,0) 55%,
+                rgba(0,0,0,0.12) 75%,
+                rgba(0,0,0,0.22) 90%,
+                rgba(0,0,0,0.28) 100%);
+        }
+
+        /* Animated arrows for workflow */
+        .arrow { animation: nudge 1.6s ease-in-out infinite; }
+        @keyframes nudge { 0%,100% { transform: translateY(0);} 50% { transform: translateY(4px);} }
+
+        /* Mini graphics for slide 5 */
+        .mini-graphic { opacity: 0.9; filter: drop-shadow(0 0 14px rgba(0,242,234,0.06)); }
+        .sweep-x { transform: translateX(-120%); animation: sweepX 3.6s ease-in-out infinite; }
+        @keyframes sweepX { 0% { transform: translateX(-120%);} 60% { transform: translateX(120%);} 100% { transform: translateX(120%);} }
+        .twinkle { animation: twinkle 2.2s ease-in-out infinite; }
+        @keyframes twinkle { 0%,100% { opacity: 0.25; } 50% { opacity: 1; } }
+        .equalize { transform-origin: bottom center; animation: equalize 1.6s ease-in-out infinite; }
+        @keyframes equalize { 0% { transform: scaleY(0.4);} 50% { transform: scaleY(1);} 100% { transform: scaleY(0.5);} }
+
+        /* Roadmap timeline */
+        .dash-flow { stroke-dasharray: 10 14; animation: flow 10s linear infinite; }
+        @keyframes flow { from { stroke-dashoffset: 0; } to { stroke-dashoffset: -600; } }
+        .ring-pulse { transform-origin: 50% 50%; animation: ringpulse 2.2s ease-out infinite; }
+        @keyframes ringpulse { 0% { transform: scale(0.5); opacity: 0.7; } 100% { transform: scale(2.4); opacity: 0; } }
+        .icon-graphic { opacity: 0.95; color: #00F2EA; }
+
+        /* Respect reduced motion */
+        @media (prefers-reduced-motion: reduce) { .spin-slow, .spin-med, .spin-fast, .pulse, .dash, .scan-sweep, .arrow { animation: none !important; } }
+
+        /* Mobile tweaks */
+        @media (max-width: 768px) { .slide { padding: 12vw 5vw 18vw; border-left: none; } .nav-button { width: 42px; height: 42px; top: auto; bottom: calc(2.5vh + env(safe-area-inset-bottom)); transform: none; } #prev-btn { left: 4vw; } #next-btn { right: 4vw; } .slide-counter { bottom: calc(1.25vh + env(safe-area-inset-bottom)); font-size: 0.75rem; } .vision-orb { width: min(90vw, 560px); opacity: 0.22; } }
+    </style>
+</head>
+<body class="antialiased">
+    <!-- Header -->
+    <header class="fixed top-0 left-0 w-full p-6 z-10 flex justify-between items-center">
+        <div class="text-lg font-bold tracking-wider font-mono">Kaioptix</div>
+        <div class="text-sm font-medium text-gray-600">Investor Deck // Confidential</div>
+    </header>
+
+    <main id="deck">
+        <!-- Slide 1: Title -->
+        <section class="slide items-center justify-center text-center">
+            <div class="background-grid"></div>
+            <!-- Animated Optics -->
+            <svg class="vision-orb" viewBox="0 0 200 200" aria-hidden="true">
+                <defs>
+                    <radialGradient id="iris" cx="50%" cy="50%" r="50%">
+                        <stop offset="0%" stop-color="#00F2EA" stop-opacity="0.9"/>
+                        <stop offset="55%" stop-color="#00F2EA" stop-opacity="0.25"/>
+                        <stop offset="100%" stop-color="#00F2EA" stop-opacity="0"/>
+                    </radialGradient>
+                    <linearGradient id="arc" x1="0" y1="0" x2="1" y2="1">
+                        <stop offset="0%" stop-color="#00F2EA" stop-opacity="0.8"/>
+                        <stop offset="100%" stop-color="#00F2EA" stop-opacity="0"/>
+                    </linearGradient>
+                </defs>
+                <g class="spin-slow"><circle cx="100" cy="100" r="90" fill="none" stroke="#1f2937" stroke-width="0.6"/><circle cx="100" cy="100" r="78" fill="none" stroke="#223041" stroke-width="0.6"/></g>
+                <circle class="dash spin-med" cx="100" cy="100" r="65" fill="none" stroke="#00F2EA" stroke-width="0.8" stroke-opacity="0.7"/>
+                <g class="spin-fast" stroke-width="2" stroke-linecap="round"><path d="M100 25 A75 75 0 0 1 165 100" stroke="url(#arc)"/><path d="M35 100 A65 65 0 0 1 100 35" stroke="url(#arc)"/></g>
+                <g stroke="#2a3a4d" stroke-width="0.6"><path d="M100 18 V 182"/><path d="M18 100 H 182"/></g>
+                <g class="pulse"><circle cx="100" cy="100" r="40" fill="url(#iris)"/><circle cx="100" cy="100" r="10" fill="#0A0A0A" stroke="#00F2EA" stroke-opacity="0.8" stroke-width="1.2"/></g>
+                <g stroke="#00F2EA" stroke-opacity="0.5" stroke-width="1"><path d="M12 40 v-10 h10"/><path d="M188 40 v-10 h-10"/><path d="M12 160 v10 h10"/><path d="M188 160 v10 h-10"/></g>
+            </svg>
+            <div class="content-box col-start-2 col-span-10">
+                <h1 class="text-5xl md:text-8xl font-black tracking-tighter leading-none">Kaioptix</h1>
+                <p class="mt-8 text-lg md:text-2xl text-gray-400 max-w-3xl mx-auto font-medium">Zero-Delay Pathology: instant, optical quality control that guarantees perfect slides before review.</p>
+            </div>
+        </section>
+
+        <!-- Slide 2: The Problem -->
+        <section class="slide">
+            <div class="background-grid"></div>
+            <div class="content-box col-start-2 col-span-5 row-start-3 row-span-8 flex flex-col justify-center">
+                <p class="font-mono text-xl accent-cyan">The Problem</p>
+                <h2 class="text-4xl md:text-6xl font-black tracking-tighter mt-2">Pathology’s Waste Loop is Stealing Weeks.</h2>
+                <ul class="mt-6 text-xl text-gray-300 space-y-3">
+                    <li><span class="accent-cyan font-bold">15%</span> of slides are rejected due to preventable defects.</li>
+                    <li>A <span class="text-white font-bold">2–4 week</span> rework cycle repeats for each failure.</li>
+                    <li>Every delayed week can reduce survival by ~<span class="text-white font-bold">2%</span>.</li>
+                    <li>AI fails on flawed inputs: <span class="text-white font-bold">garbage in → garbage out.</span></li>
+                </ul>
+            </div>
+            <div class="content-box col-start-8 col-span-4 row-start-3 row-span-8 flex items-center">
+                <div class="w-full device-frame">
+                    <img class="device-img" src="public/slide.png" alt="Pathology slide image">
+                    <div class="scan-sweep"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 3: Current Workflow -->
+        <section class="slide">
+            <div class="background-grid"></div>
+            <div class="content-box col-start-2 col-span-10 row-start-3 row-span-8 grid grid-cols-1 md:grid-cols-5 gap-6 items-center">
+                <div class="md:col-span-2">
+                    <p class="font-mono text-xl accent-cyan">Today’s Reality</p>
+                    <h2 class="text-4xl md:text-5xl font-black tracking-tighter mt-2">Analog steps. Digital expectations.</h2>
+                    <p class="mt-4 text-lg text-gray-400">The failure check happens <span class="text-white font-medium">after</span> a two-week queue. When a slide fails, everything restarts.</p>
+                </div>
+                <div class="md:col-span-3">
+                    <div class="grid grid-cols-5 gap-3 text-center font-mono text-sm">
+                        <div class="p-4 rounded-lg border border-gray-800 bg-[#101010]">Biopsy</div>
+                        <div class="flex items-center justify-center text-2xl arrow">→</div>
+                        <div class="p-4 rounded-lg border border-gray-800 bg-[#101010]">Prep Slide</div>
+                        <div class="flex items-center justify-center text-2xl arrow">→</div>
+                        <div class="p-4 rounded-lg border border-gray-800 bg-[#101010]">Queue 2w</div>
+                        <div class="col-span-5 flex items-center justify-center text-2xl my-2 arrow">↓</div>
+                        <div class="col-span-2 p-4 rounded-lg border border-gray-800 bg-[#101010]">Pathologist</div>
+                        <div class="flex items-center justify-center text-2xl arrow">→</div>
+                        <div class="col-span-2 p-4 rounded-lg border border-red-800 text-red-400 bg-[#140b0b] font-semibold">15% Rejected</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 4: Our Solution -->
+        <section class="slide">
+            <div class="background-grid"></div>
+            <div class="content-box col-start-2 col-span-5 row-start-3 row-span-8 flex flex-col justify-center">
+                <p class="font-mono text-xl accent-cyan">Kaioptix</p>
+                <h2 class="text-4xl md:text-6xl font-black tracking-tighter mt-2">An Intelligent Gateway for Pathology.</h2>
+                <p class="mt-6 text-xl text-gray-300">A rapid, optical QC platform that lives at the <span class="text-white font-semibold">front</span> of the workflow. In under 5 seconds, we guarantee a slide is physically perfect.</p>
+                <p class="mt-3 text-lg text-gray-400">Not another microscope. The <span class="text-white font-medium">missing quality layer</span> for both analog and digital labs.</p>
+            </div>
+            <div class="content-box col-start-8 col-span-4 row-start-3 row-span-8 flex items-center">
+                <div class="w-full device-frame vignette">
+                    <img class="device-img" src="public/microscope.png" alt="Kaioptix microscope device">
+                    <div class="scan-sweep"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 5: How it Works -->
+        <section class="slide">
+            <div class="background-grid"></div>
+            <div class="content-box col-start-2 col-span-10 row-start-3 row-span-8 grid grid-cols-1 md:grid-cols-3 gap-6 items-start">
+                <!-- Card 1 -->
+                <div class="p-6 bg-[#101010] border border-gray-800 rounded-xl">
+                    <svg class="w-full h-auto mini-graphic" viewBox="0 0 220 140" role="img" aria-label="Whole slide imaging schematic">
+                        <defs>
+                            <linearGradient id="sweepGrad" x1="0" y1="0" x2="1" y2="0">
+                                <stop offset="0%" stop-color="#00F2EA" stop-opacity="0"/>
+                                <stop offset="45%" stop-color="#00F2EA" stop-opacity="0.2"/>
+                                <stop offset="50%" stop-color="#00F2EA" stop-opacity="0.35"/>
+                                <stop offset="55%" stop-color="#00F2EA" stop-opacity="0.2"/>
+                                <stop offset="100%" stop-color="#00F2EA" stop-opacity="0"/>
+                            </linearGradient>
+                        </defs>
+                        <rect x="10" y="20" width="200" height="100" rx="8" fill="#0b0f13" stroke="#1f2937"/>
+                        <rect x="18" y="28" width="184" height="84" rx="6" fill="#0e1318" stroke="#223041"/>
+                        <g stroke="#2a3a4d" stroke-width="0.6">
+                            <path d="M28 48 H 192"/>
+                            <path d="M28 68 H 192"/>
+                            <path d="M28 88 H 192"/>
+                        </g>
+                        <g fill="#00F2EA" opacity="0.7">
+                            <circle class="twinkle" cx="56" cy="58" r="2"/>
+                            <circle class="twinkle" cx="132" cy="78" r="2" style="animation-delay: .3s"/>
+                            <circle class="twinkle" cx="98" cy="98" r="2" style="animation-delay: .6s"/>
+                        </g>
+                        <!-- Sweep overlay -->
+                        <g class="sweep-x">
+                            <rect x="-200" y="28" width="184" height="84" fill="url(#sweepGrad)"/>
+                        </g>
+                        <!-- Camera icon -->
+                        <g transform="translate(180,12)" fill="#0a0a0a" stroke="#00F2EA" stroke-opacity="0.7">
+                            <rect x="-18" y="0" width="28" height="14" rx="3"/>
+                            <circle cx="-4" cy="7" r="3" fill="#00F2EA"/>
+                        </g>
+                    </svg>
+                    <h3 class="text-2xl md:text-3xl font-bold mt-4">1. Whole‑Slide Imaging</h3>
+                    <p class="mt-2 text-gray-400">Low‑mag optics capture the entire 75mm slide in one shot (3–5s).</p>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="p-6 bg-[#101010] border border-gray-800 rounded-xl">
+                    <svg class="w-full h-auto mini-graphic" viewBox="0 0 220 140" role="img" aria-label="Dark-field detection schematic">
+                        <defs>
+                            <linearGradient id="diagLight" x1="0" y1="0" x2="1" y2="1">
+                                <stop offset="0%" stop-color="#00F2EA" stop-opacity="0"/>
+                                <stop offset="50%" stop-color="#00F2EA" stop-opacity="0.25"/>
+                                <stop offset="100%" stop-color="#00F2EA" stop-opacity="0"/>
+                            </linearGradient>
+                        </defs>
+                        <rect x="10" y="20" width="200" height="100" rx="8" fill="#0b0f13" stroke="#1f2937"/>
+                        <g>
+                            <!-- Dust/defects -->
+                            <circle class="twinkle" cx="60" cy="58" r="3" fill="#00F2EA" style="animation-delay:.1s"/>
+                            <circle class="twinkle" cx="110" cy="80" r="2" fill="#00F2EA" style="animation-delay:.4s"/>
+                            <circle class="twinkle" cx="150" cy="66" r="2.5" fill="#00F2EA" style="animation-delay:.7s"/>
+                            <circle class="twinkle" cx="92" cy="96" r="2" fill="#00F2EA" style="animation-delay:1s"/>
+                        </g>
+                        <!-- Diagonal light band -->
+                        <polygon points="-20,10 40,10 200,130 140,130" fill="url(#diagLight)"/>
+                        <!-- Edge cue -->
+                        <rect x="10" y="20" width="200" height="100" rx="8" fill="none" stroke="#223041"/>
+                    </svg>
+                    <h3 class="text-2xl md:text-3xl font-bold mt-4">2. Dark‑Field Detection</h3>
+                    <p class="mt-2 text-gray-400">Angled light makes dust, scratches, and fingerprints light up instantly.</p>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="p-6 bg-[#101010] border border-gray-800 rounded-xl">
+                    <svg class="w-full h-auto mini-graphic" viewBox="0 0 220 140" role="img" aria-label="Wavelength analysis spectrum">
+                        <rect x="10" y="20" width="200" height="100" rx="8" fill="#0b0f13" stroke="#1f2937"/>
+                        <!-- Spectrum bars -->
+                        <g transform="translate(30,30)">
+                            <g class="equalize" style="animation-delay:0s"><rect x="0" y="0" width="12" height="70" fill="#00F2EA"/></g>
+                            <g class="equalize" style="animation-delay:.2s"><rect x="20" y="10" width="12" height="60" fill="#7EE7E7"/></g>
+                            <g class="equalize" style="animation-delay:.4s"><rect x="40" y="20" width="12" height="50" fill="#B2FEF7"/></g>
+                            <g class="equalize" style="animation-delay:.6s"><rect x="60" y="10" width="12" height="60" fill="#7EE7E7"/></g>
+                            <g class="equalize" style="animation-delay:.8s"><rect x="80" y="0" width="12" height="70" fill="#00F2EA"/></g>
+                        </g>
+                        <!-- Axis -->
+                        <line x1="28" y1="110" x2="190" y2="110" stroke="#223041" stroke-width="1"/>
+                    </svg>
+                    <h3 class="text-2xl md:text-3xl font-bold mt-4">3. Wavelength Analysis</h3>
+                    <p class="mt-2 text-gray-400">Narrow‑band light measures stains precisely. Instant result; nothing stored.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 6: New Workflow -->
+        <section class="slide">
+            <div class="background-grid"></div>
+            <div class="content-box col-start-2 col-span-10 row-start-3 row-span-8 grid grid-cols-1 md:grid-cols-5 gap-6 items-center">
+                <div class="md:col-span-2">
+                    <p class="font-mono text-xl accent-cyan">The New Flow</p>
+                    <h2 class="text-4xl md:text-5xl font-black tracking-tighter mt-2">Weeks saved. Certainty delivered.</h2>
+                    <ul class="mt-6 text-lg text-gray-300 space-y-2">
+                        <li>QC <span class="text-white font-semibold">before</span> the queue.</li>
+                        <li><span class="text-white font-semibold">100%</span> slide quality guarantee.</li>
+                        <li>Immediate pathologist review, zero rework loop.</li>
+                    </ul>
+                </div>
+                <div class="md:col-span-3">
+                    <div class="grid grid-cols-5 gap-3 text-center font-mono text-sm">
+                        <div class="p-4 rounded-lg border border-gray-800 bg-[#101010]">Biopsy</div>
+                        <div class="flex items-center justify-center text-2xl arrow">→</div>
+                        <div class="p-4 rounded-lg border border-gray-800 bg-[#101010]">Prep Slide</div>
+                        <div class="flex items-center justify-center text-2xl arrow">→</div>
+                        <div class="p-4 rounded-lg border border-cyan-800 text-cyan-300 bg-[#0a1414] font-semibold">Kaioptix QC (5s)</div>
+                        <div class="col-span-5 flex items-center justify-center text-2xl my-2 arrow">↓</div>
+                        <div class="col-span-5 p-4 rounded-lg border border-gray-800 bg-[#101010] font-semibold">Immediate Review</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 7: Traction & Validation -->
+        <section class="slide">
+            <div class="background-grid"></div>
+            <div class="content-box col-start-2 col-span-10 row-start-3 row-span-8">
+                <p class="font-mono text-xl accent-cyan">Traction & Validation</p>
+                <h2 class="text-4xl md:text-6xl font-black tracking-tighter mt-2">From Prototype to Clinical Proof.</h2>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8">
+                    <div class="p-6 bg-[#101010] border border-gray-800 rounded-xl">
+                        <h3 class="text-2xl font-bold">MVP Complete</h3>
+                        <p class="mt-2 text-gray-400">Functional prototype built and tested in-house; sub-5s scans verified.</p>
+                    </div>
+                    <div class="p-6 bg-[#101010] border border-gray-800 rounded-xl">
+                        <h3 class="text-2xl font-bold">ICR Collaboration</h3>
+                        <p class="mt-2 text-gray-400">Validating against <span class="text-white font-semibold">15,000</span> expertly annotated slides at the Institute of Cancer Research.</p>
+                    </div>
+                    <div class="p-6 bg-[#101010] border border-gray-800 rounded-xl">
+                        <h3 class="text-2xl font-bold">Live Clinical Trial</h3>
+                        <p class="mt-2 text-gray-400">Deploying into a high-throughput lab at <span class="text-white font-semibold">RVH, Belfast</span> for workflow impact.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 8: Market -->
+        <section class="slide">
+            <div class="background-grid"></div>
+            <div class="content-box col-start-2 col-span-10 row-start-3 row-span-8 text-left">
+                <p class="font-mono text-xl accent-cyan">Market</p>
+                <h2 class="text-4xl md:text-6xl font-black tracking-tighter mt-2">We serve <span class="text-white">all</span> labs, not just digital.</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
+                    <div class="p-6 bg-[#101010] border border-gray-800 rounded-xl text-center">
+                        <div class="text-6xl font-black accent-cyan">$30B</div>
+                        <div class="mt-2 text-gray-400">Total Available Market (Anatomic Pathology)</div>
+                    </div>
+                    <div class="p-6 bg-[#101010] border border-gray-800 rounded-xl text-center">
+                        <div class="text-6xl font-black text-white">~£20M</div>
+                        <div class="mt-2 text-gray-400">Serviceable Obtainable Market (Yr 5 ARR)</div>
+                    </div>
+                </div>
+                <p class="mt-6 text-lg text-gray-400">Digital AI firms compete for the 10% of fully digital labs. Kaioptix addresses the <span class="text-white font-semibold">100%</span>.</p>
+            </div>
+        </section>
+
+        <!-- Slide 9: Business Model -->
+        <section class="slide">
+            <div class="background-grid"></div>
+            <div class="content-box col-start-2 col-span-10 row-start-3 row-span-8">
+                <p class="font-mono text-xl accent-cyan">Business Model</p>
+                <h2 class="text-4xl md:text-6xl font-black tracking-tighter mt-2">Pathology‑as‑a‑Service.</h2>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8">
+                    <div class="p-6 bg-[#101010] border border-gray-800 rounded-xl">
+                        <h3 class="text-2xl font-bold">Zero CAPEX</h3>
+                        <p class="mt-2 text-gray-400">Device provided on rental/lease. Rapid adoption, no procurement pain.</p>
+                    </div>
+                    <div class="p-6 bg-[#101010] border border-gray-800 rounded-xl">
+                        <h3 class="text-2xl font-bold">Pay‑per‑Slide</h3>
+                        <p class="mt-2 text-gray-400">Simple per‑slide fee (target <span class="text-white font-semibold">£0.25</span>). Aligns cost to throughput.</p>
+                    </div>
+                    <div class="p-6 bg-[#101010] border border-gray-800 rounded-xl text-center">
+                        <div class="text-4xl font-black text-white">~£78k</div>
+                        <div class="mt-2 text-gray-400">Annual Recurring Revenue per machine</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 10: Roadmap -->
+        <section class="slide">
+            <div class="background-grid"></div>
+            <div class="content-box col-start-2 col-span-10 row-start-3 row-span-8">
+                <p class="font-mono text-xl accent-cyan">The Vision</p>
+                <h2 class="text-4xl md:text-6xl font-black tracking-tighter mt-2">Roadmap to Full Impact</h2>
+
+                <!-- Timeline connector -->
+                <div class="mt-6 w-full">
+                    <svg class="w-full h-24 mini-graphic" viewBox="0 0 1000 120" role="img" aria-label="Roadmap timeline">
+                        <!-- base line -->
+                        <path d="M60 60 H 940" stroke="#1f2937" stroke-width="4"/>
+                        <!-- animated dash overlay -->
+                        <path class="dash-flow" d="M60 60 H 940" stroke="#00F2EA" stroke-opacity="0.5" stroke-width="2" fill="none"/>
+                        <!-- nodes -->
+                        <g transform="translate(220,60)">
+                            <circle class="ring-pulse" cx="0" cy="0" r="10" stroke="#00F2EA" stroke-width="2" fill="none"/>
+                            <circle cx="0" cy="0" r="6" fill="#00F2EA"/>
+                        </g>
+                        <g transform="translate(500,60)">
+                            <circle class="ring-pulse" cx="0" cy="0" r="10" stroke="#00F2EA" stroke-width="2" fill="none" style="animation-delay:.4s"/>
+                            <circle cx="0" cy="0" r="6" fill="#00F2EA"/>
+                        </g>
+                        <g transform="translate(780,60)">
+                            <circle class="ring-pulse" cx="0" cy="0" r="10" stroke="#00F2EA" stroke-width="2" fill="none" style="animation-delay:.8s"/>
+                            <circle cx="0" cy="0" r="6" fill="#00F2EA"/>
+                        </g>
+                    </svg>
+                </div>
+
+                <!-- Cards -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-6 items-start">
+                    <!-- Phase 1 -->
+                    <div class="p-6 bg-[#101010] border border-gray-800 rounded-xl">
+                        <svg class="w-10 h-10 icon-graphic" viewBox="0 0 24 24" aria-hidden="true">
+                            <circle cx="11" cy="11" r="5" stroke="currentColor" stroke-width="1.5" fill="none"/>
+                            <path d="M15.5 15.5 L 21 21" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+                            <circle cx="11" cy="11" r="2" fill="currentColor"/>
+                        </svg>
+                        <h3 class="text-2xl font-bold mt-3">Phase 1: Quality Control</h3>
+                        <p class="mt-2 text-gray-400">Beachhead: eliminate the QC bottleneck for every lab.</p>
+                    </div>
+
+                    <!-- Phase 2 -->
+                    <div class="p-6 bg-[#101010] border border-gray-800 rounded-xl">
+                        <svg class="w-10 h-10 icon-graphic" viewBox="0 0 24 24" aria-hidden="true">
+                            <path d="M12 3 L2 10 H22 L12 3 Z" fill="currentColor" opacity="0.9"/>
+                            <rect x="11" y="9" width="2" height="7" rx="1" fill="#0A0A0A"/>
+                            <rect x="11" y="17" width="2" height="2" rx="1" fill="#0A0A0A"/>
+                        </svg>
+                        <h3 class="text-2xl font-bold mt-3">Phase 2: AI Prioritisation</h3>
+                        <p class="mt-2 text-gray-400">Software upgrade to flag suspicious slides for urgent review.</p>
+                    </div>
+
+                    <!-- Phase 3 -->
+                    <div class="p-6 bg-[#101010] border border-gray-800 rounded-xl">
+                        <svg class="w-10 h-10 icon-graphic" viewBox="0 0 24 24" aria-hidden="true">
+                            <path d="M6 3 H10 V14 C10 16 8 19 6 19 C4 19 2 16 2 14 V3 H6 Z" fill="currentColor" opacity="0.9"/>
+                            <path d="M18 3 H22 V14 C22 16 20 19 18 19 C16 19 14 16 14 14 V3 H18 Z" fill="currentColor" opacity="0.5"/>
+                            <circle cx="6" cy="15" r="1" fill="#0A0A0A"/>
+                            <circle cx="18" cy="15" r="1" fill="#0A0A0A"/>
+                        </svg>
+                        <h3 class="text-2xl font-bold mt-3">Phase 3: IHC Triage</h3>
+                        <p class="mt-2 text-gray-400">Analyse unstained tissue to recommend sub‑type tests, saving weeks.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 11: Team -->
+        <section class="slide">
+            <div class="background-grid"></div>
+            <div class="content-box col-start-2 col-span-10 row-start-3 row-span-8 grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                <div>
+                    <p class="font-mono text-xl accent-cyan">The Team</p>
+                    <h2 class="text-4xl md:text-5xl font-black tracking-tighter mt-2">Decades of Vision and Execution.</h2>
+                    <h3 class="mt-6 text-2xl font-bold">Ken Salisbury — Founder & Chief Scientist</h3>
+                    <ul class="mt-3 text-lg text-gray-300 space-y-2">
+                        <li><span class="text-white font-semibold">50+ years</span> in applied optics and advanced imaging.</li>
+                        <li>Built systems by synthesising disparate technologies into simple solutions.</li>
+                        <li>Architect of the core technology and IP.</li>
+                    </ul>
+                    <p class="mt-6 text-gray-300"><span class="text-white font-semibold">Hiring next:</span> CEO/Commercial lead with med‑device scale‑up experience; founding engineers.</p>
+                </div>
+                <div>
+                    <div class="device-frame"><img class="device-img" src="people/kensalisbury.jpeg" alt="Dr. Ken Salisbury"><div class="scan-sweep"></div></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 12: The Ask -->
+        <section class="slide items-center text-center">
+            <div class="background-grid"></div>
+            <div class="content-box col-start-2 col-span-10">
+                <p class="text-xl font-mono accent-cyan">The Ask</p>
+                <h2 class="text-4xl md:text-6xl font-black tracking-tighter mt-2">Raising <span class="accent-cyan">£1,000,000</span> Pre‑Seed</h2>
+                <div class="my-10 p-8 border border-gray-800 rounded-2xl bg-[#101010] max-w-4xl mx-auto">
+                    <p class="text-lg text-gray-400">18‑month plan to first hospital contracts and regulatory readiness:</p>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-4 max-w-5xl mx-auto text-left font-mono text-lg">
+                    <div class="p-4"><strong class="accent-cyan">40%</strong> Production engineering & clinical units</div>
+                    <div class="p-4"><strong class="accent-cyan">25%</strong> Clinical validation (ICR & RVH)</div>
+                    <div class="p-4"><strong class="accent-cyan">25%</strong> Key hires (Eng & Commercial)</div>
+                    <div class="p-4"><strong class="accent-cyan">10%</strong> IP protection & operations</div>
+                </div>
+                <p class="mt-10 text-lg text-gray-300">Join us in bringing speed and certainty to the fight against cancer.</p>
+            </div>
+        </section>
+    </main>
+
+    <!-- Navigation -->
+    <button id="prev-btn" class="nav-button">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
+    </button>
+    <button id="next-btn" class="nav-button">
+         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+    </button>
+
+    <div id="slide-counter" class="slide-counter">
+        <span id="current-slide">1</span> / <span id="total-slides">12</span>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const deck = document.getElementById('deck');
+            const slides = document.querySelectorAll('.slide');
+            const prevBtn = document.getElementById('prev-btn');
+            const nextBtn = document.getElementById('next-btn');
+            const currentSlideEl = document.getElementById('current-slide');
+            const totalSlidesEl = document.getElementById('total-slides');
+
+            let currentSlide = 0;
+            const totalSlides = slides.length;
+            totalSlidesEl.textContent = totalSlides;
+
+            function goToSlide(slideIndex) {
+                if (slideIndex < 0 || slideIndex >= totalSlides) return;
+                currentSlide = slideIndex;
+                deck.style.transform = `translateX(-${currentSlide * 100}vw)`;
+                updateNav();
+            }
+
+            function updateNav() {
+                currentSlideEl.textContent = currentSlide + 1;
+                prevBtn.style.display = currentSlide === 0 ? 'none' : 'flex';
+                nextBtn.style.display = currentSlide === totalSlides - 1 ? 'none' : 'flex';
+            }
+
+            prevBtn.addEventListener('click', () => goToSlide(currentSlide - 1));
+            nextBtn.addEventListener('click', () => goToSlide(currentSlide + 1));
+
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'ArrowRight') goToSlide(currentSlide + 1);
+                else if (e.key === 'ArrowLeft') goToSlide(currentSlide - 1);
+            });
+
+            // Basic swipe support for mobile
+            let touchStartX = 0; let touchEndX = 0; const threshold = 50;
+            deck.addEventListener('touchstart', (e) => { if (e.changedTouches[0]) touchStartX = e.changedTouches[0].clientX; }, { passive: true });
+            deck.addEventListener('touchend', (e) => { if (e.changedTouches[0]) { touchEndX = e.changedTouches[0].clientX; const dx = touchEndX - touchStartX; if (Math.abs(dx) > threshold) { if (dx < 0) goToSlide(currentSlide + 1); else goToSlide(currentSlide - 1); } } }, { passive: true });
+
+            goToSlide(0);
+        });
+    </script>
+</body>
+</html>
