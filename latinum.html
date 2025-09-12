@@ -95,6 +95,14 @@
             opacity: 0.5;
             z-index: -1;
         }
+        /* Motion utilities for inline SVGs */
+        .dash { stroke-dasharray: 6 10; animation: dash 8s linear infinite; }
+        @keyframes dash { from { stroke-dashoffset: 0; } to { stroke-dashoffset: -400; } }
+        .pulse { transform-origin: center; animation: pulse 2.6s ease-in-out infinite; }
+        @keyframes pulse { 0%,100% { transform: scale(0.98); opacity: 0.7; } 50% { transform: scale(1.02); opacity: 1; } }
+        .sweep { animation: sweep 3.6s ease-in-out infinite; }
+        @keyframes sweep { 0% { transform: translateX(-120%);} 60% { transform: translateX(120%);} 100% { transform: translateX(120%);} }
+        .badge { display:inline-block; font-family: 'Space Mono', monospace; font-size: .8rem; padding: .35rem .6rem; border-radius: 9999px; border:1px solid rgba(192,72,255,.35); background: rgba(192,72,255,.08); color: #ddd; }
         @media (max-width: 768px) {
             header { display: none; }
         }
@@ -126,192 +134,260 @@
         <section class="slide text-center">
             <div class="bg-dots"></div>
             <div class="content max-w-4xl relative">
-                <h1 class="text-5xl md:text-8xl font-black tracking-tighter leading-none">
-                    The Wallet for <span class="accent">AI.</span>
+                <p class="text-xl text-gray-400 font-mono">Latinum</p>
+                <h1 class="text-5xl md:text-8xl font-black tracking-tighter leading-none mt-2">
+                    The Payment Rails for <span class="accent">AI Agents</span>
                 </h1>
-                <p class="mt-8 text-lg md:text-2xl text-gray-400 max-w-3xl mx-auto">
-                    Building the payment infrastructure for a world where agents transact on our behalf.
-                </p>
-            </div>
-        </section>
-
-        <!-- Slide 2: The Inevitable Future -->
-        <section class="slide">
-            <div class="bg-dots"></div>
-            <div class="content max-w-5xl w-full text-center">
-                <h2 class="text-4xl md:text-6xl font-black tracking-tighter">
-                    In 5 Years, Your Calendar <br/> is Your <span class="accent">Shopping Cart.</span>
-                </h2>
-                <p class="mt-6 text-xl text-gray-400 max-w-3xl mx-auto">
-                    The future of commerce is not on websites or apps. It's autonomous. AI agents, connected to our lives, will make routine purchases for us seamlessly and automatically.
-                </p>
-                <div class="mt-12 p-6 border border-gray-800 rounded-2xl bg-gray-900/20 font-mono text-left max-w-2xl mx-auto">
-                    <p class="text-gray-500">// Agent Log: User_Brendan</p>
-                    <p class="text-white">> Calendar event "Dinner with Deirbhile" at 7pm.</p>
-                    <p class="text-white">> User is 20 mins from home.</p>
-                    <p class="text-white">> Ordering user's favorite meal from JustEat.</p>
-                    <p class="text-green-400">> Status: Order placed. ETA: 6:55pm.</p>
+                <div class="mt-10 max-w-2xl mx-auto">
+                    <!-- Animated transaction flow: agent → wallet → agent -->
+                    <svg class="w-full h-auto" viewBox="0 0 600 160" role="img" aria-label="Agent to wallet to agent flow">
+                        <defs>
+                            <linearGradient id="glow" x1="0" y1="0" x2="1" y2="1">
+                                <stop offset="0%" stop-color="#C048FF" stop-opacity="0.9"/>
+                                <stop offset="100%" stop-color="#C048FF" stop-opacity="0.2"/>
+                            </linearGradient>
+                        </defs>
+                        <!-- Agents -->
+                        <g transform="translate(70,80)" class="pulse">
+                            <circle r="30" fill="none" stroke="#6b21a8" stroke-width="2"/>
+                            <circle r="18" fill="#1a1030" stroke="#C048FF" stroke-width="2"/>
+                            <path d="M-10 10 h20" stroke="#C048FF" stroke-width="2"/>
+                            <path d="M0 10 v12" stroke="#C048FF" stroke-width="2"/>
+                        </g>
+                        <g transform="translate(530,80)" class="pulse" opacity="0.9">
+                            <rect x="-24" y="-24" width="48" height="48" rx="10" fill="#1a1030" stroke="#C048FF" stroke-width="2"/>
+                            <path d="M-10 -5 h20 M-10 5 h20" stroke="#C048FF" stroke-width="2"/>
+                        </g>
+                        <!-- Wallet -->
+                        <g transform="translate(300,80)">
+                            <rect x="-60" y="-32" width="120" height="64" rx="12" fill="#120a1f" stroke="#C048FF" stroke-opacity="0.6"/>
+                            <circle cx="-30" r="6" fill="#C048FF"/>
+                            <circle cx="0" r="6" fill="#C048FF" opacity="0.7"/>
+                            <circle cx="30" r="6" fill="#C048FF" opacity="0.5"/>
+                        </g>
+                        <!-- Arrows -->
+                        <path class="dash" d="M110 80 H 240" stroke="url(#glow)" stroke-width="3" fill="none"/>
+                        <path class="dash" d="M360 80 H 490" stroke="url(#glow)" stroke-width="3" fill="none"/>
+                    </svg>
                 </div>
             </div>
         </section>
 
-        <!-- Slide 3: The Merchant's Dilemma -->
+        <!-- Slide 2: Problem -->
         <section class="slide">
             <div class="bg-dots"></div>
-             <div class="content max-w-5xl w-full grid md:grid-cols-2 gap-12 items-center">
+            <div class="content max-w-6xl w-full grid md:grid-cols-2 gap-10 items-center">
                 <div>
-                    <h2 class="text-4xl md:text-6xl font-black tracking-tighter">If You're Not in the Agent's Network, <span class="accent">You're Invisible.</span></h2>
-                    <p class="mt-6 text-xl text-gray-400">
-                        This new agentic channel is the biggest disruption to commerce since the iPhone. Merchants need a way to connect to this ecosystem, or they risk becoming obsolete.
-                    </p>
+                    <h2 class="text-4xl md:text-6xl font-black tracking-tighter">Agents are here. Payments are <span class="accent">broken.</span></h2>
+                    <ul class="mt-6 text-xl text-gray-300 space-y-3">
+                        <li>Legacy rails require human approvals</li>
+                        <li>Developers face high fees + slow integrations</li>
+                        <li>Agents can’t transact autonomously</li>
+                    </ul>
                 </div>
-                <div class="space-y-4">
-                    <p class="text-center text-gray-500">Today: Clunky Checkout</p>
-                    <div class="p-4 border border-gray-800 rounded-lg bg-gray-900/20">
-                        <p>1. Open App</p>
-                        <p>2. Search for items</p>
-                        <p>3. Add to cart</p>
-                        <p>4. Enter address</p>
-                        <p>5. Enter payment info</p>
-                        <p>6. Confirm order</p>
-                    </div>
-                     <p class="text-center text-gray-500 mt-8">Tomorrow: Voice Command</p>
-                    <div class="p-4 border border-purple-500/30 rounded-lg bg-purple-900/20">
-                        <p class="accent">"Hey, order my usual groceries."</p>
-                    </div>
+                <div>
+                    <!-- Side-by-side graphic -->
+                    <svg class="w-full h-auto" viewBox="0 0 600 260" role="img" aria-label="Agent growth vs old payments">
+                        <!-- Panels -->
+                        <rect x="10" y="10" width="280" height="240" rx="16" fill="#0d0a12" stroke="#3b0764"/>
+                        <rect x="310" y="10" width="280" height="240" rx="16" fill="#0d0a12" stroke="#3b0764"/>
+                        <!-- Growth curve -->
+                        <g transform="translate(10,10)">
+                            <text x="20" y="32" fill="#aaa" font-family="Space Mono" font-size="12">AI Agent Growth</text>
+                            <path class="dash" d="M30 200 C 80 180, 120 140, 160 120 S 240 60, 260 30" stroke="#C048FF" stroke-width="3" fill="none"/>
+                            <line x1="30" y1="210" x2="260" y2="210" stroke="#2d1b3d"/>
+                            <line x1="30" y1="210" x2="30" y2="40" stroke="#2d1b3d"/>
+                        </g>
+                        <!-- Human loop -->
+                        <g transform="translate(310,10)">
+                            <text x="20" y="32" fill="#aaa" font-family="Space Mono" font-size="12">Old Payments (Human Loop)</text>
+                            <circle cx="80" cy="140" r="26" fill="#120a1f" stroke="#a855f7"/>
+                            <path d="M70 140 h20" stroke="#a855f7" stroke-width="2"/>
+                            <path d="M80 140 v14" stroke="#a855f7" stroke-width="2"/>
+                            <rect x="150" y="120" width="70" height="40" rx="8" fill="#120a1f" stroke="#a855f7"/>
+                            <text x="185" y="144" text-anchor="middle" fill="#a855f7" font-family="Space Mono" font-size="12">APPROVE</text>
+                            <path class="dash" d="M106 140 H 150" stroke="#a855f7" stroke-width="3"/>
+                            <path class="dash" d="M220 140 Q 240 140, 240 160 Q 240 180, 200 180 H 80 Q 50 180, 50 160 Q 50 140, 54 140" stroke="#a855f7" stroke-width="2" fill="none"/>
+                        </g>
+                    </svg>
                 </div>
             </div>
         </section>
 
-        <!-- Slide 4: The Solution -->
-        <section class="slide text-center">
+        <!-- Slide 3: Solution -->
+        <section class="slide">
             <div class="bg-dots"></div>
-            <div class="content max-w-4xl">
-                 <p class="text-xl text-gray-400 font-medium font-mono">Latinum</p>
-                <h1 class="text-5xl md:text-8xl font-black tracking-tighter my-4">
-                    The Rails for <br/>Agentic Commerce.
-                </h1>
-                <p class="mt-6 text-xl text-gray-400">
-                   We provide the universal wallet and payment infrastructure that allows any AI agent to transact safely and securely with any merchant. We are the "Stripe for AI."
-                </p>
+            <div class="content max-w-6xl w-full grid md:grid-cols-2 gap-12 items-center">
+                <div>
+                    <h2 class="text-4xl md:text-6xl font-black tracking-tighter">The First Payment Infrastructure for <span class="accent">Agents</span></h2>
+                    <ol class="mt-6 text-xl text-gray-300 space-y-3 list-decimal list-inside">
+                        <li>Agent Wallet – secure, autonomous transactions</li>
+                        <li>Agent‑Native Checkout – instant monetisation for developers</li>
+                    </ol>
+                </div>
+                <div>
+                    <!-- Wallet + Checkout flow -->
+                    <svg class="w-full h-auto" viewBox="0 0 600 220" role="img" aria-label="Wallet and checkout flow">
+                        <defs>
+                            <marker id="arrowHead" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto" markerUnits="strokeWidth">
+                                <path d="M0,0 L0,6 L8,3 z" fill="#C048FF" />
+                            </marker>
+                        </defs>
+                        <g transform="translate(100,110)">
+                            <rect x="-60" y="-32" width="120" height="64" rx="12" fill="#120a1f" stroke="#C048FF"/>
+                            <text x="0" y="6" text-anchor="middle" fill="#ddd" font-family="Space Mono">Wallet</text>
+                        </g>
+                        <g transform="translate(480,110)">
+                            <rect x="-70" y="-32" width="140" height="64" rx="12" fill="#120a1f" stroke="#C048FF"/>
+                            <text x="0" y="6" text-anchor="middle" fill="#ddd" font-family="Space Mono">Checkout</text>
+                        </g>
+                        <path class="dash" d="M200 110 H 410" stroke="#C048FF" stroke-width="3" fill="none" marker-end="url(#arrowHead)"/>
+                        <circle class="pulse" cx="305" cy="110" r="6" fill="#C048FF"/>
+                    </svg>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 4: How It Works -->
+        <section class="slide">
+            <div class="bg-dots"></div>
+            <div class="content max-w-6xl w-full grid md:grid-cols-2 gap-12 items-center">
+                <div>
+                    <h2 class="text-4xl md:text-6xl font-black tracking-tighter">Open‑source + <span class="accent">stablecoin‑powered</span></h2>
+                    <ul class="mt-6 text-xl text-gray-300 space-y-3">
+                        <li>Agents get autonomy</li>
+                        <li>Developers get instant, global settlement</li>
+                        <li>Infrastructure scales with the ecosystem</li>
+                    </ul>
+                </div>
+                <div>
+                    <!-- Mock device with sweep effect -->
+                    <div class="relative rounded-2xl overflow-hidden border border-purple-500/30 bg-gray-900/30 p-4">
+                        <div class="rounded-xl overflow-hidden border border-gray-800">
+                            <div class="relative" style="background: radial-gradient( circle at 30% 30%, rgba(192,72,255,.18), rgba(0,0,0,0) 60% );">
+                                <div class="h-48 md:h-56 flex items-center justify-center">
+                                    <div class="text-center">
+                                        <p class="font-mono text-sm text-gray-400">latinum checkout</p>
+                                        <p class="text-3xl font-bold">Pay with <span class="accent">Agent Wallet</span></p>
+                                    </div>
+                                </div>
+                                <div class="absolute inset-0 pointer-events-none" style="mix-blend-mode: screen;">
+                                    <div class="sweep w-1/3 h-full" style="background: linear-gradient(90deg, rgba(192,72,255,0) 0%, rgba(192,72,255,.18) 45%, rgba(192,72,255,.3) 50%, rgba(192,72,255,.18) 55%, rgba(192,72,255,0) 100%);"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </section>
         
-        <!-- Slide 5: De-risking the Future -->
+        <!-- Slide 5: Traction -->
+        <section class="slide">
+            <div class="bg-dots"></div>
+            <div class="content max-w-6xl w-full">
+                <h2 class="text-4xl md:text-6xl font-black tracking-tighter text-center">Momentum in <span class="accent">6 months</span></h2>
+                <div class="grid md:grid-cols-4 gap-6 mt-10 text-center">
+                    <div class="p-6 border border-gray-800 rounded-2xl bg-gray-900/20">
+                        <p class="text-4xl font-black"><span class="accent">$</span><span class="counter" data-target="30">0</span>k+</p>
+                        <p class="text-gray-400 mt-2">Hackathon wins</p>
+                    </div>
+                    <div class="p-6 border border-gray-800 rounded-2xl bg-gray-900/20">
+                        <p class="text-4xl font-black"><span class="counter" data-target="120">0</span>+</p>
+                        <p class="text-gray-400 mt-2">Developers onboarded</p>
+                    </div>
+                    <div class="p-6 border border-gray-800 rounded-2xl bg-gray-900/20">
+                        <p class="text-2xl font-black">Pilots</p>
+                        <p class="text-gray-300 mt-2"><span class="badge">Shuppa</span> <span class="badge">Fexco</span></p>
+                    </div>
+                    <div class="p-6 border border-gray-800 rounded-2xl bg-gray-900/20">
+                        <p class="text-2xl font-black">Partnered</p>
+                        <p class="text-gray-300 mt-2">Ireland’s largest AI hackathon</p>
+                    </div>
+                </div>
+                <!-- Timeline -->
+                <div class="mt-10">
+                    <svg class="w-full h-20" viewBox="0 0 1000 80" aria-hidden="true">
+                        <line x1="60" y1="40" x2="940" y2="40" stroke="#2a163d" stroke-width="4"/>
+                        <path class="dash" d="M60 40 H 940" stroke="#C048FF" stroke-width="2"/>
+                        <g transform="translate(200,40)"><circle class="pulse" r="8" fill="#C048FF"/></g>
+                        <g transform="translate(500,40)"><circle class="pulse" r="8" fill="#C048FF"/></g>
+                        <g transform="translate(800,40)"><circle class="pulse" r="8" fill="#C048FF"/></g>
+                    </svg>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 6: Market -->
         <section class="slide">
             <div class="bg-dots"></div>
             <div class="content max-w-6xl w-full text-center">
-                 <h2 class="text-4xl md:text-6xl font-black tracking-tighter">Our Methodical Plan to <span class="accent">Win the Future.</span></h2>
-                 <p class="mt-4 text-xl text-gray-400 max-w-3xl mx-auto">This market is nascent. We are de-risking our vision with a phased approach to prove the foundational pillars of agentic commerce.</p>
-                 <div class="mt-12 grid md:grid-cols-3 gap-8 text-left">
-                    <div class="p-6 border border-gray-800 rounded-2xl bg-gray-900/20">
-                        <p class="font-mono text-purple-400">Phase 1: Prove the Tech</p>
-                        <h3 class="text-2xl font-bold mt-2">Agent-Native Wallet</h3>
-                        <p class="mt-2 text-gray-400">We've built a functional wallet that AI agents like Claude can own and use to make real-world purchases. The core technology works.</p>
-                        <p class="mt-4 text-green-400 font-mono">✓ COMPLETED</p>
-                    </div>
-                    <div class="p-6 border-2 border-purple-500/50 rounded-2xl bg-purple-900/20">
-                        <p class="font-mono text-purple-400">Phase 2: Prove the Behavior</p>
-                        <h3 class="text-2xl font-bold mt-2">Consumer Adoption Pilot</h3>
-                        <p class="mt-2 text-gray-400">In partnership with a major delivery service, we are proving that consumers will order goods via agents on platforms like WhatsApp.</p>
-                         <p class="mt-4 text-yellow-400 font-mono">> IN PROGRESS</p>
-                    </div>
-                    <div class="p-6 border border-gray-800 rounded-2xl bg-gray-900/20">
-                        <p class="font-mono text-purple-400">Phase 3: Scale the Network</p>
-                        <h3 class="text-2xl font-bold mt-2">Merchant & Payment Integration</h3>
-                        <p class="mt-2 text-gray-400">Integrate real payments (card-on-file) and onboard our first 10 merchants, creating a foundational transaction network.</p>
-                        <p class="mt-4 text-gray-500 font-mono">UP NEXT</p>
-                    </div>
-                 </div>
-            </div>
-        </section>
-
-        <!-- Slide 6: The Pilot in Action -->
-        <section class="slide">
-            <div class="bg-dots"></div>
-            <div class="content max-w-5xl w-full grid md:grid-cols-2 gap-12 items-center">
-                <div>
-                    <h2 class="text-4xl md:text-6xl font-black tracking-tighter">Making it <span class="accent">Real, Today.</span></h2>
-                    <p class="mt-6 text-xl text-gray-400">
-                        Our pilot with Shopper allows users to order groceries via a simple WhatsApp voice note. We are gathering crucial data on consumer trust and behavior in the wild.
-                    </p>
-                    <p class="mt-4 text-lg text-gray-500">
-                        Goal: 200+ transactions to validate our core hypothesis.
-                    </p>
-                </div>
-                <div class="p-8 border border-gray-800 rounded-2xl bg-gray-900/20">
-                    <div class="space-y-4">
-                        <div class="flex justify-start">
-                            <div class="p-3 rounded-lg bg-green-800 max-w-xs">
-                                <p>🎤 "Hey, get me milk, bread, cheese, and a bottle of wine. I'll be home in 20."</p>
-                            </div>
-                        </div>
-                        <div class="flex justify-end">
-                            <div class="p-3 rounded-lg bg-purple-900 max-w-xs">
-                                <p>🤖 "Got it. Your usual order is on its way from Shopper. Total is €24.50, charged to your card on file. ETA: 18:30."</p>
-                            </div>
-                        </div>
-                    </div>
+                <h2 class="text-4xl md:text-6xl font-black tracking-tighter">From <span class="accent">10M</span> developers to <span class="accent">$120T</span> global commerce</h2>
+                <p class="mt-6 text-xl text-gray-400 max-w-3xl mx-auto">Beachhead: 5–10M agent builders today → Expansion: infrastructure for agent‑driven commerce at scale.</p>
+                <!-- Funnel graphic -->
+                <div class="mt-10 max-w-3xl mx-auto">
+                    <svg class="w-full h-auto" viewBox="0 0 600 220" role="img" aria-label="TAM funnel">
+                        <rect x="60" y="30" width="480" height="40" rx="8" fill="#1a1030" stroke="#C048FF"/>
+                        <rect x="120" y="90" width="360" height="40" rx="8" fill="#1a1030" stroke="#C048FF"/>
+                        <rect x="190" y="150" width="220" height="40" rx="8" fill="#1a1030" stroke="#C048FF"/>
+                        <text x="300" y="56" text-anchor="middle" fill="#ddd" font-family="Space Mono">Global GDP (~$120T)</text>
+                        <text x="300" y="116" text-anchor="middle" fill="#ddd" font-family="Space Mono">Agent Economy</text>
+                        <text x="300" y="176" text-anchor="middle" fill="#ddd" font-family="Space Mono">Developer Beachhead (5–10M)</text>
+                        <!-- Animated highlights -->
+                        <rect class="sweep" x="60" y="30" width="120" height="40" fill="rgba(192,72,255,.15)"/>
+                    </svg>
                 </div>
             </div>
         </section>
 
-        <!-- Slide 7: Why Now? -->
-        <section class="slide text-center">
-            <div class="bg-dots"></div>
-            <div class="content max-w-4xl">
-                 <h2 class="text-4xl md:text-6xl font-black tracking-tighter">A Window of <span class="accent">Opportunity.</span></h2>
-                 <p class="mt-8 text-xl text-gray-400 max-w-3xl mx-auto">
-                    The market is brand new. The large language model platforms (OpenAI, Google) are focused on winning the model war, not on building a fair, open commerce ecosystem.
-                 </p>
-                 <p class="mt-4 text-xl text-white max-w-3xl mx-auto">
-                    This creates a critical, time-sensitive opportunity to establish Latinum as the essential, <span class="font-bold">neutral infrastructure</span> before the platforms become gatekeepers.
-                 </p>
-            </div>
-        </section>
-
-        <!-- Slide 8: The Team -->
+        <!-- Slide 7: Team -->
         <section class="slide">
             <div class="bg-dots"></div>
-            <div class="content max-w-4xl w-full text-center">
-                <h2 class="text-4xl md:text-6xl font-black tracking-tighter">Building at the <span class="accent">Edge.</span></h2>
+            <div class="content max-w-5xl w-full text-center">
+                <h2 class="text-4xl md:text-6xl font-black tracking-tighter">We know <span class="accent">payments</span>. We know <span class="accent">agents</span>.</h2>
                 <div class="mt-12 flex flex-col md:flex-row justify-center items-center gap-12">
-                    <div class="text-center">
-                        <div class="w-48 h-48 rounded-full mx-auto border-2 border-gray-700 overflow-hidden">
-                            <img src="people/brendan.jpeg" alt="Brendan" class="w-full h-full object-cover" />
-                        </div>
-                        <h3 class="mt-4 text-2xl font-bold">Brendan</h3>
-                    </div>
                     <div class="text-center">
                         <div class="w-48 h-48 rounded-full mx-auto border-2 border-gray-700 overflow-hidden">
                             <img src="people/dennj.jpeg" alt="Dennj" class="w-full h-full object-cover" />
                         </div>
                         <h3 class="mt-4 text-2xl font-bold">Dennj</h3>
+                        <p class="mt-1 text-gray-400">AI Engineer, Amazon Alexa</p>
+                        <span class="badge mt-2">Amazon</span>
+                    </div>
+                    <div class="text-center">
+                        <div class="w-48 h-48 rounded-full mx-auto border-2 border-gray-700 overflow-hidden">
+                            <img src="people/brendan.jpeg" alt="Brendan" class="w-full h-full object-cover" />
+                        </div>
+                        <h3 class="mt-4 text-2xl font-bold">Brendan</h3>
+                        <p class="mt-1 text-gray-400">Plaid, Revenue Europe</p>
+                        <span class="badge mt-2">Plaid</span>
                     </div>
                 </div>
-                <p class="text-center mt-12 text-xl text-gray-400 max-w-2xl mx-auto">
-                    A team with deep conviction, building at the absolute forefront of a new technological paradigm.
-                </p>
             </div>
         </section>
 
-        <!-- Slide 9: The Ask -->
+        <!-- Slide 8: Closing -->
         <section class="slide text-center">
-             <div class="bg-dots"></div>
+            <div class="bg-dots"></div>
             <div class="content max-w-4xl">
-                 <h2 class="text-4xl md:text-6xl font-black tracking-tighter">Fund the <span class="accent">Future.</span></h2>
-                <div class="my-10 p-8 border-2 border-purple-500/30 rounded-2xl bg-gray-900/30">
-                    <p class="text-xl text-gray-400">Raising a</p>
-                    <p class="text-6xl md:text-8xl font-black tracking-tighter my-2"><span class="accent">$750K</span> Pre-Seed</p>
-                    <p class="text-xl text-gray-300">To prove the foundations of a trillion-dollar market:</p>
-                </div>
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-left font-mono">
-                    <div class="p-4"><strong class="accent">></strong> Complete Pilot 2 with 100+ users</div>
-                    <div class="p-4"><strong class="accent">></strong> Process 1,000+ real transactions</div>
-                    <div class="p-4"><strong class="accent">></strong> Onboard the first 10 merchants</div>
-                </div>
+                 <h2 class="text-4xl md:text-6xl font-black tracking-tighter">Agents are coming. Commerce will follow.</h2>
+                 <p class="mt-6 text-xl text-gray-300">Latinum is the payment layer that makes it possible.</p>
+                 <div class="my-10 p-8 border-2 border-purple-500/30 rounded-2xl bg-gray-900/30">
+                    <p class="text-lg text-gray-400">2025 → <span class="text-white font-semibold">Year of the Agent</span></p>
+                    <p class="text-lg text-gray-400 mt-2">2026 → <span class="text-white font-semibold">Year of Agentic Commerce</span></p>
+                 </div>
+                 <!-- Futuristic trading graphic -->
+                 <svg class="w-full h-auto" viewBox="0 0 600 160" aria-hidden="true">
+                    <g opacity="0.9">
+                        <circle class="pulse" cx="120" cy="80" r="22" fill="#120a1f" stroke="#C048FF"/>
+                        <circle class="pulse" cx="480" cy="80" r="22" fill="#120a1f" stroke="#C048FF"/>
+                        <path class="dash" d="M142 80 H 220 Q 300 40, 380 80 H 458" stroke="#C048FF" stroke-width="2" fill="none"/>
+                        <path class="dash" d="M142 84 H 220 Q 300 124, 380 84 H 458" stroke="#C048FF" stroke-width="2" fill="none"/>
+                    </g>
+                 </svg>
             </div>
         </section>
+
+        
         
     </main>
 
@@ -324,7 +400,7 @@
     </button>
 
     <div id="slide-counter" class="slide-counter">
-        <span id="current-slide">1</span> / <span id="total-slides">9</span>
+        <span id="current-slide">1</span> / <span id="total-slides">8</span>
     </div>
 
     <script>

@@ -99,6 +99,14 @@
             opacity: 0.5;
             z-index: -1;
         }
+        /* Motion utilities */
+        .dash { stroke-dasharray: 8 14; animation: dash 10s linear infinite; }
+        @keyframes dash { from { stroke-dashoffset: 0; } to { stroke-dashoffset: -800; } }
+        .pulse { transform-origin: center; animation: pulse 2.6s ease-in-out infinite; }
+        @keyframes pulse { 0%,100% { transform: scale(0.98); opacity: 0.7; } 50% { transform: scale(1.02); opacity: 1; } }
+        .sweep { animation: sweep 3.8s ease-in-out infinite; }
+        @keyframes sweep { 0% { transform: translateX(-120%);} 60% { transform: translateX(120%);} 100% { transform: translateX(120%);} }
+        .badge { display:inline-block; font-size: .8rem; padding: .35rem .6rem; border-radius: 9999px; border:1px solid rgba(0,199,156,.35); background: rgba(0,199,156,.08); color: #cde; }
         @media (max-width: 768px) {
             header { display: none; }
         }
@@ -128,95 +136,126 @@
     <main id="deck">
         <!-- Slide 1: Title -->
         <section class="slide text-center">
-            <div class="absolute inset-0 bg-cover bg-center opacity-10" style="background-image: url('https://images.unsplash.com/photo-1578574577315-3f16ce76751b?q=80&w=2940&auto=format&fit=crop');"></div>
             <div class="bg-grid"></div>
             <div class="content max-w-4xl relative">
-                <h1 class="text-5xl md:text-8xl font-black tracking-tighter leading-none">
-                    The Financial OS for <br/><span class="accent">Global Trade.</span>
+                <p class="text-xl text-gray-300">Harbour.AI</p>
+                <h1 class="text-5xl md:text-8xl font-black tracking-tighter leading-none mt-2">
+                    Predictable Payments for <span class="accent">Logistics</span>
                 </h1>
-                <p class="mt-8 text-lg md:text-2xl text-gray-300 max-w-3xl mx-auto">
-                    Unlocking the cash flow for the companies that move the world.
+                <p class="mt-6 text-lg md:text-2xl text-gray-300 max-w-3xl mx-auto">
+                    We make invoice‑to‑cash fast, accurate, and automated for freight forwarders and 3PLs.
                 </p>
-            </div>
-        </section>
-
-        <!-- Slide 2: The Market -->
-        <section class="slide">
-            <div class="bg-grid"></div>
-            <div class="content max-w-5xl w-full text-center">
-                <h2 class="text-4xl md:text-6xl font-black tracking-tighter">
-                    A <span class="accent">$7 Trillion</span> Industry is <br/>Run on Paper.
-                </h2>
-                <p class="mt-6 text-xl text-gray-300 max-w-3xl mx-auto">
-                    Global Trade is the lifeblood of our economy, but the companies moving our goods—Freight Forwarders—are drowning in 19th-century processes.
-                </p>
-                <div class="mt-12 grid grid-cols-1 md:grid-cols-3 gap-8">
-                    <div class="p-6 border border-gray-800 rounded-2xl bg-gray-900/20">
-                        <svg class="w-12 h-12 mx-auto text-teal-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M9 17.25v1.007a3 3 0 0 1-.879 2.122L7.5 21h9l-.621-.621A3 3 0 0 1 15 18.257V17.25m6-12V15a2.25 2.25 0 0 1-2.25 2.25H5.25A2.25 2.25 0 0 1 3 15V5.25m18 0A2.25 2.25 0 0 0 18.75 3H5.25A2.25 2.25 0 0 0 3 5.25m18 0V12a2.25 2.25 0 0 1-2.25 2.25H5.25A2.25 2.25 0 0 1 3 12V5.25" /></svg>
-                        <h3 class="mt-4 text-xl font-bold">Manual Processes</h3>
-                        <p class="text-gray-400 text-sm">Spreadsheets, phone calls, and endless email chains.</p>
-                    </div>
-                    <div class="p-6 border border-gray-800 rounded-2xl bg-gray-900/20">
-                         <svg class="w-12 h-12 mx-auto text-teal-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" /></svg>
-                        <h3 class="mt-4 text-xl font-bold">Slow Payments</h3>
-                        <p class="text-gray-400 text-sm">Delayed payments strangle cash flow and halt growth.</p>
-                    </div>
-                    <div class="p-6 border border-gray-800 rounded-2xl bg-gray-900/20">
-                         <svg class="w-12 h-12 mx-auto text-teal-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 0 1 3 19.875v-6.75ZM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V8.625ZM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V4.125Z" /></svg>
-                        <h3 class="mt-4 text-xl font-bold">No Data, No Insight</h3>
-                        <p class="text-gray-400 text-sm">Zero visibility into financial health or customer payment behavior.</p>
-                    </div>
+                <!-- Flowing cash pipeline graphic -->
+                <div class="mt-10 max-w-3xl mx-auto">
+                    <svg class="w-full h-auto" viewBox="0 0 700 160" role="img" aria-label="Validation to cashflow pipeline">
+                        <defs>
+                            <linearGradient id="tealGlow" x1="0" y1="0" x2="1" y2="1">
+                                <stop offset="0%" stop-color="#00C79C" stop-opacity="0.9"/>
+                                <stop offset="100%" stop-color="#00C79C" stop-opacity="0.2"/>
+                            </linearGradient>
+                        </defs>
+                        <g transform="translate(110,80)">
+                            <rect x="-60" y="-30" width="120" height="60" rx="12" fill="#071024" stroke="#00C79C"/>
+                            <text x="0" y="6" text-anchor="middle" fill="#cde">Validate</text>
+                        </g>
+                        <g transform="translate(350,80)">
+                            <rect x="-70" y="-30" width="140" height="60" rx="12" fill="#071024" stroke="#00C79C"/>
+                            <text x="0" y="6" text-anchor="middle" fill="#cde">Agentic Collect</text>
+                        </g>
+                        <g transform="translate(590,80)">
+                            <rect x="-50" y="-30" width="100" height="60" rx="12" fill="#071024" stroke="#00C79C"/>
+                            <text x="0" y="6" text-anchor="middle" fill="#cde">Cash</text>
+                        </g>
+                        <path class="dash" d="M170 80 H 280" stroke="url(#tealGlow)" stroke-width="3"/>
+                        <path class="dash" d="M420 80 H 540" stroke="url(#tealGlow)" stroke-width="3"/>
+                    </svg>
                 </div>
             </div>
         </section>
 
-        <!-- Slide 3: The Solution -->
-        <section class="slide text-center">
-            <div class="bg-grid"></div>
-            <div class="content max-w-4xl">
-                <p class="text-xl text-gray-300 font-medium">The Solution</p>
-                <h1 class="text-6xl md:text-9xl font-black tracking-tighter my-4">
-                    HARBOUR AI
-                </h1>
-                <p class="text-2xl md:text-4xl font-medium tracking-tight">
-                    The <span class="accent">Intelligent Accounts Receivable</span> Platform.
-                </p>
-                <p class="mt-6 text-xl text-gray-300">
-                   We automate the entire invoice-to-cash lifecycle, turning a forwarder's biggest liability into their greatest strength.
-                </p>
-            </div>
-        </section>
-
-        <!-- Slide 4: How it works -->
+        <!-- Slide 2: Problem -->
         <section class="slide">
             <div class="bg-grid"></div>
-            <div class="content max-w-5xl w-full grid md:grid-cols-2 gap-12 items-center">
+            <div class="content max-w-6xl w-full grid md:grid-cols-2 gap-12 items-center">
                 <div>
-                    <h2 class="text-4xl md:text-6xl font-black tracking-tighter">Simple, Powerful, <br/>and <span class="accent">Built for Them.</span></h2>
-                    <p class="mt-6 text-xl text-gray-300">
-                        Our platform is designed for how forwarders actually work, from ingestion to instant payment.
-                    </p>
+                    <h2 class="text-4xl md:text-6xl font-black tracking-tighter">Payments are unpredictable. <span class="accent">Ops chase emails.</span></h2>
+                    <p class="mt-6 text-xl text-gray-300">Thousands of invoices leave the TMS; mismatches trigger disputes; finance reconciles by hand; DSO stretches; working capital tightens; growth stalls.</p>
+                    <ul class="mt-4 text-lg text-gray-400 list-disc list-inside space-y-2">
+                        <li>Human‑heavy, error‑prone processes</li>
+                        <li>No single tool across validation • collections • disputes • financing</li>
+                    </ul>
                 </div>
-                <div class="space-y-6">
-                    <div class="flex items-start space-x-4 p-4 rounded-xl bg-gray-900/30">
-                        <div class="flex-shrink-0 w-12 h-12 rounded-full bg-teal-900/50 flex items-center justify-center border border-teal-500/30 text-teal-400 font-bold text-xl">1</div>
-                        <div>
-                            <h3 class="font-bold text-lg">Upload & Ingest</h3>
-                            <p class="text-gray-400">Works with any system—ERPs, TMS, or even spreadsheets.</p>
+                <div>
+                    <!-- Before/After bar set -->
+                    <div class="p-6 border border-gray-800 rounded-2xl bg-gray-900/20">
+                        <p class="text-sm uppercase tracking-widest text-gray-400">Before → After</p>
+                        <div class="mt-4 grid grid-cols-2 gap-4 text-sm text-gray-300">
+                            <div>DSO</div><div class="text-right"><span class="line-through text-gray-500">60d</span> → <span class="accent">45d</span></div>
+                            <div>Error rate</div><div class="text-right"><span class="line-through text-gray-500">8%</span> → <span class="accent">1%</span></div>
+                            <div>Dispute time</div><div class="text-right"><span class="line-through text-gray-500">21d</span> → <span class="accent">7d</span></div>
+                            <div>Ops hours</div><div class="text-right"><span class="line-through text-gray-500">40h/wk</span> → <span class="accent">12h/wk</span></div>
                         </div>
                     </div>
-                     <div class="flex items-start space-x-4 p-4 rounded-xl bg-gray-900/30">
-                        <div class="flex-shrink-0 w-12 h-12 rounded-full bg-teal-900/50 flex items-center justify-center border border-teal-500/30 text-teal-400 font-bold text-xl">2</div>
-                        <div>
-                            <h3 class="font-bold text-lg">Automated "Agentic" Chase</h3>
-                            <p class="text-gray-400">Intelligent, multi-channel reminders via Email, WhatsApp & SMS.</p>
-                        </div>
-                    </div>
-                     <div class="flex items-start space-x-4 p-4 rounded-xl bg-gray-900/30">
-                        <div class="flex-shrink-0 w-12 h-12 rounded-full bg-teal-900/50 flex items-center justify-center border border-teal-500/30 text-teal-400 font-bold text-xl">3</div>
-                        <div>
-                            <h3 class="font-bold text-lg">Get Paid Instantly</h3>
-                            <p class="text-gray-400">Modern payment rails like Open Banking for faster, cheaper settlement.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 3: Solution (Wedge) -->
+        <section class="slide">
+            <div class="bg-grid"></div>
+            <div class="content max-w-6xl w-full grid md:grid-cols-2 gap-12 items-center">
+                <div>
+                    <h2 class="text-4xl md:text-6xl font-black tracking-tighter">Plug into your TMS. Rewire payments.</h2>
+                    <ol class="mt-6 text-lg text-gray-300 list-decimal list-inside space-y-2">
+                        <li>Pre‑send Invoice Validation</li>
+                        <li>Agentic Collections</li>
+                        <li>Dispute Decisioning</li>
+                        <li>Modern Rails + Embedded Financing</li>
+                    </ol>
+                    <p class="mt-6 text-xl text-gray-300">Result: fewer errors, faster cash, less effort.</p>
+                </div>
+                <div>
+                    <!-- Flow diagram: Validate → Collect → Decide → Move Money -->
+                    <svg class="w-full h-auto" viewBox="0 0 700 220" role="img" aria-label="Payment lifecycle flow">
+                        <defs>
+                            <marker id="arrowT" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto" markerUnits="strokeWidth">
+                                <path d="M0,0 L0,6 L8,3 z" fill="#00C79C" />
+                            </marker>
+                        </defs>
+                        <g transform="translate(80,110)"><rect x="-60" y="-28" width="120" height="56" rx="12" fill="#071024" stroke="#00C79C"/><text x="0" y="6" text-anchor="middle" fill="#cde">Validate</text></g>
+                        <g transform="translate(260,110)"><rect x="-60" y="-28" width="120" height="56" rx="12" fill="#071024" stroke="#00C79C"/><text x="0" y="6" text-anchor="middle" fill="#cde">Collect</text></g>
+                        <g transform="translate(440,110)"><rect x="-60" y="-28" width="120" height="56" rx="12" fill="#071024" stroke="#00C79C"/><text x="0" y="6" text-anchor="middle" fill="#cde">Decide</text></g>
+                        <g transform="translate(620,110)"><rect x="-60" y="-28" width="120" height="56" rx="12" fill="#071024" stroke="#00C79C"/><text x="0" y="6" text-anchor="middle" fill="#cde">Move</text></g>
+                        <path class="dash" d="M140 110 H 200" stroke="#00C79C" stroke-width="3" fill="none" marker-end="url(#arrowT)"/>
+                        <path class="dash" d="M320 110 H 380" stroke="#00C79C" stroke-width="3" fill="none" marker-end="url(#arrowT)"/>
+                        <path class="dash" d="M500 110 H 560" stroke="#00C79C" stroke-width="3" fill="none" marker-end="url(#arrowT)"/>
+                    </svg>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 4: How it Works -->
+        <section class="slide">
+            <div class="bg-grid"></div>
+            <div class="content max-w-6xl w-full grid md:grid-cols-2 gap-12 items-center">
+                <div>
+                    <h2 class="text-4xl md:text-6xl font-black tracking-tighter">In‑TMS integration. Policy controls. Event timeline.</h2>
+                    <p class="mt-6 text-xl text-gray-300">We meet you where the data lives and instrument the full lifecycle from pre‑invoice checks to settlement.</p>
+                </div>
+                <div>
+                    <div class="relative rounded-2xl overflow-hidden border border-teal-500/30 bg-gray-900/30 p-4">
+                        <div class="rounded-xl overflow-hidden border border-gray-800">
+                            <div class="relative" style="background: radial-gradient( circle at 30% 30%, rgba(0,199,156,.18), rgba(0,0,0,0) 60% );">
+                                <div class="h-48 md:h-56 flex items-center justify-center">
+                                    <div class="text-center">
+                                        <p class="text-sm text-gray-400">harbour // timeline</p>
+                                        <p class="text-2xl font-semibold">Invoice #A102 validated → collect → paid</p>
+                                    </div>
+                                </div>
+                                <div class="absolute inset-0 pointer-events-none" style="mix-blend-mode: screen;">
+                                    <div class="sweep w-1/3 h-full" style="background: linear-gradient(90deg, rgba(0,199,156,0) 0%, rgba(0,199,156,.18) 45%, rgba(0,199,156,.3) 50%, rgba(0,199,156,.18) 55%, rgba(0,199,156,0) 100%);"></div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -227,108 +266,153 @@
         <section class="slide">
              <div class="bg-grid"></div>
             <div class="content max-w-6xl w-full text-center">
-                 <h2 class="text-4xl md:text-6xl font-black tracking-tighter">The Proof is in the <span class="accent">Volume.</span></h2>
-                 <p class="mt-4 text-xl text-gray-300 max-w-3xl mx-auto">We are not a concept. We are live, growing fast, and proving the market is ready.</p>
-                 <div class="mt-12 grid md:grid-cols-3 gap-8">
-                    <div class="p-6 border border-gray-800 rounded-2xl bg-gray-900/20 text-center">
-                        <p class="text-gray-400 text-sm font-bold tracking-widest uppercase">MoM Growth</p>
-                        <div class="h-48 flex items-end justify-center space-x-4 mt-4" id="bar-chart">
-                            <div class="w-12 bg-gray-700 rounded-t-lg" data-value="20" title="Month 1: $20k"></div>
-                            <div class="w-12 bg-gray-600 rounded-t-lg" data-value="40" title="Month 2: $40k"></div>
-                            <div class="w-12 bg-teal-500 rounded-t-lg" data-value="60" title="Month 3: $60k"></div>
-                        </div>
-                        <p class="text-lg font-medium mt-4">>$60k Monthly Volume in 3 Months</p>
+                 <h2 class="text-4xl md:text-6xl font-black tracking-tighter">Momentum in <span class="accent">6 months</span></h2>
+                 <div class="mt-10 grid md:grid-cols-4 gap-6">
+                    <div class="p-6 border border-gray-800 rounded-2xl bg-gray-900/20">
+                        <p class="text-5xl font-black"><span class="accent">4</span></p>
+                        <p class="text-gray-400 mt-2">Customers onboarded</p>
                     </div>
-                    <div class="p-6 border border-gray-800 rounded-2xl bg-gray-900/20 text-center">
-                        <p class="text-gray-400 text-sm font-bold tracking-widest uppercase">User Stickiness</p>
-                        <p class="text-6xl font-black my-8">Daily</p>
-                        <p class="text-lg font-medium mt-4">One of our first customers is a Daily Active User.</p>
+                    <div class="p-6 border border-gray-800 rounded-2xl bg-gray-900/20">
+                        <p class="text-5xl font-black"><span class="accent">50%</span></p>
+                        <p class="text-gray-400 mt-2">MoM growth in processed payments</p>
                     </div>
-                    <div class="p-6 border border-gray-800 rounded-2xl bg-gray-900/20 text-center">
-                        <p class="text-gray-400 text-sm font-bold tracking-widest uppercase">Tech Adoption</p>
-                        <p class="text-6xl font-black my-8"><span class="accent">70%</span></p>
-                         <p class="text-lg font-medium mt-4">of all payments are processed via modern Open Banking.</p>
+                    <div class="p-6 border border-gray-800 rounded-2xl bg-gray-900/20">
+                        <p class="text-2xl font-semibold">MVP</p>
+                        <p class="text-gray-300 mt-2">Live in production</p>
+                    </div>
+                    <div class="p-6 border border-gray-800 rounded-2xl bg-gray-900/20">
+                        <p class="text-2xl font-semibold">Building with users</p>
+                        <p class="text-gray-300 mt-2">Category standard for logistics payments</p>
                     </div>
                  </div>
-            </div>
-        </section>
-
-        <!-- Slide 6: The Vision -->
-        <section class="slide">
-             <div class="bg-grid"></div>
-            <div class="content max-w-5xl w-full grid md:grid-cols-2 gap-12 items-center">
-                 <div>
-                    <h2 class="text-4xl md:text-6xl font-black tracking-tighter">From Dublin to the <span class="accent">USA.</span></h2>
-                    <p class="mt-6 text-xl text-gray-300">
-                        The UK & Ireland is our proving ground, but the US is the prize. Their market is enormous and technologically years behind. Our playbook gives us an unfair advantage to capture it.
-                    </p>
-                    <p class="mt-4 text-lg text-gray-400">Speed is critical. Someone will win this space. It will be us.</p>
-                </div>
-                <div class="p-8">
-                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 100" class="w-full">
-                        <path d="M40 50 C 80 20, 120 20, 160 50" stroke="#00C79C" stroke-width="2" fill="none" stroke-dasharray="4 4" />
-                        <circle cx="40" cy="50" r="5" fill="#00C79C" />
-                        <text x="30" y="70" font-family="Inter" font-size="8" fill="#E0EFFF">UK/IRL</text>
-                        <text x="25" y="80" font-family="Inter" font-size="6" fill="#999">Launchpad</text>
-                        <circle cx="160" cy="50" r="10" fill="#00C79C" />
-                        <text x="155" y="70" font-family="Inter" font-size="8" fill="#E0EFFF">USA</text>
-                        <text x="148" y="80" font-family="Inter" font-size="6" fill="#999">Global Prize</text>
+                 <div class="mt-10">
+                    <svg class="w-full h-20" viewBox="0 0 1000 80" aria-hidden="true">
+                        <line x1="60" y1="40" x2="940" y2="40" stroke="#0f1a2e" stroke-width="4"/>
+                        <path class="dash" d="M60 40 H 940" stroke="#00C79C" stroke-width="2"/>
+                        <g transform="translate(240,40)"><circle class="pulse" r="8" fill="#00C79C"/></g>
+                        <g transform="translate(520,40)"><circle class="pulse" r="8" fill="#00C79C"/></g>
+                        <g transform="translate(800,40)"><circle class="pulse" r="8" fill="#00C79C"/></g>
                     </svg>
                  </div>
+                 <p class="mt-4 text-sm text-gray-400">Optional: DSO ↓ and dispute cycle time ↓ proof points.</p>
             </div>
         </section>
 
-        <!-- Slide 7: The Team -->
+        <!-- Slide 6: Market -->
         <section class="slide">
              <div class="bg-grid"></div>
-            <div class="content max-w-4xl w-full text-center">
-                <h2 class="text-4xl md:text-6xl font-black tracking-tighter">Built by <span class="accent">Industry Insiders.</span></h2>
-                <div class="mt-12 flex flex-col md:flex-row justify-center items-center gap-12">
+            <div class="content max-w-6xl w-full text-center">
+                <h2 class="text-4xl md:text-6xl font-black tracking-tighter">ICP on top TMSs → <span class="accent">Beachhead TAM</span> → Expansion</h2>
+                <p class="mt-6 text-xl text-gray-300 max-w-4xl mx-auto">Logistics firms >$10M revenue on top TMSs (e.g., CargoWise has ~17k companies). Land the payments predictability wedge, then expand across the stack.</p>
+                <div class="mt-10 max-w-3xl mx-auto">
+                    <svg class="w-full h-auto" viewBox="0 0 600 220" role="img" aria-label="Beachhead TAM math">
+                        <rect x="60" y="30" width="480" height="40" rx="8" fill="#061226" stroke="#00C79C"/>
+                        <rect x="120" y="90" width="360" height="40" rx="8" fill="#061226" stroke="#00C79C"/>
+                        <rect x="190" y="150" width="220" height="40" rx="8" fill="#061226" stroke="#00C79C"/>
+                        <text x="300" y="56" text-anchor="middle" fill="#cde">Wider Logistics Payments</text>
+                        <text x="300" y="116" text-anchor="middle" fill="#cde">ICP on Top TMSs</text>
+                        <text x="300" y="176" text-anchor="middle" fill="#cde">Beachhead TAM = ICP × ARPA</text>
+                        <rect class="sweep" x="60" y="30" width="120" height="40" fill="rgba(0,199,156,.15)"/>
+                    </svg>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 7: Competition -->
+        <section class="slide">
+            <div class="bg-grid"></div>
+            <div class="content max-w-6xl w-full">
+                <h2 class="text-4xl md:text-6xl font-black tracking-tighter text-center">Point tools vs <span class="accent">Harbour integrated</span></h2>
+                <div class="mt-10 overflow-hidden rounded-2xl border border-gray-800">
+                    <table class="w-full text-left text-gray-300">
+                        <thead class="bg-gray-900/40">
+                            <tr>
+                                <th class="p-4">Capability</th>
+                                <th class="p-4">Invoice Automation</th>
+                                <th class="p-4">Dispute Tools</th>
+                                <th class="p-4">Financing</th>
+                                <th class="p-4">Harbour.AI</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="border-t border-gray-800"><td class="p-4">Pre‑send validation</td><td class="p-4">–</td><td class="p-4">–</td><td class="p-4">–</td><td class="p-4 accent">✓</td></tr>
+                            <tr class="border-t border-gray-800"><td class="p-4">Agentic collections</td><td class="p-4">–</td><td class="p-4">–</td><td class="p-4">–</td><td class="p-4 accent">✓</td></tr>
+                            <tr class="border-t border-gray-800"><td class="p-4">Dispute decisioning</td><td class="p-4">–</td><td class="p-4">✓</td><td class="p-4">–</td><td class="p-4 accent">✓</td></tr>
+                            <tr class="border-t border-gray-800"><td class="p-4">Modern rails</td><td class="p-4">–</td><td class="p-4">–</td><td class="p-4">✓</td><td class="p-4 accent">✓</td></tr>
+                            <tr class="border-t border-gray-800"><td class="p-4">Embedded financing</td><td class="p-4">–</td><td class="p-4">–</td><td class="p-4">✓</td><td class="p-4 accent">✓</td></tr>
+                            <tr class="border-t border-gray-800"><td class="p-4">In‑TMS workflow</td><td class="p-4">Partial</td><td class="p-4">Partial</td><td class="p-4">–</td><td class="p-4 accent">✓</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 8: Team -->
+        <section class="slide">
+             <div class="bg-grid"></div>
+            <div class="content max-w-6xl w-full">
+                <h2 class="text-4xl md:text-6xl font-black tracking-tighter text-center">Built by operators in <span class="accent">payments</span> and <span class="accent">logistics</span></h2>
+                <div class="mt-12 grid grid-cols-1 md:grid-cols-3 gap-8 items-start">
                     <div class="text-center">
-                        <div class="w-48 h-48 rounded-full mx-auto border-2 border-gray-700 overflow-hidden">
+                        <div class="w-40 h-40 rounded-full mx-auto border-2 border-gray-700 overflow-hidden">
                             <img src="people/charliecampbell.jpeg" alt="Charlie Campbell" class="w-full h-full object-cover" />
                         </div>
                         <h3 class="mt-4 text-2xl font-bold">Charlie Campbell</h3>
+                        <p class="text-gray-400">CEO</p>
+                        <span class="badge mt-2">Logistics Ops</span>
                     </div>
                     <div class="text-center">
-                        <div class="w-48 h-48 rounded-full mx-auto border-2 border-gray-700 overflow-hidden">
+                        <div class="w-40 h-40 rounded-full mx-auto border-2 border-gray-700 overflow-hidden">
                             <img src="people/shanemalone.jpeg" alt="Shane Malone" class="w-full h-full object-cover" />
                         </div>
                         <h3 class="mt-4 text-2xl font-bold">Shane Malone</h3>
+                        <p class="text-gray-400">CTO</p>
+                        <span class="badge mt-2">AI Systems</span>
+                    </div>
+                    <div class="text-center">
+                        <div class="w-40 h-40 rounded-full mx-auto border-2 border-gray-700 overflow-hidden flex items-center justify-center bg-gray-900/30">
+                            <span class="text-xl text-gray-400">EG</span>
+                        </div>
+                        <h3 class="mt-4 text-2xl font-bold">Evan Gordon</h3>
+                        <p class="text-gray-400">Founding Engineer</p>
+                        <span class="badge mt-2">Integrations</span>
                     </div>
                 </div>
-                <p class="text-center mt-12 text-xl text-gray-300 max-w-2xl mx-auto">
-                    We have the deep market knowledge and technical expertise to bridge the gap between old-world logistics and modern finance.
-                </p>
+                <p class="text-center mt-10 text-xl text-gray-300 max-w-3xl mx-auto">Purpose‑built team to unify invoice accuracy, agentic collections, decisioning, and modern rails inside the TMS.</p>
             </div>
         </section>
 
-        <!-- Slide 8: The Ask -->
-        <section class="slide text-center">
-             <div class="bg-grid"></div>
-            <div class="content max-w-4xl">
-                 <h2 class="text-4xl md:text-6xl font-black tracking-tighter">This is a venture-scale opportunity. <br/>We are raising to go <span class="accent">fast.</span></h2>
+        <!-- Slide 9: Ask -->
+        <section class="slide">
+            <div class="bg-grid"></div>
+            <div class="content max-w-5xl w-full text-center">
+                <h2 class="text-4xl md:text-6xl font-black tracking-tighter">Raising <span class="accent">$1.5M</span> to make payments predictable</h2>
                 <div class="my-10 p-8 border-2 border-teal-500/30 rounded-2xl bg-gray-900/30">
-                    <p class="text-xl text-gray-400">Raising a</p>
-                    <p class="text-6xl md:text-8xl font-black tracking-tighter my-2"><span class="accent">$1.5M</span> Seed Round</p>
-                    <p class="text-xl text-gray-300">To achieve three key milestones:</p>
+                    <p class="text-xl text-gray-300">Use of funds (18 months)</p>
                 </div>
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-left">
-                    <div class="p-4"><strong class="accent">50+</strong> Customers</div>
-                    <div class="p-4"><strong class="accent">$1M+</strong> Monthly Volume</div>
-                    <div class="p-4"><strong class="accent">Enter</strong> the US Market</div>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-left">
+                    <div class="p-4"><strong class="accent">•</strong> Go‑to‑market into UK/IE/EU freight networks</div>
+                    <div class="p-4"><strong class="accent">•</strong> Deep CargoWise + top‑TMS integrations</div>
+                    <div class="p-4"><strong class="accent">•</strong> U.S. entry (Q1 ’26) with lighthouse logos</div>
+                </div>
+                <div class="mt-10 grid grid-cols-1 md:grid-cols-3 gap-4 text-left font-mono">
+                    <div class="p-4"><strong class="accent"><span class="counter" data-target="50" data-suffix="+">0</span></strong> customers</div>
+                    <div class="p-4"><strong class="accent"><span class="counter" data-target="1" data-prefix="$" data-suffix="M+" data-decimals="0">$0</span></strong> monthly volume</div>
+                    <div class="p-4"><strong class="accent">DSO ↓</strong> across live cohort</div>
                 </div>
             </div>
         </section>
         
-        <!-- Slide 9: Contact -->
+        <!-- Slide 10: Close -->
         <section class="slide text-center">
             <div class="bg-grid"></div>
-            <div class="content">
-                <h2 class="text-5xl font-bold">HARBOUR AI</h2>
-                <p class="mt-8 text-xl">Charlie Campbell & Shane Malone</p>
-                <p class="text-lg text-gray-400">[Founder Email]</p>
-                <p class="text-lg text-gray-400">[Website URL]</p>
+            <div class="content max-w-4xl">
+                <h2 class="text-4xl md:text-6xl font-black tracking-tighter">Harbour.AI makes logistics payments predictable.</h2>
+                <p class="mt-6 text-xl text-gray-300">When cash moves on time, the whole supply chain moves faster.</p>
+                <div class="my-10 p-8 border-2 border-teal-500/30 rounded-2xl bg-gray-900/30">
+                    <p class="text-lg">Let’s fix this together.</p>
+                </div>
+                <p class="text-gray-400">Contact: founders@harbour.ai</p>
             </div>
         </section>
 
@@ -343,7 +427,7 @@
     </button>
 
     <div id="slide-counter" class="slide-counter">
-        <span id="current-slide">1</span> / <span id="total-slides">9</span>
+        <span id="current-slide">1</span> / <span id="total-slides">10</span>
     </div>
 
     <script>
@@ -413,6 +497,37 @@
 
             // Initial setup
             goToSlide(0);
+
+            // Animated counters for Ask milestones
+            function formatNumber(n, opts = {}) {
+                const { decimals = 0, comma = false } = opts;
+                const val = decimals > 0 ? n.toFixed(decimals) : Math.round(n).toString();
+                return comma ? Number(val).toLocaleString() : val;
+            }
+            function animateCounter(el) {
+                const target = parseFloat(el.dataset.target || '0');
+                const prefix = el.dataset.prefix || '';
+                const suffix = el.dataset.suffix || '';
+                const decimals = parseInt(el.dataset.decimals || '0', 10);
+                const duration = 1200; const start = performance.now();
+                function tick(now) {
+                    const p = Math.min(1, (now - start) / duration);
+                    const val = target * p;
+                    el.textContent = `${prefix}${formatNumber(val, { decimals })}${suffix}`;
+                    if (p < 1) requestAnimationFrame(tick);
+                }
+                requestAnimationFrame(tick);
+            }
+            const counters = document.querySelectorAll('.counter');
+            const io = new IntersectionObserver((entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        animateCounter(entry.target);
+                        io.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.4 });
+            counters.forEach(c => io.observe(c));
         });
     </script>
 </body>
