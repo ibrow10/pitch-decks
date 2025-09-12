@@ -9,28 +9,62 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
-        html, body { height: 100%; margin: 0; scroll-snap-type: y mandatory; overflow-y: scroll; background-color: #111827; color: #f9fafb; }
-        section { scroll-snap-align: start; min-height: 100vh; display:flex; flex-direction:column; justify-content:center; align-items:center; position:relative; padding:4rem 1rem; }
-        h1, h2, h3 { font-family: 'Playfair Display', serif; }
-        .overlay { position:absolute; inset:0; background:rgba(0,0,0,0.55); }
+        :root{
+            --gold:#d4af37; --gold-600:#b8922f; --gold-400:#e2c766;
+            --slate-900:#0b1220; --slate-800:#111827; --slate-700:#1f2937;
+            --text:#f9fafb; --muted:#9ca3af;
+        }
+        html, body { height: 100%; margin: 0; scroll-snap-type: y mandatory; overflow-y: scroll; background-color: var(--slate-800); color: var(--text); }
+        section { scroll-snap-align: start; min-height: 100vh; display:flex; flex-direction:column; justify-content:center; align-items:center; position:relative; padding:6rem 1.25rem; }
+        h1, h2, h3 { font-family: 'Playfair Display', serif; letter-spacing:-0.01em; }
+        .overlay { position:absolute; inset:0; background:linear-gradient(180deg, rgba(0,0,0,0.55), rgba(0,0,0,0.45)); }
+        .background-grid{ position:absolute; inset:0; z-index:0; pointer-events:none; background-image:
+            linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px);
+            background-size: 50px 50px; }
+        .glass{ background: rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.12); backdrop-filter: blur(10px); border-radius: 16px; }
+        .card-hover{ transition: transform .2s ease, box-shadow .2s ease; }
+        .card-hover:hover{ transform: translateY(-2px); box-shadow: 0 10px 30px rgba(0,0,0,0.25); }
+        .text-gold{ color: var(--gold); }
+        .bg-gold{ background: var(--gold); }
+        .text-charcoal{ color: var(--slate-900); }
+        .btn{ display:inline-block; padding:0.75rem 1.5rem; border-radius:12px; font-weight:700; }
+        .btn-primary{ background: var(--gold); color: var(--slate-900); box-shadow: 0 0 0 1px rgba(212,175,55,0.25) inset; }
+        .btn-outline{ border:1px solid rgba(255,255,255,0.5); }
         @keyframes gradient {
             0%{background-position:0% 50%;}
             50%{background-position:100% 50%;}
             100%{background-position:0% 50%;}
         }
-        .animated-bg { background:linear-gradient(-45deg,#1e3a8a,#111827,#d4af37,#1e3a8a); background-size:400% 400%; animation:gradient 20s ease infinite; }
+        .animated-bg { background:linear-gradient(-45deg,#1e3a8a,#111827,var(--gold),#1e3a8a); background-size:400% 400%; animation:gradient 20s ease infinite; }
         @keyframes fadeup { from{opacity:0; transform:translateY(20px);} to{opacity:1; transform:translateY(0);} }
         .fadeup { animation:fadeup 1s ease forwards; }
         #progress-container{position:fixed;top:0;right:0;width:6px;height:100vh;background:rgba(255,255,255,0.1);z-index:50;}
-        #progress{width:100%;height:0;background:#d4af37;}
+        #progress{width:100%;height:0;background:var(--gold);}
+        /* Side navigation mini-map */
+        #side-nav{position:fixed;left:2rem;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:10px;z-index:60}
+        .dot{width:10px;height:10px;border-radius:9999px;background:rgba(255,255,255,0.2);border:1px solid rgba(212,175,55,0.5);cursor:pointer;transition:transform .15s ease, background .15s ease, box-shadow .15s ease}
+        .dot.active{background:var(--gold);box-shadow:0 0 12px rgba(212,175,55,0.6);transform:scale(1.3)}
+        /* Reduced motion */
+        @media (prefers-reduced-motion: reduce){ .fadeup{animation:none} .animated-bg{animation:none} }
+        /* Print */
+        @media print{ body{background:#fff!important;color:#000!important} section{min-height:auto;page-break-inside:avoid;padding:20mm 12mm} #progress-container,#side-nav{display:none!important} .overlay{opacity:.2} }
     </style>
 </head>
 <body class="antialiased">
     <div id="progress-container"><div id="progress"></div></div>
+    <nav id="side-nav" aria-label="Slide navigation"></nav>
+    <header class="fixed top-0 left-0 w-full z-50 pointer-events-none">
+        <div class="flex items-center justify-between px-6 py-4">
+            <div class="pointer-events-auto select-none tracking-wide font-semibold">Kella</div>
+            <div class="text-sm text-gray-400 pointer-events-auto">Investor Deck // Confidential</div>
+        </div>
+    </header>
     <!-- Slide 1: Hero -->
-    <section class="text-center" style="background:url('public/kella3.jpg') center/cover no-repeat;">
+    <section class="text-center" style="background:url('public/kella3.jpg') center/cover no-repeat;" data-title="Kella">
         <div class="overlay"></div>
-        <video class="absolute inset-0 w-full h-full object-cover opacity-40" autoplay muted loop playsinline poster="public/kella4.jpg">
+        <div class="background-grid"></div>
+        <video id="hero-video" class="absolute inset-0 w-full h-full object-cover opacity-40" autoplay muted loop playsinline poster="public/kella4.jpg">
             <source src="public/kella.mp4" type="video/mp4">
         </video>
         <div class="relative z-10 max-w-3xl mx-auto fadeup">
@@ -39,32 +73,33 @@
         </div>
     </section>
     <!-- Slide 2: Problem -->
-    <section class="animated-bg text-center">
+    <section class="animated-bg text-center" data-title="The Gap">
         <div class="max-w-4xl mx-auto fadeup">
             <h2 class="text-5xl md:text-6xl font-bold mb-8">The Gap</h2>
             <p class="text-xl md:text-2xl mb-10">Female founders still receive less than <span class="text-gold font-bold">2%</span> of venture funding. Networks and capital remain fragmented.</p>
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <div class="p-4 bg-black/40 rounded-lg"><p class="text-4xl font-extrabold text-gold">70%</p><p class="text-sm mt-2">feel disconnected from investors</p></div>
-                <div class="p-4 bg-black/40 rounded-lg"><p class="text-4xl font-extrabold text-gold">$42B</p><p class="text-sm mt-2">missed opportunity annually</p></div>
-                <div class="p-4 bg-black/40 rounded-lg"><p class="text-4xl font-extrabold text-gold">5x</p><p class="text-sm mt-2">higher ROI when women are funded</p></div>
+                <div class="p-6 glass card-hover rounded-xl"><p class="text-4xl font-extrabold text-gold"><span class="counter" data-target="70" data-suffix="%">0%</span></p><p class="text-sm mt-2 text-gray-300">feel disconnected from investors</p></div>
+                <div class="p-6 glass card-hover rounded-xl"><p class="text-4xl font-extrabold text-gold"><span class="counter" data-target="42" data-prefix="$" data-suffix="B">$0</span></p><p class="text-sm mt-2 text-gray-300">missed opportunity annually</p></div>
+                <div class="p-6 glass card-hover rounded-xl"><p class="text-4xl font-extrabold text-gold"><span class="counter" data-target="5" data-suffix="x">0x</span></p><p class="text-sm mt-2 text-gray-300">higher ROI when women are funded</p></div>
             </div>
         </div>
     </section>
     <!-- Slide 3: Solution -->
-    <section class="text-center" style="background:url('public/kella1.jpg') center/cover no-repeat;">
+    <section class="text-center" style="background:url('public/kella1.jpg') center/cover no-repeat;" data-title="Solution">
         <div class="overlay"></div>
+        <div class="background-grid"></div>
         <div class="relative z-10 max-w-3xl mx-auto fadeup">
             <h2 class="text-5xl md:text-6xl font-bold mb-8">Our Solution</h2>
             <p class="text-xl md:text-2xl">A curated, digital-first network that unifies capital, mentorship and community for female leaders.</p>
         </div>
     </section>
     <!-- Slide 4: Product -->
-    <section class="bg-black text-center">
+    <section class="bg-black text-center" data-title="Product">
         <div class="max-w-5xl mx-auto fadeup">
             <h2 class="text-5xl md:text-6xl font-bold mb-8">Product</h2>
             <div class="grid md:grid-cols-3 gap-8 text-left">
-                <div class="p-6 bg-gray-800/50 rounded-lg"><h3 class="text-2xl font-semibold mb-2">Digital Hub</h3><p>Members-only platform with dealflow, resources and peer connections.</p></div>
-                <div class="p-6 bg-gray-800/50 rounded-lg"><h3 class="text-2xl font-semibold mb-2">Flagship Events</h3><p>Immersive gatherings pairing investors and operators in global cities.</p></div>
+                <div class="p-6 glass card-hover"><h3 class="text-2xl font-semibold mb-2">Digital Hub</h3><p class="text-gray-300">Members-only platform with dealflow, resources and peer connections.</p></div>
+                <div class="p-6 glass card-hover"><h3 class="text-2xl font-semibold mb-2">Flagship Events</h3><p class="text-gray-300">Immersive gatherings pairing investors and operators in global cities.</p></div>
                 <div class="p-6 bg-gray-800/50 rounded-lg"><h3 class="text-2xl font-semibold mb-2">Capital Collective</h3><p>Angel syndicate mobilizing wealth toward women-led innovation.</p></div>
             </div>
         </div>
@@ -137,23 +172,96 @@
         </div>
     </section>
     <!-- Slide 10: Contact -->
-    <section class="text-center" style="background:url('public/kella4.jpg') center/cover no-repeat;">
+    <section class="text-center" style="background:url('public/kella4.jpg') center/cover no-repeat;" data-title="Contact">
         <div class="overlay"></div>
         <div class="relative z-10 max-w-3xl mx-auto fadeup">
             <h2 class="text-6xl md:text-7xl font-bold mb-6">Join Us</h2>
             <p class="text-2xl md:text-3xl mb-8">Let's build power together.</p>
             <div class="flex flex-col sm:flex-row gap-4 justify-center">
-                <a href="mailto:hannah@kella.com" class="px-8 py-3 rounded-lg bg-gold text-charcoal font-bold">Request Intro</a>
-                <a href="https://www.kella.com" target="_blank" rel="noopener" class="px-8 py-3 rounded-lg border border-gray-200">Learn More</a>
+                <a href="mailto:hannah@kella.com" class="btn btn-primary">Request Intro</a>
+                <a href="https://www.kella.com" target="_blank" rel="noopener" class="btn btn-outline">Learn More</a>
             </div>
         </div>
     </section>
     <script>
         const progress = document.getElementById('progress');
+        const sideNav = document.getElementById('side-nav');
+        const sections = Array.from(document.querySelectorAll('section'));
+        // Progress bar
         document.addEventListener('scroll', () => {
             const h = document.body.scrollHeight - window.innerHeight;
-            const scrolled = window.scrollY / h;
+            const scrolled = Math.max(0, Math.min(1, window.scrollY / h));
             progress.style.height = `${scrolled * 100}%`;
+            // Parallax hero
+            const hero = document.getElementById('hero-video');
+            if (hero) {
+                const y = window.scrollY * 0.1;
+                hero.style.transform = `translateY(${y}px)`;
+            }
+        }, { passive: true });
+
+        // Side nav dots
+        if (sideNav) {
+            sideNav.innerHTML = sections.map((s, i) => `<button class="dot" aria-label="Go to ${s.dataset.title || 'slide ' + (i+1)}" data-idx="${i}"></button>`).join('');
+            sideNav.addEventListener('click', (e) => {
+                const btn = e.target.closest('.dot');
+                if (!btn) return;
+                const idx = parseInt(btn.getAttribute('data-idx'), 10);
+                sections[idx].scrollIntoView({ behavior: 'smooth', block: 'start' });
+            });
+        }
+
+        // Highlight active section and run counters
+        const dots = sideNav ? sideNav.querySelectorAll('.dot') : [];
+        const counters = document.querySelectorAll('.counter');
+        const animated = new WeakSet();
+        function formatNumber(n, { decimals = 0, comma = false } = {}) {
+            const val = decimals > 0 ? n.toFixed(decimals) : Math.round(n).toString();
+            return comma ? Number(val).toLocaleString() : val;
+        }
+        function animateCounter(el) {
+            if (animated.has(el)) return;
+            animated.add(el);
+            const target = parseFloat(el.dataset.target || '0');
+            const prefix = el.dataset.prefix || '';
+            const suffix = el.dataset.suffix || '';
+            const decimals = parseInt(el.dataset.decimals || '0', 10);
+            const comma = !!el.dataset.format;
+            const duration = 1200; const start = performance.now();
+            function tick(now) {
+                const p = Math.min(1, (now - start) / duration);
+                const val = target * p;
+                el.textContent = `${prefix}${formatNumber(val, { decimals, comma })}${suffix}`;
+                if (p < 1) requestAnimationFrame(tick);
+            }
+            requestAnimationFrame(tick);
+        }
+        const io = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+                const idx = sections.indexOf(entry.target);
+                if (entry.isIntersecting) {
+                    if (dots[idx]) dots[idx].classList.add('active');
+                    entry.target.querySelectorAll('.counter').forEach(animateCounter);
+                } else {
+                    if (dots[idx]) dots[idx].classList.remove('active');
+                }
+            });
+        }, { threshold: 0.5 });
+        sections.forEach(s => io.observe(s));
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (['ArrowDown','PageDown',' '].includes(e.key)) {
+                e.preventDefault();
+                const i = sections.findIndex(s => s.getBoundingClientRect().top >= -10);
+                const next = Math.min(sections.length - 1, (i === -1 ? 0 : i) + 1);
+                sections[next].scrollIntoView({ behavior: 'smooth' });
+            } else if (['ArrowUp','PageUp'].includes(e.key)) {
+                e.preventDefault();
+                const i = sections.findIndex(s => s.getBoundingClientRect().top >= -10);
+                const prev = Math.max(0, (i <= 0 ? 0 : i - 1));
+                sections[prev].scrollIntoView({ behavior: 'smooth' });
+            }
         });
     </script>
 </body>
