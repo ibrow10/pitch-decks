@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DevDay // Experimental Deck</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800;900&family=Space+Grotesk:wght@400;600;700&family=Fira+Code:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --ink:#0b0e16; --fg:#e9eef6; --accent:#6EE7F9; --accent2:#A78BFA;
+    }
+    body{ font-family:'Inter',sans-serif; background: radial-gradient(1200px 800px at 10% -10%, #1a2240 0%, transparent 60%), radial-gradient(1000px 800px at 110% 20%, #1b3b3b 0%, transparent 60%), var(--ink); color:var(--fg); overflow: hidden;}
+    main{ display:flex; width:100%; height:100vh; transition:transform .6s cubic-bezier(.65,0,.35,1); }
+    .slide{ flex:0 0 100vw; height:100vh; display:flex; flex-direction:column; justify-content:center; align-items:center; padding:6vw 5vw; position:relative; overflow:hidden; }
+    .mesh{ position:absolute; inset:-10%; z-index:-2; filter: blur(40px) saturate(120%); opacity:.45; background: conic-gradient(from 180deg at 50% 50%, #0ea5e9, #22c55e, #a78bfa, #0ea5e9); animation: spin 40s linear infinite; }
+    @keyframes spin{ to{ transform:rotate(360deg);} }
+    .noise{ position:absolute; inset:0; pointer-events:none; background-image:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" viewBox="0 0 80 80"><filter id="n"><feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="2" stitchTiles="stitch"/></filter><rect width="100%" height="100%" filter="url(%23n)" opacity=".04"/></svg>'); z-index:-1; mix-blend-mode:overlay; }
+    .glass{ background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02)); border:1px solid rgba(255,255,255,.12); backdrop-filter: blur(8px); }
+    .brand{ font-family:'Space Grotesk',sans-serif; letter-spacing:.06em; }
+    .font-mono{ font-family:'Fira Code',monospace; }
+    .accent{ color: var(--accent); }
+    .accent2{ color: var(--accent2); }
+    .nav-button{ position:fixed; top:50%; transform:translateY(-50%); background: radial-gradient(120% 160% at 10% 10%, rgba(110,231,249,.2), rgba(167,139,250,.2)); color:var(--fg); border:1px solid rgba(255,255,255,.12); border-radius:9999px; width:56px; height:56px; display:flex; align-items:center; justify-content:center; cursor:pointer; transition: all .2s ease; z-index:10; box-shadow:0 10px 30px rgba(0,0,0,.35); }
+    .nav-button:hover{ background: radial-gradient(120% 160% at 10% 10%, rgba(110,231,249,.3), rgba(167,139,250,.3)); border-color: rgba(255,255,255,.22); }
+    #prev-btn{ left:2vw;} #next-btn{ right:2vw; }
+    .slide-counter{ position:fixed; bottom:3vh; left:50%; transform:translateX(-50%); color:rgba(233,238,246,.45); font-size:.8rem; letter-spacing:.12em; z-index:10; }
+    .reveal{ opacity:0; transform: translateY(14px) scale(.98); transition: opacity .6s ease, transform .6s ease; }
+    .reveal.show{ opacity:1; transform: none; }
+    .delay-1{ transition-delay:.12s; } .delay-2{ transition-delay:.24s; } .delay-3{ transition-delay:.36s; }
+    @media (prefers-reduced-motion: reduce){ .reveal{ opacity:1 !important; transform:none !important; transition:none !important;} .mesh{ animation:none !important; } }
+    /* Mobile: natural scroll */
+    @media (max-width: 768px){ header{ display:flex; padding:10px 14px;} header>div:last-child{ display:none;} body{ padding-top:56px;} html,body{ overflow-y:auto; scroll-snap-type:y mandatory; -webkit-overflow-scrolling:touch;} .slide{ position:static; height:auto; min-height:100svh; scroll-snap-align:start;} #slide-counter{ bottom:1rem; } }
+  </style>
+</head>
+<body class="antialiased">
+  <header class="fixed top-0 left-0 w-full p-6 z-10 flex justify-between items-center">
+    <div class="brand text-lg font-bold">DEVDAY</div>
+    <div class="text-sm text-slate-400">Experimental Style // Confidential</div>
+  </header>
+
+  <main id="deck">
+    <!-- Slide 1: Hero -->
+    <section class="slide">
+      <div class="mesh"></div>
+      <div class="noise"></div>
+      <div class="max-w-7xl w-full grid md:grid-cols-2 gap-10 items-center">
+        <div class="reveal">
+          <p class="font-mono text-slate-400">DevDay</p>
+          <h1 class="text-5xl md:text-7xl font-black leading-tight mt-2">The <span class="accent">Flight Simulator</span> for Human + Agent Teams</h1>
+          <p class="mt-6 text-xl text-slate-300">Assess collaboration, not just code. Hire, promote and allocate teams that perform with AI agents from day one.</p>
+        </div>
+        <!-- Radar graphic -->
+        <div class="reveal delay-1 glass rounded-3xl p-6">
+          <svg viewBox="0 0 400 300" class="w-full h-auto">
+            <defs>
+              <radialGradient id="g" cx="50%" cy="50%" r="60%"><stop offset="0%" stop-color="#6EE7F9" stop-opacity=".6"/><stop offset="100%" stop-color="#6EE7F9" stop-opacity="0"/></radialGradient>
+            </defs>
+            <rect width="400" height="300" fill="#0f172a" opacity=".4" />
+            <circle cx="200" cy="150" r="110" fill="url(#g)" />
+            <circle cx="200" cy="150" r="120" stroke="#94a3b8" stroke-opacity=".25" fill="none" />
+            <circle cx="200" cy="150" r="80" stroke="#94a3b8" stroke-opacity=".25" fill="none" />
+            <circle cx="200" cy="150" r="40" stroke="#94a3b8" stroke-opacity=".25" fill="none" />
+            <g fill="#A78BFA">
+              <circle cx="120" cy="110" r="5"/>
+              <circle cx="260" cy="90" r="5"/>
+              <circle cx="290" cy="190" r="5"/>
+              <circle cx="140" cy="210" r="5"/>
+            </g>
+            <path d="M200 150 L320 140" stroke="#6EE7F9" stroke-width="3" />
+            <text x="16" y="280" fill="#9ca3af" font-size="12" class="font-mono">Sim Telemetry: execution • collaboration • resilience</text>
+          </svg>
+        </div>
+      </div>
+    </section>
+
+    <!-- Slide 2: Problem (image-forward) -->
+    <section class="slide">
+      <div class="noise"></div>
+      <div class="max-w-7xl w-full grid lg:grid-cols-3 gap-6 items-start">
+        <div class="lg:col-span-2 reveal glass rounded-3xl p-8">
+          <h2 class="text-4xl md:text-6xl font-black">We don’t screen or staff for <span class="accent2">human–agent collaboration</span>.</h2>
+          <ul class="mt-6 grid md:grid-cols-2 gap-4 text-lg">
+            <li class="flex items-start"><span class="mr-2">✕</span> Outdated coding tests; no multi‑agent teamwork</li>
+            <li class="flex items-start"><span class="mr-2">✕</span> No signal on leadership, comms, resilience</li>
+            <li class="flex items-start"><span class="mr-2">✕</span> ~£75k per mis‑hire</li>
+            <li class="flex items-start"><span class="mr-2">✕</span> Zero guidance on squad allocation</li>
+          </ul>
+        </div>
+        <div class="reveal delay-1 glass rounded-3xl overflow-hidden">
+          <!-- UI-style image tile (placeholder with local asset) -->
+          <img src="public/fineohome.png" alt="Simulation UI Mock" class="w-full h-full object-cover" />
+        </div>
+      </div>
+    </section>
+
+    <!-- Slide 3: The Simulator modules -->
+    <section class="slide">
+      <div class="mesh"></div>
+      <div class="max-w-7xl w-full text-center">
+        <h2 class="reveal text-4xl md:text-6xl font-black">Role‑accurate sims. Real <span class="accent">signals</span>.</h2>
+        <div class="mt-10 grid md:grid-cols-3 gap-6 text-left">
+          <div class="reveal glass rounded-2xl p-6">
+            <p class="font-mono text-sky-300">01 — Scenario</p>
+            <h3 class="text-2xl font-bold mt-1">Repo seeded from JD</h3>
+            <p class="text-slate-300 mt-2">Stack, constraints and success criteria reflect the actual job.</p>
+          </div>
+          <div class="reveal delay-1 glass rounded-2xl p-6">
+            <p class="font-mono text-sky-300">02 — Agents</p>
+            <h3 class="text-2xl font-bold mt-1">AI teammates</h3>
+            <p class="text-slate-300 mt-2">Planner • Coder • Reviewer • Docs work with the candidate.</p>
+          </div>
+          <div class="reveal delay-2 glass rounded-2xl p-6">
+            <p class="font-mono text-sky-300">03 — Signals</p>
+            <h3 class="text-2xl font-bold mt-1">Hiring + allocation</h3>
+            <p class="text-slate-300 mt-2">Scorecards for execution, collaboration, resilience and squad fit.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Slide 4: Team (images) -->
+    <section class="slide">
+      <div class="noise"></div>
+      <div class="max-w-5xl w-full text-center">
+        <h2 class="reveal text-4xl md:text-6xl font-black">The Team</h2>
+        <div class="mt-12 grid sm:grid-cols-2 gap-10">
+          <div class="reveal glass rounded-3xl p-6">
+            <div class="w-40 h-40 rounded-full overflow-hidden mx-auto border border-white/20">
+              <img src="people/devdaybeth.jpeg" alt="Beth" class="w-full h-full object-cover" />
+            </div>
+            <h3 class="mt-4 text-2xl font-bold">Beth</h3>
+            <p class="text-slate-300">Builds the product</p>
+          </div>
+          <div class="reveal delay-1 glass rounded-3xl p-6">
+            <div class="w-40 h-40 rounded-full overflow-hidden mx-auto border border-white/20">
+              <img src="people/devdaylaura.jpeg" alt="Laura" class="w-full h-full object-cover" />
+            </div>
+            <h3 class="mt-4 text-2xl font-bold">Laura</h3>
+            <p class="text-slate-300">Sells the vision</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Slide 5: Ask (glass with gradient) -->
+    <section class="slide text-center">
+      <div class="mesh"></div>
+      <div class="max-w-4xl w-full">
+        <h2 class="reveal text-4xl md:text-6xl font-black">Raising <span class="accent">£1.2m</span> Pre‑Seed</h2>
+        <div class="reveal delay-1 glass rounded-3xl p-8 mt-8">
+          <p class="text-lg text-slate-300">18‑month runway • Year 1 cost target ~£600k</p>
+          <div class="grid md:grid-cols-3 gap-4 mt-6 text-left">
+            <div class="glass rounded-2xl p-4"><p class="font-bold">Team</p><p class="text-slate-300">Founders + 3 engineers</p></div>
+            <div class="glass rounded-2xl p-4"><p class="font-bold">Product & Cloud</p><p class="text-slate-300">Sim engine, eval, SOC2</p></div>
+            <div class="glass rounded-2xl p-4"><p class="font-bold">GTM</p><p class="text-slate-300">Design partners, community</p></div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Navigation -->
+  <button id="prev-btn" class="nav-button" aria-label="Previous slide">
+    <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg>
+  </button>
+  <button id="next-btn" class="nav-button" aria-label="Next slide">
+    <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
+  </button>
+  <div id="slide-counter" class="slide-counter"><span id="current-slide">1</span> / <span id="total-slides">5</span></div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const deck = document.getElementById('deck');
+      const slides = document.querySelectorAll('.slide');
+      const prevBtn = document.getElementById('prev-btn');
+      const nextBtn = document.getElementById('next-btn');
+      const currentSlideEl = document.getElementById('current-slide');
+      const totalSlidesEl = document.getElementById('total-slides');
+      let current = 0; const total = slides.length; totalSlidesEl.textContent = total;
+      function go(i){ if(i<0||i>=total) return; current=i; deck.style.transform = `translateX(-${current*100}vw)`; update(); reveal(slides[current]); }
+      function update(){ currentSlideEl.textContent = current+1; prevBtn.style.display = current===0?'none':'flex'; nextBtn.style.display = current===total-1?'none':'flex'; }
+      function reveal(slide){ slide.querySelectorAll('.reveal').forEach((el,idx)=>{ setTimeout(()=>el.classList.add('show'), idx*120); }); }
+      prevBtn.addEventListener('click',()=>go(current-1)); nextBtn.addEventListener('click',()=>go(current+1));
+      document.addEventListener('keydown',e=>{ if(e.key==='ArrowRight') go(current+1); else if(e.key==='ArrowLeft') go(current-1); });
+      go(0);
+      // Mobile scroll reveal
+      const io=new IntersectionObserver(entries=>{ entries.forEach(en=>{ if(en.isIntersecting) en.target.classList.add('show'); });},{threshold:.35});
+      document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+    });
+  </script>
+</body>
+</html>
+
