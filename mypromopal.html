@@ -31,8 +31,9 @@
             scroll-snap-stop: always;
             overflow-x: clip; /* prevent horizontal scroll on mobile due to off-canvas accents */
         }
-        .accent-pink { color: #EC4899; }
-        .bg-accent-pink { background-color: #EC4899; }
+        /* Brand accents (MyPromoPal) */
+        .accent-pink { color: #918DFF; }
+        .bg-accent-pink { background-color: #918DFF; }
         
         @keyframes float {
             0% { transform: translateY(0px); }
@@ -58,7 +59,7 @@
             content: '';
             position: absolute;
             inset: -50% -50%;
-            background-image: radial-gradient(#F472B6 1px, transparent 1px);
+            background-image: radial-gradient(#918DFF 1px, transparent 1px);
             background-size: 22px 22px;
             opacity: 0.12;
             animation: drift 40s linear infinite;
@@ -109,8 +110,8 @@
     <!-- Slide 1: Title / Product Mockup -->
     <section class="slide relative" style="background: radial-gradient(circle, #FFF 0%, #F9FAFB 100%);">
         <!-- Animated gradient blobs -->
-        <div class="pointer-events-none absolute -top-20 -left-10 w-72 h-72 rounded-full bg-pink-300 blob"></div>
-        <div class="pointer-events-none absolute top-10 -right-10 w-80 h-80 rounded-full bg-fuchsia-300 blob" style="animation-delay:-3s"></div>
+        <div class="pointer-events-none absolute -top-20 -left-10 w-72 h-72 rounded-full bg-indigo-300 blob"></div>
+        <div class="pointer-events-none absolute top-10 -right-10 w-80 h-80 rounded-full bg-violet-300 blob" style="animation-delay:-3s"></div>
         <div class="text-center reveal">
             <h1 class="text-6xl md:text-8xl font-black tracking-tighter text-gray-900">MyPromoPal</h1>
             <p class="mt-4 text-2xl md:text-3xl text-gray-500 font-medium">Performance marketing for on-trade beverages.</p>
@@ -125,7 +126,7 @@
                 <div class="rounded-[2rem] overflow-hidden w-full h-full bg-white">
                      <!-- App screen content -->
                     <div class="w-full h-full bg-gray-100 flex flex-col justify-center items-center p-4 text-center">
-                        <img src="https://placehold.co/100x100/FBCFE8/EC4899?text=MP" alt="MyPromoPal Logo" class="w-24 h-24 rounded-3xl mb-4">
+                        <img src="https://placehold.co/100x100/E0E7FF/918DFF?text=MP" alt="MyPromoPal Logo" class="w-24 h-24 rounded-3xl mb-4">
                         <h2 class="text-2xl font-bold">Claim your free Peroni?</h2>
                         <p class="text-gray-500 mt-2">The Merchant's Yard</p>
                         <button class="mt-8 bg-accent-pink text-white font-bold py-3 px-8 rounded-full shadow-lg">Confirm Redemption</button>
@@ -187,8 +188,8 @@
                         <!-- Paths into the box -->
                         <defs>
                             <linearGradient id="gIn" x1="0" x2="1" y1="0" y2="0">
-                                <stop offset="0%" stop-color="#FDA4AF"/>
-                                <stop offset="100%" stop-color="#F472B6"/>
+                                <stop offset="0%" stop-color="#C7C3FF"/>
+                                <stop offset="100%" stop-color="#918DFF"/>
                             </linearGradient>
                             <linearGradient id="gOut" x1="0" x2="1" y1="0" y2="0">
                                 <stop offset="0%" stop-color="#D1D5DB"/>
@@ -215,18 +216,18 @@
                         <path d="M370,160 C420,160 500,180 580,180" stroke="url(#gOut)" stroke-dasharray="6 8" stroke-width="2" fill="none"/>
 
                         <!-- Particles flowing into the box -->
-                        <g fill="#F472B6">
+                        <g fill="#918DFF">
                             <circle r="4">
                                 <animateMotion dur="3s" repeatCount="indefinite" rotate="auto">
                                     <mpath href="#p1"/>
                                 </animateMotion>
                             </circle>
-                            <circle r="3" fill="#FB7185">
+                            <circle r="3" fill="#A5A1FF">
                                 <animateMotion dur="3.6s" repeatCount="indefinite" begin="-1s" rotate="auto">
                                     <mpath href="#p2"/>
                                 </animateMotion>
                             </circle>
-                            <circle r="5" fill="#F43F5E">
+                            <circle r="5" fill="#7C78FF">
                                 <animateMotion dur="2.7s" repeatCount="indefinite" begin="-0.4s" rotate="auto">
                                     <mpath href="#p3"/>
                                 </animateMotion>
@@ -235,7 +236,7 @@
                         
                         <!-- Particles disappear inside box (clip) -->
                         <g clip-path="url(#boxClip)">
-                            <g fill="#F472B6" opacity="0.15">
+                            <g fill="#918DFF" opacity="0.15">
                                 <circle cx="260" cy="120" r="6">
                                     <animate attributeName="cy" values="120;180;120" dur="4s" repeatCount="indefinite"/>
                                 </circle>
@@ -282,7 +283,7 @@
                     <h3 class="text-lg font-bold">MyPromoPal</h3>
                     <nav class="mt-8 space-y-4">
                         <a href="#" class="flex items-center text-gray-700 font-semibold"><svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h7"></path></svg> Overview</a>
-                        <a href="#" class="flex items-center bg-pink-100 text-accent-pink p-2 rounded-lg font-semibold"><svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg> Campaigns</a>
+                        <a href="#" class="flex items-center bg-indigo-100 text-accent-pink p-2 rounded-lg font-semibold"><svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg> Campaigns</a>
                         <a href="#" class="flex items-center text-gray-500"><svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a3 3 0 015.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path></svg> Venues</a>
                         <a href="#" class="flex items-center text-gray-500"><svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path></svg> Insights</a>
                     </nav>
@@ -347,7 +348,7 @@
                 <h3 class="text-2xl font-bold">On-Trade Marketing</h3>
                 <p class="mt-2 text-gray-500">From manual sampling to a real-time, data-driven performance channel.</p>
                 <div class="flex space-x-4 mt-6">
-                     <div class="h-8 w-8 bg-pink-100 rounded-md flex items-center justify-center font-bold text-accent-pink">MP</div>
+                     <div class="h-8 w-8 bg-indigo-100 rounded-md flex items-center justify-center font-bold text-accent-pink">MP</div>
                      <p class="text-2xl font-bold">MyPromoPal</p>
                 </div>
             </div>
@@ -393,7 +394,7 @@
                     </g>
 
                     <!-- Core platform (bigger, subtitle along outer arc) -->
-                    <circle cx="450" cy="280" r="110" fill="url(#core)" stroke="#F472B6" stroke-width="3" />
+                    <circle cx="450" cy="280" r="110" fill="url(#core)" stroke="#918DFF" stroke-width="3" />
                     <text text-anchor="middle">
                         <tspan x="450" y="285" font-size="26" font-weight="800" fill="#111827">MyPromoPal</tspan>
                     </text>
@@ -508,7 +509,7 @@
     </section>
 
     <!-- Slide 7: Impact (Colorful Finale) -->
-    <section class="slide relative overflow-hidden" style="background: linear-gradient(135deg, #f0abfc 0%, #fb7185 45%, #f97316 100%);">
+    <section class="slide relative overflow-hidden" style="background: linear-gradient(135deg, #F5F4FF 0%, #E8E6FF 35%, #C9C5FF 70%, #918DFF 100%);">
         <!-- Animated rays -->
         <svg class="absolute inset-0 w-full h-full opacity-20" viewBox="0 0 100 100" preserveAspectRatio="none">
             <g class="spin-slower" stroke="#fff" stroke-opacity=".4">
@@ -528,28 +529,32 @@
         <div class="pointer-events-none absolute -top-24 -left-10 w-[28rem] h-[28rem] rounded-full bg-white/20 blur-2xl"></div>
         <div class="pointer-events-none absolute -bottom-24 -right-20 w-[32rem] h-[32rem] rounded-full bg-white/10 blur-2xl" style="animation-delay:-4s"></div>
 
-        <div class="relative text-center max-w-6xl mx-auto text-white">
-            <p class="uppercase tracking-widest text-sm font-semibold opacity-90 reveal">Finale</p>
-            <h2 class="mt-2 text-6xl md:text-9xl font-black tracking-tighter bg-clip-text text-transparent" style="background-image: linear-gradient(90deg, #fff, #ffe4e6 50%, #fff);">Make every pint perform.</h2>
-            <p class="mt-6 text-xl md:text-2xl opacity-90 reveal" style="transition-delay:.07s">Turn the on-trade into a measurable performance channel with MyPromoPal.</p>
+        <div class="relative text-center max-w-6xl mx-auto text-gray-900">
+            <div class="flex items-center justify-center gap-3 mb-4 reveal">
+                <img src="https://images.squarespace-cdn.com/content/v1/66019935995d9a54999adcbe/e73ac674-6901-462a-907e-6dbba9a08d31/favicon.ico?format=100w" alt="MyPromoPal" class="h-8 w-8 rounded-md shadow-sm"/>
+                <span class="text-lg font-extrabold tracking-tight" style="color:#918DFF">MyPromoPal</span>
+            </div>
+            <p class="uppercase tracking-widest text-sm font-semibold text-gray-600 reveal">Finale</p>
+            <h2 class="mt-2 text-6xl md:text-8xl font-black tracking-tighter reveal" style="color:#111827">Make every pint perform.</h2>
+            <p class="mt-6 text-xl md:text-2xl text-gray-700 reveal" style="transition-delay:.07s">Turn the on-trade into a measurable performance channel with MyPromoPal.</p>
 
             <div class="mt-12 grid grid-cols-1 md:grid-cols-3 gap-6 reveal" style="transition-delay:.12s">
-                <div class="p-8 rounded-2xl bg-white/15 border border-white/30 shadow-sm backdrop-blur">
-                    <div class="text-5xl font-black" data-counter="200">0</div>
-                    <p class="mt-2 font-semibold">Venues Activated</p>
+                <div class="p-8 rounded-2xl bg-white/70 border border-white shadow-sm backdrop-blur">
+                    <div class="text-5xl font-black accent-pink" data-counter="200">0</div>
+                    <p class="mt-2 font-semibold text-gray-700">Venues Activated</p>
                 </div>
-                <div class="p-8 rounded-2xl bg-white/15 border border-white/30 shadow-sm backdrop-blur">
-                    <div class="text-5xl font-black" data-counter="50000">0</div>
-                    <p class="mt-2 font-semibold">Shoppers Reached</p>
+                <div class="p-8 rounded-2xl bg-white/70 border border-white shadow-sm backdrop-blur">
+                    <div class="text-5xl font-black accent-pink" data-counter="50000">0</div>
+                    <p class="mt-2 font-semibold text-gray-700">Shoppers Reached</p>
                 </div>
-                <div class="p-8 rounded-2xl bg-white/15 border border-white/30 shadow-sm backdrop-blur">
-                    <div class="text-5xl font-black" data-counter="10">0</div>
-                    <p class="mt-2 font-semibold">Major Brand Pilots</p>
+                <div class="p-8 rounded-2xl bg-white/70 border border-white shadow-sm backdrop-blur">
+                    <div class="text-5xl font-black accent-pink" data-counter="10">0</div>
+                    <p class="mt-2 font-semibold text-gray-700">Major Brand Pilots</p>
                 </div>
             </div>
 
             <div class="mt-12 reveal" style="transition-delay:.2s">
-                <a href="#" class="inline-flex items-center bg-white text-pink-600 font-semibold py-4 px-8 rounded-full shadow-lg hover:shadow-xl transition-shadow">Let’s talk pilots →</a>
+                <a href="#" class="inline-flex items-center bg-accent-pink text-white font-semibold py-4 px-8 rounded-full shadow-lg hover:shadow-xl transition-shadow">Let’s talk pilots →</a>
             </div>
         </div>
     </section>
