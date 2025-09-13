@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MyPromoPal // Investor Deck</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #F9FAFB;
+            color: #111827;
+            /* Slide scroller container */
+            scroll-snap-type: y mandatory;
+            overflow-y: scroll;
+            scroll-behavior: smooth;
+        }
+        .slide {
+            min-height: 100vh;
+            padding: 8vw 6vw;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            border-bottom: 1px solid #E5E7EB;
+            scroll-snap-align: start;
+            scroll-snap-stop: always;
+            overflow-x: clip; /* prevent horizontal scroll on mobile due to off-canvas accents */
+        }
+        .accent-pink { color: #EC4899; }
+        .bg-accent-pink { background-color: #EC4899; }
+        
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+        .floating {
+            animation: float 6s ease-in-out infinite;
+        }
+
+        /* Custom animation delays */
+        .floating:nth-child(2) { animation-delay: -2s; }
+        .floating:nth-child(3) { animation-delay: -4s; }
+
+        /* Dotted background utility used in Problem slide */
+        .bg-dots {
+            background-image: radial-gradient(#E5E7EB 1px, transparent 1px);
+            background-size: 16px 16px;
+            position: relative;
+            overflow: hidden;
+        }
+        .bg-dots::after {
+            content: '';
+            position: absolute;
+            inset: -50% -50%;
+            background-image: radial-gradient(#F472B6 1px, transparent 1px);
+            background-size: 22px 22px;
+            opacity: 0.12;
+            animation: drift 40s linear infinite;
+        }
+        @keyframes drift {
+            0% { transform: translate(0,0) rotate(0deg); }
+            100% { transform: translate(20%,10%) rotate(360deg); }
+        }
+
+        /* Line dash animation for flow diagram */
+        .flow {
+            stroke-dasharray: 6 10;
+            animation: dash 6s linear infinite;
+        }
+        @keyframes dash {
+            to { stroke-dashoffset: -160; }
+        }
+
+        /* Reveal on scroll helper */
+        .reveal { opacity: 0; transform: translateY(12px); transition: opacity .7s ease, transform .7s ease; }
+        .reveal.in-view { opacity: 1; transform: translateY(0); }
+
+        /* Soft gradient blobs for hero */
+        .blob {
+            filter: blur(40px);
+            opacity: .35;
+            animation: float 10s ease-in-out infinite;
+        }
+        @keyframes spin360 { to { transform: rotate(360deg); } }
+        .spin-slower { animation: spin360 40s linear infinite; transform-origin: 50% 50%; }
+
+        /* Mobile viewport height fix */
+        @supports (height: 100svh) {
+            .slide { min-height: 100svh; }
+        }
+
+        /* Respect reduced motion */
+        @media (prefers-reduced-motion: reduce) {
+            .blob, .floating, .spin-slower, .flow { animation: none !important; }
+            .reveal { transition: none !important; opacity: 1 !important; transform: none !important; }
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- Slide 1: Title / Product Mockup -->
+    <section class="slide relative" style="background: radial-gradient(circle, #FFF 0%, #F9FAFB 100%);">
+        <!-- Animated gradient blobs -->
+        <div class="pointer-events-none absolute -top-20 -left-10 w-72 h-72 rounded-full bg-pink-300 blob"></div>
+        <div class="pointer-events-none absolute top-10 -right-10 w-80 h-80 rounded-full bg-fuchsia-300 blob" style="animation-delay:-3s"></div>
+        <div class="text-center reveal">
+            <h1 class="text-6xl md:text-8xl font-black tracking-tighter text-gray-900">MyPromoPal</h1>
+            <p class="mt-4 text-2xl md:text-3xl text-gray-500 font-medium">Performance marketing for on-trade beverages.</p>
+        </div>
+        <div class="relative mt-16 max-w-4xl mx-auto reveal" style="transition-delay:.1s">
+            <!-- Phone Mockup -->
+            <div class="relative mx-auto border-gray-800 bg-gray-800 border-[14px] rounded-[2.5rem] h-[600px] w-[300px] shadow-2xl">
+                <div class="h-[32px] w-[3px] bg-gray-800 absolute -left-[17px] top-[72px] rounded-l-lg"></div>
+                <div class="h-[46px] w-[3px] bg-gray-800 absolute -left-[17px] top-[124px] rounded-l-lg"></div>
+                <div class="h-[46px] w-[3px] bg-gray-800 absolute -left-[17px] top-[178px] rounded-l-lg"></div>
+                <div class="h-[64px] w-[3px] bg-gray-800 absolute -right-[17px] top-[142px] rounded-r-lg"></div>
+                <div class="rounded-[2rem] overflow-hidden w-full h-full bg-white">
+                     <!-- App screen content -->
+                    <div class="w-full h-full bg-gray-100 flex flex-col justify-center items-center p-4 text-center">
+                        <img src="https://placehold.co/100x100/FBCFE8/EC4899?text=MP" alt="MyPromoPal Logo" class="w-24 h-24 rounded-3xl mb-4">
+                        <h2 class="text-2xl font-bold">Claim your free Peroni?</h2>
+                        <p class="text-gray-500 mt-2">The Merchant's Yard</p>
+                        <button class="mt-8 bg-accent-pink text-white font-bold py-3 px-8 rounded-full shadow-lg">Confirm Redemption</button>
+                    </div>
+                </div>
+            </div>
+            <!-- Floating Cards -->
+            <div class="hidden md:block absolute top-10 -left-20 floating bg-white p-4 rounded-xl shadow-xl w-60 reveal" style="transition-delay:.2s">
+                <p class="font-semibold">Campaign Approved.</p>
+                <p class="text-sm text-gray-500">Peroni Nastro Azzurro</p>
+                <p class="mt-2 text-2xl font-bold accent-pink">10,000 Pints</p>
+            </div>
+            <div class="hidden md:block absolute bottom-20 -right-24 floating bg-white p-4 rounded-xl shadow-xl w-60 reveal" style="transition-delay:.3s">
+                 <p class="font-semibold">Sales Uplift Report</p>
+                <div class="flex items-baseline mt-2">
+                    <p class="text-3xl font-bold accent-pink">+95%</p>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-green-500 ml-1" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-8.707l-3-3a1 1 0 00-1.414 0l-3 3a1 1 0 001.414 1.414L9 9.414V13a1 1 0 102 0V9.414l1.293 1.293a1 1 0 001.414-1.414z" clip-rule="evenodd" />
+                    </svg>
+                </div>
+                <p class="text-sm text-gray-500">Synced to Marketing Dashboard</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 2: The Problem (Interactive Black Box) -->
+    <section class="slide">
+        <div class="text-center reveal">
+            <h2 class="text-5xl md:text-7xl font-black tracking-tighter text-gray-900">On-trade marketing is a black box.</h2>
+            <p class="mt-4 text-xl text-gray-500">Billions in spend go in. Almost no signal comes out.</p>
+        </div>
+        <div class="mt-12 w-full max-w-6xl mx-auto p-8 bg-white border border-gray-200 rounded-2xl shadow-inner reveal" style="transition-delay:.1s">
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-center">
+                <!-- Inputs -->
+                <div>
+                    <h3 class="text-xl font-bold mb-4">Inputs</h3>
+                    <div class="space-y-3">
+                        <div class="flex items-center gap-3">
+                            <span class="h-3 w-3 rounded-full bg-pink-500"></span>
+                            <span class="font-medium">Sampling Budgets</span>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <span class="h-3 w-3 rounded-full bg-fuchsia-500"></span>
+                            <span class="font-medium">POSM & Displays</span>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <span class="h-3 w-3 rounded-full bg-rose-500"></span>
+                            <span class="font-medium">Promo Vouchers</span>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <span class="h-3 w-3 rounded-full bg-gray-400"></span>
+                            <span class="font-medium">Agency Fees</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- Black box graphic -->
+                <div class="relative">
+                    <svg viewBox="0 0 600 280" class="w-full h-[280px]">
+                        <!-- Paths into the box -->
+                        <defs>
+                            <linearGradient id="gIn" x1="0" x2="1" y1="0" y2="0">
+                                <stop offset="0%" stop-color="#FDA4AF"/>
+                                <stop offset="100%" stop-color="#F472B6"/>
+                            </linearGradient>
+                            <linearGradient id="gOut" x1="0" x2="1" y1="0" y2="0">
+                                <stop offset="0%" stop-color="#D1D5DB"/>
+                                <stop offset="100%" stop-color="#9CA3AF"/>
+                            </linearGradient>
+                            <clipPath id="boxClip">
+                                <rect x="230" y="60" width="140" height="160" rx="16"/>
+                            </clipPath>
+                        </defs>
+                        <path id="p1" d="M20,80 C120,80 200,80 230,100" stroke="url(#gIn)" stroke-width="3" fill="none"/>
+                        <path id="p2" d="M20,140 C140,140 200,120 230,140" stroke="url(#gIn)" stroke-width="3" fill="none"/>
+                        <path id="p3" d="M20,200 C140,200 200,180 230,160" stroke="url(#gIn)" stroke-width="3" fill="none"/>
+                        
+                        <!-- The black box -->
+                        <g>
+                            <rect x="230" y="60" width="140" height="160" rx="16" fill="#111827" stroke="#374151" stroke-width="2"/>
+                            <text x="300" y="100" text-anchor="middle" fill="#9CA3AF" font-weight="700" font-size="16">BLACK BOX</text>
+                            <text x="300" y="145" text-anchor="middle" fill="#6B7280" font-weight="700" font-size="28">?</text>
+                            <text x="300" y="175" text-anchor="middle" fill="#6B7280" font-weight="700" font-size="28">?</text>
+                        </g>
+                        
+                        <!-- Faint outputs -->
+                        <path d="M370,120 C420,120 500,100 580,100" stroke="url(#gOut)" stroke-dasharray="6 8" stroke-width="2" fill="none"/>
+                        <path d="M370,160 C420,160 500,180 580,180" stroke="url(#gOut)" stroke-dasharray="6 8" stroke-width="2" fill="none"/>
+
+                        <!-- Particles flowing into the box -->
+                        <g fill="#F472B6">
+                            <circle r="4">
+                                <animateMotion dur="3s" repeatCount="indefinite" rotate="auto">
+                                    <mpath href="#p1"/>
+                                </animateMotion>
+                            </circle>
+                            <circle r="3" fill="#FB7185">
+                                <animateMotion dur="3.6s" repeatCount="indefinite" begin="-1s" rotate="auto">
+                                    <mpath href="#p2"/>
+                                </animateMotion>
+                            </circle>
+                            <circle r="5" fill="#F43F5E">
+                                <animateMotion dur="2.7s" repeatCount="indefinite" begin="-0.4s" rotate="auto">
+                                    <mpath href="#p3"/>
+                                </animateMotion>
+                            </circle>
+                        </g>
+                        
+                        <!-- Particles disappear inside box (clip) -->
+                        <g clip-path="url(#boxClip)">
+                            <g fill="#F472B6" opacity="0.15">
+                                <circle cx="260" cy="120" r="6">
+                                    <animate attributeName="cy" values="120;180;120" dur="4s" repeatCount="indefinite"/>
+                                </circle>
+                                <circle cx="320" cy="150" r="4">
+                                    <animate attributeName="cy" values="140;200;140" dur="3.2s" repeatCount="indefinite"/>
+                                </circle>
+                            </g>
+                        </g>
+                    </svg>
+                </div>
+                <!-- Outputs (or lack thereof) -->
+                <div>
+                    <h3 class="text-xl font-bold mb-4">Outputs</h3>
+                    <div class="space-y-3 text-gray-500">
+                        <div class="flex items-center justify-between p-3 border border-gray-200 rounded-lg">
+                            <span>Attribution</span><span class="font-semibold text-gray-400">Unknown</span>
+                        </div>
+                        <div class="flex items-center justify-between p-3 border border-gray-200 rounded-lg">
+                            <span>Incremental Sales</span><span class="font-semibold text-gray-400">Unproven</span>
+                        </div>
+                        <div class="flex items-center justify-between p-3 border border-gray-200 rounded-lg">
+                            <span>Consumer Data</span><span class="font-semibold text-gray-400">Missing</span>
+                        </div>
+                        <div class="flex items-center justify-between p-3 border border-gray-200 rounded-lg">
+                            <span>ROI</span><span class="font-semibold text-gray-400">?</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 3: The Solution -->
+    <section class="slide">
+        <div class="text-center">
+            <h2 class="text-5xl md:text-7xl font-black tracking-tighter text-gray-900">We turn spend into performance.</h2>
+            <p class="mt-4 text-xl text-gray-500">One dashboard to launch, manage, and measure on-trade campaigns in seconds.</p>
+        </div>
+        <!-- Clean UI Mockup -->
+        <div class="mt-12 max-w-6xl mx-auto bg-white p-2 rounded-2xl border border-gray-200 shadow-2xl">
+            <div class="flex flex-col md:flex-row">
+                <!-- Sidebar -->
+                <div class="w-full md:w-1/4 bg-gray-50 p-6 md:rounded-l-xl rounded-t-xl md:rounded-tr-none mb-4 md:mb-0">
+                    <h3 class="text-lg font-bold">MyPromoPal</h3>
+                    <nav class="mt-8 space-y-4">
+                        <a href="#" class="flex items-center text-gray-700 font-semibold"><svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h7"></path></svg> Overview</a>
+                        <a href="#" class="flex items-center bg-pink-100 text-accent-pink p-2 rounded-lg font-semibold"><svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg> Campaigns</a>
+                        <a href="#" class="flex items-center text-gray-500"><svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a3 3 0 015.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path></svg> Venues</a>
+                        <a href="#" class="flex items-center text-gray-500"><svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path></svg> Insights</a>
+                    </nav>
+                </div>
+                <!-- Main Content -->
+                <div class="w-full md:w-3/4 p-6 md:p-8">
+                    <div class="flex justify-between items-center">
+                        <h2 class="text-3xl font-bold">Campaigns</h2>
+                        <button class="bg-accent-pink text-white font-semibold py-2 px-4 rounded-lg">+ New Campaign</button>
+                    </div>
+                    <div class="mt-6 space-y-4">
+                        <div class="p-4 bg-gray-50 rounded-lg border border-gray-200 grid grid-cols-2 md:grid-cols-4 items-center gap-2">
+                            <div class="font-semibold">Peroni Nastro Azzurro</div>
+                            <div><span class="bg-green-100 text-green-800 text-xs font-medium px-2.5 py-0.5 rounded-full">Completed</span></div>
+                            <div class="text-gray-500">10,000 / 10,000 claimed</div>
+                            <div class="text-right font-bold text-green-600">+95% Uplift</div>
+                        </div>
+                        <div class="p-4 bg-gray-50 rounded-lg border border-gray-200 grid grid-cols-2 md:grid-cols-4 items-center gap-2">
+                            <div class="font-semibold">Schweppes Mixers</div>
+                            <div><span class="bg-blue-100 text-blue-800 text-xs font-medium px-2.5 py-0.5 rounded-full">Active</span></div>
+                            <div class="text-gray-500">4,521 / 5,000 claimed</div>
+                            <div class="text-right font-bold">--</div>
+                        </div>
+                        <div class="p-4 bg-gray-50 rounded-lg border border-gray-200 grid grid-cols-2 md:grid-cols-4 items-center gap-2">
+                            <div class="font-semibold">Guinness 0.0</div>
+                            <div><span class="bg-yellow-100 text-yellow-800 text-xs font-medium px-2.5 py-0.5 rounded-full">Scheduled</span></div>
+                            <div class="text-gray-500">Nov 1st - Nov 30th</div>
+                            <div class="text-right font-bold">--</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 4: Market Context -->
+    <section class="slide">
+        <div class="text-center reveal">
+            <h2 class="text-5xl md:text-7xl font-black tracking-tighter text-gray-900">Performance marketing has transformed every channel.</h2>
+            <p class="mt-4 text-xl text-gray-500">On-trade is the final, multi-billion dollar frontier.</p>
+        </div>
+        <div class="mt-12 grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto reveal" style="transition-delay:.1s">
+            <div class="p-8 bg-white border border-gray-200 rounded-2xl">
+                <h3 class="text-2xl font-bold">Digital Advertising</h3>
+                <p class="mt-2 text-gray-500">From print ads to programmatic bidding and real-time attribution.</p>
+                <div class="flex space-x-4 mt-6">
+                    <img src="https://logo.clearbit.com/google.com" class="h-8 w-8" alt="Google">
+                    <img src="https://logo.clearbit.com/meta.com" class="h-8 w-8" alt="Meta">
+                    <img src="https://logo.clearbit.com/thetradedesk.com" class="h-8 w-8" alt="The Trade Desk">
+                </div>
+            </div>
+            <div class="p-8 bg-white border border-gray-200 rounded-2xl">
+                <h3 class="text-2xl font-bold">Retail Media</h3>
+                <p class="mt-2 text-gray-500">From in-store displays to closed-loop data platforms and shopper marketing.</p>
+                <div class="flex space-x-4 mt-6">
+                    <img src="https://logo.clearbit.com/tesco.com" class="h-8 w-8" alt="Tesco">
+                    <img src="https://logo.clearbit.com/instacart.com" class="h-8 w-8" alt="Instacart">
+                    <img src="https://logo.clearbit.com/criteo.com" class="h-8 w-8" alt="Criteo">
+                </div>
+            </div>
+            <div class="p-8 bg-white border-2 border-accent-pink rounded-2xl shadow-xl">
+                <h3 class="text-2xl font-bold">On-Trade Marketing</h3>
+                <p class="mt-2 text-gray-500">From manual sampling to a real-time, data-driven performance channel.</p>
+                <div class="flex space-x-4 mt-6">
+                     <div class="h-8 w-8 bg-pink-100 rounded-md flex items-center justify-center font-bold text-accent-pink">MP</div>
+                     <p class="text-2xl font-bold">MyPromoPal</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Slide 5: The Flywheel (Data at Scale) -->
+    <section class="slide">
+        <div class="w-full h-full flex flex-col items-center justify-center">
+            <div class="text-center mb-12 reveal">
+                <h2 class="text-5xl md:text-7xl font-black tracking-tighter text-gray-900">A virtuous data flywheel.</h2>
+                <p class="mt-4 text-xl text-gray-500">High-volume interactions compound into a proprietary on-trade data asset.</p>
+            </div>
+            <div class="relative w-full max-w-6xl h-[420px] md:h-[520px] reveal" style="transition-delay:.1s">
+                <svg viewBox="0 0 900 520" class="absolute w-full h-full">
+                    <defs>
+                        <radialGradient id="core" cx="50%" cy="50%" r="60%">
+                            <stop offset="0%" stop-color="#FCE7F3"/>
+                            <stop offset="100%" stop-color="#FBCFE8"/>
+                        </radialGradient>
+                        <linearGradient id="stream" x1="0" y1="0" x2="1" y2="0">
+                            <stop offset="0%" stop-color="#EC4899"/>
+                            <stop offset="100%" stop-color="#F97316"/>
+                        </linearGradient>
+                    </defs>
+
+                    <!-- Outer pillars labels -->
+                    <text x="120" y="70" font-size="20" font-weight="700" fill="#111827">BRANDS</text>
+                    <text x="765" y="70" font-size="20" font-weight="700" fill="#111827" text-anchor="end">VENUES</text>
+                    <text x="450" y="500" font-size="20" font-weight="700" fill="#111827" text-anchor="middle">CONSUMERS</text>
+
+                    <!-- Data streams -->
+                    <path id="b2c" d="M120,100 C 260,140 360,200 450,260" stroke="url(#stream)" stroke-width="3" fill="none"/>
+                    <path id="v2c" d="M780,100 C 640,140 540,200 450,260" stroke="url(#stream)" stroke-width="3" fill="none"/>
+                    <path id="c2core" d="M450,460 C 450,400 450,340 450,300" stroke="url(#stream)" stroke-width="3" fill="none"/>
+
+                    <!-- Moving particles along streams -->
+                    <g fill="#EC4899">
+                        <circle r="4"><animateMotion dur="5s" repeatCount="indefinite"><mpath href="#b2c"/></animateMotion></circle>
+                        <circle r="4"><animateMotion dur="6s" begin="-2s" repeatCount="indefinite"><mpath href="#v2c"/></animateMotion></circle>
+                        <circle r="4"><animateMotion dur="4s" begin="-1s" repeatCount="indefinite"><mpath href="#c2core"/></animateMotion></circle>
+                    </g>
+
+                    <!-- Core platform -->
+                    <circle cx="450" cy="280" r="90" fill="url(#core)" stroke="#F472B6" stroke-width="3" />
+                    <text x="450" y="280" text-anchor="middle" font-size="22" font-weight="800" fill="#111827" dy="-6">MyPromoPal</text>
+                    <text x="450" y="280" text-anchor="middle" font-size="12" font-weight="600" fill="#6B7280" dy="14">Real-time Offers • Closed-loop Data</text>
+
+                    <!-- Brand logos (enlarged ~3x) -->
+                    <image href="https://logo.clearbit.com/diageo.com" x="40" y="90" height="90" width="90"/>
+                    <image href="https://logo.clearbit.com/asahibeer.co.uk" x="40" y="200" height="90" width="90"/>
+                    <image href="https://logo.clearbit.com/cocacola.com" x="40" y="310" height="90" width="90"/>
+
+                    <!-- Venue icons (simple svg boxes) -->
+                    <rect x="780" y="90" width="36" height="24" rx="4" fill="#F3F4F6" stroke="#D1D5DB"/>
+                    <rect x="780" y="130" width="36" height="24" rx="4" fill="#F3F4F6" stroke="#D1D5DB"/>
+                    <rect x="780" y="170" width="36" height="24" rx="4" fill="#F3F4F6" stroke="#D1D5DB"/>
+                </svg>
+
+                <!-- (moved counters below to avoid overlay) -->
+            </div>
+            <!-- Counters below diagram -->
+            <div class="mt-6 grid grid-cols-1 md:grid-cols-3 gap-6 w-full max-w-5xl mx-auto">
+                <div class="bg-white border border-gray-200 rounded-xl px-4 py-4 text-center shadow-sm reveal">
+                    <div class="text-4xl font-black accent-pink" data-counter="6500">0</div>
+                    <div class="text-gray-600 text-sm font-medium">New Users</div>
+                </div>
+                <div class="bg-white border border-gray-200 rounded-xl px-4 py-4 text-center shadow-sm reveal" style="transition-delay:.07s">
+                    <div class="text-4xl font-black accent-pink" data-counter="10000">0</div>
+                    <div class="text-gray-600 text-sm font-medium">Redemptions</div>
+                </div>
+                <div class="bg-white border border-gray-200 rounded-xl px-4 py-4 text-center shadow-sm reveal" style="transition-delay:.14s">
+                    <div class="text-4xl font-black accent-pink" data-counter="95" data-suffix="%">0</div>
+                    <div class="text-gray-600 text-sm font-medium">Sales Uplift</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 6: Traction -->
+    <section class="slide">
+        <div class="text-center reveal">
+            <h2 class="text-5xl md:text-7xl font-black tracking-tighter text-gray-900">Early pilots show massive potential.</h2>
+            <p class="mt-4 text-xl text-gray-500">Our first campaign with Peroni generated overwhelming demand and unprecedented data.</p>
+        </div>
+        <div class="mt-12 grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto reveal" style="transition-delay:.1s">
+            <div class="p-8 bg-white border border-gray-200 rounded-2xl text-center">
+                <p class="text-7xl font-black accent-pink">6,500+</p>
+                <p class="mt-2 text-xl font-semibold">Users Acquired</p>
+                <p class="text-gray-500">in just two weeks.</p>
+            </div>
+            <div class="p-8 bg-white border-2 border-accent-pink rounded-2xl text-center shadow-xl">
+                <p class="text-7xl font-black accent-pink">+95%</p>
+                <p class="mt-2 text-xl font-semibold">Attributable Sales Uplift</p>
+                <p class="text-gray-500">in a pilot venue (excl. samples).</p>
+            </div>
+            <div class="p-8 bg-white border border-gray-200 rounded-2xl text-center">
+                <p class="text-7xl font-black accent-pink">100%</p>
+                <p class="mt-2 text-xl font-semibold">Campaign Redemption</p>
+                <p class="text-gray-500">Entire trial budget deployed.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Final slides: Team, Ask -->
+    <section class="slide">
+        <div class="grid md:grid-cols-2 gap-16 items-center">
+            <div class="reveal">
+                <h2 class="text-5xl md:text-7xl font-black tracking-tighter text-gray-900">Built by the customer.</h2>
+                <p class="mt-6 text-xl text-gray-600">Our founder spent 13 years inside Diageo, living the frustration of the on-trade black box. This unparalleled founder-market fit gives us a unique advantage in navigating the industry and building a product that solves a real, expensive problem.</p>
+            </div>
+            <div class="text-center reveal" style="transition-delay:.1s">
+                <img src="people/Lee-Anne%20Schmitz.png" class="w-64 h-64 rounded-full mx-auto object-cover shadow-2xl" alt="Lee-Anne Schmitz">
+                <h3 class="mt-6 text-2xl font-bold">Lee-Anne Schmitz</h3>
+                <p class="text-lg text-gray-500">Ex-Diageo, 13 Years On-Trade Marketing</p>
+            </div>
+        </div>
+    </section>
+
+     <section class="slide">
+        <div class="text-center reveal">
+             <h2 class="text-5xl md:text-7xl font-black tracking-tighter text-gray-900">The Ask</h2>
+             <p class="mt-4 text-xl text-gray-500 max-w-3xl mx-auto">We're raising to build the indispensable data layer for the on-trade industry.</p>
+            <div class="mt-12 p-8 border border-gray-200 rounded-2xl bg-white shadow-sm max-w-2xl mx-auto reveal" style="transition-delay:.1s">
+                <p class="text-xl text-gray-500">Raising a</p>
+                <p class="text-7xl font-black my-2 accent-pink">£750k Pre-Seed</p>
+            </div>
+            <div class="mt-8 max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 text-lg reveal" style="transition-delay:.2s">
+                <div>
+                    <p class="font-bold text-gray-900">Scale Network</p>
+                    <p class="text-gray-500">50,000 users & 200 venues.</p>
+                </div>
+                 <div>
+                    <p class="font-bold text-gray-900">Onboard Brands</p>
+                    <p class="text-gray-500">10 major campaigns.</p>
+                </div>
+                 <div>
+                    <p class="font-bold text-gray-900">Build Platform</p>
+                    <p class="text-gray-500">Launch V2 self-serve dashboard.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 7: Impact (Colorful Finale) -->
+    <section class="slide relative overflow-hidden" style="background: linear-gradient(135deg, #f0abfc 0%, #fb7185 45%, #f97316 100%);">
+        <!-- Animated rays -->
+        <svg class="absolute inset-0 w-full h-full opacity-20" viewBox="0 0 100 100" preserveAspectRatio="none">
+            <g class="spin-slower" stroke="#fff" stroke-opacity=".4">
+                <line x1="50" y1="50" x2="100" y2="50"/>
+                <line x1="50" y1="50" x2="95" y2="20"/>
+                <line x1="50" y1="50" x2="80" y2="5"/>
+                <line x1="50" y1="50" x2="20" y2="5"/>
+                <line x1="50" y1="50" x2="5" y2="20"/>
+                <line x1="50" y1="50" x2="0" y2="50"/>
+                <line x1="50" y1="50" x2="5" y2="80"/>
+                <line x1="50" y1="50" x2="20" y2="95"/>
+                <line x1="50" y1="50" x2="80" y2="95"/>
+                <line x1="50" y1="50" x2="95" y2="80"/>
+            </g>
+        </svg>
+        <!-- Soft blobs for depth -->
+        <div class="pointer-events-none absolute -top-24 -left-10 w-[28rem] h-[28rem] rounded-full bg-white/20 blur-2xl"></div>
+        <div class="pointer-events-none absolute -bottom-24 -right-20 w-[32rem] h-[32rem] rounded-full bg-white/10 blur-2xl" style="animation-delay:-4s"></div>
+
+        <div class="relative text-center max-w-6xl mx-auto text-white">
+            <p class="uppercase tracking-widest text-sm font-semibold opacity-90 reveal">Finale</p>
+            <h2 class="mt-2 text-6xl md:text-9xl font-black tracking-tighter bg-clip-text text-transparent" style="background-image: linear-gradient(90deg, #fff, #ffe4e6 50%, #fff);">Make every pint perform.</h2>
+            <p class="mt-6 text-xl md:text-2xl opacity-90 reveal" style="transition-delay:.07s">Turn the on-trade into a measurable performance channel with MyPromoPal.</p>
+
+            <div class="mt-12 grid grid-cols-1 md:grid-cols-3 gap-6 reveal" style="transition-delay:.12s">
+                <div class="p-8 rounded-2xl bg-white/15 border border-white/30 shadow-sm backdrop-blur">
+                    <div class="text-5xl font-black" data-counter="200">0</div>
+                    <p class="mt-2 font-semibold">Venues Activated</p>
+                </div>
+                <div class="p-8 rounded-2xl bg-white/15 border border-white/30 shadow-sm backdrop-blur">
+                    <div class="text-5xl font-black" data-counter="50000">0</div>
+                    <p class="mt-2 font-semibold">Shoppers Reached</p>
+                </div>
+                <div class="p-8 rounded-2xl bg-white/15 border border-white/30 shadow-sm backdrop-blur">
+                    <div class="text-5xl font-black" data-counter="10">0</div>
+                    <p class="mt-2 font-semibold">Major Brand Pilots</p>
+                </div>
+            </div>
+
+            <div class="mt-12 reveal" style="transition-delay:.2s">
+                <a href="#" class="inline-flex items-center bg-white text-pink-600 font-semibold py-4 px-8 rounded-full shadow-lg hover:shadow-xl transition-shadow">Let’s talk pilots →</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Dots navigation (autogenerated by script) -->
+    <nav id="dotsNav" class="hidden md:flex flex-col gap-3 fixed right-6 top-1/2 -translate-y-1/2 z-50"></nav>
+
+    <!-- Down arrow hint -->
+    <div class="pointer-events-none fixed left-1/2 -translate-x-1/2 bottom-6 z-40 text-gray-400 text-sm md:text-base select-none">
+        <div class="flex items-center gap-2 bg-white/70 backdrop-blur px-3 py-2 rounded-full shadow">
+            <span class="hidden md:inline">Scroll</span>
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 14a1 1 0 01-.707-.293l-5-5a1 1 0 111.414-1.414L10 11.586l4.293-4.293a1 1 0 111.414 1.414l-5 5A1 1 0 0110 14z" clip-rule="evenodd"/></svg>
+        </div>
+    </div>
+
+<script>
+  // Reveal on scroll
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){ e.target.classList.add('in-view'); }
+    });
+  },{ threshold: 0.15 });
+  document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+  // Count-up animation on reveal
+  function animateCount(el){
+    const target = parseInt(el.dataset.counter,10);
+    const suffix = el.dataset.suffix || '';
+    if(!target || el.dataset.counting === '1') return;
+    el.dataset.counting = '1';
+    const start = 0;
+    const dur = 1000 + Math.min(2000, target*5);
+    const t0 = performance.now();
+    function tick(t){
+      const p = Math.min(1, (t - t0) / dur);
+      const val = Math.floor(start + (target - start) * (1 - Math.pow(1-p, 3)));
+      el.textContent = val.toLocaleString() + suffix;
+      if(p < 1) requestAnimationFrame(tick);
+    }
+    requestAnimationFrame(tick);
+  }
+  const counters = document.querySelectorAll('[data-counter]');
+  const ioCount = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{ if(e.isIntersecting) animateCount(e.target); });
+  },{ threshold: 0.4 });
+  counters.forEach(el=>ioCount.observe(el));
+
+  // Keyboard navigation between slides
+  const slides = Array.from(document.querySelectorAll('.slide'));
+  function gotoSlide(i){
+    if(i < 0 || i >= slides.length) return;
+    slides[i].scrollIntoView({ behavior: 'smooth' });
+    activeIndex = i;
+    updateDots();
+  }
+  let activeIndex = 0;
+  window.addEventListener('keydown', (e)=>{
+    if(['ArrowDown','PageDown',' '].includes(e.key)) { e.preventDefault(); gotoSlide(activeIndex+1); }
+    if(['ArrowUp','PageUp'].includes(e.key)) { e.preventDefault(); gotoSlide(activeIndex-1); }
+  });
+
+  // Dots navigation
+  const nav = document.getElementById('dotsNav');
+  slides.forEach((_,i)=>{
+    const b = document.createElement('button');
+    b.className = 'h-3 w-3 rounded-full bg-gray-300 hover:bg-pink-400 transition-colors';
+    b.setAttribute('aria-label', 'Go to slide ' + (i+1));
+    b.addEventListener('click', ()=>gotoSlide(i));
+    nav.appendChild(b);
+  });
+  function updateDots(){
+    const buttons = nav.querySelectorAll('button');
+    buttons.forEach((btn,i)=>{
+      btn.className = 'h-3 w-3 rounded-full transition-all ' + (i===activeIndex ? 'bg-pink-500 scale-125' : 'bg-gray-300 hover:bg-pink-400');
+    });
+  }
+  updateDots();
+
+  // Track active slide by scroll position
+  let ticking = false;
+  window.addEventListener('scroll', ()=>{
+    if(!ticking){
+      window.requestAnimationFrame(()=>{
+        const tops = slides.map(s=>Math.abs(s.getBoundingClientRect().top));
+        activeIndex = tops.indexOf(Math.min(...tops));
+        updateDots();
+        ticking = false;
+      });
+      ticking = true;
+    }
+  });
+
+  // Ensure single-line titles on very small phones (<360px)
+  function fitTitles(){
+    if(window.innerWidth > 360) return; // only apply on very small screens
+    const targets = document.querySelectorAll('h1.text-6xl, h2.text-5xl, h2.text-6xl');
+    targets.forEach(el=>{
+      const parent = el.parentElement || document.body;
+      el.style.whiteSpace = 'nowrap';
+      // reset any previous inline font-size for recalculation
+      el.style.fontSize = '';
+      const max = parseFloat(getComputedStyle(el).fontSize) || 32;
+      const min = 16;
+      let size = Math.min(max, 36); // cap to a reasonable start on tiny screens
+      el.style.fontSize = size + 'px';
+      // reduce until it fits on one line within parent width with small padding
+      const padding = 24;
+      let guard = 40;
+      while((el.scrollWidth > (parent.clientWidth - padding)) && size > min && guard-- > 0){
+        size -= 1;
+        el.style.fontSize = size + 'px';
+      }
+    });
+  }
+  window.addEventListener('load', fitTitles);
+  window.addEventListener('resize', ()=>{ fitTitles(); });
+</script>
+
+</body>
+</html>
