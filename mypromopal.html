@@ -13,13 +13,15 @@
             font-family: 'Inter', sans-serif;
             background-color: #F9FAFB;
             color: #111827;
-            /* Slide scroller container */
-            scroll-snap-type: y mandatory;
-            overflow-y: scroll;
+            /* Horizontal deck uses transform navigation on desktop */
+            overflow: hidden;
             scroll-behavior: smooth;
         }
+        /* Horizontal deck container */
+        main#deck { display: flex; width: 100%; height: 100vh; transition: transform 0.6s cubic-bezier(0.65, 0, 0.35, 1); }
         .slide {
-            min-height: 100vh;
+            flex: 0 0 100vw;
+            height: 100vh;
             padding: 8vw 6vw;
             display: flex;
             flex-direction: column;
@@ -90,7 +92,8 @@
 
         /* Mobile viewport height fix */
         @supports (height: 100svh) {
-            .slide { min-height: 100svh; }
+            .slide { min-height: 100svh; height: 100svh; }
+            main#deck { height: 100svh; }
         }
 
         /* Respect reduced motion */
@@ -102,6 +105,7 @@
 </head>
 <body class="antialiased">
 
+    <main id="deck">
     <!-- Slide 1: Title / Product Mockup -->
     <section class="slide relative" style="background: radial-gradient(circle, #FFF 0%, #F9FAFB 100%);">
         <!-- Animated gradient blobs -->
@@ -375,10 +379,10 @@
                     <text x="765" y="70" font-size="20" font-weight="700" fill="#111827" text-anchor="end">VENUES</text>
                     <text x="450" y="500" font-size="20" font-weight="700" fill="#111827" text-anchor="middle">CONSUMERS</text>
 
-                    <!-- Data streams -->
-                    <path id="b2c" d="M120,100 C 260,140 360,200 450,260" stroke="url(#stream)" stroke-width="3" fill="none"/>
-                    <path id="v2c" d="M780,100 C 640,140 540,200 450,260" stroke="url(#stream)" stroke-width="3" fill="none"/>
-                    <path id="c2core" d="M450,460 C 450,400 450,340 450,300" stroke="url(#stream)" stroke-width="3" fill="none"/>
+                    <!-- Data streams (terminate just outside core) -->
+                    <path id="b2c" d="M120,100 C 260,140 360,200 440,250" stroke="url(#stream)" stroke-width="3" fill="none"/>
+                    <path id="v2c" d="M780,100 C 640,140 540,200 460,250" stroke="url(#stream)" stroke-width="3" fill="none"/>
+                    <path id="c2core" d="M450,460 C 450,400 450,360 450,335" stroke="url(#stream)" stroke-width="3" fill="none"/>
 
                     <!-- Moving particles along streams -->
                     <g fill="#EC4899">
@@ -387,20 +391,34 @@
                         <circle r="4"><animateMotion dur="4s" begin="-1s" repeatCount="indefinite"><mpath href="#c2core"/></animateMotion></circle>
                     </g>
 
-                    <!-- Core platform -->
-                    <circle cx="450" cy="280" r="90" fill="url(#core)" stroke="#F472B6" stroke-width="3" />
-                    <text x="450" y="280" text-anchor="middle" font-size="22" font-weight="800" fill="#111827" dy="-6">MyPromoPal</text>
-                    <text x="450" y="280" text-anchor="middle" font-size="12" font-weight="600" fill="#6B7280" dy="14">Real-time Offers • Closed-loop Data</text>
+                    <!-- Core platform (bigger, with properly stacked text) -->
+                    <circle cx="450" cy="280" r="110" fill="url(#core)" stroke="#F472B6" stroke-width="3" />
+                    <text text-anchor="middle">
+                        <tspan x="450" y="280" font-size="24" font-weight="800" fill="#111827">MyPromoPal</tspan>
+                        <tspan x="450" y="305" font-size="13" font-weight="600" fill="#6B7280">Real-time Offers • Closed-loop Data</tspan>
+                    </text>
 
                     <!-- Brand logos (enlarged ~3x) -->
                     <image href="https://logo.clearbit.com/diageo.com" x="40" y="90" height="90" width="90"/>
                     <image href="https://logo.clearbit.com/asahibeer.co.uk" x="40" y="200" height="90" width="90"/>
                     <image href="https://logo.clearbit.com/cocacola.com" x="40" y="310" height="90" width="90"/>
 
-                    <!-- Venue icons (simple svg boxes) -->
-                    <rect x="780" y="90" width="36" height="24" rx="4" fill="#F3F4F6" stroke="#D1D5DB"/>
-                    <rect x="780" y="130" width="36" height="24" rx="4" fill="#F3F4F6" stroke="#D1D5DB"/>
-                    <rect x="780" y="170" width="36" height="24" rx="4" fill="#F3F4F6" stroke="#D1D5DB"/>
+                    <!-- Venue icons (cards with simple pictograms) -->
+                    <g transform="translate(780,90)">
+                        <rect width="36" height="24" rx="4" fill="#F3F4F6" stroke="#D1D5DB"/>
+                        <rect x="6" y="6" width="12" height="12" rx="2" fill="#FFFFFF" stroke="#CBD5E1"/>
+                        <path d="M22 8 h8 M22 14 h8" stroke="#9CA3AF" stroke-width="2"/>
+                    </g>
+                    <g transform="translate(780,130)">
+                        <rect width="36" height="24" rx="4" fill="#F3F4F6" stroke="#D1D5DB"/>
+                        <rect x="6" y="6" width="12" height="12" rx="2" fill="#FFFFFF" stroke="#CBD5E1"/>
+                        <path d="M22 8 h8 M22 14 h8" stroke="#9CA3AF" stroke-width="2"/>
+                    </g>
+                    <g transform="translate(780,170)">
+                        <rect width="36" height="24" rx="4" fill="#F3F4F6" stroke="#D1D5DB"/>
+                        <rect x="6" y="6" width="12" height="12" rx="2" fill="#FFFFFF" stroke="#CBD5E1"/>
+                        <path d="M22 8 h8 M22 14 h8" stroke="#9CA3AF" stroke-width="2"/>
+                    </g>
                 </svg>
 
                 <!-- (moved counters below to avoid overlay) -->
@@ -534,16 +552,17 @@
             </div>
         </div>
     </section>
+    </main>
 
-    <!-- Dots navigation (autogenerated by script) -->
-    <nav id="dotsNav" class="hidden md:flex flex-col gap-3 fixed right-6 top-1/2 -translate-y-1/2 z-50"></nav>
-
-    <!-- Down arrow hint -->
-    <div class="pointer-events-none fixed left-1/2 -translate-x-1/2 bottom-6 z-40 text-gray-400 text-sm md:text-base select-none">
-        <div class="flex items-center gap-2 bg-white/70 backdrop-blur px-3 py-2 rounded-full shadow">
-            <span class="hidden md:inline">Scroll</span>
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 14a1 1 0 01-.707-.293l-5-5a1 1 0 111.414-1.414L10 11.586l4.293-4.293a1 1 0 111.414 1.414l-5 5A1 1 0 0110 14z" clip-rule="evenodd"/></svg>
-        </div>
+    <!-- Horizontal Nav Buttons -->
+    <button id="prev-btn" class="hidden md:flex fixed top-1/2 -translate-y-1/2 left-4 bg-white/80 text-gray-800 border border-gray-300 rounded-full w-12 h-12 items-center justify-center shadow z-50">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
+    </button>
+    <button id="next-btn" class="hidden md:flex fixed top-1/2 -translate-y-1/2 right-4 bg-white/80 text-gray-800 border border-gray-300 rounded-full w-12 h-12 items-center justify-center shadow z-50">
+         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+    </button>
+    <div id="slide-counter" class="hidden md:block fixed bottom-4 left-1/2 -translate-x-1/2 text-gray-400 text-sm z-50">
+        <span id="current-slide">1</span> / <span id="total-slides">1</span>
     </div>
 
 <script>
@@ -577,51 +596,64 @@
     entries.forEach(e=>{ if(e.isIntersecting) animateCount(e.target); });
   },{ threshold: 0.4 });
   counters.forEach(el=>ioCount.observe(el));
-
-  // Keyboard navigation between slides
-  const slides = Array.from(document.querySelectorAll('.slide'));
-  function gotoSlide(i){
-    if(i < 0 || i >= slides.length) return;
-    slides[i].scrollIntoView({ behavior: 'smooth' });
-    activeIndex = i;
-    updateDots();
-  }
-  let activeIndex = 0;
-  window.addEventListener('keydown', (e)=>{
-    if(['ArrowDown','PageDown',' '].includes(e.key)) { e.preventDefault(); gotoSlide(activeIndex+1); }
-    if(['ArrowUp','PageUp'].includes(e.key)) { e.preventDefault(); gotoSlide(activeIndex-1); }
-  });
-
-  // Dots navigation
-  const nav = document.getElementById('dotsNav');
-  slides.forEach((_,i)=>{
-    const b = document.createElement('button');
-    b.className = 'h-3 w-3 rounded-full bg-gray-300 hover:bg-pink-400 transition-colors';
-    b.setAttribute('aria-label', 'Go to slide ' + (i+1));
-    b.addEventListener('click', ()=>gotoSlide(i));
-    nav.appendChild(b);
-  });
-  function updateDots(){
-    const buttons = nav.querySelectorAll('button');
-    buttons.forEach((btn,i)=>{
-      btn.className = 'h-3 w-3 rounded-full transition-all ' + (i===activeIndex ? 'bg-pink-500 scale-125' : 'bg-gray-300 hover:bg-pink-400');
-    });
-  }
-  updateDots();
-
-  // Track active slide by scroll position
-  let ticking = false;
-  window.addEventListener('scroll', ()=>{
-    if(!ticking){
-      window.requestAnimationFrame(()=>{
-        const tops = slides.map(s=>Math.abs(s.getBoundingClientRect().top));
-        activeIndex = tops.indexOf(Math.min(...tops));
-        updateDots();
-        ticking = false;
-      });
-      ticking = true;
+  
+  // Responsive: switch between horizontal deck and vertical scroll-snap
+  function applyMode(){
+    const deckEl = document.getElementById('deck');
+    if(window.innerWidth <= 768){
+      document.documentElement.style.overflowY = 'auto';
+      document.body.style.overflowY = 'auto';
+      if(deckEl){ deckEl.style.transform = 'none'; deckEl.style.display = 'block'; }
+      slides.forEach(s=>{ s.style.height = 'auto'; s.style.minHeight = '100svh'; s.style.flex = 'none'; });
+      const counter = document.getElementById('slide-counter');
+      if(counter) counter.style.display = 'none';
+      const prevBtnEl = document.getElementById('prev-btn');
+      const nextBtnEl = document.getElementById('next-btn');
+      if(prevBtnEl) prevBtnEl.style.display = 'none';
+      if(nextBtnEl) nextBtnEl.style.display = 'none';
+    } else {
+      document.documentElement.style.overflowY = 'hidden';
+      document.body.style.overflowY = 'hidden';
+      if(deckEl){ deckEl.style.display = 'flex'; }
+      slides.forEach(s=>{ s.style.height = ''; s.style.minHeight = ''; s.style.flex = '0 0 100vw'; });
+      const counter = document.getElementById('slide-counter');
+      if(counter) counter.style.display = 'block';
+      updateNav();
     }
+  }
+  window.addEventListener('load', applyMode);
+  window.addEventListener('resize', applyMode);
+
+  // Horizontal deck navigation (desktop)
+  const deck = document.getElementById('deck');
+  const slides = Array.from(document.querySelectorAll('.slide'));
+  const prevBtn = document.getElementById('prev-btn');
+  const nextBtn = document.getElementById('next-btn');
+  const currentSlideEl = document.getElementById('current-slide');
+  const totalSlidesEl = document.getElementById('total-slides');
+  let activeIndex = 0;
+  if(totalSlidesEl) totalSlidesEl.textContent = String(slides.length);
+
+  function goToSlide(i){
+    if(window.innerWidth <= 768){ return; } // mobile uses native scroll
+    if(i < 0 || i >= slides.length) return;
+    activeIndex = i;
+    if(deck) deck.style.transform = `translateX(-${activeIndex * 100}vw)`;
+    updateNav();
+  }
+  function updateNav(){
+    if(currentSlideEl) currentSlideEl.textContent = String(activeIndex + 1);
+    if(prevBtn) prevBtn.style.display = activeIndex === 0 ? 'none' : 'flex';
+    if(nextBtn) nextBtn.style.display = activeIndex === slides.length - 1 ? 'none' : 'flex';
+  }
+  prevBtn && prevBtn.addEventListener('click', ()=>goToSlide(activeIndex-1));
+  nextBtn && nextBtn.addEventListener('click', ()=>goToSlide(activeIndex+1));
+  window.addEventListener('keydown', (e)=>{
+    if(window.innerWidth <= 768) return;
+    if(e.key === 'ArrowRight') { e.preventDefault(); goToSlide(activeIndex+1); }
+    if(e.key === 'ArrowLeft') { e.preventDefault(); goToSlide(activeIndex-1); }
   });
+  updateNav();
 
   // Ensure single-line titles on very small phones (<360px)
   function fitTitles(){
@@ -648,6 +680,14 @@
   window.addEventListener('load', fitTitles);
   window.addEventListener('resize', ()=>{ fitTitles(); });
 </script>
+
+<style>
+/* Mobile fallback: natural vertical scroll with snap */
+@media (max-width: 768px) {
+  html, body { scroll-snap-type: y mandatory; -webkit-overflow-scrolling: touch; }
+  main#deck { transform: none !important; }
+}
+</style>
 
 </body>
 </html>
