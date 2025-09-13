@@ -372,6 +372,8 @@
                             <stop offset="0%" stop-color="#EC4899"/>
                             <stop offset="100%" stop-color="#F97316"/>
                         </linearGradient>
+                        <!-- Arc path for subtitle text around the core -->
+                        <path id="coreArcBottom" d="M 580 280 A 130 130 0 0 1 320 280" fill="none" />
                     </defs>
 
                     <!-- Outer pillars labels -->
@@ -391,11 +393,14 @@
                         <circle r="4"><animateMotion dur="4s" begin="-1s" repeatCount="indefinite"><mpath href="#c2core"/></animateMotion></circle>
                     </g>
 
-                    <!-- Core platform (bigger, with properly stacked text) -->
+                    <!-- Core platform (bigger, subtitle along outer arc) -->
                     <circle cx="450" cy="280" r="110" fill="url(#core)" stroke="#F472B6" stroke-width="3" />
                     <text text-anchor="middle">
-                        <tspan x="450" y="280" font-size="24" font-weight="800" fill="#111827">MyPromoPal</tspan>
-                        <tspan x="450" y="305" font-size="13" font-weight="600" fill="#6B7280">Real-time Offers • Closed-loop Data</tspan>
+                        <tspan x="450" y="285" font-size="26" font-weight="800" fill="#111827">MyPromoPal</tspan>
+                    </text>
+                    <!-- Subtitle on circular path just outside the core -->
+                    <text font-size="12" font-weight="600" fill="#6B7280" pointer-events="none">
+                        <textPath href="#coreArcBottom" startOffset="50%" text-anchor="middle">Real‑time Offers • Closed‑loop Data</textPath>
                     </text>
 
                     <!-- Brand logos (enlarged ~3x) -->
