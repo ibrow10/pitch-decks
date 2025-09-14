@@ -133,6 +133,34 @@
         <!-- Slide 1: Hook -->
         <section class="slide text-center" id="ltm-hook">
             <div class="bg-dots"></div>
+            <!-- Large moving background graphic (payments network) -->
+            <svg class="absolute inset-0 w-full h-full -z-10 opacity-30" viewBox="0 0 1200 700" aria-hidden="true">
+                <defs>
+                    <linearGradient id="payGlow" x1="0" y1="0" x2="1" y2="1">
+                        <stop offset="0%" stop-color="#C048FF" stop-opacity="0.7"/>
+                        <stop offset="100%" stop-color="#C048FF" stop-opacity="0.2"/>
+                    </linearGradient>
+                </defs>
+                <!-- Diagonal rails -->
+                <path class="dash" d="M-50 520 L 1250 -20" stroke="url(#payGlow)" stroke-width="3"/>
+                <path class="dash" d="M-80 650 L 1220 110" stroke="url(#payGlow)" stroke-width="3"/>
+                <path class="dash" d="M-40 420 L 1160 -40" stroke="url(#payGlow)" stroke-width="2"/>
+                <!-- Nodes (agents / merchants) -->
+                <g fill="#120a1f" stroke="#C048FF">
+                    <circle class="pulse" cx="180" cy="520" r="18"/>
+                    <circle class="pulse" cx="520" cy="360" r="18"/>
+                    <circle class="pulse" cx="860" cy="200" r="18"/>
+                    <rect x="220" y="460" width="48" height="32" rx="8"/>
+                    <rect x="560" y="300" width="48" height="32" rx="8"/>
+                    <rect x="900" y="140" width="48" height="32" rx="8"/>
+                </g>
+                <!-- Moving value tokens along rails -->
+                <g class="sweep" style="animation-duration:10s">
+                    <circle cx="300" cy="460" r="6" fill="#C048FF"/>
+                    <circle cx="640" cy="300" r="6" fill="#C048FF"/>
+                    <circle cx="980" cy="140" r="6" fill="#C048FF"/>
+                </g>
+            </svg>
             <div class="content max-w-5xl relative">
                 <h1 class="text-5xl md:text-7xl font-black tracking-tighter leading-tight">2025 is the year of the <span class="accent">agent</span>.</h1>
                 <p class="mt-4 text-xl md:text-2xl italic text-gray-200">“We’re going to see it take off.” — Jensen Huang</p>
