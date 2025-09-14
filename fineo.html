@@ -594,6 +594,8 @@
             let currentSlide = 0;
             const totalSlides = slides.length;
             totalSlidesEl.textContent = totalSlides;
+            // Ensure horizontal deck has enough width to slide (desktop)
+            try { deck.style.width = `${totalSlides * 100}vw`; } catch (_) {}
 
             function animateChartBars() {
                 const slide = slides[4]; // slide-5 (0-indexed)
