@@ -15,22 +15,26 @@
             color: #0f172a; /* Slate-900 */
             overflow: hidden; /* Prevent scrolling */
         }
-        /* Deck + slide layout (match other decks) */
+        /* Deck as vertical scroll container (match orient.html behavior) */
         main#deck {
-            display: flex;
+            position: relative;
             width: 100%;
             height: 100dvh;
-            transition: transform 0.6s cubic-bezier(0.65, 0, 0.35, 1);
+            overflow-y: auto;
+            scroll-snap-type: y mandatory;
+            -webkit-overflow-scrolling: touch;
+            padding-top: 72px; /* space for fixed header */
         }
         .slide {
-            flex: 0 0 100vw;
-            height: 100dvh;
+            width: 100%;
+            min-height: 100dvh;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             padding: 4rem 2rem;
             overflow: hidden;
+            scroll-snap-align: start;
         }
         .glass-card {
             background: #ffffff;
@@ -583,9 +587,9 @@
             }
             setSampleEmail(1);
 
-            // Presentation Logic (match other decks)
+            // Presentation Logic – match orient.html (vertical scroll, snap, IO)
             const deck = document.getElementById('deck');
-            const slides = document.querySelectorAll('.slide');
+            const slides = Array.from(document.querySelectorAll('.slide'));
             const prevBtn = document.getElementById('prev-btn');
             const nextBtn = document.getElementById('next-btn');
             const currentSlideEl = document.getElementById('current-slide');
@@ -594,8 +598,6 @@
             let currentSlide = 0;
             const totalSlides = slides.length;
             totalSlidesEl.textContent = totalSlides;
-            // Ensure horizontal deck has enough width to slide (desktop)
-            try { deck.style.width = `${totalSlides * 100}vw`; } catch (_) {}
 
             function animateChartBars() {
                 const slide = slides[4]; // slide-5 (0-indexed)
@@ -607,28 +609,12 @@
                 }, 100);
             }
 
-            // In-view reveal animations for cards/sections
+            // In-view reveal animations for any .reveal elements
             const revealEls = document.querySelectorAll('.reveal');
             const revealIO = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('show');
-                    }
-                });
-            }, { threshold: 0.25 });
+                entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('show'); });
+            }, { root: deck, threshold: 0.25 });
             revealEls.forEach(el => revealIO.observe(el));
-
-            function goToSlide(slideIndex) {
-                if (slideIndex < 0 || slideIndex >= totalSlides) return;
-                currentSlide = slideIndex;
-                if (isMobile) {
-                    slides[currentSlide].scrollIntoView({ behavior: 'smooth', block: 'start' });
-                } else {
-                    deck.style.transform = `translateX(-${currentSlide * 100}vw)`;
-                }
-                updateNav();
-                if (currentSlide === 4) animateChartBars();
-            }
 
             function updateNav() {
                 currentSlideEl.textContent = currentSlide + 1;
@@ -636,30 +622,33 @@
                 nextBtn.style.display = currentSlide === totalSlides - 1 ? 'none' : 'flex';
             }
 
-            // Hook up controls for both desktop and mobile
-            prevBtn.addEventListener('click', () => goToSlide(currentSlide - 1));
-            nextBtn.addEventListener('click', () => goToSlide(currentSlide + 1));
-            document.addEventListener('keydown', (e) => {
-                if (e.key === 'ArrowRight') goToSlide(currentSlide + 1);
-                else if (e.key === 'ArrowLeft') goToSlide(currentSlide - 1);
-            });
-
-            if (isMobile) {
-                // Keep counter in sync while native-scrolling on mobile
-                const io = new IntersectionObserver((entries) => {
-                    entries.forEach(entry => {
-                        if (entry.isIntersecting) {
-                            currentSlide = Array.from(slides).indexOf(entry.target);
-                            updateNav();
-                            if (currentSlide === 4) animateChartBars();
-                        }
-                    });
-                }, { threshold: 0.6 });
-                slides.forEach(s => io.observe(s));
+            function scrollToIndex(idx) {
+                if (idx < 0 || idx >= totalSlides) return;
+                slides[idx].scrollIntoView({ behavior: 'smooth', block: 'start' });
             }
 
-            // Initial setup
-            goToSlide(0);
+            // IO to keep state/counter in sync and trigger chart animation
+            let chartAnimated = false;
+            const io = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        currentSlide = slides.indexOf(entry.target);
+                        updateNav();
+                        if (!chartAnimated && currentSlide === 4) { animateChartBars(); chartAnimated = true; }
+                    }
+                });
+            }, { root: deck, threshold: 0.6 });
+            slides.forEach(s => io.observe(s));
+
+            // Controls
+            prevBtn.addEventListener('click', () => scrollToIndex(currentSlide - 1));
+            nextBtn.addEventListener('click', () => scrollToIndex(currentSlide + 1));
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'ArrowRight') scrollToIndex(currentSlide + 1);
+                else if (e.key === 'ArrowLeft') scrollToIndex(currentSlide - 1);
+            });
+
+            updateNav();
         });
     </script>
 </body>
