@@ -418,16 +418,19 @@
             const currentSlideEl = document.getElementById('current-slide');
             const totalSlidesEl = document.getElementById('total-slides');
 
+            const isMobile = window.matchMedia('(max-width: 768px)').matches;
             let currentSlide = 0;
             const totalSlides = slides.length;
             totalSlidesEl.textContent = totalSlides;
 
             function goToSlide(slideIndex) {
-                if (slideIndex < 0 || slideIndex >= totalSlides) {
-                    return;
-                }
+                if (slideIndex < 0 || slideIndex >= totalSlides) return;
                 currentSlide = slideIndex;
-                deck.style.transform = `translateX(-${currentSlide * 100}vw)`;
+                if (isMobile) {
+                    slides[currentSlide].scrollIntoView({ behavior: 'smooth', block: 'start' });
+                } else {
+                    deck.style.transform = `translateX(-${currentSlide * 100}vw)`;
+                }
                 updateNav();
             }
 
@@ -444,6 +447,19 @@
                 if (e.key === 'ArrowRight') goToSlide(currentSlide + 1);
                 else if (e.key === 'ArrowLeft') goToSlide(currentSlide - 1);
             });
+
+            if (isMobile) {
+                // Keep counter in sync while scrolling natively on mobile
+                const io = new IntersectionObserver((entries) => {
+                    entries.forEach((entry) => {
+                        if (entry.isIntersecting) {
+                            currentSlide = Array.from(slides).indexOf(entry.target);
+                            updateNav();
+                        }
+                    });
+                }, { threshold: 0.6 });
+                slides.forEach(s => io.observe(s));
+            }
 
             // Initial setup
             goToSlide(0);
