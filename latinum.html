@@ -135,29 +135,43 @@
             <div class="bg-dots"></div>
             <div class="content max-w-5xl relative">
                 <h1 class="text-5xl md:text-7xl font-black tracking-tighter leading-tight">2025 is the year of the <span class="accent">agent</span>.</h1>
-                <p class="mt-4 text-sm text-gray-400">“We’re going to see it take off.” — Jensen Huang</p>
+                <p class="mt-4 text-xl md:text-2xl italic text-gray-200">“We’re going to see it take off.” — Jensen Huang</p>
 
-                <!-- Impact graphic: multiple rails with moving tokens and a locking icon -->
+                <!-- Impact graphic: agents completing transactions via Latinum -->
                 <div class="mt-10 max-w-5xl mx-auto">
-                    <svg class="w-full h-48" viewBox="0 0 900 200" role="img" aria-label="Agents blocked from transacting">
+                    <svg class="w-full h-56" viewBox="0 0 900 240" role="img" aria-label="Agents completing transactions">
                         <defs>
                             <linearGradient id="glow" x1="0" y1="0" x2="1" y2="1">
                                 <stop offset="0%" stop-color="#C048FF" stop-opacity="0.9"/>
                                 <stop offset="100%" stop-color="#C048FF" stop-opacity="0.2"/>
                             </linearGradient>
+                            <marker id="arrowT" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto" markerUnits="strokeWidth">
+                                <path d="M0,0 L0,6 L8,3 z" fill="#C048FF" />
+                            </marker>
                         </defs>
-                        <!-- three rails -->
-                        <path class="dash" d="M80 70 H 820" stroke="url(#glow)" stroke-width="3"/>
-                        <path class="dash" d="M80 110 H 820" stroke="url(#glow)" stroke-width="3"/>
-                        <path class="dash" d="M80 150 H 820" stroke="url(#glow)" stroke-width="3"/>
-                        <!-- moving tokens -->
-                        <g class="sweep" style="animation-duration:4.5s"><circle cx="160" cy="70" r="8" fill="#C048FF"/><circle cx="260" cy="110" r="8" fill="#C048FF"/><circle cx="360" cy="150" r="8" fill="#C048FF"/></g>
-                        <!-- central lock -->
-                        <g class="pulse" transform="translate(450,85)">
-                            <rect x="-26" y="16" width="52" height="40" rx="8" fill="#120a1f" stroke="#C048FF"/>
-                            <path d="M-12 32 h24" stroke="#C048FF"/>
-                            <path d="M-8 32 v12" stroke="#C048FF"/>
-                            <path d="M-14 16 a14 14 0 1 1 28 0 v10" fill="none" stroke="#C048FF"/>
+                        <!-- Left: agents -->
+                        <g transform="translate(120,120)">
+                            <g class="pulse" transform="translate(-50,-40)"><circle r="18" fill="#1a1030" stroke="#C048FF"/><path d="M-6 0 h12 M0 0 v8" stroke="#C048FF"/></g>
+                            <g class="pulse" transform="translate(-80,20)"><rect x="-16" y="-16" width="32" height="32" rx="8" fill="#1a1030" stroke="#C048FF"/></g>
+                            <g class="pulse" transform="translate(-10,10)" opacity="0.9"><circle r="14" fill="#120a1f" stroke="#C048FF"/></g>
+                        </g>
+                        <!-- Center: Latinum Wallet + Checkout -->
+                        <g transform="translate(450,120)">
+                            <rect x="-110" y="-34" width="220" height="68" rx="14" fill="#0f0a17" stroke="#C048FF"/>
+                            <text x="0" y="6" text-anchor="middle" fill="#ddd" font-family="Space Mono">Latinum Wallet + Checkout</text>
+                        </g>
+                        <!-- Right: merchant receipt with check -->
+                        <g transform="translate(760,120)">
+                            <rect x="-40" y="-36" width="80" height="72" rx="10" fill="#120a1f" stroke="#C048FF"/>
+                            <path d="M-20 -14 h40 M-20 0 h40 M-20 14 h28" stroke="#C048FF" stroke-width="2"/>
+                            <g class="pulse" transform="translate(0,42)"><circle r="10" fill="none" stroke="#C048FF"/><path d="M-4 2  -1 5  5 -3" stroke="#C048FF" stroke-width="2" fill="none"/></g>
+                        </g>
+                        <!-- Arrows and moving tokens -->
+                        <path class="dash" d="M220 120 H 330" stroke="url(#glow)" stroke-width="3" marker-end="url(#arrowT)"/>
+                        <path class="dash" d="M560 120 H 700" stroke="url(#glow)" stroke-width="3" marker-end="url(#arrowT)"/>
+                        <g class="sweep" style="animation-duration:5s">
+                            <circle cx="260" cy="120" r="6" fill="#C048FF"/>
+                            <circle cx="610" cy="120" r="6" fill="#C048FF"/>
                         </g>
                     </svg>
                 </div>
