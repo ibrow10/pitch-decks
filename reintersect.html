@@ -100,6 +100,13 @@
             from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
         }
+        /* Motion utilities */
+        .dash { stroke-dasharray: 6 10; animation: dash 8s linear infinite; }
+        @keyframes dash { from { stroke-dashoffset: 0; } to { stroke-dashoffset: -400; } }
+        .pulse { transform-origin: center; animation: pulse 2.6s ease-in-out infinite; }
+        @keyframes pulse { 0%,100% { transform: scale(0.98); opacity: 0.7; } 50% { transform: scale(1.02); opacity: 1; } }
+        .sweep { animation: sweep 3.6s ease-in-out infinite; }
+        @keyframes sweep { 0% { transform: translateX(-120%);} 60% { transform: translateX(120%);} 100% { transform: translateX(120%);} }
         
         .slide .content {
             animation: fadeIn 0.8s ease-out 0.3s forwards;
@@ -134,19 +141,15 @@
     </header>
 
     <main id="deck">
-        <!-- Slide 1: The Vision -->
+        <!-- Slide 1: Title -->
         <section class="slide text-center">
             <div class="shape shape-1">
                  <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"><path fill="#00A3FF" d="M49.8,-53.4C64.1,-42.6,75.1,-27.1,77.5,-10.1C79.9,6.9,73.7,25.3,62.8,40.1C51.9,54.9,36.3,66.1,18.8,72.2C1.3,78.2,-18.1,79,-34.4,72C-50.7,65,-64,49.9,-71.4,32.8C-78.7,15.7,-80.1,-3.4,-74.6,-19.3C-69,-35.1,-56.5,-47.7,-42.5,-57.1C-28.5,-66.5,-14.2,-72.7,2.1,-75.4C18.5,-78.1,37.1,-78,49.8,-53.4Z" transform="translate(100 100)" /></svg>
             </div>
             <div class="content max-w-4xl">
-                <h1 class="text-5xl md:text-8xl font-black tracking-tighter leading-none">
-                    The Future of Work <br/> is <span class="accent">Effortless Execution.</span>
-                </h1>
-                <p class="mt-8 text-lg md:text-2xl text-gray-300 max-w-3xl mx-auto">
-                    Where talking about doing something is the same as doing it.
-                    A world of seamless communication between humans and AI.
-                </p>
+                <p class="text-xl text-gray-400">Good afternoon. I’m Fabia, this is Bruno.</p>
+                <h1 class="mt-4 text-6xl md:text-9xl font-black tracking-tighter">REINTERSECT</h1>
+                <p class="mt-4 text-2xl md:text-4xl font-medium tracking-tight">The communication substrate for the <span class="accent">agentic workplace</span>.</p>
             </div>
         </section>
 
@@ -155,106 +158,122 @@
             <div class="shape shape-2">
                  <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"><path fill="#00A3FF" d="M48.2,-64.8C62.4,-57,74,-42.5,79.5,-26.3C85,-10.1,84.4,7.8,77.6,22.8C70.9,37.8,58.1,49.8,43.6,58.9C29.2,67.9,13.2,74,-4.1,76.5C-21.4,79,-44.1,77.9,-58,68.2C-71.9,58.5,-77,40.2,-78.3,22.2C-79.7,4.3,-77.3,-13.2,-68.8,-26C-60.3,-38.8,-45.7,-46.9,-32.1,-54C-18.4,-61.2,-5.7,-67.5,8.8,-71.1C23.3,-74.8,48.2,-74.8,48.2,-64.8Z" transform="translate(100 100)" /></svg>
             </div>
-             <div class="content max-w-5xl w-full grid md:grid-cols-2 gap-12 items-center">
+             <div class="content max-w-6xl w-full grid md:grid-cols-2 gap-12 items-center">
                 <div>
-                    <h2 class="text-4xl md:text-6xl font-black tracking-tighter">The Trillion-Dollar <br>Barrier: <span class="accent">Context</span></h2>
-                    <p class="mt-6 text-xl text-gray-300">
-                        AI is powerful, but clueless. It's why 95% of enterprise AI deployments fail—they are engines without fuel.
-                    </p>
+                    <h2 class="text-4xl md:text-6xl font-black tracking-tighter">Chat is for people. <span class="accent">Not machines.</span></h2>
+                    <p class="mt-6 text-xl text-gray-300">Slack, Teams and email produce overwhelming noise — thousands of transient, irrelevant messages. Important context disappears into scrollback.</p>
+                    <p class="mt-4 text-xl text-gray-300">Humans struggle under the overload. <span class="accent">Agents cannot function in it at all.</span></p>
                 </div>
-                <div class="text-center p-8 border border-gray-800 rounded-2xl bg-gray-900/20 backdrop-blur-sm">
-                    <svg class="w-24 h-24 mx-auto text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
-                    <p class="mt-4 text-2xl md:text-4xl font-bold tracking-tight">
-                        Whoever owns the context, <span class="accent">wins.</span>
-                    </p>
+                <div class="text-left p-6 border border-gray-800 rounded-2xl bg-gray-900/20 backdrop-blur-sm">
+                    <p class="text-sm uppercase tracking-widest text-gray-500">Export to AI ≈</p>
+                    <div class="mt-3 grid grid-cols-4 gap-2">
+                        <div class="h-14 rounded bg-black/30 border border-gray-800"></div>
+                        <div class="h-14 rounded bg-black/30 border border-gray-800"></div>
+                        <div class="h-14 rounded bg-black/30 border border-gray-800"></div>
+                        <div class="h-14 rounded bg-black/30 border border-gray-800"></div>
+                        <div class="h-14 rounded bg-black/30 border border-gray-800 sweep"></div>
+                        <div class="h-14 rounded bg-black/30 border border-gray-800"></div>
+                        <div class="h-14 rounded bg-black/30 border border-gray-800"></div>
+                        <div class="h-14 rounded bg-black/30 border border-gray-800"></div>
+                    </div>
+                    <p class="mt-4 text-lg text-gray-300">A million disconnected sticky notes. No structure. No continuity. No way to act.</p>
                 </div>
             </div>
         </section>
 
-        <!-- Slide 3: Old Tools -->
+        <!-- Slide 3: The Shift -->
         <section class="slide">
-             <div class="shape shape-3">
-                 <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"><path fill="#00A3FF" d="M38.8,-53.4C51.1,-50.2,62.3,-41.1,65.8,-29.6C69.2,-18.1,64.9,-4.1,59.3,8.7C53.7,21.5,46.7,33.1,36.9,43.2C27.1,53.3,14.5,61.8,-0.2,62.2C-14.8,62.5,-29.7,54.7,-42.6,45.3C-55.6,35.9,-66.7,24.9,-71.2,11.4C-75.7,-2.1,-73.6,-18,-65.7,-30.3C-57.7,-42.6,-43.8,-51.2,-30.2,-55.1C-16.6,-59,-3.3,-58.2,9.6,-58.5C22.5,-58.8,38.8,-53.4,38.8,-53.4Z" transform="translate(100 100)" /></svg>
-            </div>
-            <div class="content max-w-5xl w-full grid md:grid-cols-2 gap-12 items-center">
-                 <div class="p-8">
-                     <svg width="100%" height="100%" viewBox="0 0 400 300" class="max-w-md mx-auto">
+            <div class="content max-w-6xl w-full grid md:grid-cols-2 gap-12 items-center">
+                <div>
+                    <h2 class="text-4xl md:text-6xl font-black tracking-tighter">Humans × Agents <span class="accent">together</span></h2>
+                    <p class="mt-6 text-xl text-gray-300">Agents can’t parse chat logs. They require structured, persistent, contextual knowledge. The foundation for workplace communication has to change.</p>
+                </div>
+                <div class="p-6 border border-gray-800 rounded-2xl bg-gray-900/20">
+                    <svg class="w-full h-auto" viewBox="0 0 600 220" role="img" aria-label="Shift from chat to knowledge">
                         <defs>
-                            <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%">
-                                <stop offset="0%" style="stop-color:#333;stop-opacity:1" />
-                                <stop offset="100%" style="stop-color:#111;stop-opacity:1" />
-                            </linearGradient>
+                            <marker id="arrowT" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L0,6 L8,3 z" fill="#00A3FF" /></marker>
                         </defs>
-                        <path d="M50 150 C 100 50, 150 250, 200 150 S 250 50, 300 150 S 350 250, 400 150" stroke="#444" stroke-width="4" fill="none" stroke-dasharray="8 8" />
-                        <path d="M50 160 C 80 280, 180 20, 250 180 S 300 280, 350 100" stroke="#555" stroke-width="2" fill="none" />
-                        <circle cx="60" cy="145" r="10" fill="url(#grad1)" stroke="#888" stroke-width="2" />
-                        <circle cx="210" cy="140" r="15" fill="url(#grad1)" stroke="#888" stroke-width="2" />
-                        <circle cx="380" cy="165" r="8" fill="url(#grad1)" stroke="#888" stroke-width="2" />
-                        <circle cx="250" cy="180" r="20" fill="url(#grad1)" stroke="#888" stroke-width="2" />
-                     </svg>
-                     <p class="text-center text-gray-500 mt-4 text-sm">Legacy tools create digital noise, hiding context in chaos.</p>
-                 </div>
-                 <div>
-                    <h2 class="text-4xl md:text-6xl font-black tracking-tighter">Today's Tools are <br><span class="accent">Broken Foundations.</span></h2>
-                    <p class="mt-6 text-xl text-gray-300">
-                        Slack and Notion trap your company's most valuable asset in unstructured chaos. The market is shifting, and they are becoming obsolete.
-                    </p>
+                        <g transform="translate(90,110)"><rect x="-70" y="-30" width="140" height="60" rx="12" fill="#0b0b0b" stroke="#2b2b2b"/><text x="0" y="6" text-anchor="middle" fill="#bbb">Chat Logs</text></g>
+                        <path class="dash" d="M160 110 H 260" stroke="#00A3FF" stroke-width="3" marker-end="url(#arrowT)"/>
+                        <g transform="translate(360,110)"><rect x="-80" y="-36" width="160" height="72" rx="12" fill="#0b0b0b" stroke="#00A3FF"/><text x="0" y="6" text-anchor="middle" fill="#E5F6FF">Structured Knowledge</text></g>
+                        <g class="sweep" transform="translate(360,110)"><rect x="-80" y="-36" width="60" height="72" fill="rgba(0,163,255,.08)"/></g>
+                    </svg>
                 </div>
             </div>
         </section>
 
-        <!-- Slide 4: Introducing Reintersect -->
-        <section class="slide text-center">
-            <div class="content max-w-4xl">
-                <p class="text-xl text-gray-400 font-medium">Introducing</p>
-                <h1 class="text-6xl md:text-9xl font-black tracking-tighter my-4">
-                    REINTERSECT
-                </h1>
-                <p class="text-2xl md:text-4xl font-medium tracking-tight">
-                    The <span class="accent">AI-Native Platform</span> for Work.
-                </p>
-                <p class="mt-6 text-xl text-gray-300">
-                   We don't just host conversations. We structure your company's knowledge. We are your company's brain.
-                </p>
+        <!-- Slide 4: The Solution (Jira Example) -->
+        <section class="slide">
+            <div class="content max-w-6xl w-full grid md:grid-cols-2 gap-12 items-center">
+                <div>
+                    <h2 class="text-4xl md:text-6xl font-black tracking-tighter">From unstructured chat to <span class="accent">living posts</span></h2>
+                    <p class="mt-6 text-xl text-gray-300">Reintersect transforms unstructured communication into structured knowledge: posts that capture a project, incident, or decision and update in real time.</p>
+                </div>
+                <div class="p-6 border border-gray-800 rounded-2xl bg-gray-900/20">
+                    <!-- Chat → Post with enrichment -->
+                    <svg class="w-full h-auto" viewBox="0 0 640 260" role="img" aria-label="Incident enrichment from Slack/Jira/Intercom">
+                        <defs>
+                            <marker id="arrowB" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L0,6 L8,3 z" fill="#00A3FF" /></marker>
+                        </defs>
+                        <!-- Chat cluster -->
+                        <g transform="translate(90,120)">
+                            <rect x="-70" y="-26" width="140" height="52" rx="10" fill="#0b0b0b" stroke="#2b2b2b"/>
+                            <text x="0" y="6" text-anchor="middle" fill="#bbb">Slack Thread (200+)</text>
+                        </g>
+                        <path class="dash" d="M160 120 H 240" stroke="#00A3FF" stroke-width="3" marker-end="url(#arrowB)"/>
+                        <!-- Post -->
+                        <g transform="translate(360,120)">
+                            <rect x="-110" y="-40" width="220" height="80" rx="12" fill="#0b0b0b" stroke="#00A3FF"/>
+                            <text x="0" y="0" text-anchor="middle" fill="#E5F6FF" font-weight="700">Post: Incident — API Outage</text>
+                        </g>
+                        <!-- Enrichments -->
+                        <g transform="translate(520,70)" class="pulse"><rect x="-36" y="-16" width="72" height="32" rx="8" fill="#0b0b0b" stroke="#2b2b2b"/><text x="0" y="4" text-anchor="middle" fill="#9ae6ff">Logs</text></g>
+                        <g transform="translate(520,120)" class="pulse"><rect x="-36" y="-16" width="72" height="32" rx="8" fill="#0b0b0b" stroke="#2b2b2b"/><text x="0" y="4" text-anchor="middle" fill="#9ae6ff">Jira</text></g>
+                        <g transform="translate(520,170)" class="pulse"><rect x="-36" y="-16" width="72" height="32" rx="8" fill="#0b0b0b" stroke="#2b2b2b"/><text x="0" y="4" text-anchor="middle" fill="#9ae6ff">Intercom</text></g>
+                        <path class="dash" d="M450 120 H 490" stroke="#00A3FF" stroke-width="2"/>
+                    </svg>
+                </div>
             </div>
         </section>
 
-        <!-- Slide 5: How It Works -->
+        <!-- Slide 5: Why Now -->
         <section class="slide">
             <div class="content max-w-6xl w-full text-center">
-                 <h2 class="text-4xl md:text-6xl font-black tracking-tighter">From <span class="text-gray-500">Signal</span> to <span class="accent">Action.</span></h2>
-                 <p class="mt-4 text-xl text-gray-300 max-w-3xl mx-auto">We turn chaotic communication into structured, actionable intelligence.</p>
-                 <div class="mt-12 grid md:grid-cols-2 gap-8 items-center text-left">
-                     <div class="p-8 border border-gray-800 rounded-2xl bg-gray-900/20 backdrop-blur-sm">
-                         <h3 class="text-2xl font-bold">1. Structured Posts</h3>
-                         <p class="mt-2 text-gray-300">Every topic is a self-contained unit of work with clear ownership and outcomes, not an endless, noisy thread.</p>
-                         <div class="mt-4 p-4 rounded-lg bg-black/30 border border-gray-800">
-                            <p class="font-mono text-xs text-gray-400">// POST: Launch Q4 Campaign</p>
-                            <p class="font-mono text-sm mt-1 text-white">Owner: @Fabia</p>
-                            <p class="font-mono text-sm text-white">Due: 2025-10-15</p>
-                            <p class="font-mono text-sm text-white">Status: <span class="text-yellow-400">InProgress</span></p>
-                         </div>
-                     </div>
-                     <div class="p-8 border border-gray-800 rounded-2xl bg-gray-900/20 backdrop-blur-sm">
-                         <h3 class="text-2xl font-bold">2. Automatic Context</h3>
-                         <p class="mt-2 text-gray-300">As you communicate, Reintersect's brain automatically links to related projects, people, and past decisions.</p>
-                          <div class="mt-4 p-4 rounded-lg bg-black/30 border border-gray-800">
-                             <p class="font-mono text-xs text-gray-400">// AI-SUGGESTED CONTEXT</p>
-                             <p class="font-mono text-sm mt-1 text-white">Relates to: <span class="text-cyan-400">[POST-233] Q3 Retrospective</span></p>
-                             <p class="font-mono text-sm text-white">See Also: <span class="text-cyan-400">[DOC] Brand Guidelines</span></p>
-                          </div>
-                     </div>
-                 </div>
+                <h2 class="text-4xl md:text-6xl font-black tracking-tighter">Why <span class="accent">Now</span></h2>
+                <p class="mt-4 text-xl text-gray-300 max-w-3xl mx-auto">Work evolved: paper memos → cloud docs → realtime collaboration → async chat. Next: intelligent communication — structured, contextual, agent‑readable.</p>
+                <div class="mt-10">
+                    <svg class="w-full h-40" viewBox="0 0 1000 160" aria-hidden="true">
+                        <line x1="60" y1="120" x2="940" y2="120" stroke="#1f2937" stroke-width="4"/>
+                        <g fill="#9ca3af" font-size="12" text-anchor="middle">
+                            <text x="140" y="140">Paper</text>
+                            <text x="340" y="140">Cloud Docs</text>
+                            <text x="540" y="140">Realtime</text>
+                            <text x="740" y="140">Async Chat</text>
+                            <text x="900" y="140" fill="#E5F6FF">Intelligent</text>
+                        </g>
+                        <g>
+                            <circle cx="140" cy="120" r="6" fill="#374151"/>
+                            <circle cx="340" cy="120" r="6" fill="#374151"/>
+                            <circle cx="540" cy="120" r="6" fill="#374151"/>
+                            <circle cx="740" cy="120" r="6" fill="#374151"/>
+                            <circle class="pulse" cx="900" cy="120" r="8" fill="#00A3FF"/>
+                        </g>
+                        <rect class="sweep" x="860" y="100" width="80" height="40" fill="rgba(0,163,255,.1)"/>
+                    </svg>
+                </div>
             </div>
         </section>
 
-        <!-- Slide 6: Why Us -->
+        <!-- Slide 6: Traction -->
         <section class="slide">
-            <div class="content max-w-4xl text-center">
-                 <h2 class="text-4xl md:text-6xl font-black tracking-tighter">While they build agents, <br> we're building the <span class="accent">brain.</span></h2>
-                 <p class="mt-8 text-xl text-gray-300 max-w-3xl mx-auto">
-                    Others are building commodity AI on broken foundations. We are building the single most defensible piece of the puzzle: the <span class="font-bold">context layer</span>. This is a fundamental architectural advantage in a market that is shifting right now.
-                 </p>
+            <div class="content max-w-6xl w-full text-center">
+                <h2 class="text-4xl md:text-6xl font-black tracking-tighter">Early <span class="accent">Momentum</span></h2>
+                <div class="mt-10 grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="p-6 border border-gray-800 rounded-2xl bg-gray-900/20"><p class="text-5xl font-black accent">15</p><p class="text-gray-400 mt-2">Teams using</p></div>
+                    <div class="p-6 border border-gray-800 rounded-2xl bg-gray-900/20"><p class="text-5xl font-black accent">25</p><p class="text-gray-400 mt-2">In pipeline</p></div>
+                    <div class="p-6 border border-gray-800 rounded-2xl bg-gray-900/20"><p class="text-5xl font-black accent">8</p><p class="text-gray-400 mt-2">Design partners</p></div>
+                </div>
+                <p class="mt-8 text-xl text-gray-300 max-w-3xl mx-auto">Beachhead: high‑communication startups → expands into the $80B productivity and workplace tools market.</p>
             </div>
         </section>
 
@@ -285,13 +304,16 @@
         <!-- Slide 8: The Ask -->
         <section class="slide text-center">
             <div class="content max-w-4xl">
-                 <h2 class="text-4xl md:text-6xl font-black tracking-tighter">Join us in building the <br>essential infrastructure for <br>the future of work.</h2>
-                <div class="my-10">
-                    <p class="text-xl text-gray-400">We are raising a</p>
-                    <p class="text-6xl md:text-8xl font-black tracking-tighter my-2"><span class="accent">$[X]M</span> Seed Round</p>
-                    <p class="text-xl text-gray-300">to accelerate our roadmap and onboard our first 100 customers.</p>
-                </div>
-                <p class="text-lg text-gray-400">We aim to have a lead investor committed before Demo Day.</p>
+                <h2 class="text-4xl md:text-6xl font-black tracking-tighter">We’re raising <span class="accent">$2.1M</span></h2>
+                <p class="mt-4 text-xl text-gray-300">Accelerate product development and scale adoption. Majority to engineering + product.</p>
+            </div>
+        </section>
+
+        <!-- Slide 9: Close -->
+        <section class="slide text-center">
+            <div class="content max-w-4xl">
+                <h2 class="text-4xl md:text-6xl font-black tracking-tighter">Reintersect replaces chat with <span class="accent">persistent knowledge</span>.</h2>
+                <p class="mt-6 text-xl text-gray-300">Slack was designed for people. Agents cannot use it. This is the communication layer for the agentic era of work.</p>
             </div>
         </section>
 
@@ -307,7 +329,7 @@
 
     <!-- Slide Counter -->
     <div id="slide-counter" class="slide-counter">
-        <span id="current-slide">1</span> / <span id="total-slides">8</span>
+        <span id="current-slide">1</span> / <span id="total-slides">9</span>
     </div>
 
     <script>
