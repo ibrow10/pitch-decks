@@ -75,24 +75,50 @@
     <div id="deck" class="deck-container grid-bg">
 
     <!-- Section 1: Title -->
-    <section class="section text-center" style="background: radial-gradient(circle, #FFF 0%, #F9FAFB 100%);">
+    <section class="section text-center relative overflow-hidden" style="background: radial-gradient(circle, #FFF 0%, #F9FAFB 100%);">
         <h1 class="text-6xl md:text-8xl font-black tracking-tighter text-gray-900">Intermodal</h1>
         <p class="mt-4 text-2xl md:text-3xl text-gray-500 font-medium">The Operating System for Reusable Infrastructure.</p>
-        <div class="relative mt-12 w-full max-w-3xl h-80 mx-auto">
-            <!-- Animated SVG of container transformation -->
-            <svg viewBox="0 0 500 250" class="w-full h-full">
-                <!-- Container Outline -->
-                <rect x="50" y="50" width="400" height="200" rx="10" stroke="#D1D5DB" stroke-width="2" fill="none"/>
-                <path d="M50 70 L450 70 M50 230 L450 230 M70 50 L70 250 M430 50 L430 250" stroke="#D1D5DB" stroke-width="1" />
-                
-                <!-- Patented Frame animating in -->
-                <g class="drawing-animation">
-                    <rect x="60" y="60" width="380" height="180" rx="5" stroke="#F97316" stroke-width="4" fill="none"/>
-                    <line x1="250" y1="60" x2="250" y2="240" stroke="#F97316" stroke-width="2" stroke-dasharray="5 5"/>
-                    <line x1="60" y1="150" x2="440" y2="150" stroke="#F97316" stroke-width="2" stroke-dasharray="5 5"/>
+
+        <!-- Global logistics network (animated) -->
+        <div class="relative mt-12 w-full max-w-6xl h-[22rem] md:h-[26rem] mx-auto">
+            <svg viewBox="0 0 1200 420" class="absolute inset-0 w-full h-full">
+                <defs>
+                    <linearGradient id="route" x1="0" y1="0" x2="1" y2="1">
+                        <stop offset="0%" stop-color="#F97316" stop-opacity="0.85"/>
+                        <stop offset="100%" stop-color="#F97316" stop-opacity="0.25"/>
+                    </linearGradient>
+                </defs>
+                <!-- Ocean latitudes as subtle guides -->
+                <g stroke="#E5E7EB" opacity="0.35">
+                    <path d="M60 110 C 300 60, 900 60, 1140 110" fill="none" stroke-width="1"/>
+                    <path d="M60 210 C 300 160, 900 160, 1140 210" fill="none" stroke-width="1"/>
+                    <path d="M60 310 C 300 260, 900 260, 1140 310" fill="none" stroke-width="1"/>
+                </g>
+                <!-- Primary trade arcs -->
+                <path class="dash" d="M90 290 C 320 190, 880 190, 1110 290" stroke="url(#route)" stroke-width="3" fill="none"/>
+                <path class="dash" d="M120 140 C 380 90, 820 90, 1080 140" stroke="url(#route)" stroke-width="3" fill="none"/>
+
+                <!-- Port nodes -->
+                <g fill="#F97316">
+                    <circle class="pulse" cx="160" cy="280" r="8"/>
+                    <circle class="pulse" cx="340" cy="220" r="8"/>
+                    <circle class="pulse" cx="600" cy="200" r="8"/>
+                    <circle class="pulse" cx="860" cy="220" r="8"/>
+                    <circle class="pulse" cx="1040" cy="280" r="8"/>
+                </g>
+
+                <!-- Moving containers along routes (sweep translates across X) -->
+                <g class="sweep" style="animation-duration: 7s;">
+                    <rect x="0" y="270" width="26" height="12" rx="2" fill="#F97316"/>
+                    <rect x="40" y="270" width="26" height="12" rx="2" fill="#FBBF24" opacity="0.85"/>
+                </g>
+                <g class="sweep" style="animation-duration: 9s; animation-delay: 1.2s;">
+                    <rect x="0" y="120" width="26" height="12" rx="2" fill="#F97316"/>
+                </g>
+                <g class="sweep" style="animation-duration: 10.5s; animation-delay: 2s;">
+                    <rect x="0" y="200" width="26" height="12" rx="2" fill="#10B981" opacity="0.9"/>
                 </g>
             </svg>
-            <p class="absolute bottom-0 left-1/2 -translate-x-1/2 text-sm text-gray-400 font-mono">[ Patented Framing System ]</p>
         </div>
     </section>
 
@@ -144,23 +170,59 @@
         </div>
     </section>
 
-    <!-- Section 4: The Solution -->
+    <!-- Section 4: The Solution (Animated conversion: faster + cheaper) -->
     <section class="section">
         <div class="text-center">
-            <h2 class="text-5xl md:text-7xl font-black tracking-tighter text-gray-900">A universal standard for a global asset.</h2>
-            <p class="mt-4 text-xl text-gray-500">Our patented framing system allows anyone to convert any container, faster and cheaper.</p>
+            <h2 class="text-5xl md:text-7xl font-black tracking-tighter text-gray-900">Convert containers <span class="accent-orange">faster</span> and <span class="accent-orange">cheaper</span>.</h2>
+            <p class="mt-4 text-xl text-gray-500">Bolt‑in frame. Standardized workflow. Factory results on any site.</p>
         </div>
-        <div class="mt-12 max-w-6xl mx-auto bg-white p-8 rounded-2xl border border-gray-200 shadow-2xl grid md:grid-cols-3 gap-8 items-center">
-            <div class="col-span-1">
-                 <h3 class="text-3xl font-bold">The Intermodal Frame</h3>
-                 <p class="mt-4 text-gray-600">A bolt-in, precision-engineered kit that provides structural integrity and standardized mounting points for insulation, wiring, and finishes.</p>
-                 <button class="mt-6 bg-accent-orange text-white font-semibold py-3 px-6 rounded-lg">Protected by Granted Patent</button>
+        <div class="mt-12 max-w-6xl mx-auto grid md:grid-cols-2 gap-10 items-center">
+            <div class="p-6 rounded-2xl border border-gray-200 bg-white shadow relative overflow-hidden">
+                <h3 class="text-2xl font-bold text-gray-800">Traditional</h3>
+                <p class="text-gray-500">Custom welding • bespoke fit‑out • long lead</p>
+                <svg viewBox="0 0 520 180" class="mt-4 w-full h-40">
+                    <rect x="20" y="40" width="480" height="40" rx="8" fill="#FEE2E2"/>
+                    <rect x="20" y="90" width="420" height="40" rx="8" fill="#FECACA"/>
+                    <text x="30" y="65" fill="#B91C1C" font-size="12">Timeline</text>
+                    <text x="30" y="115" fill="#B91C1C" font-size="12">Cost</text>
+                </svg>
+                <div class="absolute inset-x-0 bottom-0 h-1 bg-gradient-to-r from-red-200 via-red-300 to-red-200"></div>
             </div>
-            <div class="col-span-2">
-                <!-- Clean Render/Blueprint of the frame -->
-                
+            <div class="p-6 rounded-2xl border border-orange-200 bg-orange-50 shadow relative overflow-hidden">
+                <h3 class="text-2xl font-bold text-gray-800">Intermodal</h3>
+                <p class="text-gray-600">Bolt‑in frame • standardized mounting • rapid finish</p>
+                <svg viewBox="0 0 520 180" class="mt-4 w-full h-40">
+                    <defs>
+                        <linearGradient id="g1" x1="0" y1="0" x2="1" y2="0">
+                            <stop offset="0%" stop-color="#F97316" stop-opacity="0.9"/>
+                            <stop offset="100%" stop-color="#FDBA74" stop-opacity="0.6"/>
+                        </linearGradient>
+                    </defs>
+                    <rect id="tbar" x="20" y="40" width="180" height="40" rx="8" fill="url(#g1)"/>
+                    <rect id="cbar" x="20" y="90" width="140" height="40" rx="8" fill="url(#g1)"/>
+                    <text x="30" y="65" fill="#7C2D12" font-size="12">Timeline</text>
+                    <text x="30" y="115" fill="#7C2D12" font-size="12">Cost</text>
+                </svg>
+                <div class="absolute left-0 right-0 top-2 h-4 overflow-hidden">
+                    <div class="sweep w-24 h-4" style="background: linear-gradient(90deg, rgba(249,115,22,0) 0%, rgba(249,115,22,.18) 45%, rgba(249,115,22,.3) 50%, rgba(249,115,22,.18) 55%, rgba(249,115,22,0) 100%);"></div>
+                </div>
+                <div class="absolute inset-x-0 bottom-0 h-1 bg-gradient-to-r from-orange-200 via-orange-300 to-orange-200"></div>
             </div>
         </div>
+        <script>
+        (function(){
+          var ran=false; function grow(){
+            if(ran) return; ran=true;
+            var t=document.getElementById('tbar'); var c=document.getElementById('cbar');
+            if(!t||!c) return; var tw=180, cw=140; t.setAttribute('width','10'); c.setAttribute('width','10');
+            var s=Date.now(); var d=800; function tick(){
+              var p=Math.min(1,(Date.now()-s)/d); t.setAttribute('width', (10+(tw-10)*p)); c.setAttribute('width',(10+(cw-10)*p)); if(p<1) requestAnimationFrame(tick);
+            } requestAnimationFrame(tick);
+          }
+          var io=new IntersectionObserver(function(es){es.forEach(function(e){ if(e.isIntersecting) { grow(); io.disconnect(); } });},{threshold:0.4});
+          var sections=document.querySelectorAll('.section'); if(sections[3]) io.observe(sections[3]);
+        })();
+        </script>
     </section>
 
     <!-- Section 5: Product in Action -->
