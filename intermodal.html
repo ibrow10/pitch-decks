@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Intermodal // Investor Deck</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #F9FAFB;
+            color: #111827;
+            scroll-behavior: smooth;
+        }
+        .section {
+            min-height: 100vh;
+            padding: 8vw 6vw;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            border-bottom: 1px solid #E5E7EB;
+            scroll-snap-align: start;
+        }
+        /* Orient-style vertical deck container */
+        .deck-container { position: relative; width: 100%; height: 100dvh; overflow-y: auto; scroll-snap-type: y mandatory; -webkit-overflow-scrolling: touch; padding-top: 72px; }
+        .grid-bg { background-image: linear-gradient(rgba(17,24,39,0.06) 1px, transparent 1px), linear-gradient(90deg, rgba(17,24,39,0.06) 1px, transparent 1px); background-size: 50px 50px; }
+        /* Navigation */
+        .nav { position: fixed; top: 50%; transform: translateY(-50%); left: 0; right: 0; pointer-events: none; z-index: 40; }
+        .nav button { pointer-events: auto; background: rgba(249,115,22,0.08); border: 1px solid rgba(249,115,22,0.3); color: #111827; width: 48px; height: 48px; border-radius: 9999px; display:flex; align-items:center; justify-content:center; transition: .2s; }
+        .nav button:hover { background: rgba(249,115,22,0.16); }
+        .nav .prev { position: absolute; left: 2vw; }
+        .nav .next { position: absolute; right: 2vw; }
+        .counter { position: fixed; bottom: 2.5vh; left: 50%; transform: translateX(-50%); color: #6B7280; font-size: .8rem; letter-spacing: .12em; z-index: 40; }
+        .accent-orange { color: #F97316; }
+        .bg-accent-orange { background-color: #F97316; }
+        
+        @keyframes draw-in {
+            from { stroke-dashoffset: 1000; }
+            to { stroke-dashoffset: 0; }
+        }
+        .drawing-animation {
+            stroke-dasharray: 1000;
+            animation: draw-in 3s ease-in-out forwards;
+        }
+
+        @keyframes slide-in {
+            from { transform: translateX(20px); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+        .sliding-animation {
+            animation: slide-in 1s ease-out forwards;
+        }
+        .sliding-animation:nth-child(1) { animation-delay: 0.5s; opacity: 0; }
+        .sliding-animation:nth-child(2) { animation-delay: 0.7s; opacity: 0; }
+        .sliding-animation:nth-child(3) { animation-delay: 0.9s; opacity: 0; }
+
+        /* Motion utilities */
+        .dash { stroke-dasharray: 6 10; animation: dash 9s linear infinite; }
+        @keyframes dash { from { stroke-dashoffset: 0; } to { stroke-dashoffset: -400; } }
+        .sweep { animation: sweep 4s ease-in-out infinite; }
+        @keyframes sweep { 0%{ transform: translateX(-120%);} 60%{ transform: translateX(120%);} 100%{ transform: translateX(120%);} }
+
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- Header + Deck Container (orient-style) -->
+    <header class="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 py-4 bg-white/80 backdrop-blur border-b border-gray-200">
+        <div class="text-lg font-extrabold tracking-wider">INTERMODAL</div>
+        <a href="index.html" class="text-sm text-gray-600 hover:text-gray-900">Home</a>
+    </header>
+    <div id="deck" class="deck-container grid-bg">
+
+    <!-- Section 1: Title -->
+    <section class="section text-center" style="background: radial-gradient(circle, #FFF 0%, #F9FAFB 100%);">
+        <h1 class="text-6xl md:text-8xl font-black tracking-tighter text-gray-900">Intermodal</h1>
+        <p class="mt-4 text-2xl md:text-3xl text-gray-500 font-medium">The Operating System for Reusable Infrastructure.</p>
+        <div class="relative mt-12 w-full max-w-3xl h-80 mx-auto">
+            <!-- Animated SVG of container transformation -->
+            <svg viewBox="0 0 500 250" class="w-full h-full">
+                <!-- Container Outline -->
+                <rect x="50" y="50" width="400" height="200" rx="10" stroke="#D1D5DB" stroke-width="2" fill="none"/>
+                <path d="M50 70 L450 70 M50 230 L450 230 M70 50 L70 250 M430 50 L430 250" stroke="#D1D5DB" stroke-width="1" />
+                
+                <!-- Patented Frame animating in -->
+                <g class="drawing-animation">
+                    <rect x="60" y="60" width="380" height="180" rx="5" stroke="#F97316" stroke-width="4" fill="none"/>
+                    <line x1="250" y1="60" x2="250" y2="240" stroke="#F97316" stroke-width="2" stroke-dasharray="5 5"/>
+                    <line x1="60" y1="150" x2="440" y2="150" stroke="#F97316" stroke-width="2" stroke-dasharray="5 5"/>
+                </g>
+            </svg>
+            <p class="absolute bottom-0 left-1/2 -translate-x-1/2 text-sm text-gray-400 font-mono">[ Patented Framing System ]</p>
+        </div>
+    </section>
+
+    <!-- Section 2: The Problem -->
+    <section class="section">
+        <div class="text-center">
+            <h2 class="text-5xl md:text-7xl font-black tracking-tighter text-gray-900">Designed for 6 weeks.<br/>Used for 60 years.</h2>
+            <p class="mt-4 text-xl text-gray-500 max-w-3xl mx-auto">Shipping containers are a global standard, but their "second life" is a chaotic, inefficient, and fragmented market.</p>
+        </div>
+        <div class="mt-12 grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+            <div class="p-8 bg-white border border-gray-200 rounded-2xl text-center">
+                <p class="text-7xl font-black accent-orange">44M</p>
+                <p class="mt-2 text-xl font-semibold">Containers in Circulation</p>
+                <p class="text-gray-500">A massive, underutilized hardware platform.</p>
+            </div>
+            <div class="p-8 bg-white border-2 border-accent-orange rounded-2xl text-center shadow-xl">
+                <p class="text-7xl font-black accent-orange">1-Way</p>
+                <p class="mt-2 text-xl font-semibold">Single-Trip Design</p>
+                <p class="text-gray-500">Built for a single journey, not a lifetime of use.</p>
+            </div>
+            <div class="p-8 bg-white border border-gray-200 rounded-2xl text-center">
+                <p class="text-7xl font-black accent-orange">4M</p>
+                <p class="mt-2 text-xl font-semibold">New Containers Annually</p>
+                <p class="text-gray-500">Continuously feeding a broken system.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 3: The Inefficiency -->
+    <section class="section">
+        <div class="grid md:grid-cols-2 gap-16 items-center max-w-7xl mx-auto">
+            <div class="text-center">
+                 <!-- Image of a messy conversion -->
+                 
+                 <div class="mt-4 p-6 bg-white border border-gray-200 rounded-2xl">
+                    <h3 class="text-2xl font-bold">The Status Quo: Custom Chaos</h3>
+                    <p class="mt-2 text-gray-500">Every conversion is a bespoke, one-off project. This leads to inconsistent quality, high costs, and slow delivery times. It doesn't scale.</p>
+                </div>
+            </div>
+            <div>
+                <h2 class="text-5xl md:text-7xl font-black tracking-tighter text-gray-900">Every conversion is a custom job.</h2>
+                <ul class="mt-8 space-y-4 text-xl">
+                    <li class="flex items-start"><span class="text-red-500 font-bold mr-3">✖</span> <div><span class="font-semibold">Slow & Expensive:</span> Requires specialist welders and fabricators.</div></li>
+                    <li class="flex items-start"><span class="text-red-500 font-bold mr-3">✖</span> <div><span class="font-semibold">Inconsistent Quality:</span> No standardization leads to unreliable results.</div></li>
+                    <li class="flex items-start"><span class="text-red-500 font-bold mr-3">✖</span> <div><span class="font-semibold">Structurally Unsound:</span> Cutting holes compromises integrity without proper engineering.</div></li>
+                     <li class="flex items-start"><span class="text-red-500 font-bold mr-3">✖</span> <div><span class="font-semibold">Not Scalable:</span> A fragmented cottage industry, not a modern one.</div></li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 4: The Solution -->
+    <section class="section">
+        <div class="text-center">
+            <h2 class="text-5xl md:text-7xl font-black tracking-tighter text-gray-900">A universal standard for a global asset.</h2>
+            <p class="mt-4 text-xl text-gray-500">Our patented framing system allows anyone to convert any container, faster and cheaper.</p>
+        </div>
+        <div class="mt-12 max-w-6xl mx-auto bg-white p-8 rounded-2xl border border-gray-200 shadow-2xl grid md:grid-cols-3 gap-8 items-center">
+            <div class="col-span-1">
+                 <h3 class="text-3xl font-bold">The Intermodal Frame</h3>
+                 <p class="mt-4 text-gray-600">A bolt-in, precision-engineered kit that provides structural integrity and standardized mounting points for insulation, wiring, and finishes.</p>
+                 <button class="mt-6 bg-accent-orange text-white font-semibold py-3 px-6 rounded-lg">Protected by Granted Patent</button>
+            </div>
+            <div class="col-span-2">
+                <!-- Clean Render/Blueprint of the frame -->
+                
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 5: Product in Action -->
+    <section class="section">
+        <div class="text-center mb-12">
+            <h2 class="text-5xl md:text-7xl font-black tracking-tighter text-gray-900">From raw steel to high-value assets.</h2>
+            <p class="mt-4 text-xl text-gray-500">Our system enables a diverse range of applications, starting with our first three products.</p>
+        </div>
+        <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div class="sliding-animation bg-white p-6 rounded-2xl border border-gray-200 shadow-lg text-center">
+                
+                <h3 class="mt-4 text-2xl font-bold">Refrigerated Event Pods</h3>
+                <p class="mt-2 text-gray-500">Pop-up bars, kitchens, and cold storage for the global events market.</p>
+            </div>
+            <div class="sliding-animation bg-white p-6 rounded-2xl border border-gray-200 shadow-lg text-center">
+                 
+                <h3 class="mt-4 text-2xl font-bold">Workspace Modules</h3>
+                <p class="mt-2 text-gray-500">Comfortable, high-spec site offices and garden studios.</p>
+            </div>
+            <div class="sliding-animation bg-white p-6 rounded-2xl border border-gray-200 shadow-lg text-center">
+                 
+                <h3 class="mt-4 text-2xl font-bold">Emergency Relief Units</h3>
+                <p class="mt-2 text-gray-500">Rapidly deployable housing and medical facilities.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 6: Business Model -->
+    <section class="section">
+        <div class="text-center mb-12">
+            <h2 class="text-5xl md:text-7xl font-black tracking-tighter text-gray-900">We don't compete. We enable.</h2>
+            <p class="mt-4 text-xl text-gray-500">Our asset-light, IP-led model is built for global scale.</p>
+        </div>
+        <div class="max-w-5xl mx-auto flex items-center justify-between">
+            <!-- Diagram -->
+            <div class="text-center">
+                <div class="h-40 w-40 mx-auto rounded-full bg-orange-100 border-2 border-dashed border-accent-orange flex items-center justify-center">
+                    <h3 class="text-xl font-bold accent-orange">Intermodal<br/>(IP & Design)</h3>
+                </div>
+            </div>
+
+            <svg class="w-24 h-24 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+            
+            <div class="text-center">
+                <div class="h-40 w-40 mx-auto rounded-full bg-white border border-gray-200 shadow-md flex items-center justify-center">
+                    <h3 class="text-xl font-bold text-gray-700">Global<br/>Distributors</h3>
+                </div>
+                <p class="text-gray-500 mt-2 text-sm">(Licensing Fee)</p>
+            </div>
+
+            <svg class="w-24 h-24 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+
+            <div class="text-center">
+                 <div class="h-40 w-40 mx-auto rounded-full bg-white border border-gray-200 shadow-md flex items-center justify-center">
+                    <h3 class="text-xl font-bold text-gray-700">End Markets<br/>(Construction,<br/>Events etc.)</h3>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Section 7: Team & Ask -->
+    <section class="section">
+        <div class="grid md:grid-cols-2 gap-16 items-center">
+            <div>
+                <h2 class="text-5xl md:text-7xl font-black tracking-tighter text-gray-900">Built by an engineer who lived the problem.</h2>
+                <p class="mt-6 text-xl text-gray-600">As a mechanical engineer working on global project sites, our founder experienced the discomfort and inefficiency of makeshift container offices firsthand. He designed the solution he always wished he had.</p>
+            </div>
+            <div class="text-center">
+                <div class="p-8 bg-white border border-gray-200 rounded-2xl shadow-xl">
+                    <h3 class="text-3xl font-bold">The Ask</h3>
+                    <p class="mt-4 text-7xl font-black my-2 accent-orange">£250k</p>
+                    <p class="text-xl text-gray-500">Pre-Seed to:</p>
+                    <ul class="mt-6 text-left space-y-2">
+                        <li><span class="accent-orange font-bold">›</span> Finalize production-ready designs.</li>
+                        <li><span class="accent-orange font-bold">›</span> Secure further IP protection.</li>
+                        <li><span class="accent-orange font-bold">›</span> Sign our first three distribution partners.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 8: Contact -->
+    <section class="section text-center">
+        <h2 class="text-6xl md:text-8xl font-black tracking-tighter text-gray-900">Intermodal</h2>
+        <p class="mt-8 text-2xl text-gray-500">Niall, Founder</p>
+        <p class="text-2xl text-accent-orange font-mono">contact@intermodal.io</p>
+    </section>
+
+</div>
+
+<!-- Navigation + Counter -->
+<div class="nav">
+    <button id="prevBtn" class="prev" aria-label="Previous slide">
+        <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
+    </button>
+    <button id="nextBtn" class="next" aria-label="Next slide">
+        <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+    </button>
+</div>
+<div id="slideCounter" class="counter">1 / 8</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  var deck = document.getElementById('deck');
+  var slides = Array.from(deck.querySelectorAll('.section, .slide'));
+  var nextBtn = document.getElementById('nextBtn');
+  var prevBtn = document.getElementById('prevBtn');
+  var slideCounter = document.getElementById('slideCounter');
+  var currentIndex = 0;
+  function updateNav() {
+    slideCounter.textContent = (currentIndex + 1) + ' / ' + slides.length;
+    if (prevBtn) prevBtn.disabled = currentIndex === 0;
+    if (nextBtn) nextBtn.disabled = currentIndex === slides.length - 1;
+  }
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(entry){
+      if (entry.isIntersecting) {
+        currentIndex = slides.indexOf(entry.target);
+        updateNav();
+      }
+    });
+  }, { root: deck, threshold: 0.6 });
+  slides.forEach(function(s){ io.observe(s); });
+  function scrollToIndex(idx){
+    if (idx < 0 || idx >= slides.length) return;
+    slides[idx].scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+  if (nextBtn) nextBtn.addEventListener('click', function(){ scrollToIndex(currentIndex + 1); });
+  if (prevBtn) prevBtn.addEventListener('click', function(){ scrollToIndex(currentIndex - 1); });
+  document.addEventListener('keydown', function(e){
+    if (e.key === 'ArrowRight') scrollToIndex(currentIndex + 1);
+    else if (e.key === 'ArrowLeft') scrollToIndex(currentIndex - 1);
+  });
+  updateNav();
+});
+</script>
+
+</body>
+</html>
